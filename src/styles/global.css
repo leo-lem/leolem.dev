@@ -11,5 +11,5 @@
 }
 
 .nav-link-gradient:hover span {
-  @apply from-pink-500 to-yellow-500;
+  @apply bg-gradient-to-r bg-clip-text text-transparent from-pink-500 to-yellow-500;
 }
