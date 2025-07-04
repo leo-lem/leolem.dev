@@ -1,0 +1,17 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	"postStartCommand": "npm run dev",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"astro-build.astro-vscode"
+			]
+		}
+	},
+	"portsAttributes": {
+		"4321": {
+			"label": "Astro",
+			"onAutoForward": "openPreview"
+		}
+	}
+}
