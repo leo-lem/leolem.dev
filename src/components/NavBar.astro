@@ -4,23 +4,31 @@ const currentPath = new URL(Astro.request.url).pathname;
 ---
 
 <nav
-  class="flex items-center justify-between px-6 py-4 bg-white dark:bg-black text-gray-900 dark:text-gray-100 shadow shadow-white/15"
+  class="flex flex-col md:flex-row md:items-center md:justify-between px-4 md:px-6 py-4 bg-white dark:bg-black text-gray-900 dark:text-gray-100 shadow shadow-white/15 space-y-4 md:space-y-0"
 >
-  <div class="flex items-center space-x-4">
-    <a href="/" class="flex items-center space-x-4 group nav-link-gradient">
+  <!-- Left block: avatar + name + socials -->
+  <div class="flex items-center space-x-2 min-w-0 flex-shrink">
+    <a
+      href="/"
+      class="flex items-center space-x-3 group nav-link-gradient min-w-0 flex-shrink"
+    >
       <img
         src={avatarUrl}
         alt="Leopold Lemmermann"
-        class="w-12 h-12 rounded-full object-cover border border-gray-300 dark:border-gray-700 transform transition group-hover:scale-105"
+        class="w-10 h-10 rounded-full object-cover border border-gray-300 dark:border-gray-700 transform transition group-hover:scale-105 flex-shrink-0"
       />
-      <div class="flex flex-col opacity-0 animate-slidefadein">
-        <span class="font-semibold text-lg">Leopold Lemmermann</span>
-        <span class="text-sm">Software Engineer | BSc</span>
+      <div class="flex flex-col whitespace-nowrap min-w-0">
+        <span
+          class="font-semibold text-xs sm:text-sm md:text-base lg:text-lg truncate"
+          >Leopold Lemmermann</span
+        >
+        <span class="text-xs sm:text-sm truncate">Software Engineer | BSc</span>
       </div>
     </a>
 
-    <!-- Social icons next to name block, outside link -->
-    <div class="flex items-center space-x-3 opacity-0 animate-slidefadein">
+    <div
+      class="flex flex-col sm:flex-col md:flex-row items-center space-y-2 sm:space-y-2 md:space-y-0 md:space-x-3 opacity-0 animate-slidefadein flex-shrink-0"
+    >
       <a
         href="https://github.com/leo-lem"
         target="_blank"
@@ -47,8 +55,10 @@ const currentPath = new URL(Astro.request.url).pathname;
     </div>
   </div>
 
-  <!-- Navigation links -->
-  <div class="space-x-6 opacity-0 animate-slidefadein">
+  <!-- Navigation links: vertical list on small, horizontal on md+ -->
+  <div
+    class="flex flex-col md:flex-row md:space-x-6 space-y-2 md:space-y-0 opacity-0 animate-slidefadein items-center"
+  >
     <a
       href="/about"
       class={`nav-link-gradient ${currentPath === "/about" ? "font-bold underline" : ""}`}
