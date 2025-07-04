@@ -9,4 +9,13 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { projects };
+const stations = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    subtitle: z.string(),
+    date: z.string(), // YYYY-MM or YYYY-MM-DD
+    duration: z.string(),
+  }),
+});
+
+export const collections = { projects, stations };

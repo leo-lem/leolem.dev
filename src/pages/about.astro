@@ -1,5 +1,24 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const raw_stations = await getCollection("stations");
+
+// Sort by date descending (latest first)
+raw_stations.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const stations = raw_stations.map((station) => {
+  const date = new Date(station.data.date);
+  return {
+    ...station,
+    data: {
+      ...station.data,
+      year: date.getFullYear()
+    }
+  };
+});
 ---
 
 <BaseLayout title="About">
@@ -27,5 +46,86 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       alt="This is me!"
       class="w-full md:w-1/2 rounded shadow-lg object-cover"
     />
+  </section>
+
+  <section class="max-w-5xl mx-auto py-12 px-4">
+    <h2 class="text-3xl font-bold mb-12 text-center">My Journey</h2>
+
+    <div class="relative">
+      <!-- Timeline bar -->
+      <div
+        class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full border-l-2 border-gray-300 dark:border-gray-700"
+      >
+      </div>
+      <div
+        class="md:hidden absolute left-4 top-0 bottom-0 border-l-2 border-gray-300 dark:border-gray-700"
+      >
+      </div>
+
+      {
+        stations.map((station, index) => (
+          <div class="mb-12 md:grid md:grid-cols-9 md:items-center">
+            {/* Left side entry */}
+            {index % 2 === 0 && (
+              <>
+                <div class="hidden md:block md:col-span-4 md:text-right">
+                  <h3 class="text-xl font-semibold">{station.data.title}</h3>
+                  <h4 class="text-lg font-semibold text-gray-500 dark:text-gray-400">
+                    {station.data.subtitle}
+                  </h4>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                    {station.data.year} – {station.data.duration}
+                  </p>
+                  <div class="mt-2 text-gray-700 dark:text-gray-300">
+                    {station.body}
+                  </div>
+                </div>
+                <div class="hidden md:flex md:col-span-1 justify-center">
+                  <div class="w-4 border-t-2 border-gray-300 dark:border-gray-700" />
+                </div>
+                <div class="md:col-span-4" />
+              </>
+            )}
+
+            {/* Right side entry */}
+            {index % 2 !== 0 && (
+              <>
+                <div class="md:col-span-4" />
+                <div class="hidden md:flex md:col-span-1 justify-center">
+                  <div class="w-4 border-t-2 border-gray-300 dark:border-gray-700" />
+                </div>
+                <div class="hidden md:block md:col-span-4 md:text-left">
+                  <h3 class="text-xl font-semibold">{station.data.title}</h3>
+                  <h4 class="text-lg font-semibold text-gray-500 dark:text-gray-400">
+                    {station.data.subtitle}
+                  </h4>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                    {station.data.year} – {station.data.duration}
+                  </p>
+                  <div class="mt-2 text-gray-700 dark:text-gray-300">
+                    {station.body}
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* Mobile layout */}
+            <div class="md:hidden pl-10 relative">
+              <div class="absolute left-0 top-3 w-4 border-t-2 border-gray-300 dark:border-gray-700" />
+              <h3 class="text-xl font-semibold">{station.data.title}</h3>
+              <h4 class="text-lg font-semibold text-gray-500 dark:text-gray-400">
+                {station.data.subtitle}
+              </h4>
+              <p class="text-sm text-gray-500 dark:text-gray-400">
+                {station.data.year} – {station.data.duration}
+              </p>
+              <div class="mt-2 text-gray-700 dark:text-gray-300">
+                {station.body}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
   </section>
 </BaseLayout>
