@@ -1,5 +1,6 @@
 ---
 const avatarUrl = "/profile.webp";
+const currentPath = new URL(Astro.request.url).pathname;
 ---
 
 <nav
@@ -46,8 +47,19 @@ const avatarUrl = "/profile.webp";
     </div>
   </div>
 
+  <!-- Navigation links -->
   <div class="space-x-6 opacity-0 animate-slidefadein">
-    <a href="/about" class="nav-link-gradient">About</a>
-    <a href="/projects" class="nav-link-gradient">Projects</a>
+    <a
+      href="/about"
+      class={`nav-link-gradient ${currentPath === "/about" ? "font-bold underline" : ""}`}
+    >
+      About
+    </a>
+    <a
+      href="/projects"
+      class={`nav-link-gradient ${currentPath === "/projects" ? "font-bold underline" : ""}`}
+    >
+      Projects
+    </a>
   </div>
 </nav>
