@@ -3,19 +3,47 @@ const avatarUrl = "/profile.webp";
 ---
 
 <nav
-  class="flex items-center justify-between px-6 py-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 shadow"
+  class="flex items-center justify-between px-6 py-4 bg-white dark:bg-black text-gray-900 dark:text-gray-100 shadow shadow-white/15"
 >
-  <a href="/" class="flex items-center space-x-4 group nav-link-gradient">
-    <img
-      src={avatarUrl}
-      alt="Leopold Lemmermann"
-      class="w-12 h-12 rounded-full object-cover border border-gray-300 dark:border-gray-700 transform transition group-hover:scale-105"
-    />
-    <div class="flex flex-col opacity-0 animate-slidefadein">
-      <span class="font-semibold text-lg">Leopold Lemmermann</span>
-      <span class="text-sm">Software Engineer | BSc</span>
+  <div class="flex items-center space-x-4">
+    <a href="/" class="flex items-center space-x-4 group nav-link-gradient">
+      <img
+        src={avatarUrl}
+        alt="Leopold Lemmermann"
+        class="w-12 h-12 rounded-full object-cover border border-gray-300 dark:border-gray-700 transform transition group-hover:scale-105"
+      />
+      <div class="flex flex-col opacity-0 animate-slidefadein">
+        <span class="font-semibold text-lg">Leopold Lemmermann</span>
+        <span class="text-sm">Software Engineer | BSc</span>
+      </div>
+    </a>
+
+    <!-- Social icons next to name block, outside link -->
+    <div class="flex items-center space-x-3 opacity-0 animate-slidefadein">
+      <a
+        href="https://github.com/leo-lem"
+        target="_blank"
+        class="hover:opacity-70 transition"
+      >
+        <img
+          src="/github.svg"
+          alt="GitHub"
+          class="h-5 w-5 invert dark:invert-0"
+        />
+      </a>
+      <a
+        href="https://linkedin.com/in/leopoldlemmermann"
+        target="_blank"
+        class="hover:opacity-70 transition"
+      >
+        <img
+          src="/linkedin.svg"
+          alt="LinkedIn"
+          class="h-5 w-5 text-gray-900 dark:text-gray-100"
+        />
+      </a>
     </div>
-  </a>
+  </div>
 
   <div class="space-x-6 opacity-0 animate-slidefadein">
     <a href="/about" class="nav-link-gradient">About</a>
