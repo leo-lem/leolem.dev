@@ -3,8 +3,24 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="Leo Lem">
-	<main class="p-8 text-center">
-		<h1 class="text-4xl font-bold mb-4">Leo Lem</h1>
-		<p class="text-lg">Software Engineer, Researcher, Creator.</p>
-	</main>
+  <section
+    class="flex flex-col items-center justify-center text-center py-32 px-4"
+  >
+    <h1 class="text-6xl font-bold mb-4">Leo Lem</h1>
+    <p class="text-lg text-gray-600 mb-8 max-w-xl">
+      Software Engineer, Researcher, Creator.
+    </p>
+    <div class="space-x-4">
+      <a
+        href="/projects"
+        class="px-5 py-3 bg-black text-white rounded hover:bg-gray-800 transition"
+        >Projects</a
+      >
+      <a
+        href="/about"
+        class="px-5 py-3 border border-black rounded hover:bg-gray-100 transition"
+        >About</a
+      >
+    </div>
+  </section>
 </BaseLayout>
