@@ -7,9 +7,9 @@ links:
   - type: document
     url: "https://docs.google.com/document/d/111muU-w-S8c4TPuKXI1qenj-fPwhlx8sO-yx6_PkWSk/edit?usp=sharing"
 images:
-  - "/projects/climate/1.webp"
-  - "/projects/climate/2.webp"
-  - "/projects/climate/3.webp"
+  - "/projects/climate/1.avif"
+  - "/projects/climate/2.avif"
+  - "/projects/climate/3.avif"
 ---
 
 ## Project Overview

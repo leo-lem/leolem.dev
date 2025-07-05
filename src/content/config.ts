@@ -11,7 +11,7 @@ const projects = defineCollection({
     featured: z.boolean().optional(),
     thumbnail: z.string().optional(),
     images: z.array(z.string()).optional(),
-  }),
+  })
 });
 
 const stations = defineCollection({

@@ -15,7 +15,7 @@ images:
   - "/projects/smokes/4.avif"
   - "/projects/smokes/5.avif"
 featured: true
-thumbnail: "/projects/smokes/thumbnail.webp"
+thumbnail: "/projects/smokes/thumbnail.avif"
 ---
 
 ## Project Overview
