@@ -1,57 +1,68 @@
 ---
 const avatarUrl = "/profile.webp";
 const currentPath = new URL(Astro.request.url).pathname;
+const socials = [
+  {
+    href: "https://github.com/leo-lem",
+    label: "GitHub",
+    icon: "github.svg"
+  },
+  {
+    href: "https://linkedin.com/in/leopoldlemmermann",
+    label: "LinkedIn",
+    icon: "linkedin.svg"
+  }
+];
+const navigation = [
+  {
+    href: "/about",
+    label: "About"
+  },
+  {
+    href: "/projects",
+    label: "Projects"
+  }
+];
 ---
 
 <nav
-  class="flex flex-col md:flex-row md:items-center md:justify-between px-4 md:px-6 py-4 bg-white dark:bg-black text-gray-900 dark:text-gray-100 shadow shadow-white/15 space-y-4 md:space-y-0"
+  class="flex flex-col md:flex-row md:items-center md:justify-between px-4 md:px-6 py-4 shadow shadow-white/15 space-y-4 md:space-y-0"
+  style="background-color: var(--bg-color);"
 >
   <!-- Left block: avatar + name + socials -->
   <div class="flex items-center space-x-2 min-w-0 flex-shrink">
-    <a
-      href="/"
-      class="flex items-center space-x-3 group nav-link-gradient min-w-0 flex-shrink"
-    >
+    <a href="/" class="flex items-center space-x-3 group flex-shrink">
       <img
         src={avatarUrl}
         alt="Leopold Lemmermann"
-        class="w-10 h-10 rounded-full object-cover border border-gray-300 dark:border-gray-700 transform transition group-hover:scale-105 flex-shrink-0"
+        class="w-10 h-10 rounded-full object-cover border transform transition group-hover:scale-105 flex-shrink-0"
       />
-      <div class="flex flex-col whitespace-nowrap min-w-0">
-        <span
-          class="font-semibold text-xs sm:text-sm md:text-base lg:text-lg truncate"
+      <div
+        class="flex flex-col whitespace-nowrap min-w-0 animate-slidefadein nav-link-gradient"
+      >
+        <span class="font-semibold text-xs sm:text-sm truncate"
           >Leopold Lemmermann</span
         >
         <span class="text-xs sm:text-sm truncate">Software Engineer | BSc</span>
       </div>
     </a>
 
+    <!-- Social links -->
     <div
       class="flex flex-col sm:flex-col md:flex-row items-center space-y-2 sm:space-y-2 md:space-y-0 md:space-x-3 opacity-0 animate-slidefadein flex-shrink-0"
     >
-      <a
-        href="https://github.com/leo-lem"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="hover:opacity-70 transition"
-      >
-        <img
-          src="/github.svg"
-          alt="GitHub"
-          class="h-5 w-5 invert dark:invert-0"
-        />
-      </a>
-      <a
-        href="https://linkedin.com/in/leopoldlemmermann"
-        target="_blank"
-        class="hover:opacity-70 transition"
-      >
-        <img
-          src="/linkedin.svg"
-          alt="LinkedIn"
-          class="h-5 w-5 text-gray-900 dark:text-gray-100"
-        />
-      </a>
+      {
+        socials.map(({ href, label, icon }) => (
+          <a
+            href={href}
+            style="color: var(--text-color);"
+            rel="noopener noreferrer"
+            class="hover:opacity-70 transition"
+          >
+            <img src={icon} alt={label} class="h-5 w-5 invert dark:invert-0" />
+          </a>
+        ))
+      }
     </div>
   </div>
 
@@ -59,17 +70,15 @@ const currentPath = new URL(Astro.request.url).pathname;
   <div
     class="flex flex-col md:flex-row md:space-x-6 space-y-2 md:space-y-0 opacity-0 animate-slidefadein items-center"
   >
-    <a
-      href="/about"
-      class={`nav-link-gradient ${currentPath === "/about" ? "font-bold underline" : ""}`}
-    >
-      About
-    </a>
-    <a
-      href="/projects"
-      class={`nav-link-gradient ${currentPath === "/projects" ? "font-bold underline" : ""}`}
-    >
-      Projects
-    </a>
+    {
+      navigation.map(({ href, label }) => (
+        <a
+          href={href}
+          class={`nav-link-gradient ${currentPath === href ? "font-bold underline" : ""}`}
+        >
+          {label}
+        </a>
+      ))
+    }
   </div>
 </nav>

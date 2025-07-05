@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Timeline from "../components/Timeline.astro";
 import { getCollection } from "astro:content";
 
 const raw_stations = await getCollection("stations");
@@ -21,19 +22,25 @@ const stations = raw_stations.map((station) => {
 });
 ---
 
-<BaseLayout title="About">
+<BaseLayout title="About me">
   <section
     class="flex flex-col md:flex-row items-center justify-center py-24 px-6 space-y-8 md:space-y-0 md:space-x-12 text-center md:text-left max-w-5xl mx-auto"
   >
     <!-- Left text block -->
     <div class="space-y-4">
       <p
-        class="uppercase tracking-widest text-sm text-gray-500 dark:text-gray-400"
+        class="uppercase tracking-widest text-sm"
+        style="color: var(--text-muted-color);"
       >
         Hey there!
       </p>
-      <h1 class="text-4xl font-bold">I'm Leo.</h1>
-      <p class="text-lg max-w-md text-gray-700 dark:text-gray-300">
+      <h1
+        class="text-4xl font-bold"
+        style="color: var(--text-secondary-color);"
+      >
+        I'm Leo.
+      </h1>
+      <p class="text-lg max-w-md">
         I'm a Master's student at the University of Hamburg and a Software
         Engineer at Capgemini. My journey has taken me through various roles,
         from developing sustainability tools to full-stack and iOS development.
@@ -48,84 +55,5 @@ const stations = raw_stations.map((station) => {
     />
   </section>
 
-  <section class="max-w-5xl mx-auto py-12 px-4">
-    <h2 class="text-3xl font-bold mb-12 text-center">My Journey</h2>
-
-    <div class="relative">
-      <!-- Timeline bar -->
-      <div
-        class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full border-l-2 border-gray-300 dark:border-gray-700"
-      >
-      </div>
-      <div
-        class="md:hidden absolute left-4 top-0 bottom-0 border-l-2 border-gray-300 dark:border-gray-700"
-      >
-      </div>
-
-      {
-        stations.map((station, index) => (
-          <div class="mb-12 md:grid md:grid-cols-9 md:items-center">
-            {/* Left side entry */}
-            {index % 2 === 0 && (
-              <>
-                <div class="hidden md:block md:col-span-4 md:text-right">
-                  <h3 class="text-xl font-semibold">{station.data.title}</h3>
-                  <h4 class="text-lg font-semibold text-gray-500 dark:text-gray-400">
-                    {station.data.subtitle}
-                  </h4>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
-                    {station.data.year} – {station.data.duration}
-                  </p>
-                  <div class="mt-2 text-gray-700 dark:text-gray-300">
-                    {station.body}
-                  </div>
-                </div>
-                <div class="hidden md:flex md:col-span-1 justify-center">
-                  <div class="w-4 border-t-2 border-gray-300 dark:border-gray-700" />
-                </div>
-                <div class="md:col-span-4" />
-              </>
-            )}
-
-            {/* Right side entry */}
-            {index % 2 !== 0 && (
-              <>
-                <div class="md:col-span-4" />
-                <div class="hidden md:flex md:col-span-1 justify-center">
-                  <div class="w-4 border-t-2 border-gray-300 dark:border-gray-700" />
-                </div>
-                <div class="hidden md:block md:col-span-4 md:text-left">
-                  <h3 class="text-xl font-semibold">{station.data.title}</h3>
-                  <h4 class="text-lg font-semibold text-gray-500 dark:text-gray-400">
-                    {station.data.subtitle}
-                  </h4>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
-                    {station.data.year} – {station.data.duration}
-                  </p>
-                  <div class="mt-2 text-gray-700 dark:text-gray-300">
-                    {station.body}
-                  </div>
-                </div>
-              </>
-            )}
-
-            {/* Mobile layout */}
-            <div class="md:hidden pl-10 relative">
-              <div class="absolute left-0 top-3 w-4 border-t-2 border-gray-300 dark:border-gray-700" />
-              <h3 class="text-xl font-semibold">{station.data.title}</h3>
-              <h4 class="text-lg font-semibold text-gray-500 dark:text-gray-400">
-                {station.data.subtitle}
-              </h4>
-              <p class="text-sm text-gray-500 dark:text-gray-400">
-                {station.data.year} – {station.data.duration}
-              </p>
-              <div class="mt-2 text-gray-700 dark:text-gray-300">
-                {station.body}
-              </div>
-            </div>
-          </div>
-        ))
-      }
-    </div>
-  </section>
+  <Timeline stations={stations} />
 </BaseLayout>

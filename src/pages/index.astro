@@ -8,17 +8,24 @@ const topProjects = allProjects.filter((p: any) => p.data.featured).slice(0, 2);
 ---
 
 <BaseLayout title="Leopold Lemmermann">
-  <section
-    class="flex flex-col items-center justify-center text-center py-24 space-y-8"
-  >
+  <!-- Hero section -->
+  <section class="flex flex-col items-center justify-center text-center">
     <p class="text-2xl md:text-2xl max-w-2xl">
       I'm a Master's student at the University of Hamburg and a Software
       Engineer at Capgemini. I love building solutions that connect technology
       with purpose.
-      <a href="/about" class="nav-link-gradient"> Learn more.</a>
+      <a
+        href="/about"
+        class="nav-link-gradient"
+        style="color: var(--text-muted-color);"
+      >
+        Learn more.</a
+      >
     </p>
+  </section>
 
-    <!-- Top two featured projects dynamically generated -->
+  <!-- Top two featured projects dynamically generated -->
+  <section>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
       {
         topProjects.map((project: any) => (
@@ -36,7 +43,7 @@ const topProjects = allProjects.filter((p: any) => p.data.featured).slice(0, 2);
                   {project.data.title}
                 </a>
               </h2>
-              <p class="text-gray-600 dark:text-gray-400 mb-2">
+              <p class="mb-2" style="color: var(--text-muted-color);">
                 {project.data.description}
               </p>
             </div>
@@ -47,7 +54,10 @@ const topProjects = allProjects.filter((p: any) => p.data.featured).slice(0, 2);
   </section>
 
   <!-- Google Calendar Widget -->
-  <div class="w-full max-w-2xl bg-gray-100 dark:bg-gray-200 p-2 rounded">
+  <div
+    class="w-full max-w-2xl p-2 rounded"
+    style="background-color: var(--border-color);"
+  >
     <iframe
       src="https://calendar.google.com/calendar/appointments/AcZssZ0Uf9NSuQOy5kmC7a86grhHsaI3ESFj1eLPems=?gv=true"
       style="border: 0"

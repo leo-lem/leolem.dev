@@ -1,6 +1,6 @@
 ---
-import Navbar from "../components/NavBar.astro";
 import "../styles/global.css";
+import NavBar from "../components/NavBar.astro";
 const { title } = Astro.props;
 ---
 
@@ -17,9 +17,12 @@ const { title } = Astro.props;
       rel="stylesheet"
     />
   </head>
-  <body class="bg-white dark:bg-black text-gray-900 dark:text-gray-100">
-    <Navbar />
-    <main class="max-w-3xl mx-auto p-8">
+  <body
+    style="background-color: var(--bg-color); color: var(--text-color); border-color: var(--border-color);"
+  >
+    <NavBar />
+
+    <main class="max-w-3xl mx-auto p-8 gap-20 flex flex-col">
       <slot />
     </main>
   </body>
