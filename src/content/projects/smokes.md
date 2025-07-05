@@ -18,8 +18,6 @@ featured: true
 thumbnail: "/projects/smokes/thumbnail.avif"
 ---
 
-## Project Overview
-
 Smokes is an iOS application designed to help users track their smoking habits by visualizing statistics and providing insights for behavioral improvement. The app offers a user-friendly interface, detailed analytics, and customization options to support users in monitoring and reducing their smoking habits.
 
 ## My Contributions

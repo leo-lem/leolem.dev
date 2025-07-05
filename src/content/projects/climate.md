@@ -12,8 +12,6 @@ images:
   - "/projects/climate/3.avif"
 ---
 
-## Project Overview
-
 This project analyzes public sentiment on climate change using NLP techniques on social media data from Twitter, YouTube, and Bluesky. Fine-tuned BERT models classify sentiment trends and correlate them with real-world events. The study includes data preprocessing, web scraping, and visualization to provide actionable insights for effective communication strategies in climate advocacy.
 
 ## My Contributions
