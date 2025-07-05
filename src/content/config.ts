@@ -18,4 +18,20 @@ const stations = defineCollection({
   }),
 });
 
-export const collections = { projects, stations };
+const skills = defineCollection({
+  schema: z.object({
+    name: z.string(),
+    category: z.string(),
+    icon: z.string(),
+    confidence: z.number().min(0).max(100),
+  }),
+});
+
+const highlights = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    icon: z.string(),
+  }),
+});
+
+export const collections = { projects, stations, skills, highlights };

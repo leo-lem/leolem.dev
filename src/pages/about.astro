@@ -1,25 +1,31 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Timeline from "../components/Timeline.astro";
+
 import { getCollection } from "astro:content";
+const stations = (await getCollection("stations"))
+  .sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  )
+  .map((station) => {
+    const date = new Date(station.data.date);
+    return {
+      ...station,
+      data: {
+        ...station.data,
+        year: date.getFullYear()
+      }
+    };
+  });
 
-const raw_stations = await getCollection("stations");
+const skills = (await getCollection("skills")).reduce((acc: any, skill) => {
+  const category = skill.data.category;
+  if (!acc[category]) acc[category] = [];
+  acc[category].push(skill);
+  return acc;
+}, {});
 
-// Sort by date descending (latest first)
-raw_stations.sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-);
-
-const stations = raw_stations.map((station) => {
-  const date = new Date(station.data.date);
-  return {
-    ...station,
-    data: {
-      ...station.data,
-      year: date.getFullYear()
-    }
-  };
-});
+const highlights = await getCollection("highlights");
 ---
 
 <BaseLayout title="About me">
@@ -55,5 +61,59 @@ const stations = raw_stations.map((station) => {
     />
   </section>
 
-  <Timeline stations={stations} />
+  <section class="max-w-5xl mx-auto py-12 px-4">
+    <Timeline stations={stations} />
+  </section>
+
+  <section class="max-w-5xl mx-auto py-12 px-4 text-[var(--text-muted-color)]">
+    <h2 class="text-3xl font-bold mb-6 text-center text-[var(--text-color)]">
+      My Skillset
+    </h2>
+
+    <!-- Impact Highlights placed here -->
+    <ul
+      class="space-y-4 text-center text-lg mb-12 border rounded-lg p-4 bg-[var(--primary-color)]"
+    >
+      {
+        highlights.map(({ data: { title, icon } }) => (
+          <li>
+            {icon} {title}
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- Skills Categories -->
+    <div class="space-y-12">
+      {
+        Object.entries(skills).map(([category, items]: any, index) => (
+          <div
+            class="opacity-0 animate-fadeSlideIn"
+            style={`animation-delay: ${index * 0.2}s`}
+          >
+            <h3
+              class="text-xl font-semibold mb-4"
+              style="color: var(--text-secondary-color);"
+            >
+              {category}
+            </h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+              {items.map(({ data: { name, icon, confidence } }: any) => (
+                <div class="flex flex-col items-center text-center p-4 rounded-lg border bg-[var(--primary-color)] hover:scale-105 transform transition">
+                  <img src={`/icons/${icon}`} alt={name} class="h-8 w-8 mb-2" />
+                  <span>{name}</span>
+                  <div class="w-full mt-2 rounded-full h-1">
+                    <div
+                      class="bg-gradient-to-r from-pink-500 to-yellow-500 h-1 rounded-full"
+                      style={`width: ${confidence}%`}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
 </BaseLayout>
