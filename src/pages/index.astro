@@ -2,9 +2,9 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const allProjects = await getCollection("projects");
-
-const topProjects = allProjects.filter((p: any) => p.data.featured).slice(0, 2);
+const projects = (await getCollection("projects"))
+  .filter(({ data: { featured } }) => featured)
+  .slice(0, 2);
 ---
 
 <BaseLayout title="Leopold Lemmermann">
@@ -28,7 +28,7 @@ const topProjects = allProjects.filter((p: any) => p.data.featured).slice(0, 2);
   <section>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
       {
-        topProjects.map((project: any) => (
+        projects.map((project: any) => (
           <div class="border rounded shadow hover:shadow-lg transition overflow-hidden">
             {project.data.thumbnail && (
               <img
@@ -44,7 +44,7 @@ const topProjects = allProjects.filter((p: any) => p.data.featured).slice(0, 2);
                 </a>
               </h2>
               <p class="mb-2" style="color: var(--text-muted-color);">
-                {project.data.description}
+                {project.data.tags.join(", ")}
               </p>
             </div>
           </div>
