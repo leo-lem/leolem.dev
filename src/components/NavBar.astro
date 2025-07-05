@@ -55,15 +55,14 @@ const navigation = [
         socials.map(({ href, label, icon }) => (
           <a
             href={href}
-            style="color: var(--text-color);"
+            class="hover:opacity-70 transition"
             rel="noopener noreferrer"
             target="_blank"
-            class="hover:opacity-70 transition"
           >
             <img
               src={`/icons/${icon}`}
               alt={label}
-              class="h-5 w-5 invert dark:invert-0"
+              class="h-5 w-5 invert-0 dark:invert"
             />
           </a>
         ))

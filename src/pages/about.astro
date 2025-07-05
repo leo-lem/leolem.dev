@@ -88,16 +88,17 @@ const highlights = await getCollection("highlights");
       {
         Object.entries(skills).map(([category, items]: any, index) => (
           <div>
-            <h3
-              class="text-xl font-semibold mb-4"
-              style="color: var(--text-secondary-color);"
-            >
+            <h3 class="text-xl font-semibold mb-4 text-[var(--text-secondary-color)]">
               {category}
             </h3>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
               {items.map(({ data: { name, icon, confidence } }: any) => (
                 <div class="flex flex-col items-center text-center p-4 rounded-lg border bg-[var(--primary-color)] hover:scale-105 transform transition">
-                  <img src={`/icons/${icon}`} alt={name} class="h-8 w-8 mb-2" />
+                  <img
+                    src={`/icons/${icon}`}
+                    alt={name}
+                    class="h-8 w-8 mb-2 invert dark:invert-0"
+                  />
                   <span>{name}</span>
                   <div class="w-full mt-2 rounded-full h-1">
                     <div

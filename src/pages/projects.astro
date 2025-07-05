@@ -31,13 +31,14 @@ const projects = await Promise.all(
               {data.links.map((link) => (
                 <a
                   href={link.url}
+                  rel="noopener noreferrer"
                   target="_blank"
-                  class="nav-link-gradient flex items-center space-x-1"
+                  class="flex items-center space-x-1"
                 >
                   <img
                     src={`/icons/${link.type}.svg`}
                     alt={link.type}
-                    class="h-5 w-5"
+                    class="h-5 w-5 invert-0 dark:invert"
                   />
                 </a>
               ))}
