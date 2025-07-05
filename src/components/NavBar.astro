@@ -79,6 +79,7 @@ const navigation = [
         <a
           href={href}
           class={`nav-link-gradient ${currentPath === href ? "font-bold underline" : ""}`}
+          aria-current={currentPath === href ? "page" : undefined}
         >
           {label}
         </a>

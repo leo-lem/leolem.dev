@@ -87,10 +87,7 @@ const highlights = await getCollection("highlights");
     <div class="space-y-12">
       {
         Object.entries(skills).map(([category, items]: any, index) => (
-          <div
-            class="opacity-0 animate-fadeSlideIn"
-            style={`animation-delay: ${index * 0.2}s`}
-          >
+          <div>
             <h3
               class="text-xl font-semibold mb-4"
               style="color: var(--text-secondary-color);"

@@ -19,7 +19,7 @@
     --text-color: #f9f9f9;
     --text-secondary-color: #d1d5db;
     --text-muted-color: #9ca3af;
-    --border-color: #e5e7eb;
+    --border-color: #c6c7c8;
   }
 }
 
@@ -35,13 +35,4 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-}
-
-/* Active nav link: always vibrant gradient + bold */
-.active-nav-link {
-  background: linear-gradient(to right, #ec4899, #facc15);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  @apply font-bold;
 }

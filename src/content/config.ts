@@ -13,7 +13,7 @@ const stations = defineCollection({
   schema: z.object({
     title: z.string(),
     subtitle: z.string(),
-    date: z.string(), // YYYY-MM or YYYY-MM-DD
+    date: z.string().regex(/^\d{4}(-\d{2}(-\d{2})?)?$/),
     duration: z.string(),
   }),
 });

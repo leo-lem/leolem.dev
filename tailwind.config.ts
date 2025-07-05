@@ -14,19 +14,14 @@ const config: Config = {
         slidefadein: {
           '0%': { opacity: '0', transform: 'translateY(-1rem)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        fadeSlideIn: {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
+        }
       },
       animation: {
-        slidefadein: 'slidefadein 0.5s ease-out forwards',
-        fadeSlideIn: 'fadeSlideIn 0.5s ease-out forwards',
+        slidefadein: 'slidefadein 0.5s ease-out forwards'
       },
     },
   },
-  darkMode: 'class',
+  darkMode: 'media',
   plugins: [],
 };
 
