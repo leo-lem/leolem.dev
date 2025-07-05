@@ -3,10 +3,15 @@ import { defineCollection, z } from "astro:content";
 const projects = defineCollection({
   schema: z.object({
     title: z.string(),
-    description: z.string(),
+    tags: z.array(z.string()),
+    links: z.array(z.object({
+      type: z.enum(['github', 'appstore', 'webpage', 'document']),
+      url: z.string().url()
+    })).optional(),
     featured: z.boolean().optional(),
-    thumbnail: z.string().optional()
-  }),
+    thumbnail: z.string().optional(),
+    images: z.array(z.string()).optional(),
+  })
 });
 
 const stations = defineCollection({

@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const projects = await Promise.all(
+  (await getCollection("projects")).map(async (project) => {
+    const { Content } = await project.render();
+    return { ...project, Content };
+  })
+);
+---
+
+<BaseLayout title="Projects">
+  <section class="max-w-5xl mx-auto py-12 px-4 space-y-12">
+    {
+      projects.map(({ data, slug, Content }) => (
+        <div id={slug} class="space-y-4 border-b pb-8">
+          <h2 class="text-2xl font-semibold">{data.title}</h2>
+          <div class="flex flex-wrap gap-2">
+            {data.tags.map((tag) => (
+              <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded text-sm">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <Content class="prose dark:prose-invert max-w-none" />
+
+          {data.links && (
+            <div class="flex gap-4 mt-4">
+              {data.links.map((link) => (
+                <a
+                  href={link.url}
+                  target="_blank"
+                  class="nav-link-gradient flex items-center space-x-1"
+                >
+                  <img
+                    src={`/icons/${link.type}.svg`}
+                    alt={link.type}
+                    class="h-5 w-5"
+                  />
+                  <span>{link.type}</span>
+                </a>
+              ))}
+            </div>
+          )}
+
+          {data.images && (
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
+              {data.images.map((img) => (
+                <img
+                  src={img}
+                  alt={`${data.title} screenshot`}
+                  class="rounded-lg shadow"
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      ))
+    }
+  </section>
+</BaseLayout>
