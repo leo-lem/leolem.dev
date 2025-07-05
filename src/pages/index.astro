@@ -1,6 +1,6 @@
 ---
+import BaseLayout from "../BaseLayout.astro";
 import { getCollection } from "astro:content";
-import BaseLayout from "../layouts/BaseLayout.astro";
 
 const projects = (await getCollection("projects"))
   .filter(({ data: { featured } }) => featured)
@@ -14,11 +14,7 @@ const projects = (await getCollection("projects"))
       I'm a Master's student at the University of Hamburg and a Software
       Engineer at Capgemini. I love building solutions that connect technology
       with purpose.
-      <a
-        href="/about"
-        class="nav-link-gradient"
-        style="color: var(--text-muted-color);"
-      >
+      <a href="/about" class="nav-link-gradient text-[var(--text-muted-color)]">
         Learn more.</a
       >
     </p>
@@ -29,39 +25,41 @@ const projects = (await getCollection("projects"))
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
       {
         projects.map((project: any) => (
-          <div class="border rounded shadow hover:shadow-lg transition overflow-hidden">
-            {project.data.thumbnail && (
-              <img
-                src={project.data.thumbnail}
-                alt={project.data.title}
-                class="w-full aspect-square object-cover"
-              />
-            )}
-            <div class="p-4 text-center">
-              <h2 class="text-2xl font-semibold mb-2">
-                <a href={`/projects#${project.slug}`} class="nav-link-gradient">
+          <a href={`/projects#${project.slug}`} class="nav-link-gradient">
+            <div class="border rounded shadow hover:shadow-lg dark:shadow-white/10 dark:hover:shadow-white/30 transition overflow-hidden">
+              {project.data.thumbnail && (
+                <img
+                  src={project.data.thumbnail}
+                  alt={project.data.title}
+                  class="w-full aspect-square object-cover"
+                />
+              )}
+              <div class="p-4 text-center">
+                <h2 class="text-2xl font-semibold mb-2">
                   {project.data.title}
-                </a>
-              </h2>
-              <p class="mb-2" style="color: var(--text-muted-color);">
-                {project.data.tags.join(", ")}
-              </p>
+                </h2>
+                <p class="mb-2 text-[var(--text-muted-color)]">
+                  {project.data.tags.join(", ")}
+                </p>
+              </div>
             </div>
-          </div>
+          </a>
         ))
       }
     </div>
   </section>
 
   <!-- Google Calendar Widget -->
-  <div
-    class="w-full max-w-2xl p-2 rounded"
-    style="background-color: var(--border-color);"
-  >
-    <iframe
-      src="https://calendar.google.com/calendar/appointments/AcZssZ0Uf9NSuQOy5kmC7a86grhHsaI3ESFj1eLPems=?gv=true"
-      style="border: 0"
-      width="100%"
-      height="600"></iframe>
+  <div class="flex justify-center">
+    <div
+      class="w-full max-w-2xl p-2 rounded"
+      style="background-color: var(--border-color);"
+    >
+      <iframe
+        src="https://calendar.google.com/calendar/appointments/AcZssZ0Uf9NSuQOy5kmC7a86grhHsaI3ESFj1eLPems=?gv=true"
+        style="border: 0"
+        width="100%"
+        height="600"></iframe>
+    </div>
   </div>
 </BaseLayout>

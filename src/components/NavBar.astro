@@ -1,6 +1,6 @@
 ---
 const avatarUrl = "/profile.webp";
-const currentPath = new URL(Astro.request.url).pathname;
+const currentPath = new URL(Astro.url).pathname;
 const socials = [
   {
     href: "https://github.com/leo-lem",
@@ -30,7 +30,7 @@ const navigation = [
   style="background-color: var(--bg-color);"
 >
   <!-- Left block: avatar + name + socials -->
-  <div class="flex items-center space-x-2 min-w-0 flex-shrink">
+  <div class="flex justify-between space-x-2 min-w-0 flex-shrink">
     <a href="/" class="flex items-center space-x-3 group flex-shrink">
       <img
         src={avatarUrl}
@@ -57,6 +57,7 @@ const navigation = [
             href={href}
             style="color: var(--text-color);"
             rel="noopener noreferrer"
+            target="_blank"
             class="hover:opacity-70 transition"
           >
             <img

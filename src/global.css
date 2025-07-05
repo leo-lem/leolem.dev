@@ -7,9 +7,9 @@
   --bg-color: #ffffff;
   --primary-color: #1f2937;
   --text-color: #111827;
-  --text-secondary-color: #4b5563;
-  --text-muted-color: #6b7280;
-  --border-color: #374151;
+  --text-secondary-color: #485360;
+  --text-muted-color: #909aac;
+  --border-color: #7d93b8;
 }
 
 @media (prefers-color-scheme: dark) {

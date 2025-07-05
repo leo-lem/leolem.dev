@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from "../BaseLayout.astro";
 import { getCollection } from "astro:content";
 
 const projects = await Promise.all(
@@ -18,7 +18,7 @@ const projects = await Promise.all(
           <h2 class="text-2xl font-semibold">{data.title}</h2>
           <div class="flex flex-wrap gap-2">
             {data.tags.map((tag) => (
-              <span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded text-sm">
+              <span class="px-2 py-1 bg-[var(--border-color)] rounded text-sm text-[var(--text-secondary-color)]">
                 {tag}
               </span>
             ))}
