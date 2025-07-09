@@ -1,0 +1,50 @@
+name: Deploy, Smoke Test, and CO2 Check
+
+on:
+  push:
+    branches: [tests, main] # TODO: remove tests branch once stable
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site-dist
+          path: dist
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  smoke:
+    needs: deploy
+    runs-on: ubuntu-latest
+    container:
+      image: node:20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node
+      - run: npx playwright install
+      - name: Run Playwright smoke tests
+        run: npx playwright test test/smoke.spec.ts
+        env:
+          BASE_URL: https://me.leolem.dev
+
+  co2:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Calculate CO2 🌱
+        uses: GeopJr/CO2@v1
+        with:
+          url: https://me.leolem.dev
