@@ -1,0 +1,16 @@
+import { test, expect } from '@playwright/test';
+
+test('homepage loads', async ({ page }) => {
+  await page.goto('/');
+  await expect(page).toHaveTitle(/Leopold Lemmermann/);
+});
+
+test('about page loads', async ({ page }) => {
+  await page.goto('/about');
+  await expect(page.locator('h1')).toContainText('Leo');
+});
+
+test('projects page loads', async ({ page }) => {
+  await page.goto('/projects');
+  await expect(page.locator('h1')).toContainText('Projects');
+});

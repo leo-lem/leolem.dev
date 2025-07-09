@@ -1,0 +1,71 @@
+name: Deploy, Smoke Test, and CO2 Calculation
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["README.md", ".github/dependabot.yml", ".devcontainer.json", ".github/workflows/pr.yml"]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/cache@v3
+        with:
+          path: dist
+          key: build-dist-${{ github.sha }}
+          restore-keys: build-dist-
+          fail-on-cache-miss: true
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  smoke:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      checks: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node
+      - run: npx playwright install
+      - name: Run Playwright smoke tests
+        run: npx playwright test test/smoke.spec.ts
+        env:
+          BASE_URL: https://leolem.dev
+      - name: Publish Playwright Test Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Playwright Tests
+          path: test-results.xml
+          reporter: java-junit
+
+  co2:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node
+      - uses: actions/cache@v3
+        with:
+          path: baseline-co2.txt
+          key: baseline-co2-${{ github.sha }}
+          restore-keys: baseline-co2-
+      - name: Check CO2 regression
+        run: node script/check-co2.js
+        env:
+          TARGET_URL: https://leolem.dev

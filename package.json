@@ -11,5 +11,9 @@
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",
     "astro": "^5.11.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.53.2",
+    "@tgwf/co2": "^0.16.8"
   }
 }
