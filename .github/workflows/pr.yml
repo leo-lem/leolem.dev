@@ -20,6 +20,9 @@ jobs:
           key: build-dist-${{ github.sha }}
 
   smoke:
+    permissions:
+      actions: read
+      checks: write
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -39,7 +42,7 @@ jobs:
         env:
           BASE_URL: http://localhost:3000
       - name: Publish Playwright Test Results
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v2
         if: always()
         with:
           name: Playwright Tests
