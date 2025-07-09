@@ -1,7 +1,7 @@
 name: Deploy, Smoke Test, and CO2 Calculation
 on:
   push:
-    branches: [tests, main]
+    branches: [main]
     paths-ignore: ["README.md", ".github/dependabot.yml", ".devcontainer.json", ".github/workflows/pr.yml"]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
