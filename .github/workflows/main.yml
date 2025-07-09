@@ -1,11 +1,10 @@
 name: Deploy, Smoke Test, and CO2 Calculation
-
-permissions:
-  contents: read
-
 on:
   push:
     branches: [tests, main]
+    paths-ignore: ["README.md", ".github/dependabot.yml", ".devcontainer.json", ".github/workflows/pr.yml"]
+permissions:
+  contents: read
 
 jobs:
   deploy:
@@ -52,14 +51,18 @@ jobs:
           path: test-results.xml
           reporter: java-junit
 
-  coo2:
+  co2:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node
+      - uses: actions/cache@v3
+        with:
+          path: baseline-co2.txt
+          key: baseline-co2-${{ github.sha }}
+          restore-keys: baseline-co2-
       - name: Check CO2 regression
-        run: node scripts/check-co2.js
+        run: node script/check-co2.js
         env:
           TARGET_URL: https://leolem.dev
-          BASELINE_CO2: 0.05 # Adjust baseline (grams) as needed
