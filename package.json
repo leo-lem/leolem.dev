@@ -13,6 +13,7 @@
     "astro": "^5.11.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.53.2"
+    "@playwright/test": "^1.53.2",
+    "@tgwf/co2": "^0.16.8"
   }
 }

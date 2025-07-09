@@ -52,11 +52,14 @@ jobs:
           path: test-results.xml
           reporter: java-junit
 
-  co2:
+  coo2:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Calculate CO2 🌱
-        uses: GeopJr/CO2@v1
-        with:
-          url: https://leolem.dev
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node
+      - name: Check CO2 regression
+        run: node scripts/check-co2.js
+        env:
+          TARGET_URL: https://leolem.dev
+          BASELINE_CO2: 0.05 # Adjust baseline (grams) as needed
