@@ -23,7 +23,6 @@ jobs:
         with:
           path: dist
           key: build-dist-${{ github.sha }}
-          fail-on-cache-miss: true
           restore-keys: |
             build-dist-
       - uses: actions/upload-pages-artifact@v3
