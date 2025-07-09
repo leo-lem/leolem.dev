@@ -2,6 +2,8 @@
 import BaseLayout from "../BaseLayout.astro";
 import Timeline from "../components/Timeline.astro";
 
+import { Content as AboutMe } from "../content/about.md";
+
 import { getCollection } from "astro:content";
 const stations = (await getCollection("stations"))
   .sort(
@@ -46,10 +48,8 @@ const highlights = await getCollection("highlights");
       >
         I'm Leo.
       </h1>
-      <p class="text-lg max-w-md">
-        I'm a Master's student at the University of Hamburg and a Software
-        Engineer at Capgemini. My journey has taken me through various roles,
-        from developing sustainability tools to full-stack and iOS development.
+      <p class="max-w-md">
+        <AboutMe />
       </p>
     </div>
 

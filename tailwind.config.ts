@@ -22,7 +22,9 @@ const config: Config = {
     },
   },
   darkMode: 'media',
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography')
+  ],
 };
 
 export default config;

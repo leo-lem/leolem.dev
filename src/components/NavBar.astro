@@ -26,30 +26,38 @@ const navigation = [
 ---
 
 <nav
-  class="flex flex-col md:flex-row md:items-center md:justify-between px-4 md:px-6 py-4 shadow shadow-white/15 space-y-4 md:space-y-0"
+  class="flex flex-col md:flex-row md:items-center md:justify-between px-4 md:px-6 py-4 shadow shadow-white/15"
   style="background-color: var(--bg-color);"
 >
+  <!-- Draggable avatar -->
+  <div
+    id="draggable-avatar"
+    class="fixed z-50 cursor-grab"
+    style="transition: transform 0.5s ease; box-shadow: 0 8px 20px rgba(0,0,0,0.6); border-radius: 50%;"
+  >
+    <img
+      src={avatarUrl}
+      alt="Leopold Lemmermann"
+      class="w-10 h-10 rounded-full object-cover transform"
+    />
+  </div>
+
   <!-- Left block: avatar + name + socials -->
-  <div class="flex items-center justify-between space-x-2 min-w-0 flex-shrink">
-    <a href="/" class="flex items-center space-x-3 group flex-shrink">
-      <img
-        src={avatarUrl}
-        alt="Leopold Lemmermann"
-        class="w-10 h-10 rounded-full object-cover border transform transition group-hover:scale-105 flex-shrink-0"
-      />
-      <div
+  <div class="flex items-center justify-between md:space-x-4">
+    <div class="flex items-center space-x-3">
+      <div class="w-10 h-10 z-30 rounded-full border"></div>
+
+      <a
+        href="/"
         class="flex flex-col whitespace-nowrap min-w-0 animate-slidefadein nav-link-gradient"
       >
-        <span class="font-semibold text-xs sm:text-sm truncate"
-          >Leopold Lemmermann</span
-        >
-        <span class="text-xs sm:text-sm truncate">Software Engineer | BSc</span>
-      </div>
-    </a>
-
+        <span class="font-semibold sm:text-sm text-xs">Leopold Lemmermann</span>
+        <span class="sm:text-sm text-xs">Software Engineer | BSc</span>
+      </a>
+    </div>
     <!-- Social links -->
     <div
-      class="flex flex-col sm:flex-col md:flex-row items-center space-y-2 sm:space-y-2 md:space-y-0 md:space-x-3 opacity-0 animate-slidefadein flex-shrink-0"
+      class="flex flex-col sm:flex-row items-center md:space-y-0 sm:space-x-3 opacity-0 animate-slidefadein flex-shrink-0"
     >
       {
         socials.map(({ href, label, icon }) => (
@@ -62,7 +70,7 @@ const navigation = [
             <img
               src={`/icons/${icon}`}
               alt={label}
-              class="h-5 w-5 invert-0 dark:invert"
+              class="h-5 w-5 sm:h-10 sm:w-10 invert-0 dark:invert"
             />
           </a>
         ))
@@ -87,3 +95,16 @@ const navigation = [
     }
   </div>
 </nav>
+
+<script is:inline src="/scripts/avatar.js"></script>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const path = window.location.pathname;
+    document.querySelectorAll("nav a").forEach((link) => {
+      if (link.getAttribute("href") === path) {
+        link.classList.add("active-nav-link");
+      }
+    });
+  });
+</script>
