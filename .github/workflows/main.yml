@@ -39,6 +39,13 @@ jobs:
         run: npx playwright test test/smoke.spec.ts
         env:
           BASE_URL: https://leolem.dev
+      - name: Publish Playwright Test Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Playwright Tests
+          path: test-results.xml
+          reporter: java-junit
 
   co2:
     needs: deploy

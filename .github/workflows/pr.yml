@@ -35,3 +35,10 @@ jobs:
           npx playwright test
         env:
           BASE_URL: http://localhost:3000
+      - name: Publish Playwright Test Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Playwright Tests
+          path: test-results.xml
+          reporter: java-junit

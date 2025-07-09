@@ -4,4 +4,4 @@ node_modules/
 npm-debug.log*
 .DS_Store
 .vscode/
-test-results/
+test-results*
