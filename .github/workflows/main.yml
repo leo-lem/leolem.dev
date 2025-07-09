@@ -31,6 +31,8 @@ jobs:
   smoke:
     needs: deploy
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node
@@ -50,6 +52,8 @@ jobs:
   co2:
     needs: deploy
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Calculate CO2 🌱
         uses: GeopJr/CO2@v1
