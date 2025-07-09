@@ -1,8 +1,8 @@
-name: Deploy, Smoke Test, and CO2 Check
+name: Deploy, Smoke Test, and CO2 Calculation
 
 on:
   push:
-    branches: [tests, main] # TODO: remove tests branch once stable
+    branches: [main]
 
 jobs:
   deploy:

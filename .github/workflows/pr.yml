@@ -1,8 +1,8 @@
 name: PR Build and Local Smoke Test
 
 on:
-  push: # TODO: change to pull_request when ready
-    branches: [tests, main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
