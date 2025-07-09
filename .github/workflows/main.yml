@@ -1,14 +1,16 @@
 name: Deploy, Smoke Test, and CO2 Calculation
 
+permissions:
+  contents: read
+
 on:
   push:
-    branches: [main]
+    branches: [tests, main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       pages: write
       id-token: write
     environment:
@@ -32,7 +34,8 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      actions: read
+      checks: write
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node
@@ -52,8 +55,6 @@ jobs:
   co2:
     needs: deploy
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
       - name: Calculate CO2 🌱
         uses: GeopJr/CO2@v1
