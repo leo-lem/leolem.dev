@@ -49,7 +49,7 @@ const navigation = [
 
       <a
         href="/"
-        class="flex flex-col items-center whitespace-nowrap min-w-0 animate-slidefadein nav-link-gradient"
+        class="flex flex-col whitespace-nowrap min-w-0 animate-slidefadein nav-link-gradient"
       >
         <span class="font-semibold sm:text-sm text-xs">Leopold Lemmermann</span>
         <span class="sm:text-sm text-xs">Software Engineer | BSc</span>
@@ -97,3 +97,14 @@ const navigation = [
 </nav>
 
 <script is:inline src="/scripts/avatar.js"></script>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const path = window.location.pathname;
+    document.querySelectorAll("nav a").forEach((link) => {
+      if (link.getAttribute("href") === path) {
+        link.classList.add("active-nav-link");
+      }
+    });
+  });
+</script>

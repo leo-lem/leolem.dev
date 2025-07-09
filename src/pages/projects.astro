@@ -26,7 +26,9 @@ const projects = await Promise.all(
             ))}
           </div>
 
-          <Content class="prose dark:prose-invert max-w-none" />
+          <div class="prose dark:prose-invert max-w-none">
+            <Content />
+          </div>
 
           {data.links && (
             <div class="flex gap-4 mt-4">
@@ -53,7 +55,8 @@ const projects = await Promise.all(
                 <img
                   src={img}
                   alt={`${data.title} screenshot`}
-                  class="rounded-lg shadow"
+                  class="rounded-lg shadow cursor-pointer"
+                  onclick={`showModal('${img}')`}
                 />
               ))}
             </div>
@@ -62,4 +65,37 @@ const projects = await Promise.all(
       ))
     }
   </section>
+  <!-- Simple fullscreen modal viewer -->
+  <div
+    id="image-modal"
+    class="fixed inset-0 bg-black bg-opacity-80 hidden z-50"
+    onclick="hideModal()"
+  >
+    <div class="flex items-center justify-center h-full">
+      <img
+        id="modal-img"
+        src=""
+        class="max-h-full max-w-full rounded shadow-lg"
+      />
+    </div>
+  </div>
+
+  <script is:inline>
+    function showModal(src) {
+      const modal = document.getElementById("image-modal");
+      const modalImg = document.getElementById("modal-img");
+      modalImg.src = src;
+      modal.classList.remove("hidden");
+    }
+
+    function hideModal() {
+      document.getElementById("image-modal").classList.add("hidden");
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        hideModal();
+      }
+    });
+  </script>
 </BaseLayout>
