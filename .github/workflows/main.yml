@@ -19,12 +19,13 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: dist
           key: build-dist-${{ github.sha }}
-          restore-keys: build-dist-
           fail-on-cache-miss: true
+          restore-keys: |
+            build-dist-
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
@@ -60,11 +61,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: baseline-co2.txt
           key: baseline-co2-${{ github.sha }}
-          restore-keys: baseline-co2-
+          restore-keys: |
+            baseline-co2-
       - name: Check CO2 regression
         run: node script/check-co2.js
         env:
