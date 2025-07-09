@@ -11,10 +11,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node
       - run: npm run build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/cache@v3
         with:
           path: dist
-          name: site-dist
+          key: build-dist-${{ github.sha }}
 
   smoke:
     needs: build
@@ -22,10 +22,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node
-      - uses: actions/download-artifact@v4
+      - uses: actions/cache@v3
         with:
-          name: site-dist
           path: dist
+          key: build-dist-${{ github.sha }}
+          restore-keys: build-dist-
       - run: npx playwright install
       - name: Run local Playwright tests
         run: |

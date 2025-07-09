@@ -15,10 +15,12 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/cache@v3
         with:
-          name: site-dist
           path: dist
+          key: build-dist-${{ github.sha }}
+          restore-keys: build-dist-
+          fail-on-cache-miss: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
@@ -29,8 +31,6 @@ jobs:
   smoke:
     needs: deploy
     runs-on: ubuntu-latest
-    container:
-      image: node:20
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node
@@ -38,7 +38,7 @@ jobs:
       - name: Run Playwright smoke tests
         run: npx playwright test test/smoke.spec.ts
         env:
-          BASE_URL: https://me.leolem.dev
+          BASE_URL: https://leolem.dev
 
   co2:
     needs: deploy
@@ -47,4 +47,4 @@ jobs:
       - name: Calculate CO2 🌱
         uses: GeopJr/CO2@v1
         with:
-          url: https://me.leolem.dev
+          url: https://leolem.dev
