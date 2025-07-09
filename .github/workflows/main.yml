@@ -3,6 +3,9 @@ on:
   push:
     branches: [tests, main]
     paths-ignore: ["README.md", ".github/dependabot.yml", ".devcontainer.json", ".github/workflows/pr.yml"]
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 
