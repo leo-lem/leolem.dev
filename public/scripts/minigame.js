@@ -1,19 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Config
-  const hoverDelay = 200; // ms before moving avatar
-  const resetInterval = 3000; // ms to reset avatar after move
-  const confettiCount = 100; // number of confetti pieces
+  const delay = 50; // ms before moving avatar
+  const timeout = 2500; // ms to reset avatar after move
+  const confetti = 50; // number of confetti pieces
+  const isMobile = window.innerWidth < 640;
 
   // Elements and state
   const avatar = document.getElementById("draggable-avatar");
   const img = avatar.querySelector("img");
   const originalX = avatar.offsetLeft;
   const originalY = avatar.offsetTop;
-  let timerId = null;
-  let isFullscreen = false;
-  let fullscreenTimerId = null;
-  let hoverTimer = null;
 
+  let timerId = null;
+  let hoverTimer = null;
   function moveToRandomPosition() {
     if (isFullscreen) return;
 
@@ -27,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     avatar.style.transform = `translate(${randomX - originalX}px, ${randomY - originalY}px)`;
 
     if (timerId) clearTimeout(timerId);
-    timerId = setTimeout(resetAvatarPosition, resetInterval);
+    timerId = setTimeout(resetAvatarPosition, timeout);
   }
 
   function resetAvatarPosition() {
@@ -41,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function simpleConfetti() {
-    for (let i = 0; i < confettiCount; i++) {
+    for (let i = 0; i < confetti; i++) {
       const confetto = document.createElement("div");
       confetto.style.position = "fixed";
       confetto.style.width = "6px";
@@ -71,59 +69,43 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  let isFullscreen = false;
+  let fullscreenTimerId = null;
   function toggleFullscreen() {
-    if (!isFullscreen) {
-      isFullscreen = true;
+    if (isMobile) return;
+    isFullscreen = !isFullscreen;
+
+    Object.assign(avatar.style, {
+      position: "fixed",
+      top: isFullscreen ? "50%" : originalY + "px",
+      left: isFullscreen ? "50%" : originalX + "px",
+      width: isFullscreen ? "50vmin" : "",
+      height: isFullscreen ? "50vmin" : "",
+      transform: isFullscreen ? "translate(-50%, -50%)" : "translate(0, 0)",
+      transition: "all 0.5s ease",
+      zIndex: isFullscreen ? "9999" : "",
+      borderRadius: "50%"
+    });
+
+    Object.assign(img.style, {
+      width: isFullscreen ? "100%" : "40px",
+      height: isFullscreen ? "100%" : "40px",
+      objectFit: "cover"
+    });
+
+    if (isFullscreen) {
+      fullscreenTimerId = setTimeout(toggleFullscreen, timeout);
       simpleConfetti();
-
-      Object.assign(avatar.style, {
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        width: "50vmin",
-        height: "50vmin",
-        transform: "translate(-50%, -50%)",
-        transition: "all 0.5s ease",
-        zIndex: "9999",
-        borderRadius: "50%"
-      });
-
-      Object.assign(img.style, {
-        width: "100%",
-        height: "100%",
-        objectFit: "cover"
-      });
-
-      fullscreenTimerId = setTimeout(toggleFullscreen, resetInterval);
-    } else {
-      isFullscreen = false;
-      if (fullscreenTimerId) clearTimeout(fullscreenTimerId);
-
-      Object.assign(avatar.style, {
-        position: "fixed",
-        top: originalY + "px",
-        left: originalX + "px",
-        width: "",
-        height: "",
-        transition: "transform 0.5s ease",
-        zIndex: "",
-        borderRadius: "50%",
-        transform: "translate(0,0)"
-      });
-
-      Object.assign(img.style, {
-        width: "40px",
-        height: "40px",
-        objectFit: "cover"
-      });
-    }
+    } else clearTimeout(fullscreenTimerId);
   }
 
-  // Event listeners
+  avatar.addEventListener("touchstart", () => {
+    if (hoverTimer) clearTimeout(hoverTimer);
+    hoverTimer = setTimeout(moveToRandomPosition, delay);
+  });
   avatar.addEventListener("mouseenter", () => {
     if (hoverTimer) clearTimeout(hoverTimer);
-    hoverTimer = setTimeout(moveToRandomPosition, hoverDelay);
+    hoverTimer = setTimeout(moveToRandomPosition, delay);
   });
-
   avatar.addEventListener("click", toggleFullscreen);
 });
