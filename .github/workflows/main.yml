@@ -67,6 +67,6 @@ jobs:
           restore-keys: |
             baseline-co2-
       - name: Check CO2 regression
-        run: node script/check-co2.js
+        run: node test/check-co2.js
         env:
           TARGET_URL: https://leolem.dev

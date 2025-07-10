@@ -1,11 +1,13 @@
 {
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:latest",
+	"postCreateCommand": "sudo sh -c 'echo \"Acquire::http::Pipeline-Depth \\\"0\\\";\\nAcquire::http::No-Cache true;\\nAcquire::BrokenProxy true;\" > /etc/apt/apt.conf.d/99fixbadproxy' && sudo npx playwright install-deps && npx playwright install",
 	"postStartCommand": "npm run dev",
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"astro-build.astro-vscode",
-				"bradlc.vscode-tailwindcss"
+				"bradlc.vscode-tailwindcss",
+				"ms-playwright.playwright"
 			]
 		}
 	},

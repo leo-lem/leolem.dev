@@ -1,12 +1,13 @@
 {
   "name": "leolem.dev",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.1",
   "scripts": {
     "dev": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "playwright test"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",
