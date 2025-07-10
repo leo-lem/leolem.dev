@@ -1,6 +1,6 @@
 ---
 const avatarUrl = "/profile.webp";
-const currentPath = new URL(Astro.url).pathname;
+const currentPath = Astro.url.pathname;
 const socials = [
   {
     href: "https://github.com/leo-lem",
@@ -15,11 +15,11 @@ const socials = [
 ];
 const navigation = [
   {
-    href: "/about",
+    href: "/about/",
     label: "About"
   },
   {
-    href: "/projects",
+    href: "/projects/",
     label: "Projects"
   }
 ];
@@ -97,14 +97,3 @@ const navigation = [
 </nav>
 
 <script is:inline src="/scripts/avatar.js"></script>
-
-<script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
-    const path = window.location.pathname;
-    document.querySelectorAll("nav a").forEach((link) => {
-      if (link.getAttribute("href") === path) {
-        link.classList.add("active-nav-link");
-      }
-    });
-  });
-</script>

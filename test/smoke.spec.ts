@@ -7,10 +7,10 @@ test('homepage loads', async ({ page }) => {
 
 test('about page loads', async ({ page }) => {
   await page.goto('/about');
-  await expect(page.locator('h1')).toContainText('Leo');
+  await expect(page.getByRole('heading', { name: "I'm Leo." })).toBeVisible();
 });
 
 test('projects page loads', async ({ page }) => {
   await page.goto('/projects');
-  await expect(page.locator('h1')).toContainText('Projects');
+  await expect(page.getByRole('heading', { name: 'Projects' })).toBeVisible();
 });

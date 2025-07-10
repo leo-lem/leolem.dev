@@ -8,7 +8,6 @@ export interface Station {
   };
   body: any;
 }
-
 const { stations } = Astro.props;
 ---
 
@@ -75,7 +74,8 @@ const { stations } = Astro.props;
 
         {/* Mobile layout */}
         <div class="md:hidden pl-10 relative">
-          <div class="absolute left-0 top-3 w-4 border-t-2" />
+          <div class="absolute left-4 top-3 w-4 border-t-2" />
+
           <h3 class="text-xl font-semibold">{station.data.title}</h3>
           <h4
             class="text-lg font-semibold"
