@@ -1,0 +1,22 @@
+{
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "dev",
+	"workspaceFolder": "/workspace",
+	"postCreateCommand": "npm install",
+	"postStartCommand": "npm run dev",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"astro-build.astro-vscode",
+				"bradlc.vscode-tailwindcss",
+				"ms-playwright.playwright"
+			]
+		}
+	},
+	"portsAttributes": {
+		"4321": {
+			"label": "Astro",
+			"onAutoForward": "openPreview"
+		}
+	}
+}
