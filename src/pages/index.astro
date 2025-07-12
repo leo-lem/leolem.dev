@@ -29,7 +29,7 @@ const projects = (await getCollection("projects"))
             <div class="border rounded shadow hover:shadow-lg dark:shadow-white/10 dark:hover:shadow-white/30 transition overflow-hidden">
               {project.data.thumbnail && (
                 <img
-                  src={project.data.thumbnail}
+                  src={"images/" + project.data.thumbnail}
                   alt={project.data.title}
                   class="w-full aspect-square object-cover"
                 />
@@ -51,9 +51,7 @@ const projects = (await getCollection("projects"))
 
   <!-- Google Calendar Widget -->
   <div class="flex justify-center">
-    <div
-      class="w-full max-w-2xl p-2 rounded bg-[var(--border-color)]"
-    >
+    <div class="w-full max-w-2xl p-2 rounded bg-[var(--border-color)]">
       <iframe
         src="https://calendar.google.com/calendar/appointments/AcZssZ0Uf9NSuQOy5kmC7a86grhHsaI3ESFj1eLPems=?gv=true"
         style="border: 0"

@@ -1,6 +1,5 @@
 ---
 const avatarUrl = "/profile.webp";
-const currentPath = Astro.url.pathname;
 const socials = [
   {
     href: "https://github.com/leo-lem",
@@ -21,8 +20,19 @@ const navigation = [
   {
     href: "/projects/",
     label: "Projects"
+  },
+  {
+    href: "/services/",
+    label: "Services"
   }
 ];
+
+function isCurrentPage(href: string) {
+  return (
+    Astro.url.pathname.replace(/[#?].*$/, "").replace(/\/$/, "") ===
+    href.replace(/[#?].*$/, "").replace(/\/$/, "")
+  );
+}
 ---
 
 <script is:inline src="/scripts/minigame.js"></script>
@@ -85,8 +95,8 @@ const navigation = [
       navigation.map(({ href, label }) => (
         <a
           href={href}
-          class={`nav-link-gradient ${currentPath === href ? "font-bold underline" : ""}`}
-          aria-current={currentPath === href ? "page" : undefined}
+          class={`nav-link-gradient ${isCurrentPage(href) ? "font-bold underline" : ""}`}
+          aria-current={isCurrentPage(href) ? "page" : undefined}
         >
           {label}
         </a>

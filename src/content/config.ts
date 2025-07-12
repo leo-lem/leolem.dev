@@ -39,4 +39,15 @@ const highlights = defineCollection({
   }),
 });
 
-export const collections = { projects, stations, skills, highlights };
+const services = defineCollection({
+  schema: z.object({
+    title: z.string(),                     // e.g. "CI/CD Pipeline Setup"
+    short: z.string(),                     // short description for cards
+    tags: z.array(z.string()),             // e.g. ["devops", "ci/cd"]
+    image: z.string().optional(),          // local path or static image
+    ctaLabel: z.string().optional(),       // e.g. "View on Fiverr"
+    ctaUrl: z.string().url().optional(),   // external link
+  })
+});
+
+export const collections = { projects, stations, skills, highlights, services };

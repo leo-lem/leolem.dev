@@ -1,7 +1,7 @@
 ---
 import "./global.css";
 import NavBar from "./components/NavBar.astro";
-const { title } = Astro.props;
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,6 +23,14 @@ const { title } = Astro.props;
     <NavBar />
 
     <main class="max-w-3xl mx-auto p-8 gap-20 flex flex-col">
+      {
+        description && (
+          <section class="text-center mb-8">
+            <h1 class="text-4xl font-bold capitalize">{title}</h1>
+            <p class="text-gray-600 mt-2 max-w-xl mx-auto">{description}</p>
+          </section>
+        )
+      }
       <slot />
     </main>
   </body>

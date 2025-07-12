@@ -10,10 +10,11 @@ const projects = await Promise.all(
 );
 ---
 
-<BaseLayout title="Projects">
+<BaseLayout
+  title="Projects"
+  description="Explore my projects showcasing my skills in iOS development, CI/CD automation, and more. Each project highlights my approach to clean, reliable code and production-ready solutions."
+>
   <section class="max-w-5xl mx-auto py-12 px-4 space-y-12">
-    <h1 class="text-4xl font-bold text-center mb-8">Projects</h1>
-
     {
       projects.map(({ data, slug, Content }) => (
         <div id={slug} class="space-y-4 border-b pb-8">
@@ -53,7 +54,7 @@ const projects = await Promise.all(
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
               {data.images.map((img) => (
                 <img
-                  src={img}
+                  src={"images/" + img}
                   alt={`${data.title} screenshot`}
                   class="rounded-lg shadow cursor-pointer"
                   onclick={`showModal('${img}')`}
