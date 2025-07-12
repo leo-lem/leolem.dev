@@ -10,6 +10,29 @@ const socials = [
 
 <script is:inline src="/scripts/minigame.js"></script>
 
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("mobile-menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+
+    toggle?.addEventListener("click", () => {
+      const isHidden = menu?.classList.contains("hidden");
+
+      if (isHidden) {
+        menu.classList.remove("hidden");
+        menu.classList.add("flex");
+        menu.style.maxHeight = menu.scrollHeight + "px";
+      } else {
+        menu.style.maxHeight = "0px";
+        setTimeout(() => {
+          menu.classList.remove("flex");
+          menu.classList.add("hidden");
+        }, 300);
+      }
+    });
+  });
+</script>
+
 <nav
   class="default-color sticky flex flex-col gap-2 p-3 z-10 shadow shadow-white/15 sm:flex-row sm:items-center sm:justify-between"
 >
@@ -43,11 +66,27 @@ const socials = [
           />
         ))
       }
+
+      <button id="mobile-menu-toggle" class="sm:hidden focus:outline-none">
+        <svg
+          class="w-6 h-6 text-white"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
     </div>
   </div>
 
   <div
-    class="animate-slidefadein flex flex-col items-center gap-2 sm:flex-row sm:gap-4"
+    id="mobile-menu"
+    class="hidden max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out flex-col items-center gap-2 sm:flex sm:flex-row sm:gap-4 sm:overflow-visible sm:animate-slidefadein"
   >
     {
       navigation.map((item) => (
