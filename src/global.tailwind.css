@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* colors */
+:root {
+  --bg-color: #ffffff;
+  --border-color: #e5e5e5;
+
+  --tag-color: #f2f2f2;
+  --text-tag-color: #555555;
+
+  --card-color: #f9f9f9;
+  --text-card-color: #222222;
+
+  --accent-color-start: #be185d;
+  --accent-color-end: #ca8a04;
+
+  --text-color: #111111;
+  --text-secondary-color: #666666;
+  --text-muted-color: #999999;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1a1c1f;
+    --border-color: #4b4f57;
+
+    --accent-color-start: #be185d;
+    --accent-color-end: #ca8a04;
+
+    --tag-color: #3d2b28;
+    --text-tag-color: #fde68a;
+
+    --card-color: #25262a;
+    --text-card-color: #f3f4f6;
+
+    --text-color: #f3f4f6;
+    --text-secondary-color: #cbd5e1;
+    --text-muted-color: #8b949e;
+  }
+}
+
+
+/* Utility text color classes for consistent usage */
+.default-color {
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  border-color: var(--border-color);
+}
+
+.secondary {
+  color: var(--text-secondary-color);
+}
+
+.muted {
+  color: var(--text-muted-color);
+}
+
+.intense {
+  background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.intense-bg {
+  color: #f9f9f9;
+  background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
+}
+
+.responsive {
+  @apply hover:scale-105 transform transition
+}
+
+
+/* Typography */
+h2 {
+  color: var(--text-color);
+  @apply text-3xl font-bold mb-5 text-center;
+}
+
+h3 {
+  color: var(--text-secondary-color);
+  @apply text-xl font-semibold mb-4;
+}
+
+
+
+/* Component Styles */
+.tag {
+  color: var(--text-tag-color);
+  background-color: var(--tag-color);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  @apply text-xs font-semibold;
+}
+
+.card {
+  background-color: var(--card-color);
+  color: var(--text-card-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.card-image {
+  @apply rounded-lg shadow;
+}
+
+
+/* Navbar Styles */
+.navigation {
+  color: var(--text-color);
+  @apply transition;
+}
+
+.navigation:hover {
+  background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

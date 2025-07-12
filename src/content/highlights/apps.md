@@ -1,5 +1,5 @@
 ---
-icon: 📱
+emoji: 📱
 title: Published 5 iOS apps
 ---
 

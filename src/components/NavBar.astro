@@ -1,94 +1,90 @@
 ---
-const avatarUrl = "/profile.webp";
-const currentPath = Astro.url.pathname;
+import IconLink from "./IconLink.astro";
+
+const navigation = ["about", "projects", "services"];
 const socials = [
-  {
-    href: "https://github.com/leo-lem",
-    label: "GitHub",
-    icon: "github.svg"
-  },
-  {
-    href: "https://linkedin.com/in/leopoldlemmermann",
-    label: "LinkedIn",
-    icon: "linkedin.svg"
-  }
-];
-const navigation = [
-  {
-    href: "/about/",
-    label: "About"
-  },
-  {
-    href: "/projects/",
-    label: "Projects"
-  }
+  "https://github.com/leo-lem",
+  "https://linkedin.com/in/leopoldlemmermann"
 ];
 ---
 
 <script is:inline src="/scripts/minigame.js"></script>
 
-<nav
-  class="sticky top-0 z-50 flex flex-col md:flex-row md:items-center md:justify-between px-4 md:px-6 py-4 shadow shadow-white/15 bg-[var(--bg-color)]"
->
-  <!-- Draggable avatar -->
-  <div
-    id="draggable-avatar"
-    class="absolute z-50 cursor-grab transition-transform duration-500 ease-in-out shadow-[0_8px_20px_rgba(0,0,0,0.6)] rounded-full"
-  >
-    <img
-      src={avatarUrl}
-      alt="Leopold Lemmermann"
-      class="w-10 h-10 rounded-full object-cover transform"
-    />
-  </div>
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("mobile-menu-toggle");
+    const menu = document.getElementById("mobile-menu");
 
-  <!-- Left block: avatar + name + socials -->
-  <div class="flex items-center justify-between md:space-x-4">
-    <div class="flex items-center space-x-3">
-      <div class="w-10 h-10 z-30 rounded-full border"></div>
+    toggle?.addEventListener("click", () => {
+      const isHidden = menu?.classList.contains("hidden");
+
+      if (isHidden) {
+        menu.classList.remove("hidden");
+        menu.classList.add("flex");
+        menu.style.maxHeight = menu.scrollHeight + "px";
+      } else {
+        menu.style.maxHeight = "0px";
+        setTimeout(() => {
+          menu.classList.remove("flex");
+          menu.classList.add("hidden");
+        }, 300);
+      }
+    });
+  });
+</script>
+
+<nav
+  class="sticky top-0 default-color flex flex-col gap-2 p-3 z-10 shadow shadow-[var(--border-color)] sm:flex-row sm:items-center sm:justify-between"
+>
+  <img
+    id="draggable-avatar"
+    src="/profile.webp"
+    alt="Leopold Lemmermann"
+    class="w-10 h-10 absolute z-50 cursor-grab transition-transform duration-500 ease-in-out rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
+  />
+
+  <div class="flex items-center justify-between gap-4">
+    <div class="flex items-center gap-4">
+      <span class="w-10 h-10 rounded-full border"></span>
 
       <a
         href="/"
-        class="flex flex-col whitespace-nowrap min-w-0 animate-slidefadein nav-link-gradient"
+        class="animate-slidefadein navigation flex flex-col whitespace-nowrap"
       >
-        <span class="font-semibold sm:text-sm text-xs">Leopold Lemmermann</span>
-        <span class="sm:text-sm text-xs">Software Engineer | BSc</span>
+        <span class="font-semibold text-xs sm:text-sm">Leopold Lemmermann</span>
+        <span class="text-xs sm:text-sm">Software Engineer | MSc</span>
       </a>
     </div>
 
-    <!-- Social links -->
-    <div class="flex flex-row items-center space-x-3 animate-slidefadein">
+    <div class="animate-slidefadein flex flex-row items-center gap-4">
       {
-        socials.map(({ href, label, icon }) => (
-          <a
-            href={href}
-            class="hover:opacity-70 transition"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              src={`/icons/${icon}`}
-              alt={label}
-              class="h-8 w-8 sm:h-10 sm:w-10 invert-0 dark:invert"
-            />
-          </a>
+        socials.map((url) => (
+          <IconLink
+            type={url.split("https://")[1].split(".")[0]}
+            url={url}
+            size_class="h-6 w-6 sm:h-8 sm:w-8"
+          />
         ))
       }
+
+      <button id="mobile-menu-toggle" class="sm:hidden focus:outline-none">
+        <img src="/icons/menu.svg" alt="Menu" class="h-6 w-6 dark:invert" />
+      </button>
     </div>
   </div>
 
-  <!-- Navigation links: vertical list on small, horizontal on md+ -->
   <div
-    class="flex flex-col md:flex-row md:space-x-6 space-y-2 md:space-y-0 opacity-0 animate-slidefadein items-center"
+    id="mobile-menu"
+    class="hidden max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out flex-col items-center gap-2 sm:flex sm:flex-row sm:gap-4 sm:overflow-visible sm:animate-slidefadein"
   >
     {
-      navigation.map(({ href, label }) => (
+      navigation.map((item) => (
         <a
-          href={href}
-          class={`nav-link-gradient ${currentPath === href ? "font-bold underline" : ""}`}
-          aria-current={currentPath === href ? "page" : undefined}
+          href={`/${item}/`}
+          class={`navigation capitalize ${Astro.url.pathname.includes(item) ? "font-bold underline" : ""}`}
+          aria-current={Astro.url.pathname.includes(item) ? "page" : undefined}
         >
-          {label}
+          {item}
         </a>
       ))
     }

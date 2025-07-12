@@ -1,101 +1,51 @@
 ---
 import BaseLayout from "../BaseLayout.astro";
-import { getCollection } from "astro:content";
+import Screenshot from "../components/Screenshot.astro";
+import IconLink from "../components/IconLink.astro";
+import Tags from "../components/Tags.astro";
 
+import { getCollection } from "astro:content";
 const projects = await Promise.all(
-  (await getCollection("projects")).map(async (project) => {
-    const { Content } = await project.render();
-    return { ...project, Content };
-  })
+  (await getCollection("projects"))
+    .sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0))
+    .map(async (project) => {
+      const { Content } = await project.render();
+      return { ...project, Content };
+    })
 );
 ---
 
-<BaseLayout title="Projects">
-  <section class="max-w-5xl mx-auto py-12 px-4 space-y-12">
-    <h1 class="text-4xl font-bold text-center mb-8">Projects</h1>
+<BaseLayout
+  title="My Projects"
+  description="Explore my projects showcasing my skills in iOS development, CI/CD automation, and more. Each project highlights my approach to clean, reliable code and production-ready solutions."
+>
+  {
+    projects.map(({ data, slug, Content }) => (
+      <section id={slug} class="card flex flex-col gap-4">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-baseline">
+          <h2>{data.title}</h2>
 
-    {
-      projects.map(({ data, slug, Content }) => (
-        <div id={slug} class="space-y-4 border-b pb-8">
-          <h2 class="text-2xl font-semibold">{data.title}</h2>
-          <div class="flex flex-wrap gap-2">
-            {data.tags.map((tag) => (
-              <span class="px-2 py-1 bg-[var(--border-color)] rounded text-sm text-[var(--text-secondary-color)]">
-                {tag}
-              </span>
+          <div class="flex items-center gap-2">
+            {data.links?.map((link) => (
+              <IconLink type={link.type} url={link.url} />
             ))}
           </div>
-
-          <div class="prose dark:prose-invert max-w-none">
-            <Content />
-          </div>
-
-          {data.links && (
-            <div class="flex gap-4 mt-4">
-              {data.links.map((link) => (
-                <a
-                  href={link.url}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  class="flex items-center space-x-1"
-                >
-                  <img
-                    src={`/icons/${link.type}.svg`}
-                    alt={link.type}
-                    class="h-5 w-5 invert-0 dark:invert"
-                  />
-                </a>
-              ))}
-            </div>
-          )}
-
-          {data.images && (
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
-              {data.images.map((img) => (
-                <img
-                  src={img}
-                  alt={`${data.title} screenshot`}
-                  class="rounded-lg shadow cursor-pointer"
-                  onclick={`showModal('${img}')`}
-                />
-              ))}
-            </div>
-          )}
         </div>
-      ))
-    }
-  </section>
-  <!-- Simple fullscreen modal viewer -->
-  <div
-    id="image-modal"
-    class="fixed inset-0 bg-black bg-opacity-80 hidden z-50"
-    onclick="hideModal()"
-  >
-    <div class="flex items-center justify-center h-full">
-      <img
-        id="modal-img"
-        src=""
-        class="max-h-full max-w-full rounded shadow-lg"
-      />
-    </div>
-  </div>
 
-  <script is:inline>
-    function showModal(src) {
-      const modal = document.getElementById("image-modal");
-      const modalImg = document.getElementById("modal-img");
-      modalImg.src = src;
-      modal.classList.remove("hidden");
-    }
+        <Tags tags={data.tags} />
 
-    function hideModal() {
-      document.getElementById("image-modal").classList.add("hidden");
-    }
+        <div class="prose dark:prose-invert max-w-none sm:text-justify">
+          <Content />
+        </div>
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        hideModal();
-      }
-    });
-  </script>
+        {data.images && (
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {data.images.map((img) => (
+              <Screenshot src={img} alt={data.title} />
+            ))}
+          </div>
+        )}
+      </section>
+    ))
+  }
 </BaseLayout>

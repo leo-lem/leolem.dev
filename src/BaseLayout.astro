@@ -1,7 +1,8 @@
 ---
-import "./global.css";
+import "./global.tailwind.css";
 import NavBar from "./components/NavBar.astro";
-const { title } = Astro.props;
+
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
@@ -9,7 +10,10 @@ const { title } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,12 +21,18 @@ const { title } = Astro.props;
       rel="stylesheet"
     />
   </head>
-  <body
-    style="background-color: var(--bg-color); color: var(--text-color); border-color: var(--border-color);"
-  >
+  <body class="default-color min-w-[360px]">
     <NavBar />
 
-    <main class="max-w-3xl mx-auto p-8 gap-20 flex flex-col">
+    <main class="max-w-3xl mx-auto flex flex-col gap-20 p-10 mb-32">
+      {
+        description && (
+          <section class="text-center px-10">
+            <h1 class="text-4xl font-bold capitalize mb-5">{title}</h1>
+            <p class="secondary max-w-xl mx-auto text-xl">{description}</p>
+          </section>
+        )
+      }
       <slot />
     </main>
   </body>

@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../BaseLayout.astro";
+import Tags from "../components/Tags.astro";
+
+import { getCollection } from "astro:content";
+const services = await Promise.all(
+  (await getCollection("services")).map(async (service) => {
+    const { Content } = await service.render();
+    return { ...service, Content };
+  })
+);
+---
+
+<BaseLayout
+  title="My Services"
+  description="Explore the services I offer, including iOS development, CI/CD automation, and more. Each service is designed to help you achieve your goals with clean, reliable code and production-ready solutions."
+>
+  <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    {
+      services.map(
+        ({
+          data: { title, short, tags, image, ctaUrl, ctaLabel },
+          Content
+        }) => (
+          <div class="card flex flex-col gap-4">
+            {image && (
+              <img
+                src={`/images/services/${image}`}
+                alt={title}
+                class="card-image"
+              />
+            )}
+
+            <h2>{title}</h2>
+
+            <p>{short}</p>
+
+            <Tags tags={tags} />
+
+            <div class="prose prose-sm dark:prose-invert">
+              <Content />
+            </div>
+
+            {ctaUrl && (
+              <a
+                href={ctaUrl}
+                class="intense-bg responsive font-bold text-center rounded p-2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {ctaLabel || "Learn More"}
+              </a>
+            )}
+          </div>
+        )
+      )
+    }
+  </section>
+
+  <!-- Google Calendar Widget -->
+  <section class="flex flex-col items-center">
+    <h2>Book a Meeting</h2>
+    <div class="card w-full max-w-2xl dark:bg-gray-300">
+      <iframe
+        src="https://calendar.google.com/calendar/appointments/AcZssZ0Uf9NSuQOy5kmC7a86grhHsaI3ESFj1eLPems=?gv=true"
+        width="100%"
+        height="500"
+        title="Google Calendar Booking Widget"></iframe>
+    </div>
+  </section>
+</BaseLayout>

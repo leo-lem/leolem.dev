@@ -22,4 +22,7 @@ Smokes is an iOS application designed to help users track their smoking habits b
 
 ### My Contributions
 
-Designed and developed the app using Swift and SwiftUI, ensuring a seamless, intuitive user experience. Built the backend infrastructure to handle user data and statistics securely. Implemented key features such as habit tracking, data visualization, and analytics. Utilized CI/CD pipelines and Amazon Web Services (AWS) for efficient deployment and scalability. Managed the app's release on the App Store, including licensing and compliance.
+1. Designed and developed the app using Swift and SwiftUI, ensuring a seamless, intuitive user experience.
+2. Implemented key features such as habit tracking, data visualization, and analytics.
+3. Utilized CI/CD pipelines and Amazon Web Services (AWS) for efficient deployment and scalability.
+4. Managed the app's release on the App Store, including licensing and compliance.
