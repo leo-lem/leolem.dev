@@ -42,6 +42,8 @@ const highlights = defineCollection({
 
 const services = defineCollection({
   schema: z.object({
+    featured: z.boolean().default(false), // true for featured services
+    icon: z.string().optional(),           // e.g. "swift.svg" or "cicd.svg"
     title: z.string(),                     // e.g. "CI/CD Pipeline Setup"
     short: z.string(),                     // short description for cards
     tags: z.array(z.string()),             // e.g. ["devops", "ci/cd"]

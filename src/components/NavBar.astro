@@ -26,7 +26,7 @@ const socials = [
 
       <a
         href="/"
-        class="animate-slidefadein nav-link-gradient flex flex-col whitespace-nowrap"
+        class="animate-slidefadein navigation flex flex-col whitespace-nowrap"
       >
         <span class="font-semibold text-xs sm:text-sm">Leopold Lemmermann</span>
         <span class="text-xs sm:text-sm">Software Engineer | BSc</span>
@@ -53,7 +53,7 @@ const socials = [
       navigation.map((item) => (
         <a
           href={`/${item}/`}
-          class={`capitalize nav-link-gradient ${Astro.url.pathname.includes(item) ? "font-bold underline" : ""}`}
+          class={`navigation capitalize ${Astro.url.pathname.includes(item) ? "font-bold underline" : ""}`}
           aria-current={Astro.url.pathname.includes(item) ? "page" : undefined}
         >
           {item}

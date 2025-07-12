@@ -1,51 +1,85 @@
 ---
 import BaseLayout from "../BaseLayout.astro";
 import { getCollection } from "astro:content";
+import Tags from "../components/Tags.astro";
 
-const projects = (await getCollection("projects"))
-  .filter(({ data: { featured } }) => featured)
-  .slice(0, 2);
+const projects = (await getCollection("projects")).filter(
+  ({ data: { featured } }) => featured
+);
+
+const services = (await getCollection("services")).filter(
+  ({ data: { featured } }) => featured
+);
 ---
 
 <BaseLayout title="Leopold Lemmermann">
-  <!-- Hero section -->
-  <section class="flex flex-col items-center justify-center text-center">
-    <p class="text-2xl md:text-2xl max-w-2xl">
-      I'm a Master's student at the University of Hamburg and a Software
-      Engineer at Capgemini. I love building solutions that connect technology
-      with purpose.
-      <a href="/about" class="nav-link-gradient text-[var(--text-muted-color)]">
-        Learn more.</a
-      >
+  <section class="max-w-xl text-2xl text-center m-auto">
+    I'm a Master's student at the University of Hamburg and a Software Engineer
+    at Capgemini. I love building solutions that connect technology with
+    purpose.
+    <a
+      href="/about"
+      class="intense inline-block transform hover:underline hover:scale-105 transition duration-200"
+    >
+      Learn more.
+    </a>
+  </section>
+
+  <section class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-center">
+    {
+      projects.map((project: any) => (
+        <a
+          href={`/projects#${project.slug}`}
+          class="card navigation flex flex-col gap-4"
+        >
+          {project.data.thumbnail && (
+            <img
+              src={"images/" + project.data.thumbnail}
+              alt={project.data.title}
+              class="w-max aspect-square object-cover"
+            />
+          )}
+          <h2>{project.data.title}</h2>
+        </a>
+      ))
+    }
+
+    <p class="text-center sm:col-span-2">
+      <a
+        href="/projects"
+        class="intense inline-block transform hover:underline hover:scale-105 transition duration-200"
+        >See all projects →
+      </a>
     </p>
   </section>
 
-  <!-- Top two featured projects dynamically generated -->
-  <section>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
+  <section class="max-w-lg text-lg text-center m-auto mt-10 space-y-4">
+    <p>
+      I also offer services — including mobile app development with SwiftUI and
+      custom CI/CD automation for modern software projects.
+    </p>
+
+    <div class="grid sm:grid-cols-2 gap-6">
       {
-        projects.map((project: any) => (
-          <a href={`/projects#${project.slug}`} class="nav-link-gradient">
-            <div class="border rounded shadow hover:shadow-lg dark:shadow-white/10 dark:hover:shadow-white/30 transition overflow-hidden">
-              {project.data.thumbnail && (
-                <img
-                  src={"images/" + project.data.thumbnail}
-                  alt={project.data.title}
-                  class="w-full aspect-square object-cover"
-                />
-              )}
-              <div class="p-4 text-center">
-                <h2 class="text-2xl font-semibold mb-2">
-                  {project.data.title}
-                </h2>
-                <p class="mb-2 text-[var(--text-muted-color)]">
-                  {project.data.tags.join(", ")}
-                </p>
-              </div>
-            </div>
-          </a>
+        services.map(({ data: { icon, title, short } }: any) => (
+          <div class="responsive card flex flex-col items-center gap-2">
+            <img
+              src={`/icons/${icon}`}
+              alt={title}
+              class="h-10 w-10 dark:invert"
+            />
+            <h2 class="text-lg font-semibold mb-0">{title}</h2>
+            <p class="muted text-sm">{short}</p>
+          </div>
         ))
       }
     </div>
+
+    <a
+      href="/services"
+      class="intense inline-block transform hover:underline hover:text-[var(--accent-color-end)] hover:scale-105 transition duration-200"
+    >
+      Explore services.
+    </a>
   </section>
 </BaseLayout>

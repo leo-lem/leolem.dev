@@ -72,6 +72,15 @@ nav {
 
 .intense {
   background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.intense-bg {
+  color: #f9f9f9;
+  background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
 }
 
 .responsive {
@@ -115,12 +124,12 @@ h3 {
 
 
 /* Navbar Styles */
-.nav-link-gradient {
+.navigation {
   color: var(--text-color);
   @apply: transition
 }
 
-.nav-link-gradient:hover {
+.navigation:hover {
   background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
   background-clip: text;
   -webkit-background-clip: text;

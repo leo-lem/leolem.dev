@@ -1,8 +1,10 @@
 ---
+featured: true
+icon: "swift.svg"
 title: "SwiftUI MVP App with Local Data & Animations"
 short: "Build a lightweight SwiftUI app or MVP with local persistence and smooth UI."
 tags: ["ios", "swiftui", "mvp", "mobile", "core data"]
-image: "swiftui.png"
+image: "swiftui.avif"
 ctaLabel: "View on Fiverr"
 ctaUrl: "https://www.fiverr.com/s/wkNe3Xv"
 ---

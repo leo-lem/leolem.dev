@@ -3,11 +3,11 @@ import BaseLayout from "../BaseLayout.astro";
 import Screenshot from "../components/Screenshot.astro";
 import IconLink from "../components/IconLink.astro";
 import Tags from "../components/Tags.astro";
-import { getCollection } from "astro:content";
 
+import { getCollection } from "astro:content";
 const projects = await Promise.all(
   (await getCollection("projects"))
-    .sort((a, b) => (b.data.featured ? 1 : -1 - a.data.featured ? -1 : 0))
+    .sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0))
     .map(async (project) => {
       const { Content } = await project.render();
       return { ...project, Content };
