@@ -20,7 +20,7 @@ const { src, alt = "Project Screenshot" } = Astro.props;
 <img
   src={`/images/${src}`}
   alt={alt}
-  class="rounded-lg shadow cursor-pointer"
+  class="card-image cursor-pointer"
   onclick={`showModal('/images/${src}')`}
 />
 

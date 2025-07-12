@@ -16,16 +16,41 @@ nav {
   --text-secondary-color: #39424c;
   --text-muted-color: #909aac;
   --border-color: #7d93b8;
+
+  --accent-color-start: #be185d;
+  /* dark pink */
+  --accent-color-end: #ca8a04;
+  /* dark amber */
+
+  --tag-color: #fef3c7;
+  /* light amber-100 */
+  --text-tag-color: #78350f;
+  /* amber-900 */
+  --card-color: #fdf6f0;
+  /* subtle warm off-white */
+  --text-card-color: #1f2937;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #000000;
-    --primary-color: #f3f4f6;
+    --bg-color: #0f1115;
+    --border-color: #4b5563;
+
+    --accent-color-start: #be185d;
+    --accent-color-end: #ca8a04;
+
+    --tag-color: #7a3e2f;
+    /* deep warm brown-red */
+    --text-tag-color: #fefce8;
+    /* warm off-white */
+
+    --card-color: #1e1b1a;
+    /* dark slate with warmth */
+    --text-card-color: #f9f9f9;
+
     --text-color: #f9f9f9;
-    --text-secondary-color: #62676e;
-    --text-muted-color: #8b919c;
-    --border-color: #c6c7c8;
+    --text-secondary-color: #a1a1aa;
+    --text-muted-color: #6b7280;
   }
 }
 
@@ -37,8 +62,55 @@ nav {
 
 /* Only apply gradient on hover */
 .nav-link-gradient:hover {
-  background: linear-gradient(to right, #ec4899, #facc15);
+  background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.intense-button {
+  @apply inline-block font-bold px-4 py-2 rounded shadow transition;
+  background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
+  color: #dddddd;
+}
+
+.intense-button:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+}
+
+/* Utility text color classes for consistent usage */
+.default-color {
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  border-color: var(--border-color);
+}
+
+.secondary {
+  color: var(--text-secondary-color);
+}
+
+.muted {
+  color: var(--text-muted-color);
+}
+
+.tag {
+  color: var(--text-tag-color);
+  background-color: var(--tag-color);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  @apply text-xs font-semibold;
+}
+
+.card {
+  background-color: var(--card-color);
+  color: var(--text-card-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.card-image {
+  @apply rounded-lg shadow;
 }

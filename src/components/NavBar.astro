@@ -11,35 +11,29 @@ const socials = [
 <script is:inline src="/scripts/minigame.js"></script>
 
 <nav
-  class="sticky top-0 z-50 flex flex-col md:flex-row md:items-center md:justify-between px-4 md:px-6 py-4 shadow shadow-white/15 bg-[var(--bg-color)]"
+  class="default-color sticky flex flex-col gap-2 p-3 z-10 shadow shadow-white/15 sm:flex-row sm:items-center sm:justify-between"
 >
-  <!-- Draggable avatar -->
-  <div
+  <img
     id="draggable-avatar"
-    class="absolute z-50 cursor-grab transition-transform duration-500 ease-in-out shadow-[0_8px_20px_rgba(0,0,0,0.6)] rounded-full"
-  >
-    <img
-      src="/profile.webp"
-      alt="Leopold Lemmermann"
-      class="w-10 h-10 rounded-full object-cover transform"
-    />
-  </div>
+    src="/profile.webp"
+    alt="Leopold Lemmermann"
+    class="w-10 h-10 absolute z-50 cursor-grab transition-transform duration-500 ease-in-out rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
+  />
 
-  <!-- Left block: name + socials -->
-  <div class="flex items-center justify-between md:space-x-4">
-    <div class="flex items-center space-x-3">
-      <div class="w-10 h-10 z-30 rounded-full border"></div>
+  <div class="flex items-center justify-between gap-4">
+    <div class="flex items-center gap-4">
+      <span class="w-10 h-10 rounded-full border"></span>
 
       <a
         href="/"
-        class="flex flex-col whitespace-nowrap min-w-0 animate-slidefadein nav-link-gradient"
+        class="animate-slidefadein nav-link-gradient flex flex-col whitespace-nowrap"
       >
-        <span class="font-semibold sm:text-sm text-xs">Leopold Lemmermann</span>
-        <span class="sm:text-sm text-xs">Software Engineer | BSc</span>
+        <span class="font-semibold text-xs sm:text-sm">Leopold Lemmermann</span>
+        <span class="text-xs sm:text-sm">Software Engineer | BSc</span>
       </a>
     </div>
 
-    <div class="flex flex-row items-center space-x-3 animate-slidefadein">
+    <div class="animate-slidefadein flex flex-row items-center gap-4">
       {
         socials.map((url) => (
           <IconLink
@@ -52,9 +46,8 @@ const socials = [
     </div>
   </div>
 
-  <!-- Navigation links: vertical list on small, horizontal on md+ -->
   <div
-    class="flex flex-col md:flex-row md:space-x-6 space-y-2 md:space-y-0 opacity-0 animate-slidefadein items-center"
+    class="animate-slidefadein flex flex-col items-center gap-2 sm:flex-row sm:gap-4"
   >
     {
       navigation.map((item) => (

@@ -2,7 +2,7 @@
 title: "CI/CD Pipeline Setup with GitHub Actions"
 short: "I’ll design and implement a production-ready CI/CD pipeline tailored to your stack."
 tags: ["devops", "ci/cd", "automation", "github actions"]
-image: "/images/services/ci-cd.png"
+image: "cicd.png"
 ctaLabel: "View on Fiverr"
 ctaUrl: "https://www.fiverr.com/s/XLvV7re"
 ---

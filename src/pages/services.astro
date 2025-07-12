@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../BaseLayout.astro";
-import { getCollection } from "astro:content";
+import Tags from "../components/Tags.astro";
 
+import { getCollection } from "astro:content";
 const services = await Promise.all(
   (await getCollection("services")).map(async (service) => {
     const { Content } = await service.render();
@@ -14,21 +15,37 @@ const services = await Promise.all(
   title="Services"
   description="Explore the services I offer, including iOS development, CI/CD automation, and more. Each service is designed to help you achieve your goals with clean, reliable code and production-ready solutions."
 >
-  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+  <section class="grid grid-cols-1 sm:grid-cols-2 gap-8">
     {
       services.map(
         ({
           data: { title, short, tags, image, ctaUrl, ctaLabel },
           Content
         }) => (
-          <div class="bg-white rounded-lg shadow p-6">
+          <div class="card flex flex-col gap-4">
+            {image && (
+              <img
+                src={`/images/services/${image}`}
+                alt={title}
+                class="card-image"
+              />
+            )}
+
             <h2 class="text-xl font-bold">{title}</h2>
-            <p class="text-gray-600 mt-2">{short}</p>
-            <div class="mt-4">
-              <a href={ctaUrl} class="text-blue-500 hover:underline">
-                {ctaLabel}
-              </a>
+
+            <p>{short}</p>
+
+            <Tags tags={tags} />
+
+            <div class="prose prose-sm dark:prose-invert">
+              <Content />
             </div>
+
+            {ctaUrl && (
+              <a href={ctaUrl} class="intense-button" target="_blank">
+                {ctaLabel || "Learn More"}
+              </a>
+            )}
           </div>
         )
       )
