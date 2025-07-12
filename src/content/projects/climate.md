@@ -16,4 +16,7 @@ This project analyzes public sentiment on climate change using NLP techniques on
 
 ### My Contributions
 
-Fine-tuned a non-sentiment BERT model for climate change-related text classification. Configured training parameters and managed large-scale data preprocessing to ensure model adaptability. Benchmarked the performance of a non-sentiment-focused approach against sentiment-optimized models. Provided insights into the impact of domain-specific pretraining in NLP tasks. Collaborated on implementing visualizations that improved the project's overall accuracy and reproducibility.
+1. Fine-tuned a non-sentiment BERT model for climate change-related text classification.
+2. Configured training parameters and managed large-scale data preprocessing to ensure model adaptability.
+3. Benchmarked the performance of a non-sentiment-focused approach against sentiment-optimized models.
+4. Collaborated on implementing visualizations that improved the project's overall accuracy and reproducibility.

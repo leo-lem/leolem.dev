@@ -54,30 +54,6 @@ nav {
   }
 }
 
-/* Base nav link: no gradient by default, uses CSS variable for text color */
-.nav-link-gradient {
-  color: var(--text-color);
-  @apply transition;
-}
-
-/* Only apply gradient on hover */
-.nav-link-gradient:hover {
-  background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.intense-button {
-  @apply inline-block font-bold px-4 py-2 rounded shadow transition;
-  background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
-  color: #dddddd;
-}
-
-.intense-button:hover {
-  filter: brightness(1.1);
-  transform: scale(1.02);
-}
 
 /* Utility text color classes for consistent usage */
 .default-color {
@@ -94,6 +70,29 @@ nav {
   color: var(--text-muted-color);
 }
 
+.intense {
+  background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
+}
+
+.responsive {
+  @apply hover:scale-105 transform transition
+}
+
+
+/* Typography */
+h2 {
+  color: var(--text-color);
+  @apply text-3xl font-bold mb-5 text-center;
+}
+
+h3 {
+  color: var(--text-secondary-color);
+  @apply text-xl font-semibold mb-4;
+}
+
+
+
+/* Component Styles */
 .tag {
   color: var(--text-tag-color);
   background-color: var(--tag-color);
@@ -108,9 +107,22 @@ nav {
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   padding: 1rem;
-  margin: 1rem;
 }
 
 .card-image {
   @apply rounded-lg shadow;
+}
+
+
+/* Navbar Styles */
+.nav-link-gradient {
+  color: var(--text-color);
+  @apply: transition
+}
+
+.nav-link-gradient:hover {
+  background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

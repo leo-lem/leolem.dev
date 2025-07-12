@@ -1,5 +1,5 @@
 ---
-icon: 🚀
+emoji: 🚀
 title: Deployed cloud-native sustainability dashboard
 ---
 

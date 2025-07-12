@@ -11,8 +11,7 @@ const { src, alt = "Project Screenshot" } = Astro.props;
     <img
       id="modal-img"
       alt="Expanded screenshot"
-      class="max-h-full max-w-full rounded shadow-lg cursor-pointer"
-      onclick="event.stopPropagation()"
+      class="max-h-full max-w-full rounded shadow-lg"
     />
   </div>
 </div>
@@ -20,7 +19,7 @@ const { src, alt = "Project Screenshot" } = Astro.props;
 <img
   src={`/images/${src}`}
   alt={alt}
-  class="card-image cursor-pointer"
+  class="responsive card-image cursor-pointer"
   onclick={`showModal('/images/${src}')`}
 />
 

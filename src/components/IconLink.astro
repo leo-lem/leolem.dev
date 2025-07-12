@@ -1,13 +1,8 @@
 ---
-const { type, url, size_class = "h-5 w-5" } = Astro.props;
+const { type, url, size_class = "h-7 w-7" } = Astro.props;
 ---
 
-<a
-  href={url}
-  class="hover:opacity-70 transition"
-  rel="noopener noreferrer"
-  target="_blank"
->
+<a href={url} class="responsive" rel="noopener noreferrer" target="_blank">
   <img
     src={`/icons/${type}.svg`}
     alt={type}

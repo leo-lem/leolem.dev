@@ -21,13 +21,13 @@ const { title, description } = Astro.props;
       rel="stylesheet"
     />
   </head>
-  <body class="default-color">
+  <body class="default-color min-w-[300px]">
     <NavBar />
 
-    <main class="max-w-3xl mx-auto flex flex-col">
+    <main class="max-w-3xl mx-auto flex flex-col gap-20 p-10">
       {
         description && (
-          <section class="text-center p-10 space-y-2">
+          <section class="text-center px-10 space-y-2">
             <h1 class="text-4xl font-bold capitalize">{title}</h1>
             <p class="secondary max-w-xl mx-auto text-xl">{description}</p>
           </section>

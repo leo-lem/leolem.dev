@@ -20,98 +20,86 @@ const stations = (await getCollection("stations"))
     };
   });
 
-const skills = (await getCollection("skills")).reduce((acc: any, skill) => {
-  const category = skill.data.category;
-  if (!acc[category]) acc[category] = [];
-  acc[category].push(skill);
-  return acc;
-}, {});
-
 const highlights = await getCollection("highlights");
+
+const skills = (await getCollection("skills"))
+  .sort(
+    (a, b) =>
+      (b.data.isPriority ? 1000 : 0) -
+      (a.data.isPriority ? 1000 : 0) +
+      b.data.confidence -
+      a.data.confidence
+  )
+  .reduce((acc: any, skill) => {
+    const category = skill.data.category;
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(skill);
+    return acc;
+  }, {});
 ---
 
 <BaseLayout title="About me">
   <section
-    class="flex flex-col md:flex-row items-center justify-center py-24 px-6 space-y-8 md:space-y-0 md:space-x-12 text-center md:text-left max-w-5xl mx-auto"
+    class="flex flex-col items-center justify-center gap-5 text-center md:flex-row md:text-left"
   >
-    <!-- Left text block -->
-    <div class="space-y-4">
-      <p
-        class="uppercase tracking-widest text-sm"
-        style="color: var(--text-muted-color);"
-      >
-        Hey there!
-      </p>
-      <h1
-        class="text-4xl font-bold"
-        style="color: var(--text-secondary-color);"
-      >
-        I'm Leo.
-      </h1>
-      <p class="max-w-md">
+    <div class="flex flex-col gap-3">
+      <p class="muted uppercase tracking-widest text-sm">Hey there!</p>
+      <h1 class="text-4xl font-bold">I'm Leo.</h1>
+      <div class="secondary prose prose-base dark:prose-invert">
         <AboutMe />
-      </p>
+      </div>
     </div>
 
-    <!-- Right image block -->
-    <img
-      src="/motorbike.avif"
-      alt="This is me!"
-      class="w-full md:w-1/2 rounded shadow-lg object-cover"
-    />
+    <img src="/motorbike.avif" alt="Me!" class="card-image w-full md:w-1/2" />
   </section>
 
-  <section class="max-w-5xl mx-auto py-12 px-4">
+  <section>
+    <h2>My Journey</h2>
     <Timeline stations={stations} />
   </section>
 
-  <section class="max-w-5xl mx-auto py-12 px-4 text-[var(--text-muted-color)]">
-    <h2 class="text-3xl font-bold mb-6 text-center text-[var(--text-color)]">
-      My Skillset
-    </h2>
+  <section class="max-w-3xl flex flex-col gap-10 mx-auto">
+    <h2>My Skill Highlights</h2>
 
-    <!-- Impact Highlights placed here -->
-    <ul
-      class="space-y-4 text-center text-lg mb-12 border rounded-lg p-4 bg-[var(--primary-color)]"
-    >
+    <ul class="card flex flex-col gap-4">
       {
-        highlights.map(({ data: { title, icon } }) => (
-          <li>
-            {icon} {title}
+        highlights.map(({ data: { title, emoji } }) => (
+          <li class="text-lg font-semibold">
+            <span class="text-2xl">{emoji}</span> {title}
           </li>
         ))
       }
     </ul>
 
-    <!-- Skills Categories -->
-    <div class="space-y-12">
-      {
-        Object.entries(skills).map(([category, items]: any, index) => (
-          <div>
-            <h3 class="text-xl font-semibold mb-4 text-[var(--text-secondary-color)]">
-              {category}
-            </h3>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-              {items.map(({ data: { name, icon, confidence } }: any) => (
-                <div class="flex flex-col items-center text-center p-4 rounded-lg border bg-[var(--primary-color)] hover:scale-105 transform transition">
+    {
+      Object.entries(skills).map(([category, items]: any) => (
+        <div>
+          <h3>{category}</h3>
+
+          <div class="flex flex-wrap gap-4">
+            {items.map(
+              ({ data: { name, icon, confidence, isPriority } }: any) => (
+                <div
+                  class={`card responsive aspect-square flex flex-col items-center w-28 gap-2 ${isPriority ? "ring-2 ring-" : ""}`}
+                >
                   <img
                     src={`/icons/${icon}`}
                     alt={name}
-                    class="h-8 w-8 mb-2 invert dark:invert-0"
+                    class="h-10 w-10 dark:invert"
                   />
-                  <span>{name}</span>
-                  <div class="w-full mt-2 rounded-full h-1">
+                  <span class="text-nowrap">{name}</span>
+                  <div class="w-full bg-zinc-800 rounded-full h-1">
                     <div
-                      class="bg-gradient-to-r from-pink-500 to-yellow-500 h-1 rounded-full"
+                      class="intense h-1 rounded-full"
                       style={`width: ${confidence}%`}
                     />
                   </div>
                 </div>
-              ))}
-            </div>
+              )
+            )}
           </div>
-        ))
-      }
-    </div>
+        </div>
+      ))
+    }
   </section>
 </BaseLayout>

@@ -12,10 +12,10 @@ const services = await Promise.all(
 ---
 
 <BaseLayout
-  title="Services"
+  title="My Services"
   description="Explore the services I offer, including iOS development, CI/CD automation, and more. Each service is designed to help you achieve your goals with clean, reliable code and production-ready solutions."
 >
-  <section class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+  <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     {
       services.map(
         ({
@@ -31,7 +31,7 @@ const services = await Promise.all(
               />
             )}
 
-            <h2 class="text-xl font-bold">{title}</h2>
+            <h2>{title}</h2>
 
             <p>{short}</p>
 
@@ -42,7 +42,11 @@ const services = await Promise.all(
             </div>
 
             {ctaUrl && (
-              <a href={ctaUrl} class="intense-button" target="_blank">
+              <a
+                href={ctaUrl}
+                class="intense responsive font-bold text-center rounded p-2"
+                target="_blank"
+              >
                 {ctaLabel || "Learn More"}
               </a>
             )}
@@ -50,5 +54,16 @@ const services = await Promise.all(
         )
       )
     }
+  </section>
+
+  <!-- Google Calendar Widget -->
+  <section class="flex flex-col items-center">
+    <h2>Book a Meeting</h2>
+    <div class="card w-full max-w-2xl dark:bg-gray-300">
+      <iframe
+        src="https://calendar.google.com/calendar/appointments/AcZssZ0Uf9NSuQOy5kmC7a86grhHsaI3ESFj1eLPems=?gv=true"
+        width="100%"
+        height="500"></iframe>
+    </div>
   </section>
 </BaseLayout>

@@ -23,4 +23,7 @@ LaunchLab is an iOS application designed to guide aspiring entrepreneurs from id
 
 ### My Contributions
 
-Oversaw project execution in a student team of 6, coordinated team efforts, and ensured alignment with project goals. Managed project timelines, delegated responsibilities, and ensured smooth collaboration among team members. Assisted in conceptualizing and refining the guided learning path and AI-driven assistance functionalities. Contributed to the implementation of key features, particularly AI integration and consultation facilitation. Ensured application usability and compliance with project specifications through testing and feedback iterations.
+1. Oversaw project execution in a student team of 6, coordinated team efforts, and ensured alignment with project goals.
+2. Managed project timelines, delegated responsibilities, and ensured smooth collaboration among team members.
+3. Contributed to the implementation of key features, particularly AI integration and consultation facilitation.
+4. Ensured application usability and compliance with project specifications through testing and feedback iterations.
