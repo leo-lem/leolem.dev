@@ -80,7 +80,7 @@ const skills = (await getCollection("skills"))
             {items.map(
               ({ data: { name, icon, confidence, isPriority } }: any) => (
                 <div
-                  class={`card responsive aspect-square flex flex-col items-center w-28 gap-2 ${isPriority ? "ring-2 ring-" : ""}`}
+                  class={`card responsive aspect-square flex flex-col items-center w-28 gap-2 ${isPriority ? "ring-2 ring-accent" : ""}`}
                 >
                   <img
                     src={`/icons/${icon}`}

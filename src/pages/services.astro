@@ -46,6 +46,7 @@ const services = await Promise.all(
                 href={ctaUrl}
                 class="intense-bg responsive font-bold text-center rounded p-2"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 {ctaLabel || "Learn More"}
               </a>
@@ -63,7 +64,8 @@ const services = await Promise.all(
       <iframe
         src="https://calendar.google.com/calendar/appointments/AcZssZ0Uf9NSuQOy5kmC7a86grhHsaI3ESFj1eLPems=?gv=true"
         width="100%"
-        height="500"></iframe>
+        height="500"
+        title="Google Calendar Booking Widget"></iframe>
     </div>
   </section>
 </BaseLayout>

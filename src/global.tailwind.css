@@ -113,7 +113,7 @@ h3 {
 /* Navbar Styles */
 .navigation {
   color: var(--text-color);
-  @apply: transition
+  @apply transition;
 }
 
 .navigation:hover {
