@@ -7,15 +7,15 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "playwright test"
+    "test": "playwright test --host=0.0.0.0"
   },
   "dependencies": {
-    "@astrojs/tailwind": "^6.0.2",
-    "@tailwindcss/typography": "^0.5.16",
-    "astro": "^5.11.0"
+    "@astrojs/tailwind": "^6.0",
+    "@tailwindcss/typography": "^0.5",
+    "astro": "^5.11"
   },
   "devDependencies": {
-    "@playwright/test": "^1.53.2",
-    "@tgwf/co2": "^0.16.8"
+    "@playwright/test": "^1.54",
+    "@tgwf/co2": "^0.16"
   }
 }
