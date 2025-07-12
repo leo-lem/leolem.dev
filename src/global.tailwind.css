@@ -2,55 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
-
 /* colors */
 :root {
   --bg-color: #ffffff;
-  --primary-color: #1f2937;
-  --text-color: #111827;
-  --text-secondary-color: #39424c;
-  --text-muted-color: #909aac;
-  --border-color: #7d93b8;
+  --border-color: #e5e5e5;
+
+  --tag-color: #f2f2f2;
+  --text-tag-color: #555555;
+
+  --card-color: #f9f9f9;
+  --text-card-color: #222222;
 
   --accent-color-start: #be185d;
-  /* dark pink */
   --accent-color-end: #ca8a04;
-  /* dark amber */
 
-  --tag-color: #fef3c7;
-  /* light amber-100 */
-  --text-tag-color: #78350f;
-  /* amber-900 */
-  --card-color: #fdf6f0;
-  /* subtle warm off-white */
-  --text-card-color: #1f2937;
+  --text-color: #111111;
+  --text-secondary-color: #666666;
+  --text-muted-color: #999999;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #0f1115;
-    --border-color: #4b5563;
+    --bg-color: #1a1c1f;
+    --border-color: #4b4f57;
 
     --accent-color-start: #be185d;
     --accent-color-end: #ca8a04;
 
-    --tag-color: #7a3e2f;
-    /* deep warm brown-red */
-    --text-tag-color: #fefce8;
-    /* warm off-white */
+    --tag-color: #3d2b28;
+    --text-tag-color: #fde68a;
 
-    --card-color: #1e1b1a;
-    /* dark slate with warmth */
-    --text-card-color: #f9f9f9;
+    --card-color: #25262a;
+    --text-card-color: #f3f4f6;
 
-    --text-color: #f9f9f9;
-    --text-secondary-color: #a1a1aa;
-    --text-muted-color: #6b7280;
+    --text-color: #f3f4f6;
+    --text-secondary-color: #cbd5e1;
+    --text-muted-color: #8b949e;
   }
 }
 

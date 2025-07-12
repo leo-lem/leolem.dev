@@ -14,3 +14,8 @@ test('projects page loads', async ({ page }) => {
   await page.goto('/projects');
   await expect(page.getByRole('heading', { name: 'Projects' })).toBeVisible();
 });
+
+test('services page loads', async ({ page }) => {
+  await page.goto('/services');
+  await expect(page.getByRole('heading', { name: 'Services' })).toBeVisible();
+});

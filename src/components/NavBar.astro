@@ -34,7 +34,7 @@ const socials = [
 </script>
 
 <nav
-  class="default-color sticky flex flex-col gap-2 p-3 z-10 shadow shadow-white/15 sm:flex-row sm:items-center sm:justify-between"
+  class="default-color sticky flex flex-col gap-2 p-3 z-10 shadow shadow-[var(--border-color)] sm:flex-row sm:items-center sm:justify-between"
 >
   <img
     id="draggable-avatar"
@@ -52,7 +52,7 @@ const socials = [
         class="animate-slidefadein navigation flex flex-col whitespace-nowrap"
       >
         <span class="font-semibold text-xs sm:text-sm">Leopold Lemmermann</span>
-        <span class="text-xs sm:text-sm">Software Engineer | BSc</span>
+        <span class="text-xs sm:text-sm">Software Engineer | MSc</span>
       </a>
     </div>
 
@@ -68,18 +68,7 @@ const socials = [
       }
 
       <button id="mobile-menu-toggle" class="sm:hidden focus:outline-none">
-        <svg
-          class="w-6 h-6 text-white"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
+        <img src="/icons/menu.svg" alt="Menu" class="h-6 w-6 dark:invert" />
       </button>
     </div>
   </div>
