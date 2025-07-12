@@ -1,6 +1,7 @@
 ---
 import "./global.css";
 import NavBar from "./components/NavBar.astro";
+
 const { title, description } = Astro.props;
 ---
 
@@ -9,7 +10,10 @@ const { title, description } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,7 +22,7 @@ const { title, description } = Astro.props;
     />
   </head>
   <body
-    style="background-color: var(--bg-color); color: var(--text-color); border-color: var(--border-color);"
+    class="bg-[var(--bg-color)] text-[var(--text-color)] border-[var(--border-color)]"
   >
     <NavBar />
 
@@ -27,7 +31,10 @@ const { title, description } = Astro.props;
         description && (
           <section class="text-center mb-8">
             <h1 class="text-4xl font-bold capitalize">{title}</h1>
-            <p class="text-gray-600 mt-2 max-w-xl mx-auto">{description}</p>
+
+            <p class="text-[var(--text-secondary-color)] mt-4 max-w-xl mx-auto text-xl">
+              {description}
+            </p>
           </section>
         )
       }

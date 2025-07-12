@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../BaseLayout.astro";
+import Screenshot from "../components/Screenshot.astro";
+import IconLink from "../components/IconLink.astro";
 import { getCollection } from "astro:content";
 
 const projects = await Promise.all(
@@ -18,7 +20,16 @@ const projects = await Promise.all(
     {
       projects.map(({ data, slug, Content }) => (
         <div id={slug} class="space-y-4 border-b pb-8">
-          <h2 class="text-2xl font-semibold">{data.title}</h2>
+          <div class="flex sm:items-baseline sm:space-x-2 sm:flex-row flex-col space-y-3">
+            <h2 class="text-2xl font-semibold">{data.title}</h2>
+
+            <div class="flex items-center space-x-2">
+              {data.links?.map((link) => (
+                <IconLink type={link.type} url={link.url} />
+              ))}
+            </div>
+          </div>
+
           <div class="flex flex-wrap gap-2">
             {data.tags.map((tag) => (
               <span class="px-2 py-1 bg-[var(--border-color)] rounded text-sm text-[var(--text-secondary-color)]">
@@ -31,34 +42,10 @@ const projects = await Promise.all(
             <Content />
           </div>
 
-          {data.links && (
-            <div class="flex gap-4 mt-4">
-              {data.links.map((link) => (
-                <a
-                  href={link.url}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  class="flex items-center space-x-1"
-                >
-                  <img
-                    src={`/icons/${link.type}.svg`}
-                    alt={link.type}
-                    class="h-5 w-5 invert-0 dark:invert"
-                  />
-                </a>
-              ))}
-            </div>
-          )}
-
           {data.images && (
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-4">
               {data.images.map((img) => (
-                <img
-                  src={"images/" + img}
-                  alt={`${data.title} screenshot`}
-                  class="rounded-lg shadow cursor-pointer"
-                  onclick={`showModal('${img}')`}
-                />
+                <Screenshot src={img} alt={data.title} />
               ))}
             </div>
           )}
@@ -66,37 +53,4 @@ const projects = await Promise.all(
       ))
     }
   </section>
-  <!-- Simple fullscreen modal viewer -->
-  <div
-    id="image-modal"
-    class="fixed inset-0 bg-black bg-opacity-80 hidden z-50"
-    onclick="hideModal()"
-  >
-    <div class="flex items-center justify-center h-full">
-      <img
-        id="modal-img"
-        src=""
-        class="max-h-full max-w-full rounded shadow-lg"
-      />
-    </div>
-  </div>
-
-  <script is:inline>
-    function showModal(src) {
-      const modal = document.getElementById("image-modal");
-      const modalImg = document.getElementById("modal-img");
-      modalImg.src = src;
-      modal.classList.remove("hidden");
-    }
-
-    function hideModal() {
-      document.getElementById("image-modal").classList.add("hidden");
-    }
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        hideModal();
-      }
-    });
-  </script>
 </BaseLayout>

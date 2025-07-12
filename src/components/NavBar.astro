@@ -1,38 +1,11 @@
 ---
-const avatarUrl = "/profile.webp";
-const socials = [
-  {
-    href: "https://github.com/leo-lem",
-    label: "GitHub",
-    icon: "github.svg"
-  },
-  {
-    href: "https://linkedin.com/in/leopoldlemmermann",
-    label: "LinkedIn",
-    icon: "linkedin.svg"
-  }
-];
-const navigation = [
-  {
-    href: "/about/",
-    label: "About"
-  },
-  {
-    href: "/projects/",
-    label: "Projects"
-  },
-  {
-    href: "/services/",
-    label: "Services"
-  }
-];
+import IconLink from "./IconLink.astro";
 
-function isCurrentPage(href: string) {
-  return (
-    Astro.url.pathname.replace(/[#?].*$/, "").replace(/\/$/, "") ===
-    href.replace(/[#?].*$/, "").replace(/\/$/, "")
-  );
-}
+const navigation = ["about", "projects", "services"];
+const socials = [
+  "https://github.com/leo-lem",
+  "https://linkedin.com/in/leopoldlemmermann"
+];
 ---
 
 <script is:inline src="/scripts/minigame.js"></script>
@@ -46,13 +19,13 @@ function isCurrentPage(href: string) {
     class="absolute z-50 cursor-grab transition-transform duration-500 ease-in-out shadow-[0_8px_20px_rgba(0,0,0,0.6)] rounded-full"
   >
     <img
-      src={avatarUrl}
+      src="/profile.webp"
       alt="Leopold Lemmermann"
       class="w-10 h-10 rounded-full object-cover transform"
     />
   </div>
 
-  <!-- Left block: avatar + name + socials -->
+  <!-- Left block: name + socials -->
   <div class="flex items-center justify-between md:space-x-4">
     <div class="flex items-center space-x-3">
       <div class="w-10 h-10 z-30 rounded-full border"></div>
@@ -66,22 +39,14 @@ function isCurrentPage(href: string) {
       </a>
     </div>
 
-    <!-- Social links -->
     <div class="flex flex-row items-center space-x-3 animate-slidefadein">
       {
-        socials.map(({ href, label, icon }) => (
-          <a
-            href={href}
-            class="hover:opacity-70 transition"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              src={`/icons/${icon}`}
-              alt={label}
-              class="h-8 w-8 sm:h-10 sm:w-10 invert-0 dark:invert"
-            />
-          </a>
+        socials.map((url) => (
+          <IconLink
+            type={url.split("https://")[1].split(".")[0]}
+            url={url}
+            size_class="h-6 w-6 sm:h-8 sm:w-8"
+          />
         ))
       }
     </div>
@@ -92,13 +57,13 @@ function isCurrentPage(href: string) {
     class="flex flex-col md:flex-row md:space-x-6 space-y-2 md:space-y-0 opacity-0 animate-slidefadein items-center"
   >
     {
-      navigation.map(({ href, label }) => (
+      navigation.map((item) => (
         <a
-          href={href}
-          class={`nav-link-gradient ${isCurrentPage(href) ? "font-bold underline" : ""}`}
-          aria-current={isCurrentPage(href) ? "page" : undefined}
+          href={`/${item}/`}
+          class={`capitalize nav-link-gradient ${Astro.url.pathname.includes(item) ? "font-bold underline" : ""}`}
+          aria-current={Astro.url.pathname.includes(item) ? "page" : undefined}
         >
-          {label}
+          {item}
         </a>
       ))
     }

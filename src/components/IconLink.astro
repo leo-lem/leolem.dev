@@ -1,0 +1,16 @@
+---
+const { type, url, size_class = "h-5 w-5" } = Astro.props;
+---
+
+<a
+  href={url}
+  class="hover:opacity-70 transition"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <img
+    src={`/icons/${type}.svg`}
+    alt={type}
+    class={`${size_class} invert-0 dark:invert`}
+  />
+</a>
