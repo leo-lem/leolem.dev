@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "playwright test --host=0.0.0.0"
+    "test": "playwright test"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0",
