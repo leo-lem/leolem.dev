@@ -1,12 +1,14 @@
 ---
 featured: true
-icon: "cicd.svg"
+icon: "cicd"
 title: "CI/CD Pipeline Setup with GitHub Actions"
 short: "I’ll design and implement a production-ready CI/CD pipeline tailored to your stack."
-tags: ["devops", "ci/cd", "automation", "github actions"]
+tags: ["DevOps", "CI/CD", "Automation", "GitHub Actions"]
 image: "cicd.avif"
-ctaLabel: "View on Fiverr"
-ctaUrl: "https://www.fiverr.com/s/XLvV7re"
+cta: {
+  text: "Order Now",
+  url: "https://www.fiverr.com/s/XLvV7re"
+}
 ---
 
 Need reliable, production-grade automation? I’ll design and implement a CI/CD pipeline using **GitHub Actions**, tailored to your tech stack.

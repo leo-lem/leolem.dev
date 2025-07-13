@@ -64,7 +64,7 @@ const services = (await getCollection("services")).filter(
         services.map(({ data: { icon, title, short } }: any) => (
           <div class="card flex flex-col items-center gap-2">
             <img
-              src={`/icons/${icon}`}
+              src={`/icons/${icon}.svg`}
               alt={title}
               class="h-10 w-10 dark:invert"
             />

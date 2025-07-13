@@ -77,7 +77,7 @@ h3 {
   -webkit-text-fill-color: transparent;
 }
 
-.intense-bg {
+.bg-intense {
   color: #f9f9f9;
   background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
 }

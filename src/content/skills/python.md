@@ -1,7 +1,7 @@
 ---
 name: Python
 category: AI & Data
-icon: python.svg
+icon: python
 confidence: 80
 ---
 

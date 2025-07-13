@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../BaseLayout.astro";
-import Timeline from "../components/Timeline.astro";
 
 import { Content as AboutMe } from "../content/about.md";
 import { Content as Highlights } from "../content/highlights.md";
@@ -32,9 +31,39 @@ const categories = skills
     <img src="/motorbike.avif" alt="Me!" class="card-image w-full sm:w-1/2" />
   </section>
 
-  <section>
+  <section class="max-w-xl mx-auto">
     <h2>My Journey</h2>
-    <Timeline stations={stations} />
+
+    <div class="relative flex flex-col gap-10">
+      <div class="absolute h-full border sm:left-1/2 sm:-translate-x-1/2"></div>
+
+      {
+        stations.map(
+          ({ data: { title, subtitle, date, duration }, body }, index) => (
+            <div class={`relative ml-5 sm:ml-0 ${index !== 0 && "sm:-mt-20"}`}>
+              <div
+                class={`absolute -ml-5 top-3 w-3 border sm:ml-0 sm:left-1/2 sm:top-1/2 ${index % 2 !== 0 ? "sm:-translate-x-full" : ""}`}
+              />
+
+              <div
+                class={`sm:w-1/2 sm:px-5 ${index % 2 === 0 ? "sm:ml-auto sm:text-left" : "sm:mr-auto sm:text-right"}`}
+              >
+                <h3 class="m-0">{title}</h3>
+
+                <div class="font-semibold mb-4">
+                  <span class="secondary text-sm">@ {subtitle} |</span>
+                  <span class="muted text-xs">
+                    {date.getFullYear()} - {duration}
+                  </span>
+                </div>
+
+                <div class="muted prose prose-sm dark:prose-invert">{body}</div>
+              </div>
+            </div>
+          )
+        )
+      }
+    </div>
   </section>
 
   <section class="max-w-3xl flex flex-col gap-10 mx-auto">
@@ -59,14 +88,14 @@ const categories = skills
                   }`}
                 >
                   <img
-                    src={`/icons/${icon}`}
+                    src={`/icons/${icon}.svg`}
                     alt={name}
                     class="h-10 w-10 dark:invert"
                   />
                   <span class="text-nowrap">{name}</span>
-                  <div class="w-full bg-zinc-800 rounded-full h-1">
+                  <div class="w-full h-1 bg-[var(--text-secondary-color)] rounded-full">
                     <div
-                      class="intense h-1 rounded-full"
+                      class="h-1 bg-intense rounded-full"
                       style={`width: ${confidence}%`}
                     />
                   </div>
