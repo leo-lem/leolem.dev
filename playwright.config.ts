@@ -2,7 +2,7 @@ import { devices, type Config } from "@playwright/test";
 
 const config: Config = {
   testDir: "test",
-  retries: 1,
+  retries: process.env.CI ? 1 : 0,
   outputDir: "/tmp/playwright",
   reporter: process.env.CI ? "github" : "list",
 

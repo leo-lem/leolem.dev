@@ -81,7 +81,7 @@ const socials = [
       navigation.map((item) => (
         <a
           href={`/${item}/`}
-          class={`navigation capitalize ${Astro.url.pathname.includes(item) ? "font-bold underline" : ""}`}
+          class={`navigation capitalize ${Astro.url.pathname.includes(item) ? "active" : ""}`}
           aria-current={Astro.url.pathname.includes(item) ? "page" : undefined}
         >
           {item}

@@ -30,7 +30,7 @@ const services = (await getCollection("services")).filter(
       projects.map((project: any) => (
         <a
           href={`/projects#${project.slug}`}
-          class="card navigation flex flex-col gap-4"
+          class="card responsive cursor-pointer flex flex-col gap-4"
         >
           {project.data.thumbnail && (
             <img
@@ -62,7 +62,7 @@ const services = (await getCollection("services")).filter(
     <div class="grid sm:grid-cols-2 gap-6">
       {
         services.map(({ data: { icon, title, short } }: any) => (
-          <div class="responsive card flex flex-col items-center gap-2">
+          <div class="card flex flex-col items-center gap-2">
             <img
               src={`/icons/${icon}`}
               alt={title}

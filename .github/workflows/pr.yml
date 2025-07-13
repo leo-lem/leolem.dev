@@ -1,7 +1,7 @@
 name: PR Build and Local Smoke Test
 on:
-  push: # pull_request
-    branches: [blog, main]
+  pull_request:
+    branches: [main]
     paths-ignore: ["README.md", ".github/dependabot.yml", ".devcontainer.json", ".github/workflows/main.yml"]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

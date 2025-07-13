@@ -21,7 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node
-      - run: npm ci
       - run: npm run build
         env:
           NODE_ENV: production
@@ -46,13 +45,6 @@ jobs:
         run: npx playwright test test/smoke.spec.ts
         env:
           BASE_URL: https://leolem.dev
-      - name: Publish Playwright Test Results
-        uses: dorny/test-reporter@v1
-        if: always()
-        with:
-          name: Playwright Tests
-          path: test-results.xml
-          reporter: java-junit
 
   co2:
     needs: deploy
