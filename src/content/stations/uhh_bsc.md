@@ -1,7 +1,7 @@
 ---
 title: BSc Informatics
 subtitle: Uni Hamburg
-date: 2023-10
+date: 2023-10-01
 duration: 1 year
 ---
 

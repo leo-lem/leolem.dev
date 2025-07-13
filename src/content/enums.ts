@@ -6,7 +6,9 @@ export const zTag = z.enum([
   "AI", "Machine Learning", "Data Science", "Mobile",
   "Frontend", "Backend", "Open Source", "Community",
   "Research", "Python", "Sentiment Analysis", "Education",
-  "MVP", "Core Data", "CI/CD", "Automation", "GitHub Actions"
+  "MVP", "Core Data", "CI/CD", "Automation", "GitHub Actions",
+  "Introduction", "Blogging", "Astro", "Web Development",
+  "Personal Website", "Sustainability"
 ])
 
 export const zIcon = z.enum([

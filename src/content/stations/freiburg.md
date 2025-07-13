@@ -1,7 +1,7 @@
 ---
 title: BSc Economics
 subtitle: Uni Freiburg
-date: 2019-10
+date: 2019-10-01
 duration: 2 years
 ---
 

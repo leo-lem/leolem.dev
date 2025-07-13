@@ -1,7 +1,7 @@
 ---
 title: MSc Informatics
 subtitle: Uni Hamburg
-date: 2024-10
+date: 2024-10-01
 duration: now
 ---
 

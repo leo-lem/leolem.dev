@@ -21,9 +21,9 @@ const categories = skills
     class="flex flex-col items-center justify-center gap-5 text-center sm:flex-row sm:text-left"
   >
     <div class="flex flex-col gap-3">
-      <p class="muted uppercase tracking-widest text-sm">Hey there!</p>
+      <p class="text-muted uppercase tracking-widest text-sm">Hey there!</p>
       <h1 class="text-4xl font-bold">I'm Leo.</h1>
-      <div class="secondary prose prose-base dark:prose-invert">
+      <div class="text-secondary prose prose-base dark:prose-invert">
         <AboutMe />
       </div>
     </div>
@@ -32,7 +32,7 @@ const categories = skills
   </section>
 
   <section class="max-w-xl mx-auto">
-    <h2>My Journey</h2>
+    <h2 class="text-center">My Journey</h2>
 
     <div class="relative flex flex-col gap-10">
       <div class="absolute h-full border sm:left-1/2 sm:-translate-x-1/2"></div>
@@ -51,13 +51,15 @@ const categories = skills
                 <h3 class="m-0">{title}</h3>
 
                 <div class="font-semibold mb-4">
-                  <span class="secondary text-sm">@ {subtitle} |</span>
-                  <span class="muted text-xs">
+                  <span class="text-secondary text-sm">@ {subtitle} |</span>
+                  <span class="text-muted text-xs">
                     {date.getFullYear()} - {duration}
                   </span>
                 </div>
 
-                <div class="muted prose prose-sm dark:prose-invert">{body}</div>
+                <div class="text-muted prose prose-sm dark:prose-invert">
+                  {body}
+                </div>
               </div>
             </div>
           )
@@ -67,7 +69,7 @@ const categories = skills
   </section>
 
   <section class="max-w-3xl flex flex-col gap-10 mx-auto">
-    <h2>My Skill Highlights</h2>
+    <h2 class="text-center">My Skill Highlights</h2>
 
     <div class="card secondary prose prose-base dark:prose-invert">
       <Highlights />
