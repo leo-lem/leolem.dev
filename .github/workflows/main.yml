@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node
       - run: npx playwright install
-      - name: Run Playwright smoke tests
+      - name: Run smoke tests
         run: npx playwright test test/smoke.spec.ts
         env:
           BASE_URL: https://leolem.dev

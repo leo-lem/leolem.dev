@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "astro dev --host",
     "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
+    "start": "npm run build && npx serve dist",
     "test": "playwright test"
   },
   "dependencies": {
@@ -16,6 +15,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.54",
-    "@tgwf/co2": "^0.16"
+    "@tgwf/co2": "^0.16",
+    "serve": "^14.2"
   }
 }
