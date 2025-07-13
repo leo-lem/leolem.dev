@@ -1,6 +1,6 @@
 ---
 title: Sustainable IT Dashboard
-tags: ["Full-Stack", "Cloud Infrastructure", "CI/CD"]
+tags: ["Full Stack", "Cloud", "CI/CD"]
 images:
   - "/projects/sid/thumbnail.webp"
 featured: true

@@ -1,94 +1,40 @@
 ---
-export interface Station {
+const stations: {
   data: {
     title: string;
     subtitle: string;
-    year: number;
+    date: Date;
     duration: string;
   };
   body: any;
-}
-const { stations } = Astro.props;
+}[] = Astro.props.stations;
 ---
 
-<div class="relative">
-  <!-- Timeline bar -->
-  <div
-    class="hidden md:block absolute left-1/2 transform -translate-x-1/2 h-full border-l-2"
-  >
-  </div>
-  <div class="md:hidden absolute left-0 ml-4 top-0 bottom-0 border-l-2"></div>
+<div class="relative flex flex-col gap-10">
+  <div class="absolute h-full border sm:left-1/2 sm:-translate-x-1/2"></div>
 
   {
-    stations.map((station: Station, index: number) => (
-      <div class="mb-12 md:grid md:grid-cols-9 md:items-center">
-        {index % 2 === 0 && (
-          <>
-            <div class="hidden md:block md:col-span-4 md:text-right">
-              <h3 class="text-xl font-semibold">{station.data.title}</h3>
-              <h4
-                class="text-lg font-semibold"
-                style="color: var(--text-secondary-color);"
-              >
-                {station.data.subtitle}
-              </h4>
-              <p class="text-sm" style="color: var(--text-muted-color);">
-                {station.data.year} – {station.data.duration}
-              </p>
-              <div class="mt-2" style="color: var(--text-muted-color);">
-                {station.body}
-              </div>
-            </div>
-            <div class="hidden md:flex md:col-span-1 justify-center">
-              <div class="w-4 border-t-2" />
-            </div>
-            <div class="md:col-span-4" />
-          </>
-        )}
+    stations.map(
+      ({ data: { title, subtitle, date, duration }, body }, index) => (
+        <div class={`relative ml-5 sm:ml-0 ${index !== 0 && "sm:-mt-20"}`}>
+          <div class="absolute -ml-5 top-3 w-3 border sm:ml-0 sm:left-1/2 sm:-translate-x-1/2 sm:top-1/2" />
 
-        {index % 2 !== 0 && (
-          <>
-            <div class="md:col-span-4" />
-            <div class="hidden md:flex md:col-span-1 justify-center">
-              <div class="w-4 border-t-2" />
-            </div>
-            <div class="hidden md:block md:col-span-4 md:text-left">
-              <h3 class="text-xl font-semibold">{station.data.title}</h3>
-              <h4
-                class="text-lg font-semibold"
-                style="color: var(--text-secondary-color);"
-              >
-                {station.data.subtitle}
-              </h4>
-              <p class="text-sm" style="color: var(--text-muted-color);">
-                {station.data.year} – {station.data.duration}
-              </p>
-              <div class="mt-2" style="color: var(--text-muted-color);">
-                {station.body}
-              </div>
-            </div>
-          </>
-        )}
-
-        {/* Mobile layout */}
-        <div class="md:hidden pl-10 relative">
-          <div class="absolute left-4 top-3 w-4 border-t-2" />
-
-          <h3 class="text-xl font-semibold">{station.data.title}</h3>
-          <h4
-            class="text-lg font-semibold"
-            style="color: var(--text-secondary-color);"
+          <div
+            class={`sm:w-1/2 sm:px-5 ${index % 2 === 0 ? "sm:ml-auto sm:text-left" : "sm:mr-auto sm:text-right"}`}
           >
-            {station.data.subtitle}
-          </h4>
-          <p class="text-sm" style="color: var(--text-muted-color);">
-            {station.data.year} – {station.data.duration}
-          </p>
-          <div class="mt-2" style="color: var(--text-muted-color);">
-            {station.body}
+            <h3 class="m-0">{title}</h3>
+
+            <div class="font-semibold mb-4">
+              <span class="secondary text-sm">@ {subtitle} |</span>
+              <span class="muted text-xs">
+                {date.getFullYear()} - {duration}
+              </span>
+            </div>
+
+            <div class="muted prose prose-sm dark:prose-invert">{body}</div>
           </div>
         </div>
-      </div>
-    ))
+      )
+    )
   }
 </div>

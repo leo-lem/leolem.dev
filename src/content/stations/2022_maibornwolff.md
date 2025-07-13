@@ -1,6 +1,6 @@
 ---
-title: MaibornWolff
-subtitle: QA and Web
+title: QA and Web
+subtitle: MaibornWolff
 date: 2022-04
 duration: 9 months
 ---

@@ -1,6 +1,6 @@
 ---
-title: Uni Freiburg
-subtitle: BSc Economics
+title: BSc Economics
+subtitle: Uni Freiburg
 date: 2019-10
 duration: 2 years
 ---

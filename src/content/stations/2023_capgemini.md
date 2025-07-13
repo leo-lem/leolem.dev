@@ -1,6 +1,6 @@
 ---
-title: Capgemini
-subtitle: Software Engineer
+title: Software Engineer
+subtitle: Capgemini
 date: 2023-12
 duration: now
 ---
