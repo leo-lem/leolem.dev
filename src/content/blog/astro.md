@@ -1,7 +1,7 @@
 ---
 title: Building my website with Astro
 description: A journey through creating my personal website using Astro
-date: 2025-15-08
+date: 2025-08-15
 tags: ["Astro", "Web Development", "Personal Website"]
 draft: true
 ---

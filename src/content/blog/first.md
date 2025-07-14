@@ -1,7 +1,7 @@
 ---
 title: My First Blog Post
 description: An introduction to my new blog
-date: 2025-13-07
+date: 2025-07-07
 tags: ["Introduction", "Blogging"]
 draft: true
 featured: true

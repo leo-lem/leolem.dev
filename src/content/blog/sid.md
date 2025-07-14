@@ -1,7 +1,7 @@
 ---
 title: Building the Sustainable IT Dashboard
 description: A journey through creating a dashboard to track and improve sustainability in IT operations
-date: 2025-30-08
+date: 2025-08-30
 tags: ["Sustainability", "DevOps", "Cloud"]
 draft: true
 ---
