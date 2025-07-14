@@ -1,7 +1,7 @@
 ---
 name: Terraform
 category: Cloud & DevOps
-icon: terraform.svg
+icon: terraform
 confidence: 70
 isPriority: true
 ---

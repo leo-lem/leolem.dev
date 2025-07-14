@@ -1,7 +1,7 @@
 ---
 name: iOS
 category: Languages & Frameworks
-icon: apple.svg
+icon: apple
 confidence: 80
 isPriority: true
 ---

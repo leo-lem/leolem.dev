@@ -1,102 +1,110 @@
 ---
 import BaseLayout from "../BaseLayout.astro";
-import Timeline from "../components/Timeline.astro";
 
 import { Content as AboutMe } from "../content/about.md";
+import { Content as Highlights } from "../content/highlights.md";
 
 import { getCollection } from "astro:content";
-const stations = (await getCollection("stations"))
-  .sort(
-    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-  )
-  .map((station) => {
-    const date = new Date(station.data.date);
-    return {
-      ...station,
-      data: {
-        ...station.data,
-        year: date.getFullYear()
-      }
-    };
-  });
-
-const highlights = await getCollection("highlights");
-
+const stations = (await getCollection("stations")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
 const skills = (await getCollection("skills"))
-  .sort(
-    (a, b) =>
-      (b.data.isPriority ? 1000 : 0) -
-      (a.data.isPriority ? 1000 : 0) +
-      b.data.confidence -
-      a.data.confidence
-  )
-  .reduce((acc: any, skill) => {
-    const category = skill.data.category;
-    if (!acc[category]) acc[category] = [];
-    acc[category].push(skill);
-    return acc;
-  }, {});
+  .sort((a, b) => b.data.confidence - a.data.confidence)
+  .sort((a, b) => (b.data.isPriority ? 1 : 0) - (a.data.isPriority ? 1 : 0));
+const categories = skills
+  .map((skill) => skill.data.category)
+  .filter((value, index, self) => self.indexOf(value) === index);
 ---
 
 <BaseLayout title="About me">
   <section
-    class="flex flex-col items-center justify-center gap-5 text-center md:flex-row md:text-left"
+    class="flex flex-col items-center justify-center gap-5 text-center sm:flex-row sm:text-left"
   >
     <div class="flex flex-col gap-3">
-      <p class="muted uppercase tracking-widest text-sm">Hey there!</p>
+      <p class="text-muted uppercase tracking-widest text-sm">Hey there!</p>
       <h1 class="text-4xl font-bold">I'm Leo.</h1>
-      <div class="secondary prose prose-base dark:prose-invert">
+      <div class="text-secondary prose prose-base dark:prose-invert">
         <AboutMe />
       </div>
     </div>
 
-    <img src="/motorbike.avif" alt="Me!" class="card-image w-full md:w-1/2" />
+    <img src="/motorbike.avif" alt="Me!" class="card-image w-full sm:w-1/2" />
   </section>
 
-  <section>
-    <h2>My Journey</h2>
-    <Timeline stations={stations} />
+  <section class="max-w-xl mx-auto">
+    <h2 class="text-center">My Journey</h2>
+
+    <div class="relative flex flex-col gap-10">
+      <div class="absolute h-full border sm:left-1/2 sm:-translate-x-1/2"></div>
+
+      {
+        stations.map(
+          ({ data: { title, subtitle, date, duration }, body }, index) => (
+            <div
+              class={`relative ml-5 sm:ml-0 ${index !== 0 ? "sm:-mt-20" : ""}`}
+            >
+              <div
+                class={`absolute -ml-5 top-3 w-3 border sm:ml-0 sm:left-1/2 sm:top-1/2 ${index % 2 !== 0 ? "sm:-translate-x-full" : ""}`}
+              />
+
+              <div
+                class={`sm:w-1/2 sm:px-5 ${index % 2 === 0 ? "sm:ml-auto sm:text-left" : "sm:mr-auto sm:text-right"}`}
+              >
+                <h3 class="m-0">{title}</h3>
+
+                <div class="font-semibold mb-4">
+                  <span class="text-secondary text-sm">@ {subtitle} |</span>
+                  <span class="text-muted text-xs">
+                    {date.getFullYear()} - {duration}
+                  </span>
+                </div>
+
+                <div class="text-muted prose prose-sm dark:prose-invert">
+                  {body}
+                </div>
+              </div>
+            </div>
+          )
+        )
+      }
+    </div>
   </section>
 
   <section class="max-w-3xl flex flex-col gap-10 mx-auto">
-    <h2>My Skill Highlights</h2>
+    <h2 class="text-center">My Skill Highlights</h2>
 
-    <ul class="card flex flex-col gap-4">
-      {
-        highlights.map(({ data: { title, emoji } }) => (
-          <li class="text-lg font-semibold">
-            <span class="text-2xl">{emoji}</span> {title}
-          </li>
-        ))
-      }
-    </ul>
+    <div class="card secondary prose prose-base dark:prose-invert">
+      <Highlights />
+    </div>
 
     {
-      Object.entries(skills).map(([category, items]: any) => (
+      categories.map((category) => (
         <div>
           <h3>{category}</h3>
 
           <div class="flex flex-wrap gap-4">
-            {items.map(
-              ({ data: { name, icon, confidence, isPriority } }: any) => (
+            {skills
+              .filter((skill) => skill.data.category === category)
+              .map(({ data: { name, icon, confidence, isPriority } }: any) => (
                 <div
-                  class={`card responsive aspect-square flex flex-col items-center w-28 gap-2 ${isPriority ? "ring-2 ring-accent" : ""}`}
+                  class={`card responsive aspect-square flex flex-col items-center w-28 gap-2 ${
+                    isPriority ? "ring-2 ring-accent" : ""
+                  }`}
                 >
                   <img
-                    src={`/icons/${icon}`}
+                    src={`/icons/${icon}.svg`}
                     alt={name}
                     class="h-10 w-10 dark:invert"
                   />
                   <span class="text-nowrap">{name}</span>
-                  <div class="w-full bg-zinc-800 rounded-full h-1">
+                  <div class="w-full h-1 bg-[var(--text-secondary-color)] rounded-full">
                     <div
-                      class="intense h-1 rounded-full"
+                      class="h-1 bg-intense rounded-full"
                       style={`width: ${confidence}%`}
                     />
                   </div>
                 </div>
-              )
-            )}
+              ))}
           </div>
         </div>
       ))

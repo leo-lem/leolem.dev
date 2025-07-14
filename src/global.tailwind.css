@@ -42,22 +42,38 @@
 }
 
 
-/* Utility text color classes for consistent usage */
-.default-color {
+nav,body {
   color: var(--text-color);
   background-color: var(--bg-color);
   border-color: var(--border-color);
 }
 
-.secondary {
+h2 {
+  color: var(--text-color);
+  @apply text-3xl font-bold mb-5;
+}
+
+h3 {
+  color: var(--text-secondary-color);
+  @apply text-xl font-semibold mb-4;
+}
+
+
+
+/* Utility text color classes for consistent usage */
+.text-primary {
+  color: var(--text-color);
+}
+
+.text-secondary {
   color: var(--text-secondary-color);
 }
 
-.muted {
+.text-muted {
   color: var(--text-muted-color);
 }
 
-.intense {
+.text-intense {
   background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
   color: transparent;
   background-clip: text;
@@ -65,25 +81,13 @@
   -webkit-text-fill-color: transparent;
 }
 
-.intense-bg {
+.bg-intense {
   color: #f9f9f9;
   background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
 }
 
 .responsive {
-  @apply hover:scale-105 transform transition
-}
-
-
-/* Typography */
-h2 {
-  color: var(--text-color);
-  @apply text-3xl font-bold mb-5 text-center;
-}
-
-h3 {
-  color: var(--text-secondary-color);
-  @apply text-xl font-semibold mb-4;
+  @apply hover:scale-105 transform transition;
 }
 
 
@@ -111,12 +115,16 @@ h3 {
 
 
 /* Navbar Styles */
-.navigation {
+a.active {
+  @apply font-bold underline;
+}
+
+nav a {
   color: var(--text-color);
   @apply transition;
 }
 
-.navigation:hover {
+nav a:hover {
   background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
   background-clip: text;
   -webkit-background-clip: text;

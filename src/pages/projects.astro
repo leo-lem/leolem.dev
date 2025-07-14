@@ -23,7 +23,7 @@ const projects = await Promise.all(
     projects.map(({ data, slug, Content }) => (
       <section id={slug} class="card flex flex-col gap-4">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-baseline">
-          <h2>{data.title}</h2>
+          <h2 class="m-0">{data.title}</h2>
 
           <div class="flex items-center gap-2">
             {data.links?.map((link) => (

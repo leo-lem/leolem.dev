@@ -1,7 +1,7 @@
 ---
 name: Swift
 category: Languages & Frameworks
-icon: swift.svg
+icon: swift
 confidence: 95
 isPriority: true
 ---

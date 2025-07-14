@@ -1,12 +1,14 @@
 ---
 featured: true
-icon: "swift.svg"
+icon: "swift"
 title: "SwiftUI MVP App with Local Data & Animations"
 short: "Build a lightweight SwiftUI app or MVP with local persistence and smooth UI."
-tags: ["ios", "swiftui", "mvp", "mobile", "core data"]
+tags: ["iOS", "SwiftUI", "MVP", "Mobile", "Core Data"]
 image: "swiftui.avif"
-ctaLabel: "View on Fiverr"
-ctaUrl: "https://www.fiverr.com/s/wkNe3Xv"
+cta: {
+  text: "Order Now",
+  url: "https://www.fiverr.com/s/wkNe3Xv"
+}
 ---
 
 Want a lightweight but polished iOS app? I’ll build a SwiftUI MVP — ideal for early-stage products, personal tools, or habit trackers.

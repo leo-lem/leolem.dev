@@ -1,8 +1,27 @@
-import { defineConfig } from '@playwright/test';
+import { devices, type Config } from "@playwright/test";
 
-export default defineConfig({
-  use: {
-    baseURL: process.env.BASE_URL || 'http://localhost:4321',
+const config: Config = {
+  testDir: "test",
+  retries: process.env.CI ? 1 : 0,
+  outputDir: "/tmp/playwright",
+  reporter: process.env.CI ? "github" : "list",
+
+  webServer: {
+    url: process.env.BASE_URL || "http://localhost:3000",
+    command: "npm start",
+    reuseExistingServer: true
   },
-  reporter: [['junit', { outputFile: 'test-results.xml' }]],
-});
+
+  use: {
+    baseURL: process.env.BASE_URL || "http://localhost:3000",
+    headless: true,
+    viewport: { width: 1280, height: 720 },
+  },
+
+  projects: [
+    { name: "Desktop", use: { ...devices["Desktop Chrome"] } },
+    { name: "Mobile", use: { ...devices["iPhone 16"] } },
+  ],
+};
+
+export default config;

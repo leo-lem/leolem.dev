@@ -1,7 +1,7 @@
 ---
 name: Kubernetes
 category: Cloud & DevOps
-icon: kubernetes.svg
+icon: kubernetes
 confidence: 60
 isPriority: true
 ---

@@ -17,7 +17,7 @@ jobs:
       - uses: ./.github/actions/setup-node
       - run: npm run build
 
-  smoke:
+  test:
     permissions:
       actions: read
       checks: write
@@ -26,20 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node
-      - run: npm ci
-      - run: npm run build
       - run: npx playwright install
-      - name: Run local Playwright tests
-        run: |
-          npx serve dist & # serve build
-          sleep 5
-          npx playwright test
-        env:
-          BASE_URL: http://localhost:3000
-      - name: Publish Playwright Test Results
-        uses: dorny/test-reporter@v2
-        if: always()
-        with:
-          name: Playwright Tests
-          path: test-results.xml
-          reporter: java-junit
+      - name: Run tests
+        run: npm test

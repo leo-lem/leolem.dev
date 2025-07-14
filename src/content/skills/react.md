@@ -1,7 +1,7 @@
 ---
 name: React
 category: Languages & Frameworks
-icon: react.svg
+icon: react
 confidence: 60
 ---
 

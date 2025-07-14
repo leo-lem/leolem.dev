@@ -1,7 +1,7 @@
 ---
 name: Cloud Infra
 category: Cloud & DevOps
-icon: googlecloud.svg
+icon: googlecloud
 confidence: 70
 isPriority: true
 ---

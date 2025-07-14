@@ -1,7 +1,7 @@
 ---
 import IconLink from "./IconLink.astro";
 
-const navigation = ["about", "projects", "services"];
+const navigation = ["blog", "services", "projects", "about"];
 const socials = [
   "https://github.com/leo-lem",
   "https://linkedin.com/in/leopoldlemmermann"
@@ -81,7 +81,7 @@ const socials = [
       navigation.map((item) => (
         <a
           href={`/${item}/`}
-          class={`navigation capitalize ${Astro.url.pathname.includes(item) ? "font-bold underline" : ""}`}
+          class={`navigation capitalize ${Astro.url.pathname.includes(item) ? "active" : ""}`}
           aria-current={Astro.url.pathname.includes(item) ? "page" : undefined}
         >
           {item}

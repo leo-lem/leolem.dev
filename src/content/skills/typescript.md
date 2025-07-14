@@ -1,7 +1,7 @@
 ---
 name: TypeScript
 category: Languages & Frameworks
-icon: typescript.svg
+icon: typescript
 confidence: 50
 ---
 
