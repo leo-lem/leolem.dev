@@ -40,7 +40,9 @@ const categories = skills
       {
         stations.map(
           ({ data: { title, subtitle, date, duration }, body }, index) => (
-            <div class={`relative ml-5 sm:ml-0 ${index !== 0 && "sm:-mt-20"}`}>
+            <div
+              class={`relative ml-5 sm:ml-0 ${index !== 0 ? "sm:-mt-20" : ""}`}
+            >
               <div
                 class={`absolute -ml-5 top-3 w-3 border sm:ml-0 sm:left-1/2 sm:top-1/2 ${index % 2 !== 0 ? "sm:-translate-x-full" : ""}`}
               />
