@@ -19,7 +19,7 @@ const posts = allPosts.filter((p) => p !== featured);
 
 <BaseLayout title="Blog">
   {
-    posts.length === 0 && (
+    allPosts.length === 0 && (
       <p class="text-center text-muted text-3xl font-bold">
         Under construction… Check back later!
       </p>
@@ -53,7 +53,7 @@ const posts = allPosts.filter((p) => p !== featured);
   </section>
 
   {
-    posts.length > 0 && (
+    posts.length > 0 ? (
       <section>
         <h2 class="text-center">More Articles</h2>
 
@@ -79,6 +79,14 @@ const posts = allPosts.filter((p) => p !== featured);
           ))}
         </ul>
       </section>
+    ) : (
+      <p class="text-center text-muted text-xl font-bold">
+        Nothing more to read at the moment. But have you checked out my{" "}
+        <a class="inline-block responsive text-intense" href="/projects">
+          projects
+        </a>
+        ?
+      </p>
     )
   }
 </BaseLayout>

@@ -1,29 +1,23 @@
 ---
-title: My First Blog Post
-description: An introduction to my new blog
-date: 2025-07-07
-tags: ["Introduction", "Blogging"]
-draft: true
+title: Welcome to My Blog!
+description: Sharing thoughts on software, design, and building things that last
+date: 2025-07-15
+tags: ["Introduction", "Personal", "Blog"]
 featured: true
 ---
-This is my first blog post on this platform. I'm excited to share my thoughts and experiences with everyone.
 
-Feel free to explore the site and check out my other posts. I hope you find them interesting and engaging!
+Welcome — and thanks for dropping by.
 
-## About This Blog
+I'm Leo, a software engineer with a background in mobile development, DevOps, and backend automation. This blog is where I share what I'm learning, building, and exploring — whether it's SwiftUI prototyping, infrastructure design, or thoughts on working independently.
 
-This blog is a space where I can share my ideas, projects, and experiences. I aim to cover a wide range of topics, including technology, personal development, and more.
+## Why This Blog Exists
 
+This space is here to document projects, break down technical topics, and reflect on the process of building systems that are clean, maintainable, and useful. Posts might range from Firebase experiments to thoughts on architecture, freelancing, or shipping small tools.
 
-## Stay Updated
+If you're into clean code, thoughtful interfaces, and pragmatic engineering, you might find something here worth reading.
 
-If you want to stay updated with my latest posts, consider subscribing to the blog or following me on social media. Your feedback and comments are always welcome!
+## Stay in Touch
 
+You can follow along here, or connect with me on [LinkedIn](https://linkedin.com/in/leopoldlemmermann). If you'd like to collaborate or just chat, feel free to [schedule a call](../services#schedule-a-call).
 
-## Conclusion
-
-Thank you for visiting my blog! I look forward to sharing more content with you in the future. If you have any suggestions or topics you'd like me to cover, please let me know.
-
-
-## Contact
-If you want to get in touch, feel free to reach out via LinkedIn. You can also schedule a call with me through my [Google Calendar](../services#schedule-a-call).
+Thanks for reading — more posts coming soon.
