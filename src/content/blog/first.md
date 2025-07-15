@@ -18,6 +18,6 @@ If you're into clean code, thoughtful interfaces, and pragmatic engineering, you
 
 ## Stay in Touch
 
-You can follow along here, or connect with me on [LinkedIn](https://linkedin.com/in/leopoldlemmermann). If you'd like to collaborate or just chat, feel free to [schedule a call](../services#schedule-a-call).
+You can follow along here, or connect with me on [LinkedIn](https://linkedin.com/in/leopoldlemmermann). If you'd like to collaborate or just chat, feel free to [schedule a call](/services#schedule-a-call).
 
 Thanks for reading — more posts coming soon.
