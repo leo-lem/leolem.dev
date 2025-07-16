@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "astro dev --host",
     "build": "astro build",
-    "start": "npm run build && npx serve dist",
-    "test": "playwright test"
+    "start": "npm run build && astro preview --host",
+    "test": "playwright test",
+    "co2": "npx tsx test/check_co2.ts"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.4",
     "@astrojs/tailwind": "^6.0",
     "@tailwindcss/typography": "^0.5",
     "astro": "^5.11"
@@ -16,6 +18,11 @@
   "devDependencies": {
     "@playwright/test": "^1.54",
     "@tgwf/co2": "^0.16",
-    "serve": "^14.2"
+    "@types/node-fetch": "^2.6",
+    "@types/tgwf__co2": "^0.14",
+    "@types/xml2js": "^0.4.14",
+    "tsx": "^4.20",
+    "typescript": "^5.8",
+    "xml2js": "^0.6"
   }
 }

@@ -1,7 +1,10 @@
 import { defineCollection, z } from "astro:content";
-import { zTag } from "../enums";
+import { glob } from "astro/loaders";
+import { zTag } from "../../content/enums";
+
 
 export default defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/pages/blog/" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),

@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../BaseLayout.astro";
+import BaseLayout from "../layout/BaseLayout.astro";
 
 import { Content as AboutMe } from "../content/about.md";
 import { Content as Highlights } from "../content/highlights.md";
@@ -28,7 +28,11 @@ const categories = skills
       </div>
     </div>
 
-    <img src="/motorbike.avif" alt="Me!" class="card-image w-full sm:w-1/2" />
+    <img
+      src="/images/motorbike.avif"
+      alt="Me!"
+      class="card-image w-full sm:w-1/2"
+    />
   </section>
 
   <section class="max-w-xl mx-auto">

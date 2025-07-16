@@ -1,5 +1,3 @@
-### 📱 **Published 5 iOS apps**
-
-### ⚡ **Cut cloud infrastructure costs by 40%**
-
-### 🚀 **Deployed cloud-native sustainability dashboard**
+### 📱 **Published 5 iOS apps!**
+### ⚡ **Cut cloud infrastructure costs by 40%!**
+### 🚀 **Build and deployed my personal website!**

@@ -1,0 +1,87 @@
+---
+import "/src/global.tailwind.css";
+import NavBar from "../components/NavBar.astro";
+
+const { title, description } = Astro.props;
+const defaultDescription = "Portfolio, blog, and engineering notes";
+
+import { getCollection } from "astro:content";
+const socials = [
+  "https://github.com/leo-lem",
+  "https://linkedin.com/in/leopoldlemmermann"
+];
+const skills = (await getCollection("skills")).filter(
+  ({ data: { isPriority } }) => isPriority
+);
+const ldJson = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Leopold Lemmermann",
+  email: "mailto:contact@leolem.dev",
+  url: "https://leolem.dev",
+  sameAs: socials,
+  jobTitle: "Software Engineer",
+  knowsAbout: skills.map((skill) => skill.data.name)
+};
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{title}</title>
+    <meta name="description" content={defaultDescription} />
+    <link rel="canonical" href="https://leolem.dev" />
+
+    <!-- OpenGraph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={defaultDescription} />
+    <meta property="og:image" content="/social.jpg" />
+    <meta property="og:url" content="https://leolem.dev" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={defaultDescription} />
+    <meta name="twitter:image" content="/social.jpg" />
+
+    <!-- JSON LD -->
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(ldJson)}
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="default-color min-w-[360px]">
+    <NavBar socials={socials} />
+
+    <main class="max-w-3xl mx-auto flex flex-col gap-20 p-10 mb-32">
+      {
+        description && (
+          <section class="text-center px-10">
+            <h1 class="text-4xl font-bold capitalize mb-5">{title}</h1>
+            <p class="secondary max-w-xl mx-auto text-xl">{description}</p>
+          </section>
+        )
+      }
+
+      <slot />
+    </main>
+
+    <footer class="mt-12 py-8 text-sm text-center text-muted">
+      <a href="/impressum" class="hover:underline mx-2">Impressum</a> ·
+      <a href="/datenschutz" class="hover:underline mx-2">Datenschutz</a>
+    </footer>
+  </body>
+</html>
