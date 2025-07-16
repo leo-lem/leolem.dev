@@ -2,10 +2,7 @@
 import IconLink from "./IconLink.astro";
 
 const navigation = ["blog", "services", "projects", "about"];
-const socials = [
-  "https://github.com/leo-lem",
-  "https://linkedin.com/in/leopoldlemmermann"
-];
+const { socials } = Astro.props;
 ---
 
 <script is:inline src="/scripts/minigame.js"></script>
@@ -38,7 +35,7 @@ const socials = [
 >
   <img
     id="draggable-avatar"
-    src="/profile.webp"
+    src="/images/profile.webp"
     alt="Leopold Lemmermann"
     class="w-10 h-10 absolute z-50 cursor-grab transition-transform duration-500 ease-in-out rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
   />

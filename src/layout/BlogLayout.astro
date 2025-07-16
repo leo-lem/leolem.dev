@@ -1,0 +1,22 @@
+---
+import MarkdownLayout from "./MarkdownLayout.astro";
+import Tags from "../components/Tags.astro";
+
+const {
+  frontmatter: { title, author, date, tags }
+} = Astro.props;
+---
+
+<MarkdownLayout frontmatter={{ title, author, date, tags }}>
+  <article class="text-center">
+    <p class="text-muted font-semibold text-sm mb-4 text-center">
+      {author ?? "Leopold Lemmermann"} | {new Date(date).toLocaleDateString()}
+    </p>
+    <div class="flex flex-col items-center mb-4">
+      <Tags tags={tags} />
+    </div>
+    <div class="prose prose-lg dark:prose-invert text-justify">
+      <slot />
+    </div>
+  </article>
+</MarkdownLayout>

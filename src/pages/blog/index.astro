@@ -1,16 +1,12 @@
 ---
-import BaseLayout from "../../BaseLayout.astro";
-
-import { getCollection } from "astro:content";
+import BaseLayout from "../../layout/BaseLayout.astro";
 import Tags from "../../components/Tags.astro";
+
+import { getCollection, render } from "astro:content";
 const allPosts = await Promise.all(
   (await getCollection("blog"))
     .filter((p) => import.meta.env.DEV || !p.data.draft)
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-    .map(async (service) => {
-      const { Content } = await service.render();
-      return { ...service, Content };
-    })
 );
 
 const featured = allPosts.find((p) => p.data.featured);
@@ -32,7 +28,7 @@ const posts = allPosts.filter((p) => p !== featured);
         <article class="border-b border-[var(--border-color)]  pb-4 text-center">
           <h1 class="text-3xl font-bold mb-2">
             <a
-              href={`/blog/${featured.slug}`}
+              href={`/blog/${featured.id}`}
               class="text-primary hover:underline"
             >
               {featured.data.title}
@@ -45,10 +41,6 @@ const posts = allPosts.filter((p) => p !== featured);
 
           <div class="flex flex-col items-center mb-4">
             <Tags tags={featured.data.tags} />
-          </div>
-
-          <div class="prose prose-lg dark:prose-invert text-justify">
-            <featured.Content />
           </div>
         </article>
       )
@@ -65,7 +57,7 @@ const posts = allPosts.filter((p) => p !== featured);
             <li class="w-full">
               <h3 class="text-primary text-xl font-semibold mb-1">
                 <a
-                  href={`/blog/${post.slug}`}
+                  href={`/blog/${post.id}`}
                   class="text-primary hover:underline"
                 >
                   {post.data.title}

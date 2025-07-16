@@ -1,21 +1,20 @@
 ---
-import BaseLayout from "../BaseLayout.astro";
+import BaseLayout from "../layout/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
+import { Content as AboutMe } from "/src/content/about.md";
 const projects = (await getCollection("projects")).filter(
   ({ data: { featured } }) => featured
 );
-
 const services = (await getCollection("services")).filter(
   ({ data: { featured } }) => featured
 );
 ---
 
-<BaseLayout title="Leopold Lemmermann">
+<BaseLayout title="Leopold Lemmermann - Software Engineer">
   <section class="max-w-xl text-2xl text-center m-auto">
-    I'm a Master's student at the University of Hamburg and a Software Engineer
-    at Capgemini. I love building solutions that connect technology with
-    purpose.
+    <AboutMe />
+
     <a href="/about" class="text-intense responsive inline-block">
       Learn more.
     </a>
