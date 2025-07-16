@@ -38,14 +38,14 @@ const ldJson = {
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={defaultDescription} />
-    <meta property="og:image" content="/social-card.png" />
+    <meta property="og:image" content="/images/motorbike.avif" />
     <meta property="og:url" content="https://leolem.dev" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={defaultDescription} />
-    <meta name="twitter:image" content="/social-card.png" />
+    <meta name="twitter:image" content="/images/motorbike.avif" />
 
     <!-- JSON LD -->
     <script
@@ -62,6 +62,7 @@ const ldJson = {
       rel="stylesheet"
     />
   </head>
+
   <body class="default-color min-w-[360px]">
     <NavBar socials={socials} />
 
@@ -77,5 +78,10 @@ const ldJson = {
 
       <slot />
     </main>
+
+    <footer class="mt-12 py-8 text-sm text-center text-muted">
+      <a href="/impressum" class="hover:underline mx-2">Impressum</a> ·
+      <a href="/datenschutz" class="hover:underline mx-2">Datenschutz</a>
+    </footer>
   </body>
 </html>
