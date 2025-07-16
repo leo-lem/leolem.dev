@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev --host",
     "build": "astro build",
-    "start": "npm run build && npx serve dist",
+    "start": "npm run build && astro preview",
     "test": "playwright test"
   },
   "dependencies": {
@@ -14,8 +14,14 @@
     "astro": "^5.11"
   },
   "devDependencies": {
+    "@astrojs/sitemap": "^3.4.1",
     "@playwright/test": "^1.54",
     "@tgwf/co2": "^0.16",
-    "serve": "^14.2"
+    "@types/node-fetch": "^2.6",
+    "@types/tgwf__co2": "^0.14",
+    "sitemapper": "^4.0.2",
+    "ts-node": "^10.9",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8"
   }
 }

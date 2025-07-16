@@ -7,13 +7,13 @@ const config: Config = {
   reporter: process.env.CI ? "github" : "list",
 
   webServer: {
-    url: process.env.BASE_URL || "http://localhost:3000",
+    url: process.env.BASE_URL || "http://localhost:4321",
     command: "npm start",
     reuseExistingServer: true
   },
 
   use: {
-    baseURL: process.env.BASE_URL || "http://localhost:3000",
+    baseURL: process.env.BASE_URL || "http://localhost:4321",
     headless: true,
     viewport: { width: 1280, height: 720 },
   },
