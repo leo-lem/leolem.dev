@@ -14,8 +14,8 @@ function getBaselineCO2(): number | null {
   else if (existsSync(BASELINE_FILE))
     baseline = parseFloat(readFileSync(BASELINE_FILE, "utf-8"));
 
-  if (!baseline || isNaN(baseline) || baseline < 0)
-    console.warn(baseline ? `CO₂ baseline '${baseline}' is invalid. Using null.` : "No CO₂ baseline found.");
+  if (baseline === null || isNaN(baseline) || baseline < 0)
+    console.warn(baseline !== null ? `CO₂ baseline '${baseline}' is invalid. Using null.` : "No CO₂ baseline found.");
 
   return baseline;
 }
