@@ -2,7 +2,7 @@
 title: Welcome to My Blog!
 description: Sharing thoughts on software, design, and building things that last
 date: 2025-07-15
-tags: ["Introduction", "Personal", "Blog"]
+tags: ["Introduction", "Personal Website", "Blog"]
 featured: true
 ---
 

@@ -8,7 +8,7 @@ export const zTag = z.enum([
   "Research", "Python", "Sentiment Analysis", "Education",
   "MVP", "Core Data", "CI/CD", "Automation", "GitHub Actions",
   "Introduction", "Blog", "Astro", "Web Development",
-  "Personal Website", "Sustainability", "Personal"
+  "Personal Website", "Sustainability"
 ])
 
 export const zIcon = z.enum([
