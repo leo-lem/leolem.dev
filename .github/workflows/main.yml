@@ -54,11 +54,12 @@ jobs:
       - uses: ./.github/actions/setup-node
       - uses: actions/cache@v4
         with:
-          path: baseline-co2.txt
+          path: baseline.co2
           key: baseline-co2-${{ github.sha }}
           restore-keys: |
             baseline-co2-
       - name: Check CO2 regression
-        run: node test/check-co2.js
+        run: npm run co2
         env:
+          BASELINE_CO2: 0.1
           TARGET_URL: https://leolem.dev

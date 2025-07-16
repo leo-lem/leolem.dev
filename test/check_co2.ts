@@ -1,7 +1,7 @@
 import { co2 as CO2 } from "@tgwf/co2";
 import fetch from "node-fetch";
 import { writeFileSync, readFileSync, existsSync } from "fs";
-import Sitemap from "sitemapper";
+import { parseStringPromise } from 'xml2js';
 
 const BASELINE_FILE = "baseline.co2";
 
@@ -14,33 +14,51 @@ function getBaselineCO2(): number | null {
   else if (existsSync(BASELINE_FILE))
     baseline = parseFloat(readFileSync(BASELINE_FILE, "utf-8"));
 
-  if (!baseline || isNaN(baseline))
-    console.warn("No valid baseline CO₂ found. Using null.");
+  if (!baseline || isNaN(baseline) || baseline < 0)
+    console.warn(baseline ? `CO₂ baseline '${baseline}' is invalid. Using null.` : "No CO₂ baseline found.");
 
   return baseline;
 }
 
-async function getUrls(): Promise<string[]> {
+export async function getUrlsFromSitemapIndex(): Promise<string[]> {
   const { TARGET_URL } = process.env;
 
   if (!TARGET_URL)
     throw new Error("Environment variable TARGET_URL must be set.");
 
-  const sitemap = new Sitemap();
-  const result = await sitemap.fetch(`${TARGET_URL}/sitemap.xml`);
-  return result.sites;
+  const urls: string[] = [];
+
+  const res = await fetch(`${TARGET_URL}/sitemap-index.xml`);
+  const xml = await res.text();
+  const parsedIndex = await parseStringPromise(xml);
+
+  const sitemapUrls = parsedIndex.sitemapindex.sitemap.map((s: any) => s.loc[0]);
+
+  for (const sitemapUrl of sitemapUrls) {
+    const res = await fetch(sitemapUrl);
+    const xml = await res.text();
+    try {
+      const parsed = await parseStringPromise(xml);
+      const pageUrls = parsed.urlset.url.map((u: any) => u.loc[0]);
+      urls.push(...pageUrls);
+    } catch (error) {
+      throw new Error(`Failed to parse sitemap ${sitemapUrl}:\n\n${error}`);
+    }
+  }
+
+  return urls;
 }
 
 async function checkCO2() {
   const calc = new CO2({});
   let totalCO2 = 0;
 
-  for (const url of await getUrls()) {
+  for (const url of await getUrlsFromSitemapIndex()) {
     const response = await fetch(url);
     if (!response.ok)
       throw new Error(`Failed to fetch ${url}: ${response.status}`);
-
-    const pageSize = parseInt(response.headers.get("content-length") || "0", 10);
+    const contentLength = response.headers.get("content-length");
+    const pageSize = contentLength ? parseInt(contentLength, 10) : (await response.arrayBuffer()).byteLength;
     const co2 = calc.perByte(pageSize) as number;
 
     totalCO2 += co2;
