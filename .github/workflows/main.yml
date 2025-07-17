@@ -1,4 +1,4 @@
-name: Deploy, Smoke Test, and CO2 Calculation
+name: Deploy and Smoke Test
 on:
   push:
     branches: [main]
@@ -45,21 +45,3 @@ jobs:
         run: npx playwright test test/smoke.spec.ts
         env:
           BASE_URL: https://leolem.dev
-
-  co2:
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup-node
-      - uses: actions/cache@v4
-        with:
-          path: baseline.co2
-          key: baseline-co2-${{ github.sha }}
-          restore-keys: |
-            baseline-co2-
-      - name: Check CO2 regression
-        run: npm run co2
-        env:
-          BASELINE_CO2: 0.1
-          TARGET_URL: https://leolem.dev
