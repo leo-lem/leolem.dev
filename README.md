@@ -1,6 +1,6 @@
 # leolem.dev
 
-[![Deploy, Smoke Test, and CO2 Calculation](https://github.com/leo-lem/leolem.dev/actions/workflows/main.yml/badge.svg)](https://github.com/leo-lem/leolem.dev/actions/workflows/main.yml)
+[![Deploy and Smoke Test](https://github.com/leo-lem/leolem.dev/actions/workflows/main.yml/badge.svg)](https://github.com/leo-lem/leolem.dev/actions/workflows/main.yml)
 [![Website](https://img.shields.io/badge/live-leolem.dev-green?style=flat-square&logo=github)](https://leolem.dev)
 [![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/leo-lem/leolem.dev.git)
 
