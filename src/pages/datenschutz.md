@@ -23,7 +23,7 @@ Diese Daten dienen ausschließlich zur Gewährleistung eines sicheren und stabil
 ### Cookies und Tracking
 Diese Website verwendet **keine** Cookies und kein Tracking.
 
-Diese Website verwendet Cloudflare Web Analytics, einen datenschutzfreundlichen Analysedienst, der ohne Cookies arbeitet und keine personenbezogenen Daten speichert oder verarbeitet. Es findet keinerlei Tracking oder Profiling statt. Die Verarbeitung erfolgt vollständig anonym und konform mit der DSGVO sowie anderen Datenschutzgesetzen.
+Diese Website verwendet Cloudflare Web Analytics, einen datenschutzfreundlichen Analysedienst, der ohne Cookies arbeitet. Cloudflare Web Analytics speichert oder verarbeitet keine personenbezogenen Daten, jedoch werden technische Daten wie Seitenaufrufe, Referrer-URLs und User-Agent-Informationen anonym erfasst. Es findet keinerlei Tracking oder Profiling statt. Die Verarbeitung erfolgt vollständig anonym und konform mit der DSGVO sowie anderen Datenschutzgesetzen.
 
 ### Kontaktaufnahme
 Wenn Sie per E-Mail Kontakt aufnehmen, wird Ihre Anfrage zwecks Bearbeitung und für den Fall von Anschlussfragen gespeichert. Diese Daten werden nicht ohne Ihre Einwilligung weitergegeben.
