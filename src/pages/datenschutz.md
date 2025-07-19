@@ -21,7 +21,9 @@ Beim Besuch dieser Website werden durch den Hostinganbieter automatisch folgende
 Diese Daten dienen ausschließlich zur Gewährleistung eines sicheren und stabilen Betriebs der Website. Eine personenbezogene Auswertung findet nicht statt.
 
 ### Cookies und Tracking
-Diese Website verwendet **keine** Cookies, kein Tracking und keine Analyse-Tools wie Google Analytics.
+Diese Website verwendet **keine** Cookies und kein Tracking.
+
+Diese Website verwendet Cloudflare Web Analytics, einen datenschutzfreundlichen Analysedienst, der ohne Cookies arbeitet und keine personenbezogenen Daten speichert oder verarbeitet. Es findet keinerlei Tracking oder Profiling statt. Die Verarbeitung erfolgt vollständig anonym und konform mit der DSGVO sowie anderen Datenschutzgesetzen.
 
 ### Kontaktaufnahme
 Wenn Sie per E-Mail Kontakt aufnehmen, wird Ihre Anfrage zwecks Bearbeitung und für den Fall von Anschlussfragen gespeichert. Diese Daten werden nicht ohne Ihre Einwilligung weitergegeben.
