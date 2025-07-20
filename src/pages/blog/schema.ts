@@ -1,7 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 
-
 export default defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/pages/blog/" }),
   schema: z.object({

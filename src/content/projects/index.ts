@@ -7,6 +7,7 @@ export default defineCollection({
       type: z.enum(['github', 'appstore', 'webpage', 'document']),
       url: z.string().url()
     })).optional(),
+    posts: z.array(z.string()).optional(),
     tags: z.array(z.string()),
     images: z.array(z.string()).optional(),
     thumbnail: z.string().optional(),

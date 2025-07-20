@@ -8,6 +8,8 @@ links:
     url: "https://github.com/leo-lem/smokes"
   - type: webpage
     url: "https://smokes.leolem.dev/"
+posts:
+  - smokes
 images:
   - "/projects/smokes/1.avif"
   - "/projects/smokes/2.avif"

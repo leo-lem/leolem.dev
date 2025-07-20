@@ -1,11 +1,9 @@
 [
   {
-    "id": "AI",
-    "category": "AI & Data"
-  },
-  {
     "id": "Astro",
-    "category": "Web Development"
+    "category": "Web Development",
+    "icon": "placeholder",
+    "confidence": 40
   },
   {
     "id": "Automation",
@@ -13,7 +11,9 @@
   },
   {
     "id": "Backend",
-    "category": "Web Development"
+    "category": "Web Development",
+    "icon": "placeholder",
+    "confidence": 40
   },
   {
     "id": "Blog",
@@ -39,7 +39,9 @@
   },
   {
     "id": "Core Data",
-    "category": "Languages & Frameworks"
+    "category": "Languages & Frameworks",
+    "icon": "apple",
+    "confidence": 70
   },
   {
     "id": "Data Science",
@@ -62,15 +64,22 @@
   },
   {
     "id": "Frontend",
-    "category": "Web Development"
+    "category": "Web Development",
+    "icon": "placeholder",
+    "confidence": 40
   },
   {
     "id": "Full Stack",
-    "category": "Web Development"
+    "category": "Web Development",
+    "icon": "placeholder",
+    "confidence": 40
   },
   {
-    "id": "GitHub Actions",
-    "category": "Cloud & DevOps"
+    "id": "GH Actions",
+    "category": "Cloud & DevOps",
+    "icon": "cicd",
+    "confidence": 70,
+    "isPriority": true
   },
   {
     "id": "Introduction",
@@ -95,10 +104,6 @@
     "isPriority": true
   },
   {
-    "id": "Machine Learning",
-    "category": "AI & Data"
-  },
-  {
     "id": "ML",
     "category": "AI & Data",
     "icon": "huggingface",
@@ -106,7 +111,7 @@
   },
   {
     "id": "Mobile",
-    "category": "Languages & Frameworks"
+    "category": "Mobile Apps"
   },
   {
     "id": "MVP",
@@ -153,7 +158,9 @@
   },
   {
     "id": "Swift Vapor",
-    "category": "Languages & Frameworks"
+    "category": "Languages & Frameworks",
+    "icon": "swift",
+    "confidence": 50
   },
   {
     "id": "SwiftUI",
@@ -174,9 +181,5 @@
     "category": "Languages & Frameworks",
     "icon": "typescript",
     "confidence": 50
-  },
-  {
-    "id": "Web Development",
-    "category": "Web Development"
   }
 ]
