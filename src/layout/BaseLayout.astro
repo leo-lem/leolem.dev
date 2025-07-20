@@ -5,7 +5,6 @@ import NavBar from "../components/NavBar.astro";
 const { title, description } = Astro.props;
 const defaultDescription = "Portfolio, blog, and engineering notes";
 
-import { getCollection } from "astro:content";
 const socials = [
   "https://github.com/leo-lem",
   "https://linkedin.com/in/leopoldlemmermann"
@@ -19,6 +18,7 @@ const ldJson = {
   sameAs: socials,
   jobTitle: "Software Engineer"
 };
+const canonicalPath = Astro.url.pathname.replace(/\/$/, "");
 ---
 
 <html lang="en">
@@ -28,7 +28,7 @@ const ldJson = {
 
     <title>{title}</title>
     <meta name="description" content={defaultDescription} />
-    <link rel="canonical" href="https://leolem.dev" />
+    <link rel="canonical" href={`https://leolem.dev${canonicalPath}`} />
 
     <!-- OpenGraph / Facebook -->
     <meta property="og:type" content="website" />

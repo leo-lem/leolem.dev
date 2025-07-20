@@ -6,10 +6,7 @@ links:
     url: "https://github.com/Leo-Lem/climate-opinions"
   - type: document
     url: "https://docs.google.com/document/d/111muU-w-S8c4TPuKXI1qenj-fPwhlx8sO-yx6_PkWSk/edit?usp=sharing"
-images:
-  - "/projects/climate/1.avif"
-  - "/projects/climate/2.avif"
-  - "/projects/climate/3.avif"
+images: ["1.avif", "2.avif", "3.avif"]
 ---
 
 This project analyzes public sentiment on climate change using NLP techniques on social media data from Twitter, YouTube, and Bluesky. Fine-tuned BERT models classify sentiment trends and correlate them with real-world events. The study includes data preprocessing, web scraping, and visualization to provide actionable insights for effective communication strategies in climate advocacy.

@@ -28,19 +28,19 @@ const services = (await getCollection("services")).filter(
 
   <section class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-center">
     {
-      projects.map((project: any) => (
+      projects.map(({ slug, data: { title, thumbnail } }) => (
         <a
-          href={`/projects#${project.slug}`}
+          href={`/projects#${slug}`}
           class="card responsive cursor-pointer flex flex-col gap-4"
         >
-          {project.data.thumbnail && (
+          {thumbnail && (
             <img
-              src={`/images/${project.data.thumbnail}`}
-              alt={project.data.title}
+              src={`/projects/${slug}/${thumbnail}`}
+              alt={title}
               class="w-max aspect-square object-cover"
             />
           )}
-          <h2>{project.data.title}</h2>
+          <h2>{title}</h2>
         </a>
       ))
     }

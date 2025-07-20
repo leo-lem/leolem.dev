@@ -20,11 +20,7 @@ const services = await Promise.all(
       services.map(({ data: { title, short, tags, image, cta }, Content }) => (
         <div class="card flex flex-col gap-4">
           {image && (
-            <img
-              src={`/images/services/${image}`}
-              alt={title}
-              class="card-image"
-            />
+            <img src={`/services/${image}`} alt={title} class="card-image" />
           )}
 
           <h2>{title}</h2>
