@@ -75,7 +75,7 @@ const categories = skills
     </div>
   </section>
 
-  <section class="max-w-3xl flex flex-col gap-10 mx-auto">
+  <section id="skills" class="max-w-3xl flex flex-col gap-10 mx-auto">
     <h2 class="text-center">My Skill Highlights</h2>
 
     <div class="card secondary prose prose-base dark:prose-invert">
@@ -84,7 +84,7 @@ const categories = skills
 
     {
       categories.map((category) => (
-        <div>
+        <div id={category.toLowerCase().replace(/\s+/g, "-")}>
           <h3>{category}</h3>
 
           <div class="flex flex-wrap gap-4">
