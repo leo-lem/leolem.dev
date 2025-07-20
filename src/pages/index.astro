@@ -35,7 +35,7 @@ const services = (await getCollection("services")).filter(
         >
           {thumbnail && (
             <img
-              src={`/images/projects/${slug}/${thumbnail}`}
+              src={`/projects/${slug}/${thumbnail}`}
               alt={title}
               class="w-max aspect-square object-cover"
             />
