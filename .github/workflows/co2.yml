@@ -1,4 +1,4 @@
-name: Detect CO₂ Regression
+name: CO₂ Check
 on:
   workflow_run:
     workflows: ["Deploy and Smoke Test"]
@@ -21,7 +21,7 @@ jobs:
           key: baseline-co2-${{ github.sha }}
           restore-keys: |
             baseline-co2-
-      - name: Check CO₂ regression
+      - name: Detect CO₂ regression
         run: npm run co2
         env:
           CO2_BASELINE: 0.1
