@@ -3,7 +3,6 @@ title: Sustainable IT Dashboard
 tags: ["Full Stack", "Cloud", "CI/CD"]
 images:
   - "/projects/sid/thumbnail.webp"
-featured: true
 thumbnail: "/projects/sid/thumbnail.webp"
 ---
 

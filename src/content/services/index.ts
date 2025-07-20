@@ -1,11 +1,11 @@
 import { defineCollection, z } from "astro:content";
-import { zIcon, zTag } from "../enums";
+import zIcon from "../zIcon";
 
 export default defineCollection({
   schema: z.object({
     title: z.string(),
     short: z.string(),
-    tags: z.array(zTag),
+    tags: z.array(z.string()),
     icon: zIcon.optional(),
     image: z.string().optional(),
     cta: z.object({
