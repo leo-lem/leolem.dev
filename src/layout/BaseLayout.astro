@@ -10,9 +10,6 @@ const socials = [
   "https://github.com/leo-lem",
   "https://linkedin.com/in/leopoldlemmermann"
 ];
-const skills = (await getCollection("skills")).filter(
-  ({ data: { isPriority } }) => isPriority
-);
 const ldJson = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -20,8 +17,7 @@ const ldJson = {
   email: "mailto:contact@leolem.dev",
   url: "https://leolem.dev",
   sameAs: socials,
-  jobTitle: "Software Engineer",
-  knowsAbout: skills.map((skill) => skill.data.name)
+  jobTitle: "Software Engineer"
 };
 ---
 

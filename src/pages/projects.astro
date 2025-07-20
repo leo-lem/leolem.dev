@@ -38,6 +38,20 @@ const projects = await Promise.all(
           <Content />
         </div>
 
+        {data.posts && data.posts?.length > 0 && (
+          <div class="flex flex-row items-baseline gap-2">
+            <h3>Related posts:</h3>
+            {data.posts.map((post) => (
+              <a
+                href={`/blog/${post}`}
+                class="inline-block responsive text-lg font-semibold"
+              >
+                {post}
+              </a>
+            ))}
+          </div>
+        )}
+
         {data.images && (
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {data.images.map((img) => (

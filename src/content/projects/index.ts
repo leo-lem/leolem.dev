@@ -1,5 +1,5 @@
 import { defineCollection, z } from 'astro:content';
-import { zTag } from '../enums';
+import { zTopic } from '../zTypes';
 
 export default defineCollection({
   schema: z.object({
@@ -8,7 +8,8 @@ export default defineCollection({
       type: z.enum(['github', 'appstore', 'webpage', 'document']),
       url: z.string().url()
     })).optional(),
-    tags: z.array(zTag),
+    posts: z.array(z.string()).optional(),
+    tags: z.array(zTopic).optional(),
     images: z.array(z.string()).optional(),
     thumbnail: z.string().optional(),
     featured: z.boolean().default(false),

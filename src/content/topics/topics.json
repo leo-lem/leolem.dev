@@ -1,0 +1,196 @@
+[
+  {
+    "id": "Astro",
+    "category": "Web Development",
+    "icon": "placeholder",
+    "confidence": 40
+  },
+  {
+    "id": "Automation",
+    "category": "Cloud & DevOps"
+  },
+  {
+    "id": "Backend",
+    "category": "Web Development",
+    "icon": "placeholder",
+    "confidence": 40
+  },
+  {
+    "id": "Blog",
+    "category": "Community"
+  },
+  {
+    "id": "CI/CD",
+    "category": "Cloud & DevOps",
+    "icon": "cicd",
+    "confidence": 90,
+    "isPriority": true
+  },
+  {
+    "id": "Cloud",
+    "category": "Cloud & DevOps"
+  },
+  {
+    "id": "Cloud Infra",
+    "category": "Cloud & DevOps",
+    "icon": "googlecloud",
+    "confidence": 70,
+    "isPriority": true
+  },
+  {
+    "id": "Core Data",
+    "category": "Languages & Frameworks",
+    "icon": "apple",
+    "confidence": 70
+  },
+  {
+    "id": "Data Science",
+    "category": "AI & Data"
+  },
+  {
+    "id": "DevOps",
+    "category": "Cloud & DevOps"
+  },
+  {
+    "id": "Docker",
+    "category": "Cloud & DevOps",
+    "icon": "docker",
+    "confidence": 80,
+    "isPriority": true
+  },
+  {
+    "id": "Education",
+    "category": "Community"
+  },
+  {
+    "id": "Frontend",
+    "category": "Web Development",
+    "icon": "placeholder",
+    "confidence": 40
+  },
+  {
+    "id": "Full Stack",
+    "category": "Web Development",
+    "icon": "placeholder",
+    "confidence": 40
+  },
+  {
+    "id": "GH Actions",
+    "category": "Cloud & DevOps",
+    "icon": "cicd",
+    "confidence": 70,
+    "isPriority": true
+  },
+  {
+    "id": "Introduction",
+    "category": "Community"
+  },
+  {
+    "id": "iOS",
+    "category": "Languages & Frameworks",
+    "icon": "apple",
+    "confidence": 80,
+    "isPriority": true
+  },
+  {
+    "id": "JavaScript",
+    "category": "Languages & Frameworks"
+  },
+  {
+    "id": "Kubernetes",
+    "category": "Cloud & DevOps",
+    "icon": "kubernetes",
+    "confidence": 60,
+    "isPriority": true
+  },
+  {
+    "id": "ML",
+    "category": "AI & Data",
+    "icon": "huggingface",
+    "confidence": 60
+  },
+  {
+    "id": "Mobile",
+    "category": "Mobile Apps"
+  },
+  {
+    "id": "MVP",
+    "category": "Mobile Apps"
+  },
+  {
+    "id": "Open Source",
+    "category": "Community"
+  },
+  {
+    "id": "Personal Website",
+    "category": "Web Development"
+  },
+  {
+    "id": "Python",
+    "category": "AI & Data",
+    "icon": "python",
+    "confidence": 80
+  },
+  {
+    "id": "React",
+    "category": "Languages & Frameworks",
+    "icon": "react",
+    "confidence": 60
+  },
+  {
+    "id": "Research",
+    "category": "Research"
+  },
+  {
+    "id": "Sentiment Analysis",
+    "category": "AI & Data"
+  },
+  {
+    "id": "Sustainability",
+    "category": "Community"
+  },
+  {
+    "id": "Swift",
+    "category": "Languages & Frameworks",
+    "icon": "swift",
+    "confidence": 95,
+    "isPriority": true
+  },
+  {
+    "id": "Swift Vapor",
+    "category": "Languages & Frameworks",
+    "icon": "swift",
+    "confidence": 50
+  },
+  {
+    "id": "SwiftUI",
+    "category": "Languages & Frameworks",
+    "icon": "swift",
+    "confidence": 90,
+    "isPriority": true
+  },
+  {
+    "id": "Terraform",
+    "category": "Cloud & DevOps",
+    "icon": "terraform",
+    "confidence": 70,
+    "isPriority": true
+  },
+  {
+    "id": "TypeScript",
+    "category": "Languages & Frameworks",
+    "icon": "typescript",
+    "confidence": 50
+  },
+  {
+    "id": "Personal Project",
+    "category": "Community"
+  },
+  {
+    "id": "App Store",
+    "category": "Mobile Apps",
+    "icon": "appstore",
+    "confidence": 80,
+    "isPriority": true
+  }
+]
