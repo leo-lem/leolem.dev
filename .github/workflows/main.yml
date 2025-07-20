@@ -2,7 +2,7 @@ name: Deploy and Smoke Test
 on:
   push:
     branches: [main]
-    paths-ignore: ["README.md", ".github/dependabot.yml", ".devcontainer.json", ".github/workflows/pr.yml"]
+    paths-ignore: ["README.md", ".devcontainer.json", ".github/workflows/pr.yml"]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -42,6 +42,6 @@ jobs:
       - uses: ./.github/actions/setup-node
       - run: npx playwright install
       - name: Run smoke tests
-        run: npx playwright test test/smoke.spec.ts
+        run: npm run smoke
         env:
           BASE_URL: https://leolem.dev

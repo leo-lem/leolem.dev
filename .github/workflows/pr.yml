@@ -2,7 +2,7 @@ name: PR Build and Local Smoke Test
 on:
   pull_request:
     branches: [main]
-    paths-ignore: ["README.md", ".github/dependabot.yml", ".devcontainer.json", ".github/workflows/main.yml", ".github/workflows/co2.yml", ".github/workflows/codeql.yml"]
+    paths-ignore: ["README.md", ".devcontainer.json", ".github/workflows/main.yml", ".github/workflows/co2.yml"]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
