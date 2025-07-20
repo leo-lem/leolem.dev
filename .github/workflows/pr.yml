@@ -1,4 +1,4 @@
-name: PR Build and Local Smoke Test
+name: Build and Test
 on:
   pull_request:
     branches: [main]
