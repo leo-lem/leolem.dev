@@ -17,10 +17,10 @@ const { src, alt = "Project Screenshot" } = Astro.props;
 </div>
 
 <img
-  src={`/images/${src}`}
+  src={`/${src}`}
   alt={alt}
   class="responsive card-image cursor-pointer"
-  onclick={`showModal('/images/${src}')`}
+  onclick={`showModal('/${src}')`}
 />
 
 <script is:inline>
