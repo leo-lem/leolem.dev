@@ -181,5 +181,16 @@
     "category": "Languages & Frameworks",
     "icon": "typescript",
     "confidence": 50
+  },
+  {
+    "id": "Personal Project",
+    "category": "Community"
+  },
+  {
+    "id": "App Store",
+    "category": "Mobile Apps",
+    "icon": "appstore",
+    "confidence": 80,
+    "isPriority": true
   }
 ]
