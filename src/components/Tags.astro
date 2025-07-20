@@ -2,10 +2,10 @@
 const { tags } = Astro.props;
 
 import { getCollection } from "astro:content";
-
 const skills = (await getCollection("topics")).filter(
   (topic) => topic.data.confidence !== undefined
 );
+
 function isSkill(tag: string): boolean {
   return skills.some((skill) => skill.data.id === tag);
 }

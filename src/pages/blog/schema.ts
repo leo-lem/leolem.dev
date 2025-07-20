@@ -1,5 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
+import { zTopic } from "../../content/zTypes";
 
 export default defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/pages/blog/" }),
@@ -7,7 +8,7 @@ export default defineCollection({
     title: z.string(),
     description: z.string(),
     date: z.date(),
-    tags: z.array(z.string()).optional(),
+    tags: z.array(zTopic).optional(),
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),
     cover: z.string().optional(),

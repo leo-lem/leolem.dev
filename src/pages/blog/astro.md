@@ -2,7 +2,7 @@
 title: Building my website with Astro
 description: A journey through creating my personal website using Astro
 date: 2025-07-16
-tags: ["Astro", "Web Development", "Personal Website"]
+tags: ["Astro", "Personal Website"]
 layout: ../../layout/BlogLayout.astro
 ---
 
