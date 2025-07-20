@@ -10,14 +10,9 @@ links:
     url: "https://smokes.leolem.dev/"
 posts:
   - smokes
-images:
-  - "/projects/smokes/1.avif"
-  - "/projects/smokes/2.avif"
-  - "/projects/smokes/3.avif"
-  - "/projects/smokes/4.avif"
-  - "/projects/smokes/5.avif"
+images: ["1.avif", "2.avif", "3.avif", "4.avif", "5.avif"]
 featured: true
-thumbnail: "/projects/smokes/thumbnail.avif"
+thumbnail: "thumbnail.avif"
 ---
 
 Smokes is an iOS application designed to help users track their smoking habits by visualizing statistics and providing insights for behavioral improvement. The app offers a user-friendly interface, detailed analytics, and customization options to support users in monitoring and reducing their smoking habits.
