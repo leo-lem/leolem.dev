@@ -6,6 +6,6 @@ updates:
      interval: weekly
 
  - package-ecosystem: "github-actions"
-    directory: "/" # You don't need to specify `/.github/workflows` for `directory`. You can use `directory: "/"`.
-    schedule:
-      interval: "weekly"
+   directory: "/" # You don't need to specify `/.github/workflows` for `directory`. You can use `directory: "/"`.
+   schedule:
+     interval: "weekly"
