@@ -3,6 +3,10 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '00 00 * * 6'
+permissions:
+  security-events: write
+  actions: read
+  contents: read
 jobs:
   codeql:
     uses: leo-lem/leo-lem/.github/workflows/codeql.yml@main
