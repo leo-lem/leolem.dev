@@ -1,6 +1,11 @@
 version: 2
 updates:
- - package-ecosystem: "devcontainers"
-   directory: "/"
+ - package-ecosystem: "npm"
+   directory: "/" # Look for `package.json` and `lock` files in the `root` directory
    schedule:
      interval: weekly
+
+ - package-ecosystem: "github-actions"
+   directory: "/" # You don't need to specify `/.github/workflows` for `directory`. You can use `directory: "/"`.
+   schedule:
+     interval: "weekly"
