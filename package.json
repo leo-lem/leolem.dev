@@ -14,7 +14,7 @@
     "@astrojs/sitemap": "^3.4",
     "@astrojs/tailwind": "^6.0",
     "@tailwindcss/typography": "^0.5",
-    "astro": "^5.11"
+    "astro": "^5.12"
   },
   "devDependencies": {
     "@playwright/test": "^1.54",
