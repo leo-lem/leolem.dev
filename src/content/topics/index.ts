@@ -9,7 +9,6 @@ export default defineCollection({
     icon: zIcon.optional(),
     category: z.enum([
       "Cloud & DevOps",
-      "Languages & Frameworks",
       "AI & Data",
       "Mobile Apps",
       "Web Development",
