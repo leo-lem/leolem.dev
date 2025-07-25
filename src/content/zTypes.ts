@@ -8,7 +8,7 @@ export const zIcon = z.string().refine(icon => availableIcons.includes(icon), (i
   message: `Icon '${icon}' not found in public/icons directory. Available icons: ${availableIcons.join(', ')}`
 }));
 
-import topics from "./topics/topics.json";
+import topics from "./topics.json";
 const availableTopics = topics.map(t => t.id);
 
 export const zTopic = z.string().refine(

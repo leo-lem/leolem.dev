@@ -1,4 +1,5 @@
 ---
+featured: true
 title: Building Smokes - From MVP to the App Store
 description: How a small smoking tracker app turned into a published SwiftUI project, and what I learned from it.
 date: 2025-07-20

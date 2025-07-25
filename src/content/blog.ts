@@ -7,6 +7,7 @@ export default defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    author: z.string().default("Leopold Lemmermann"),
     date: z.date(),
     tags: z.array(zTopic).optional(),
     draft: z.boolean().default(false),

@@ -206,5 +206,13 @@
     "icon": "cicd",
     "confidence": 70,
     "isPriority": true
+  },
+  {
+    "id": "Cloudflare",
+    "category": "Web Development"
+  },
+  {
+    "id": "Web Analytics",
+    "category": "Web Development"
   }
 ]
