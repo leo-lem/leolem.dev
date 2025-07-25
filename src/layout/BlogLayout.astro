@@ -10,7 +10,9 @@ const {
 <MarkdownLayout frontmatter={{ title, author, date, tags }}>
   <article class="text-center">
     <p class="text-muted font-semibold text-sm mb-4 text-center">
-      {author ?? "Leopold Lemmermann"} | {new Date(date).toLocaleDateString()}
+      by {author ?? "Leopold Lemmermann"} | {
+        new Date(date).toLocaleDateString()
+      }
     </p>
     <div class="flex flex-col items-center mb-4">
       <Tags tags={tags} />

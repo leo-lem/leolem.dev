@@ -39,7 +39,7 @@
   },
   {
     "id": "Core Data",
-    "category": "Languages & Frameworks",
+    "category": "Mobile Apps",
     "icon": "apple",
     "confidence": 70
   },
@@ -87,14 +87,14 @@
   },
   {
     "id": "iOS",
-    "category": "Languages & Frameworks",
+    "category": "Mobile Apps",
     "icon": "apple",
     "confidence": 80,
     "isPriority": true
   },
   {
     "id": "JavaScript",
-    "category": "Languages & Frameworks"
+    "category": "Web Development"
   },
   {
     "id": "Kubernetes",
@@ -133,7 +133,7 @@
   },
   {
     "id": "React",
-    "category": "Languages & Frameworks",
+    "category": "Web Development",
     "icon": "react",
     "confidence": 60
   },
@@ -151,20 +151,20 @@
   },
   {
     "id": "Swift",
-    "category": "Languages & Frameworks",
+    "category": "Mobile Apps",
     "icon": "swift",
     "confidence": 95,
     "isPriority": true
   },
   {
     "id": "Swift Vapor",
-    "category": "Languages & Frameworks",
+    "category": "Mobile Apps",
     "icon": "swift",
     "confidence": 50
   },
   {
     "id": "SwiftUI",
-    "category": "Languages & Frameworks",
+    "category": "Mobile Apps",
     "icon": "swift",
     "confidence": 90,
     "isPriority": true
@@ -178,7 +178,7 @@
   },
   {
     "id": "TypeScript",
-    "category": "Languages & Frameworks",
+    "category": "Web Development",
     "icon": "typescript",
     "confidence": 50
   },
@@ -192,5 +192,27 @@
     "icon": "appstore",
     "confidence": 80,
     "isPriority": true
+  },
+  {
+    "id": "Firebase",
+    "category": "Mobile Apps",
+    "icon": "firebase",
+    "confidence": 50,
+    "isPriority": true
+  },
+  {
+    "id": "GitLab CI",
+    "category": "Cloud & DevOps",
+    "icon": "cicd",
+    "confidence": 70,
+    "isPriority": true
+  },
+  {
+    "id": "Cloudflare",
+    "category": "Web Development"
+  },
+  {
+    "id": "Web Analytics",
+    "category": "Web Development"
   }
 ]
