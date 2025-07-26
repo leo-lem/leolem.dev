@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layout/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import Tags from "../components/Tags.astro";
 
 import { Content as AboutMe } from "/src/content/about.md";
 const projects = (await getCollection("projects")).filter(
@@ -9,6 +10,11 @@ const projects = (await getCollection("projects")).filter(
 const services = (await getCollection("services")).filter(
   ({ data: { featured } }) => featured
 );
+
+const articles = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const featured = articles.find((p) => p.data.featured);
 ---
 
 <BaseLayout title="Leopold Lemmermann - Software Engineer">
@@ -21,9 +27,38 @@ const services = (await getCollection("services")).filter(
   </section>
 
   <section class="max-w-lg text-xl text-center m-auto">
-    Or explore my <a href="/blog" class="text-intense responsive inline-block"
-      >blog</a
-    >, where I write about software development, technology, and more.
+    {
+      featured && (
+        <article class="pb-4 text-center card mb-4">
+          <p class="text-sm text-muted font-bold mb-2">«Featured Article»</p>
+
+          <h3 class="text-xl font-bold mb-2">
+            <a
+              href={`/blog/${featured.id}`}
+              class="text-primary hover:underline"
+            >
+              {featured.data.title}
+            </a>
+          </h3>
+          <p class="text-muted text-sm mb-2">
+            by {featured.data.author} |{" "}
+            {featured.data.date.toLocaleDateString()}
+          </p>
+          <div class="flex flex-col items-center mb-2">
+            <Tags tags={featured.data.tags} />
+          </div>
+          <p class="text-secondary">{featured.data.description}</p>
+        </article>
+      )
+    }
+
+    <p class="text-base text-center sm:col-span-2">
+      <a
+        href="/blog"
+        class="text-intense inline-block transform hover:underline hover:scale-105 transition duration-200"
+        >More Articles →
+      </a>
+    </p>
   </section>
 
   <section class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-center">
@@ -37,7 +72,7 @@ const services = (await getCollection("services")).filter(
             <img
               src={`/projects/${slug}/${thumbnail}`}
               alt={title}
-              class="w-max aspect-square object-cover"
+              class="w-max aspect-square object-cover rounded-lg"
             />
           )}
           <h2>{title}</h2>
@@ -49,7 +84,7 @@ const services = (await getCollection("services")).filter(
       <a
         href="/projects"
         class="text-intense inline-block transform hover:underline hover:scale-105 transition duration-200"
-        >See all projects →
+        >All my projects →
       </a>
     </p>
   </section>
@@ -76,11 +111,12 @@ const services = (await getCollection("services")).filter(
       }
     </div>
 
-    <a
-      href="/services"
-      class="text-intense inline-block transform hover:underline hover:text-[var(--accent-color-end)] hover:scale-105 transition duration-200"
-    >
-      Explore services.
-    </a>
+    <p class="text-base text-center sm:col-span-2">
+      <a
+        href="/services"
+        class="text-intense inline-block transform hover:underline hover:scale-105 transition duration-200"
+        >Explore services →
+      </a>
+    </p>
   </section>
 </BaseLayout>

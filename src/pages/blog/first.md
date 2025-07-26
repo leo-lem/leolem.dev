@@ -12,7 +12,7 @@ I'm Leo, a software engineer with a background in mobile development, DevOps, an
 
 ## Why This Blog Exists
 
-This space is here to document projects, break down technical topics, and reflect on the process of building systems that are clean, maintainable, and useful. Posts might range from Firebase experiments to thoughts on architecture, freelancing, or shipping small tools.
+This space is here to document projects, break down technical topics, and reflect on the process of building systems that are clean, maintainable, and useful. Articles might range from Firebase experiments to thoughts on architecture, freelancing, or shipping small tools.
 
 If you're into clean code, thoughtful interfaces, and pragmatic engineering, you might find something here worth reading.
 
@@ -20,4 +20,4 @@ If you're into clean code, thoughtful interfaces, and pragmatic engineering, you
 
 You can follow along here, or connect with me on [LinkedIn](https://linkedin.com/in/leopoldlemmermann). If you'd like to collaborate or just chat, feel free to [schedule a call](/services#schedule-a-call).
 
-Thanks for reading — more posts coming soon.
+Thanks for reading — more articles coming soon.

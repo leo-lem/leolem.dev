@@ -32,7 +32,7 @@ Here’s a high-level view of the stack:
 
 ## Challenges
 
-No project goes without some bumps. I spent time tuning Tailwind’s color palette to give the site a distinctive visual identity that’s still easy on the eyes — especially in dark mode. I also added metadata handling, routing logic, and content collections for portfolio entries and blog posts.
+No project goes without some bumps. I spent time tuning Tailwind’s color palette to give the site a distinctive visual identity that’s still easy on the eyes — especially in dark mode. I also added metadata handling, routing logic, and content collections for portfolio entries and blog articles.
 
 One of the trickier parts was getting the mobile navigation to behave properly, especially with animations and layout shifts. Eventually I settled on a collapsible layout that feels consistent across screen sizes.
 

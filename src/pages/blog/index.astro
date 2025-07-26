@@ -3,66 +3,51 @@ import BaseLayout from "../../layout/BaseLayout.astro";
 import Tags from "../../components/Tags.astro";
 
 import { getCollection } from "astro:content";
-const allPosts = await Promise.all(
+const articles = await Promise.all(
   (await getCollection("blog"))
     .filter((p) => import.meta.env.DEV || !p.data.draft)
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
 );
-
-const featured = allPosts.find((p) => p.data.featured);
-const posts = allPosts.filter((p) => p !== featured);
 ---
 
 <BaseLayout title="Blog">
-  <section>
-    {
-      featured && (
-        <article class="border-b border-[var(--border-color)]  pb-4 text-center">
-          <h1 class="text-3xl font-bold mb-2">
-            <a
-              href={`/blog/${featured.id}`}
-              class="text-primary hover:underline"
-            >
-              {featured.data.title}
-            </a>
-          </h1>
-
-          <p class="text-muted font-semibold text-sm mb-4 text-center">
-            by {featured.data.author} |{" "}
-            {featured.data.date.toLocaleDateString()}
-          </p>
-
-          <div class="flex flex-col items-center mb-4">
-            <Tags tags={featured.data.tags} />
-          </div>
-
-          <p class="text-secondary">{featured.data.description}.</p>
-        </article>
-      )
-    }
+  <section class="text-center text-secondary mb-4">
+    <p class="text-2xl">
+      Welcome to my blog — where I write about software development, technology,
+      and things I'm exploring. Expect articles on Swift, CI/CD, architecture,
+      and my personal experiences building things.
+    </p>
   </section>
 
   <section>
-    <h2 class="text-center">More Articles</h2>
+    <h2 class="text-center">Recent Articles</h2>
 
     <ul class="flex flex-col items-center gap-4">
       {
-        posts.map(({ id, data: { title, author, date, description } }) => (
-          <li class="w-full">
-            <h3 class="text-primary text-xl font-semibold mb-1">
-              <a href={`/blog/${id}`} class="text-primary hover:underline">
-                {title}
-              </a>
-            </h3>
+        articles.map(
+          ({ id, data: { title, author, date, description, tags } }) => (
+            <li class="w-full">
+              <h3 class="text-primary text-xl font-semibold mb-1">
+                <a href={`/blog/${id}`} class="text-primary hover:underline">
+                  {title}
+                </a>
+              </h3>
 
-            <span class="text-sm text-muted text-nowrap">
-              by {author} | {date.toLocaleDateString()}
-            </span>
-            <p class="text-secondary">{description}.</p>
+              <span class="text-sm text-muted text-nowrap">
+                by {author} | {date.toLocaleDateString()}
+              </span>
 
-            <div class="border-[var(--border-color)] border w-1/2 mx-auto my-3" />
-          </li>
-        ))
+              <p class="text-secondary">{description}.</p>
+
+              <div class="flex flex-col mt-2">
+                {" "}
+                <Tags tags={tags} />{" "}
+              </div>
+
+              <div class="border-[var(--border-color)] border w-1/2 mx-auto my-3" />
+            </li>
+          )
+        )
       }
     </ul>
   </section>

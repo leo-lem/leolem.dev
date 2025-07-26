@@ -3,6 +3,11 @@ on:
   push:
     branches: [main]
     paths-ignore: ["README.md", ".devcontainer.json", ".github/workflows/pr.yml"]
+  workflow_dispatch:
+    inputs:
+      favoriteAlbum:
+        description: 'Apple Music Album ID'
+        required: false
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -24,6 +29,8 @@ jobs:
       - run: npm run build
         env:
           NODE_ENV: production
+          # Optional album ID for the about page Apple Music widget.
+          FAVORITE_ALBUM: ${{ github.event.inputs.favoriteAlbum || "" }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
