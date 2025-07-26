@@ -61,4 +61,4 @@ Now that the move is done, I’m testing **Google Search Console** to complement
 
 ---
 
-More posts coming soon… including one about the journey of building Almost?, my Firebase-powered reflection app.
+More articles coming soon… including one about the journey of building Almost?, my Firebase-powered reflection app.

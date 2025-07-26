@@ -21,7 +21,7 @@ const projects = await Promise.all(
 >
   {
     projects.map(
-      ({ data: { title, tags, links, posts, images }, slug, Content }) => (
+      ({ data: { title, tags, links, articles, images }, slug, Content }) => (
         <section id={slug} class="card flex flex-col gap-4">
           <div class="flex flex-col gap-3 sm:flex-row sm:items-baseline">
             <h2 class="m-0">{title}</h2>
@@ -39,15 +39,15 @@ const projects = await Promise.all(
             <Content />
           </div>
 
-          {posts && posts?.length > 0 && (
+          {articles && articles?.length > 0 && (
             <div class="flex flex-row items-baseline gap-2">
-              <h3>Related posts:</h3>
-              {posts.map((post) => (
+              <h3>Related articles:</h3>
+              {articles.map((article: string) => (
                 <a
-                  href={`/blog/${post}`}
+                  href={`/blog/${article}`}
                   class="inline-block responsive text-lg font-semibold"
                 >
-                  {post}
+                  {article}
                 </a>
               ))}
             </div>

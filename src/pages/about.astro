@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layout/BaseLayout.astro";
+import TopAlbum from "../components/TopAlbum.astro";
 
 import { Content as AboutMe } from "../content/about.md";
 import { Content as Highlights } from "../content/highlights.md";
@@ -15,6 +16,9 @@ const skills = (await getCollection("topics"))
 const categories = skills
   .map((skill) => skill.data.category)
   .filter((value, index, self) => self.indexOf(value) === index);
+
+const albumID = import.meta.env.FAVORITE_ALBUM;
+const fallbackAlbum = "catch-thirty-three/1776754909";
 ---
 
 <BaseLayout title="About me">
@@ -33,6 +37,14 @@ const categories = skills
       src="/about/motorbike.avif"
       alt="Me!"
       class="card-image w-full sm:w-1/2"
+    />
+  </section>
+
+  <section class="card">
+    <h2 class="text-center">My Current Favorite</h2>
+
+    <TopAlbum
+      albumID={albumID && albumID.trim() !== "" ? albumID : fallbackAlbum}
     />
   </section>
 
