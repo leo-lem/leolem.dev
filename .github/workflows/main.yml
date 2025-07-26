@@ -30,7 +30,7 @@ jobs:
         env:
           NODE_ENV: production
           # Optional album ID for the about page Apple Music widget.
-          FAVORITE_ALBUM: ${{ github.event.inputs.favoriteAlbum || "" }}
+          FAVORITE_ALBUM: ${{ github.event.inputs.favoriteAlbum || '' }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
