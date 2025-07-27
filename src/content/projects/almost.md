@@ -3,6 +3,8 @@ featured: true
 title: Almost?
 tags: ["iOS", "SwiftUI", "Firebase"]
 links:
+  - type: github
+    url: "https://github.com/leo-lem/almost"
   - type: appstore
     url: "https://apps.apple.com/de/app/keepinon/id6742201361?l=en-GB"
   - type: webpage

@@ -5,6 +5,7 @@ import IconLink from "../components/IconLink.astro";
 import Tags from "../components/Tags.astro";
 
 import { getCollection } from "astro:content";
+import SponsorMe from "../components/SponsorMe.astro";
 const projects = await Promise.all(
   (await getCollection("projects"))
     .sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0))
@@ -19,6 +20,8 @@ const projects = await Promise.all(
   title="My Projects"
   description="Explore my projects showcasing my skills in iOS development, CI/CD automation, and more. Each project highlights my approach to clean, reliable code and production-ready solutions."
 >
+  <SponsorMe />
+
   {
     projects.map(
       ({ data: { title, tags, links, articles, images }, slug, Content }) => (

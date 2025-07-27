@@ -3,9 +3,11 @@ const { albumID } = Astro.props;
 ---
 
 <iframe
+  src={`https://embed.music.apple.com/us/album/${albumID}?theme=auto`}
+  title="Top Album"
   allow="encrypted-media *; fullscreen *; clipboard-write"
-  height="450"
-  width="100%"
-  style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;"
+  class="responsive card w-full max-w-[660px] h-[450px] overflow-hidden rounded-[10px]"
+  style="padding: 0;"
+  loading="lazy"
   sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-  src={`https://embed.music.apple.com/us/album/${albumID}?theme=auto`}></iframe>
+></iframe>
