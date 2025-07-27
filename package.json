@@ -3,9 +3,8 @@
   "type": "module",
   "version": "1.5",
   "scripts": {
-    "dev": "astro dev --host",
     "build": "astro build",
-    "start": "npm run build && astro preview --host",
+    "start": "astro dev --host",
     "test": "playwright test",
     "smoke": "npm test -- test/smoke.spec.ts",
     "co2": "tsx test/check_co2.ts"
