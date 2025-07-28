@@ -25,6 +25,10 @@ jobs:
       - run: npm run build
         env:
           NODE_ENV: production
+          FEATURED_ARTICLE: ${{ vars.FEATURED_ARTICLE }}
+          FEATURED_PROJECTS: ${{ vars.FEATURED_PROJECTS }}
+          FEATURED_SERVICES: ${{ vars.FEATURED_SERVICES }}
+          FAVORITE_ALBUM: ${{ vars.FAVORITE_ALBUM }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
