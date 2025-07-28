@@ -1,5 +1,4 @@
 ---
-featured: true
 title: Almost? From Portfolio to Product
 description: A retrospective on building and rebuilding my first iOS app
 date: 2025-07-27

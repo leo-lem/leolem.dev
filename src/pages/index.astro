@@ -1,103 +1,95 @@
 ---
-import BaseLayout from "../layout/BaseLayout.astro";
 import { getCollection } from "astro:content";
+
+import BaseLayout from "../layout/BaseLayout.astro";
 import Tags from "../components/Tags.astro";
-
+import SeeMore from "../components/SeeMore.astro";
 import { Content as AboutMe } from "/src/content/about.md";
-const projects = (await getCollection("projects")).filter(
-  ({ data: { featured } }) => featured
-);
-const services = (await getCollection("services")).filter(
-  ({ data: { featured } }) => featured
+
+const featuredProjects = (await getCollection("projects")).filter(({ slug }) =>
+  (import.meta.env.FEATURED_PROJECTS?.split(",") ?? []).includes(slug)
 );
 
-const articles = (await getCollection("blog"))
-  .filter((p) => !p.data.draft)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-const featured = articles.find((p) => p.data.featured);
+const featuredServices = (await getCollection("services")).filter(({ slug }) =>
+  (import.meta.env.FEATURED_SERVICES?.split(",") ?? []).includes(slug)
+);
+
+const featuredArticle = (await getCollection("blog")).find(
+  ({ id }) => id === import.meta.env.FEATURED_ARTICLE?.toLowerCase()
+);
 ---
 
 <BaseLayout title="Leopold Lemmermann - Software Engineer">
-  <section class="max-w-xl text-2xl text-center m-auto">
-    <AboutMe />
+  <section class="max-w-xl mx-auto flex flex-col items-center gap-4">
+    <article class="text-center text-2xl">
+      <AboutMe />
+    </article>
 
-    <a href="/about" class="text-intense responsive inline-block">
-      Learn more.
-    </a>
+    <SeeMore label="Find out more." href="/about" />
   </section>
 
-  <section class="max-w-lg text-xl text-center m-auto">
+  <section class="max-w-lg mx-auto flex flex-col items-center gap-4">
     {
-      featured && (
-        <article class="pb-4 text-center card mb-4">
+      featuredArticle && (
+        <article class="pb-4 text-xl text-center card mb-4">
           <p class="text-sm text-muted font-bold mb-2">«Featured Article»</p>
 
           <h3 class="text-xl font-bold mb-2">
             <a
-              href={`/blog/${featured.id}`}
+              href={`/blog/${featuredArticle.id}`}
               class="text-primary hover:underline"
             >
-              {featured.data.title}
+              {featuredArticle.data.title}
             </a>
           </h3>
           <p class="text-muted text-sm mb-2">
-            by {featured.data.author} |{" "}
-            {featured.data.date.toLocaleDateString()}
+            by {featuredArticle.data.author} |{" "}
+            {featuredArticle.data.date.toLocaleDateString()}
           </p>
           <div class="flex flex-col items-center mb-2">
-            <Tags tags={featured.data.tags} />
+            <Tags tags={featuredArticle.data.tags} />
           </div>
-          <p class="text-secondary">{featured.data.description}</p>
+          <p class="text-secondary">{featuredArticle.data.description}</p>
         </article>
       )
     }
 
-    <p class="text-base text-center sm:col-span-2">
-      <a
-        href="/blog"
-        class="text-intense inline-block transform hover:underline hover:scale-105 transition duration-200"
-        >More Articles →
-      </a>
-    </p>
+    <SeeMore label="Latest articles" href="/blog" />
   </section>
 
-  <section class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-center">
-    {
-      projects.map(({ slug, data: { title, thumbnail } }) => (
-        <a
-          href={`/projects#${slug}`}
-          class="card responsive cursor-pointer flex flex-col gap-4"
-        >
-          {thumbnail && (
-            <img
-              src={`/projects/${slug}/${thumbnail}`}
-              alt={title}
-              class="w-max aspect-square object-cover rounded-lg"
-            />
-          )}
-          <h2>{title}</h2>
-        </a>
-      ))
-    }
+  <section class="flex flex-col items-center gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+      {
+        featuredProjects.map(({ slug, data: { title, thumbnail } }) => (
+          <a
+            href={`/projects#${slug}`}
+            class="card responsive cursor-pointer flex flex-col gap-4 text-center"
+          >
+            {thumbnail && (
+              <img
+                src={`/projects/${slug}/${thumbnail}`}
+                alt={title}
+                class="w-max aspect-square object-cover rounded-lg"
+              />
+            )}
+            <h2>{title}</h2>
+          </a>
+        ))
+      }
+    </div>
 
-    <p class="text-center sm:col-span-2">
-      <a
-        href="/projects"
-        class="text-intense inline-block transform hover:underline hover:scale-105 transition duration-200"
-        >All my projects →
-      </a>
-    </p>
+    <SeeMore label="All my projects" href="/projects" />
   </section>
 
-  <section class="max-w-lg text-lg text-center m-auto mt-10 space-y-4">
-    <p>
+  <section class="max-w-lg mx-auto flex flex-col items-center gap-4">
+    <p class="text-lg text-center">
       I also offer services — including mobile app development with SwiftUI and
       custom CI/CD automation for modern software projects.
     </p>
 
     <div class="grid sm:grid-cols-2 gap-6">
       {
-        services.map(({ data: { icon, title, short } }: any) => (
+        featuredServices.map(({ data: { icon, title, short } }: any) => (
           <div class="card flex flex-col items-center gap-2">
             <img
               src={`/icons/${icon}.svg`}
@@ -111,12 +103,6 @@ const featured = articles.find((p) => p.data.featured);
       }
     </div>
 
-    <p class="text-base text-center sm:col-span-2">
-      <a
-        href="/services"
-        class="text-intense inline-block transform hover:underline hover:scale-105 transition duration-200"
-        >Explore services →
-      </a>
-    </p>
+    <SeeMore label="Explore services" href="/services" />
   </section>
 </BaseLayout>

@@ -1,24 +1,25 @@
 ---
+import { getCollection } from "astro:content";
+
 import BaseLayout from "../layout/BaseLayout.astro";
 import TopAlbum from "../components/TopAlbum.astro";
-
 import { Content as AboutMe } from "../content/about.md";
 import { Content as Highlights } from "../content/highlights.md";
 
-import { getCollection } from "astro:content";
 const stations = (await getCollection("stations")).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
+
 const skills = (await getCollection("topics"))
   .filter((skill) => skill.data.confidence !== undefined)
   .sort((a, b) => (b.data.confidence ?? 0) - (a.data.confidence ?? 0))
   .sort((a, b) => (b.data.isPriority ? 1 : 0) - (a.data.isPriority ? 1 : 0));
+
 const categories = skills
   .map((skill) => skill.data.category)
   .filter((value, index, self) => self.indexOf(value) === index);
 
 const albumID = import.meta.env.FAVORITE_ALBUM;
-const fallbackAlbum = "catch-thirty-three/1776754909";
 ---
 
 <BaseLayout title="About me">
@@ -41,11 +42,9 @@ const fallbackAlbum = "catch-thirty-three/1776754909";
   </section>
 
   <section>
-    <h2 class="text-center">My Current Favorite</h2>
+    <h2>My Current Favorite</h2>
 
-    <TopAlbum
-      albumID={albumID && albumID.trim() !== "" ? albumID : fallbackAlbum}
-    />
+    <TopAlbum albumID={albumID} />
   </section>
 
   <section class="max-w-xl mx-auto">
@@ -76,9 +75,10 @@ const fallbackAlbum = "catch-thirty-three/1776754909";
                   </span>
                 </div>
 
-                <div class="text-muted prose prose-sm dark:prose-invert">
-                  {body}
-                </div>
+                <article
+                  class="text-muted prose prose-sm dark:prose-invert"
+                  set:html={body}
+                />
               </div>
             </div>
           )

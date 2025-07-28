@@ -1,19 +1,13 @@
 ---
+import { getCollection } from "astro:content";
+
 import BaseLayout from "../layout/BaseLayout.astro";
 import Screenshot from "../components/Screenshot.astro";
 import IconLink from "../components/IconLink.astro";
 import Tags from "../components/Tags.astro";
-
-import { getCollection } from "astro:content";
 import SponsorMe from "../components/SponsorMe.astro";
-const projects = await Promise.all(
-  (await getCollection("projects"))
-    .sort((a, b) => (b.data.featured ? 1 : 0) - (a.data.featured ? 1 : 0))
-    .map(async (project) => {
-      const { Content } = await project.render();
-      return { ...project, Content };
-    })
-);
+
+const projects = await getCollection("projects");
 ---
 
 <BaseLayout
@@ -24,7 +18,7 @@ const projects = await Promise.all(
 
   {
     projects.map(
-      ({ data: { title, tags, links, articles, images }, slug, Content }) => (
+      ({ data: { title, tags, links, articles, images }, slug, rendered }) => (
         <section id={slug} class="card flex flex-col gap-4">
           <div class="flex flex-col gap-3 sm:flex-row sm:items-baseline">
             <h2 class="m-0">{title}</h2>
@@ -38,9 +32,10 @@ const projects = await Promise.all(
 
           <Tags tags={tags} />
 
-          <div class="prose dark:prose-invert max-w-none sm:text-justify">
-            <Content />
-          </div>
+          <div
+            class="prose dark:prose-invert max-w-none sm:text-justify"
+            set:html={rendered?.html}
+          />
 
           {articles && articles?.length > 0 && (
             <div class="flex flex-row items-baseline gap-2">

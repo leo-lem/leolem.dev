@@ -1,5 +1,4 @@
 ---
-featured: true
 icon: "swift"
 title: "SwiftUI MVP App with Local Data & Animations"
 short: "Build a lightweight SwiftUI app or MVP with local persistence and smooth UI."

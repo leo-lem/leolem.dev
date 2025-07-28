@@ -1,32 +1,24 @@
 ---
+import { getCollection } from "astro:content";
+
 import BaseLayout from "../../layout/BaseLayout.astro";
 import Tags from "../../components/Tags.astro";
 
-import { getCollection } from "astro:content";
-const articles = await Promise.all(
-  (await getCollection("blog"))
-    .filter((p) => import.meta.env.DEV || !p.data.draft)
-    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-);
+const articles = (await getCollection("blog"))
+  .filter((p) => import.meta.env.DEV || !p.data.draft)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<BaseLayout title="Blog">
-  <section class="text-center text-secondary mb-4">
-    <p class="text-2xl">
-      Welcome to my blog — where I write about software development, technology,
-      and things I'm exploring. Expect articles on Swift, CI/CD, architecture,
-      and my personal experiences building things.
-    </p>
-  </section>
-
+<BaseLayout
+  title="Blog"
+  description="Welcome to my blog! I write about software development, technology, and things I'm exploring. Expect articles on Swift, CI/CD, architecture, and my personal experiences building things."
+>
   <section>
-    <h2 class="text-center">Recent Articles</h2>
-
-    <ul class="flex flex-col items-center gap-4">
+    <ul class="flex flex-col gap-4">
       {
         articles.map(
           ({ id, data: { title, author, date, description, tags } }) => (
-            <li class="w-full">
+            <li class="w-full text-center sm:text-left">
               <h3 class="text-primary text-xl font-semibold mb-1">
                 <a href={`/blog/${id}`} class="text-primary hover:underline">
                   {title}
@@ -39,12 +31,12 @@ const articles = await Promise.all(
 
               <p class="text-secondary">{description}.</p>
 
-              <div class="flex flex-col mt-2">
+              <div class="flex flex-col mt-2 items-center sm:items-start">
                 {" "}
                 <Tags tags={tags} />{" "}
               </div>
 
-              <div class="border-[var(--border-color)] border w-1/2 mx-auto my-3" />
+              <div class="border-[var(--border-color)] border w-1/2 my-3 mx-auto" />
             </li>
           )
         )

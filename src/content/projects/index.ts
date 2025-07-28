@@ -11,7 +11,6 @@ export default defineCollection({
     articles: z.array(z.string()).optional(),
     tags: z.array(zTopic).optional(),
     images: z.array(z.string()).optional(),
-    thumbnail: z.string().optional(),
-    featured: z.boolean().default(false),
+    thumbnail: z.string().optional()
   })
 });
