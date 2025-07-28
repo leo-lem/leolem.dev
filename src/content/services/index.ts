@@ -11,7 +11,6 @@ export default defineCollection({
     cta: z.object({
       text: z.string(),
       url: z.string().url(),
-    }).optional(),
-    featured: z.boolean().default(false),
+    }).optional()
   })
 });

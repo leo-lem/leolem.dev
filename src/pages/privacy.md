@@ -8,7 +8,7 @@ Diese Website erhebt und speichert keine personenbezogenen Daten über ihre Besu
 
 ### Verantwortlicher
 Leopold Lemmermann  
-E-Mail: [contact@leolem.dev](mailto:contact@leolem.dev)
+E-Mail: [privacy@leolem.dev](mailto:privacy@leolem.dev)
 
 ### Erhobene Daten
 Beim Besuch dieser Website werden durch den Hostinganbieter automatisch folgende Daten gespeichert:

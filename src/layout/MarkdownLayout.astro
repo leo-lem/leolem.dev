@@ -5,7 +5,7 @@ const {
 } = Astro.props;
 ---
 
-<BaseLayout>
+<BaseLayout title={title}>
   <article class="prose prose-invert">
     <h1 class="text-center">{title}</h1>
     <slot />

@@ -11,7 +11,6 @@ export default defineCollection({
     date: z.date(),
     tags: z.array(zTopic).optional(),
     draft: z.boolean().default(false),
-    featured: z.boolean().default(false),
-    cover: z.string().optional(),
+    cover: z.string().optional()
   })
 });
