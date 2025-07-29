@@ -8,12 +8,12 @@ Angaben gemäß § 5 TMG:
 
 **Leopold Lemmermann**  
 Adresse auf Anfrage  
-E-Mail: [contact@leolem.dev](mailto:contact@leolem.dev)
+E-Mail: [legal@leolem.dev](mailto:legal@leolem.dev)
 
 ### Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV
 
 Leopold Lemmermann  
-E-Mail: [contact@leolem.dev](mailto:contact@leolem.dev)
+E-Mail: [legal@leolem.dev](mailto:legal@leolem.dev)
 
 ### Haftung für Inhalte
 

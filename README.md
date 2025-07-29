@@ -1,9 +1,10 @@
 # leolem.dev
 
-[![Deploy and Smoke Test](https://github.com/leo-lem/leolem.dev/actions/workflows/main.yml/badge.svg)](https://github.com/leo-lem/leolem.dev/actions/workflows/main.yml)
-[![CO₂ Regression](https://github.com/leo-lem/leolem.dev/actions/workflows/co2.yml/badge.svg)](https://github.com/leo-lem/leolem.dev/actions/workflows/co2.yml)
-[![Website](https://img.shields.io/badge/live-leolem.dev-green?style=flat-square&logo=github)](https://leolem.dev)
-[![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/leo-lem/leolem.dev.git)
+[![Deploy](https://github.com/leo-lem/leolem.dev/actions/workflows/main.yml/badge.svg)](https://github.com/leo-lem/leolem.dev/actions/workflows/main.yml)
+[![CO₂](https://github.com/leo-lem/leolem.dev/actions/workflows/co2.yml/badge.svg)](https://github.com/leo-lem/leolem.dev/actions/workflows/co2.yml)
+[![Search](https://img.shields.io/badge/Search-console-brightgreen?logo=google&logoColor=white)](https://search.google.com/search-console?resource_id=sc-domain%3Aleolem.dev)
+[![Cloudflare](https://img.shields.io/badge/Cloudflare-console-orange?logo=cloudflare&logoColor=white)](https://dash.cloudflare.com/f755b753711edb6424a86788d5e355c2/leolem.dev)
+[![Open in Dev Containers](https://img.shields.io/badge/Dev_Containers-open-blue)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/leo-lem/leolem.dev.git)
 
 Welcome to my personal site — built with **Astro**, designed to showcase my work in backend automation, DevOps, and SwiftUI mobile development.
 
