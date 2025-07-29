@@ -1,4 +1,4 @@
-name: CO₂ Check
+name: CO₂
 on:
   workflow_run:
     workflows: ["Deploy and Smoke Test"]
