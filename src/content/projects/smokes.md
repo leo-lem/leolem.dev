@@ -1,5 +1,4 @@
 ---
-featured: true
 title: Smokes
 tags: ["iOS", "Swift Vapor", "SwiftUI"]
 links:

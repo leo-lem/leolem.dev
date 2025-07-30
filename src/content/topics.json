@@ -150,6 +150,14 @@
     "category": "Community"
   },
   {
+    "id": "Spring Boot",
+    "category": "Web Development"
+  },
+  {
+    "id": "University",
+    "category": "Community"
+  },
+  {
     "id": "Swift",
     "category": "Mobile Apps",
     "icon": "swift",
