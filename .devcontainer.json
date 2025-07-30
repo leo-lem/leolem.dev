@@ -1,6 +1,7 @@
 {
 	"dockerFile": ".devcontainer.Dockerfile",
 	"postStartCommand": "npm start",
+	"remoteUser": "node",
 	"customizations": {
 		"vscode": {
 			"extensions": [
