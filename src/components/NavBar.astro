@@ -226,7 +226,7 @@ const { socials } = Astro.props;
     avatar.addEventListener("touchstart", () => {
       if (hoverTimer) clearTimeout(hoverTimer);
       hoverTimer = setTimeout(moveToRandomPosition, delay);
-    });
+    }, { passive: true });
     avatar.addEventListener("mouseenter", () => {
       if (hoverTimer) clearTimeout(hoverTimer);
       hoverTimer = setTimeout(moveToRandomPosition, delay);
