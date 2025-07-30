@@ -1,5 +1,5 @@
 {
-	"dockerFile": "Dockerfile",
+	"dockerFile": ".devcontainer.Dockerfile",
 	"postStartCommand": "npm start",
 	"customizations": {
 		"vscode": {
