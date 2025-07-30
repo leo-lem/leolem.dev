@@ -1,0 +1,20 @@
+{
+	"dockerFile": "Dockerfile",
+	"postStartCommand": "npm start",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"astro-build.astro-vscode",
+				"bradlc.vscode-tailwindcss",
+				"ms-playwright.playwright",
+				"github.copilot"
+			]
+		}
+	},
+	"portsAttributes": {
+		"4321": {
+			"label": "Astro",
+			"onAutoForward": "openPreview"
+		}
+	}
+}

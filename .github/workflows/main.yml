@@ -29,6 +29,7 @@ jobs:
           FEATURED_PROJECTS: ${{ vars.FEATURED_PROJECTS }}
           FEATURED_SERVICES: ${{ vars.FEATURED_SERVICES }}
           FAVORITE_ALBUM: ${{ vars.FAVORITE_ALBUM }}
+          DRAFT_ARTICLES: ${{ vars.DRAFT_ARTICLES }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
