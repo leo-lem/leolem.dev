@@ -214,5 +214,20 @@
   {
     "id": "Web Analytics",
     "category": "Web Development"
+  },
+  {
+    "id": "VS Code",
+    "category": "Web Development"
+  },
+  {
+    "id": "Devcontainers",
+    "category": "Cloud & DevOps",
+    "icon": "placeholder",
+    "confidence": 70,
+    "isPriority": true
+  },
+  {
+    "id": "Productivity",
+    "category": "Community"
   }
 ]

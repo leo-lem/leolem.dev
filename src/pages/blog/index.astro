@@ -5,7 +5,9 @@ import BaseLayout from "../../layout/BaseLayout.astro";
 import Tags from "../../components/Tags.astro";
 
 const articles = (await getCollection("blog"))
-  .filter((p) => import.meta.env.DEV || !p.data.draft)
+  .filter(
+    ({ id }) => !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(id)
+  )
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
