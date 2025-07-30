@@ -21,7 +21,7 @@ const { src, alt = "Project Screenshot", class: classes = "" } = Astro.props;
   alt={alt}
   loading="lazy"
   class={`responsive card-image cursor-pointer ${classes}`}
-  onclick={`showModal('${src}')`}
+  onclick={`showModal('/${src}')`}
 />
 
 <script is:inline>
