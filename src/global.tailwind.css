@@ -18,7 +18,7 @@
 
   --text-color: #111111;
   --text-secondary-color: #666666;
-  --text-muted-color: #999999;
+  --text-muted-color: color-mix(in srgb, var(--text-color) 50%, white);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -37,12 +37,12 @@
 
     --text-color: #f3f4f6;
     --text-secondary-color: #cbd5e1;
-    --text-muted-color: #8b949e;
+    --text-muted-color: color-mix(in srgb, var(--text-color) 50%, black);
   }
 }
 
 
-nav,body {
+body {
   color: var(--text-color);
   background-color: var(--bg-color);
   border-color: var(--border-color);
@@ -111,22 +111,4 @@ h3 {
 
 .card-image {
   @apply rounded-lg shadow;
-}
-
-
-/* Navbar Styles */
-a.active {
-  @apply font-bold underline;
-}
-
-nav a {
-  color: var(--text-color);
-  @apply transition;
-}
-
-nav a:hover {
-  background: linear-gradient(to right, var(--accent-color-start), var(--accent-color-end));
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }

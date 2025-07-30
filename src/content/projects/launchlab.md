@@ -7,7 +7,7 @@ links:
   - type: github
     url: "https://github.com/leo-lem/launchlab"
   - type: webpage
-    url: "https://launchlab.leolem.dev/"
+    url: "https://launchlab.leolem.dev"
 images: ["1.avif", "2.avif", "3.webp", "4.avif", "5.avif", "6.avif", "7.avif", "8.avif"]
 ---
 

@@ -68,8 +68,9 @@ const featuredArticle = (await getCollection("blog")).find(
             {thumbnail && (
               <img
                 src={`/projects/${slug}/${thumbnail}`}
-                alt={title}
                 class="w-max aspect-square object-cover rounded-lg"
+                alt=`Thumbnail for ${title}`
+                loading="lazy"
               />
             )}
             <h2>{title}</h2>

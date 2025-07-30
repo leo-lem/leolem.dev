@@ -40,7 +40,7 @@ Sie haben das Recht auf:
 Bitte richten Sie entsprechende Anfragen an die oben genannte E-Mail-Adresse.
 
 ### Hosting
-Diese Website wird über [GitHub Pages](https://pages.github.com/) gehostet. Es gelten zusätzlich die Datenschutzbestimmungen von GitHub:  
+Diese Website wird über [GitHub Pages](https://pages.github.com) gehostet. Es gelten zusätzlich die Datenschutzbestimmungen von GitHub:  
 [https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement)
 
 ---
