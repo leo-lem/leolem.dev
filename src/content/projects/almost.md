@@ -1,5 +1,4 @@
 ---
-featured: true
 title: Almost?
 tags: ["iOS", "SwiftUI", "Firebase"]
 links:

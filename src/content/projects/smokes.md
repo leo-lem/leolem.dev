@@ -1,5 +1,4 @@
 ---
-featured: true
 title: Smokes
 tags: ["iOS", "Swift Vapor", "SwiftUI"]
 links:
@@ -8,9 +7,8 @@ links:
   - type: github
     url: "https://github.com/leo-lem/smokes"
   - type: webpage
-    url: "https://smokes.leolem.dev/"
-articles:
-  - smokes
+    url: "https://smokes.leolem.dev"
+articles: [smokes, vercel]
 images: ["1.avif", "2.avif", "3.avif", "4.avif", "5.avif"]
 thumbnail: "thumbnail.avif"
 ---

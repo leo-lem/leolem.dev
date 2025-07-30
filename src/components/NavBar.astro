@@ -1,18 +1,50 @@
 ---
 import IconLink from "./IconLink.astro";
+import { Image } from "astro:assets";
+
+import profile from "../assets/about/profile.webp";
 
 const navigation = ["blog", "services", "projects", "about"];
 const { socials } = Astro.props;
 ---
 
+<style is:global>
+  nav {
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+  }
+
+  nav a.active {
+    @apply font-bold underline;
+  }
+
+  nav a {
+    color: var(--text-color);
+    @apply transition;
+  }
+
+  nav a:hover {
+    background: linear-gradient(
+      to right,
+      var(--accent-color-start),
+      var(--accent-color-end)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>
+
 <nav
   class="sticky top-0 default-color flex flex-col gap-2 p-3 z-10 shadow shadow-[var(--border-color)] sm:flex-row sm:items-center sm:justify-between"
 >
-  <img
+  <Image
     id="draggable-avatar"
-    src="/about/profile.webp"
-    alt="Leopold Lemmermann"
+    src={profile}
+    alt="Leopold Lemmermann Logo"
     class="w-10 h-10 absolute z-50 cursor-grab transition-transform duration-500 ease-in-out rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
+    loading="lazy"
   />
 
   <div class="flex items-center justify-between gap-4">
@@ -52,7 +84,7 @@ const { socials } = Astro.props;
     {
       navigation.map((item) => (
         <a
-          href={`/${item}/`}
+          href={`/${item}`}
           class={`navigation capitalize ${Astro.url.pathname.includes(item) ? "active" : ""}`}
           aria-current={Astro.url.pathname.includes(item) ? "page" : undefined}
         >

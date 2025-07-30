@@ -1,10 +1,12 @@
 ---
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 
 import BaseLayout from "../layout/BaseLayout.astro";
 import TopAlbum from "../components/TopAlbum.astro";
 import { Content as AboutMe } from "../content/about.md";
 import { Content as Highlights } from "../content/highlights.md";
+import motorbike from "../assets/about/motorbike.avif";
 
 const stations = (await getCollection("stations")).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
@@ -37,10 +39,11 @@ const albumID = import.meta.env.FAVORITE_ALBUM;
       </p>
     </div>
 
-    <img
-      src="/about/motorbike.avif"
+    <Image
+      src={motorbike}
       alt="Me!"
       class="card-image w-full sm:w-1/2"
+      loading="lazy"
     />
   </section>
 

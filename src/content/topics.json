@@ -2,7 +2,7 @@
   {
     "id": "Astro",
     "category": "Web Development",
-    "icon": "placeholder",
+    "icon": "astro",
     "confidence": 40
   },
   {
@@ -12,7 +12,7 @@
   {
     "id": "Backend",
     "category": "Web Development",
-    "icon": "placeholder",
+    "icon": "backend",
     "confidence": 40
   },
   {
@@ -65,13 +65,13 @@
   {
     "id": "Frontend",
     "category": "Web Development",
-    "icon": "placeholder",
+    "icon": "frontend",
     "confidence": 40
   },
   {
     "id": "Full Stack",
     "category": "Web Development",
-    "icon": "placeholder",
+    "icon": "fullstack",
     "confidence": 40
   },
   {
@@ -150,6 +150,14 @@
     "category": "Community"
   },
   {
+    "id": "Spring Boot",
+    "category": "Web Development"
+  },
+  {
+    "id": "University",
+    "category": "Community"
+  },
+  {
     "id": "Swift",
     "category": "Mobile Apps",
     "icon": "swift",
@@ -214,5 +222,31 @@
   {
     "id": "Web Analytics",
     "category": "Web Development"
+  },
+  {
+    "id": "VS Code",
+    "category": "Web Development"
+  },
+  {
+    "id": "Devcontainers",
+    "category": "Cloud & DevOps",
+    "icon": "vscode",
+    "confidence": 90,
+    "isPriority": true
+  },
+  {
+    "id": "Productivity",
+    "category": "Community"
+  },
+  {
+    "id": "Vercel",
+    "category": "Web Development",
+    "icon": "vercel",
+    "confidence": 60,
+    "isPriority": true
+  },
+  {
+    "id": "Deployment",
+    "category": "Cloud & DevOps"
   }
 ]

@@ -3,6 +3,7 @@ title: Sustainable IT Dashboard
 tags: ["Full Stack", "Cloud", "CI/CD"]
 images: ["thumbnail.webp"]
 thumbnail: "thumbnail.webp"
+articles: [devcontainers]
 ---
 
 The Sustainable IT Dashboard is a cloud-native solution designed to monitor and improve sustainability metrics for IT systems. It provides real-time insights into energy usage and environmental impact, supporting organizations in achieving their sustainability goals.

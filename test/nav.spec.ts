@@ -5,7 +5,7 @@ const pages = ["about", "projects", "services", "blog"];
 test.describe("Global navigation", () => {
   for (const name of pages) {
     test(`on "${name}" page`, async ({ page }) => {
-      await page.goto(`/${name}/`);
+      await page.goto(`/${name}`);
 
       const nav = page.locator("nav");
       await expect(nav).toBeVisible();
@@ -13,7 +13,7 @@ test.describe("Global navigation", () => {
       for (const link of pages) {
         const element = nav.getByRole("link", { name: link.toUpperCase() });
         await expect(element).toBeVisible();
-        await expect(element).toHaveAttribute("href", `/${link}/`);
+        await expect(element).toHaveAttribute("href", `/${link}`);
       }
 
       const currentPageLink = nav.getByRole("link", { name: name.toUpperCase() });

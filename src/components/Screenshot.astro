@@ -1,5 +1,5 @@
 ---
-const { src, alt = "Project Screenshot" } = Astro.props;
+const { src, alt = "Project Screenshot", class: classes = "" } = Astro.props;
 ---
 
 <div
@@ -19,15 +19,16 @@ const { src, alt = "Project Screenshot" } = Astro.props;
 <img
   src={`/${src}`}
   alt={alt}
-  class="responsive card-image cursor-pointer"
+  loading="lazy"
+  class={`responsive card-image cursor-pointer ${classes}`}
   onclick={`showModal('/${src}')`}
 />
 
 <script is:inline>
-  function showModal(imgSrc) {
+  function showModal(src) {
     const modal = document.getElementById("image-modal");
     const modalImg = document.getElementById("modal-img");
-    modalImg.src = imgSrc;
+    modalImg.src = src;
     modal.classList.remove("hidden");
   }
 
