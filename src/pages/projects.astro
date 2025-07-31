@@ -7,9 +7,26 @@ import IconLink from "../components/IconLink.astro";
 import Tags from "../components/Tags.astro";
 import Embed from "../components/Embed.astro";
 
-const projects = (await getCollection("projects")).sort(({ slug }) =>
-  (import.meta.env.FEATURED_PROJECTS?.split(",") ?? []).includes(slug) ? -1 : 1
+const blog = (await getCollection("blog")).filter(
+  ({ id }) => !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(id)
 );
+
+const projects = (await getCollection("projects"))
+  .sort(({ slug }) =>
+    (import.meta.env.FEATURED_PROJECTS?.split(",") ?? []).includes(slug)
+      ? -1
+      : 1
+  )
+  .map((project) => {
+    return {
+      ...project,
+      articles: project.data.articles
+        ?.flatMap((articleID) =>
+          blog.find((article) => article.id === articleID)
+        )
+        .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+    };
+  });
 ---
 
 <BaseLayout
@@ -20,7 +37,7 @@ const projects = (await getCollection("projects")).sort(({ slug }) =>
 
   {
     projects.map(
-      ({ data: { title, tags, links, articles }, slug, rendered }, index) => (
+      ({ data: { title, tags, links }, articles, slug, rendered }, index) => (
         <section id={slug} class="card flex flex-col gap-4">
           <div class="flex flex-col gap-3 sm:flex-row sm:items-baseline">
             <h2 class="m-0">{title}</h2>
@@ -43,15 +60,21 @@ const projects = (await getCollection("projects")).sort(({ slug }) =>
             set:html={rendered?.html}
           />
 
-          {articles && articles?.length > 0 && (
-            <div class="flex flex-row items-baseline gap-2">
-              <h3>Related articles:</h3>
-              {articles.map((article: string) => (
+          {articles && articles.length > 0 && (
+            <div class="flex flex-col gap-2">
+              <h3>Related Articles</h3>
+              {articles.map((article) => (
                 <a
-                  href={`/blog/${article}`}
-                  class="inline-block responsive text-lg font-semibold"
+                  href={`/blog/${article.id}`}
+                  class="block p-3 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition"
                 >
-                  {article}
+                  <div>{article.data.title}</div>
+                  <div class="text-sm text-secondary line-clamp-1">
+                    {article.data.description}
+                  </div>
+                  <div class="text-xs text-muted text-right">
+                    {article.data.date.toLocaleDateString()}
+                  </div>
                 </a>
               ))}
             </div>
