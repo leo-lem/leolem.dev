@@ -17,7 +17,7 @@ const { src, alt, class: classes, loading = "eager", onclick } = Astro.props;
 if (!images[`/src/assets/${src}`]) {
   const availableImages = Object.keys(images).join(", ");
   throw new Error(
-    `Image not found: ${src}. Available images: ${availableImages}`
+    `Image not found: ${src}. Ensure the path is relative to the '/src/assets/' directory and uses a supported format (e.g., 'svg', 'avif'). Examples of valid paths: 'icons/menu.svg', 'projects/slug.avif'. Available images: ${availableImages}`
   );
 }
 ---
