@@ -1,0 +1,42 @@
+---
+interface Props {
+  kind: "google-calendar" | "github-sponsors" | "apple-music";
+  loading?: "eager" | "lazy";
+  albumID?: string;
+}
+const { kind, loading = "eager", albumID } = Astro.props;
+
+let src = "";
+let title = "Embed";
+let classes = "card w-full";
+
+switch (kind) {
+  case "google-calendar":
+    src =
+      "https://calendar.google.com/calendar/appointments/AcZssZ0Uf9NSuQOy5kmC7a86grhHsaI3ESFj1eLPems=?gv=true";
+    title = "Schedule a Meeting with me.";
+    classes += " h-[800px] dark:bg-gray-300";
+    break;
+  case "apple-music":
+    if (!albumID) throw new Error('The "albumID" prop is required when "kind" is set to "apple-music". Please provide a valid albumID.');
+    src = `https://embed.music.apple.com/us/album/${albumID}?theme=auto`;
+    title = "My Top Album";
+    classes += " h-[450px]";
+    break;
+  case "github-sponsors":
+    src = "https://github.com/sponsors/leo-lem/card";
+    title = "Sponsor me on GitHub";
+    classes += " responsive h-[375px] sm:h-[200px]";
+    break;
+}
+---
+
+<iframe
+  src={src}
+  title={title}
+  class={classes}
+  style="padding: 0;"
+  loading={loading}
+  allow="encrypted-media *; fullscreen *; clipboard-write"
+  sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+></iframe>

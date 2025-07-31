@@ -10,8 +10,6 @@ links:
     url: "https://almost.leolem.dev"
 articles:
   - almost
-images: ["1.avif", "2.avif", "3.avif"]
-thumbnail: "thumbnail.svg"
 ---
 
 Almost? is a reflective iOS journaling app built around the idea of learning from near-misses — those moments when you almost did the right thing. It’s designed to help users log small failures, reflect constructively, and identify emotional patterns over time.

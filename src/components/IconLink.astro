@@ -1,11 +1,20 @@
 ---
-const { type, url, size_class = "h-7 w-7" } = Astro.props;
+import DynamicImage from "./DynamicImage.astro";
+
+interface Props {
+  type: string;
+  url: string;
+  size_class?: string;
+  loading?: "eager" | "lazy";
+}
+const { type, url, size_class = "h-7 w-7", loading = "eager" } = Astro.props;
 ---
 
 <a href={url} class="responsive" rel="noopener noreferrer" target="_blank">
-  <img
-    src={`/icons/${type}.svg`}
+  <DynamicImage
+    src={`icons/${type}.svg`}
     alt={type}
     class={`${size_class} invert-0 dark:invert`}
+    loading={loading}
   />
 </a>

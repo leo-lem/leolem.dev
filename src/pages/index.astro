@@ -5,6 +5,7 @@ import BaseLayout from "../layout/BaseLayout.astro";
 import Tags from "../components/Tags.astro";
 import SeeMore from "../components/SeeMore.astro";
 import { Content as AboutMe } from "/src/content/about.md";
+import DynamicImage from "../components/DynamicImage.astro";
 
 const featuredProjects = (await getCollection("projects")).filter(({ slug }) =>
   (import.meta.env.FEATURED_PROJECTS?.split(",") ?? []).includes(slug)
@@ -60,19 +61,16 @@ const featuredArticle = (await getCollection("blog")).find(
   <section class="flex flex-col items-center gap-4">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
       {
-        featuredProjects.map(({ slug, data: { title, thumbnail } }) => (
+        featuredProjects.map(({ slug, data: { title } }) => (
           <a
             href={`/projects#${slug}`}
             class="card responsive cursor-pointer flex flex-col gap-4 text-center"
           >
-            {thumbnail && (
-              <img
-                src={`/projects/${slug}/${thumbnail}`}
-                class="w-max aspect-square object-cover rounded-lg"
-                alt={`Thumbnail for ${title}`}
-                loading="lazy"
-              />
-            )}
+            <DynamicImage
+              src={`projects/${slug}.avif`}
+              alt={`Thumbnail for ${title}`}
+              class="w-max aspect-square object-cover rounded-lg"
+            />
             <h2>{title}</h2>
           </a>
         ))
@@ -92,10 +90,11 @@ const featuredArticle = (await getCollection("blog")).find(
       {
         featuredServices.map(({ data: { icon, title, short } }: any) => (
           <div class="card flex flex-col items-center gap-2">
-            <img
-              src={`/icons/${icon}.svg`}
+            <DynamicImage
+              src={`icons/${icon}.svg`}
               alt={title}
               class="h-10 w-10 dark:invert"
+              loading="lazy"
             />
             <h2 class="text-lg font-semibold mb-0">{title}</h2>
             <p class="text-muted text-sm">{short}</p>

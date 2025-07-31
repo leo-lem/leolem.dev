@@ -1,0 +1,31 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/**/*.{svg,avif}"
+);
+
+interface Props {
+  src: string;
+  alt?: string;
+  class?: string;
+  loading?: "lazy" | "eager";
+  onclick?: string;
+}
+const { src, alt, class: classes, loading = "eager", onclick } = Astro.props;
+
+if (!images[`/src/assets/${src}`]) {
+  const availableImages = Object.keys(images).join(", ");
+  throw new Error(
+    `Image not found: ${src}. Ensure the path is relative to the '/src/assets/' directory and uses a supported format (e.g., 'svg', 'avif'). Examples of valid paths: 'icons/menu.svg', 'projects/slug.avif'. Available images: ${availableImages}`
+  );
+}
+---
+
+<Image
+  src={images[`/src/assets/${src}`]()}
+  alt={alt}
+  class={classes}
+  loading={loading}
+  onclick={onclick}
+/>

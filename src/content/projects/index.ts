@@ -9,8 +9,6 @@ export default defineCollection({
       url: z.string().url()
     })).optional(),
     articles: z.array(z.string()).optional(),
-    tags: z.array(zTopic).optional(),
-    images: z.array(z.string()).optional(),
-    thumbnail: z.string().optional()
+    tags: z.array(zTopic).optional()
   })
 });

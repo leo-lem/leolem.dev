@@ -2,8 +2,9 @@
 import { getCollection } from "astro:content";
 
 import BaseLayout from "../layout/BaseLayout.astro";
+import Embed from "../components/Embed.astro";
 import Tags from "../components/Tags.astro";
-import Schedule from "../components/Schedule.astro";
+import DynamicImage from "../components/DynamicImage.astro";
 
 const services = await getCollection("services");
 ---
@@ -14,11 +15,13 @@ const services = await getCollection("services");
 >
   <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     {
-      services.map(({ data: { title, short, tags, image, cta }, rendered }) => (
+      services.map(({ slug, data: { title, short, tags, cta }, rendered }) => (
         <div class="card flex flex-col gap-4">
-          {image && (
-            <img src={`/services/${image}`} alt={title} class="card-image" />
-          )}
+          <DynamicImage
+            src={`services/${slug}.avif`}
+            alt={title}
+            class="card-image"
+          />
 
           <h2>{title}</h2>
 
@@ -48,6 +51,6 @@ const services = await getCollection("services");
 
   <section id="schedule-a-call" class="flex flex-col items-center">
     <h2>Book a Meeting</h2>
-    <Schedule />
+    <Embed kind="google-calendar" loading="lazy" />
   </section>
 </BaseLayout>
