@@ -15,7 +15,10 @@ interface Props {
 const { src, alt, class: classes, loading = "eager", onclick } = Astro.props;
 
 if (!images[`/src/assets/${src}`]) {
-  throw new Error(`Image not found: ${src}`);
+  const availableImages = Object.keys(images).join(", ");
+  throw new Error(
+    `Image not found: ${src}. Available images: ${availableImages}`
+  );
 }
 ---
 

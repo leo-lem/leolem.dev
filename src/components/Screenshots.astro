@@ -17,7 +17,8 @@ const images = Object.entries(
           src={img()}
           alt="Project screenshot"
           class="responsive card-image cursor-pointer object-contain"
-          onclick="this.closest('div').classList.toggle('fullscreen'); this.classList.remove('responsive', 'cursor-pointer');"
+          tabindex="0"
+          data-screenshot
         />
       </div>
     ))
@@ -45,5 +46,19 @@ const images = Object.entries(
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape")
       document.querySelector(".fullscreen")?.classList.remove("fullscreen");
+  });
+
+  document.querySelectorAll("[data-screenshot]").forEach((img) => {
+    img.addEventListener("click", function () {
+      this.closest("div").classList.toggle("fullscreen");
+      this.classList.remove("responsive", "cursor-pointer");
+    });
+    img.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        this.closest("div").classList.toggle("fullscreen");
+        this.classList.remove("responsive", "cursor-pointer");
+      }
+    });
   });
 </script>
