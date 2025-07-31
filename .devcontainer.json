@@ -1,14 +1,15 @@
 {
 	"dockerFile": ".devcontainer.Dockerfile",
+	"postCreateCommand": "npm install",
 	"postStartCommand": "npm start",
-	"remoteUser": "node",
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"astro-build.astro-vscode",
 				"bradlc.vscode-tailwindcss",
 				"ms-playwright.playwright",
-				"github.copilot"
+				"github.copilot",
+				"GitHub.vscode-pull-request-github"
 			]
 		}
 	},
