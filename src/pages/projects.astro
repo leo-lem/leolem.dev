@@ -68,7 +68,7 @@ const projects = (await getCollection("projects"))
                   href={`/blog/${article.id}`}
                   class="block p-3 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition"
                 >
-                  <div>{article.data.title}</div>
+                  <div class="line-clamp-1">{article.data.title}</div>
                   <div class="text-sm text-secondary line-clamp-1">
                     {article.data.description}
                   </div>

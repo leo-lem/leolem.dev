@@ -91,3 +91,26 @@ const { socials } = Astro.props;
     -webkit-text-fill-color: transparent;
   }
 </style>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("mobile-menu-toggle");
+    const menu = document.getElementById("mobile-menu");
+
+    toggle?.addEventListener("click", () => {
+      const isHidden = menu?.classList.contains("hidden");
+
+      if (isHidden) {
+        menu.classList.remove("hidden");
+        menu.classList.add("flex");
+        menu.style.maxHeight = menu.scrollHeight + "px";
+      } else {
+        menu.style.maxHeight = "0px";
+        setTimeout(() => {
+          menu.classList.remove("flex");
+          menu.classList.add("hidden");
+        }, 300);
+      }
+    });
+  });
+</script>
