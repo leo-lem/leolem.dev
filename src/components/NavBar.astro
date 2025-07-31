@@ -1,52 +1,16 @@
 ---
-import IconLink from "./IconLink.astro";
-import { Image } from "astro:assets";
-
-import profile from "../assets/about/profile.webp";
+import DraggableAvatar from "./DraggableAvatar.astro";
 import DynamicImage from "./DynamicImage.astro";
+import IconLink from "./IconLink.astro";
 
 const navigation = ["blog", "services", "projects", "about"];
 const { socials } = Astro.props;
 ---
 
-<style is:global>
-  nav {
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    border-color: var(--border-color);
-  }
-
-  nav a.active {
-    @apply font-bold underline;
-  }
-
-  nav a {
-    color: var(--text-color);
-    @apply transition;
-  }
-
-  nav a:hover {
-    background: linear-gradient(
-      to right,
-      var(--accent-color-start),
-      var(--accent-color-end)
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-</style>
-
 <nav
   class="sticky top-0 default-color flex flex-col gap-2 p-3 z-10 shadow shadow-[var(--border-color)] sm:flex-row sm:items-center sm:justify-between"
 >
-  <Image
-    id="draggable-avatar"
-    src={profile}
-    alt="Leopold Lemmermann Logo"
-    class="w-10 h-10 absolute z-50 cursor-grab transition-transform duration-500 ease-in-out rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
-    loading="eager"
-  />
+  <DraggableAvatar />
 
   <div class="flex items-center justify-between gap-4">
     <div class="flex items-center gap-4">
@@ -100,146 +64,30 @@ const { socials } = Astro.props;
   </div>
 </nav>
 
-<script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
-    const toggle = document.getElementById("mobile-menu-toggle");
-    const menu = document.getElementById("mobile-menu");
+<style>
+  nav {
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+  }
 
-    toggle?.addEventListener("click", () => {
-      const isHidden = menu?.classList.contains("hidden");
+  nav a.active {
+    @apply font-bold underline;
+  }
 
-      if (isHidden) {
-        menu.classList.remove("hidden");
-        menu.classList.add("flex");
-        menu.style.maxHeight = menu.scrollHeight + "px";
-      } else {
-        menu.style.maxHeight = "0px";
-        setTimeout(() => {
-          menu.classList.remove("flex");
-          menu.classList.add("hidden");
-        }, 300);
-      }
-    });
-  });
-</script>
+  nav a {
+    color: var(--text-color);
+    @apply transition;
+  }
 
-<script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
-    const delay = 50; // ms before moving avatar
-    const timeout = 2500; // ms to reset avatar after move
-    const confetti = 50; // number of confetti pieces
-    const isMobile = window.innerWidth < 640;
-
-    // Elements and state
-    const avatar = document.getElementById("draggable-avatar");
-    const img = avatar.querySelector("img");
-    const originalX = avatar.offsetLeft;
-    const originalY = avatar.offsetTop;
-
-    let timerId = null;
-    let hoverTimer = null;
-    function moveToRandomPosition() {
-      if (isFullscreen) return;
-
-      const avatarRect = avatar.getBoundingClientRect();
-      const maxX = window.innerWidth - avatarRect.width;
-      const maxY = window.innerHeight - avatarRect.height;
-
-      const randomX = Math.random() * maxX;
-      const randomY = Math.random() * maxY;
-
-      avatar.style.transform = `translate(${randomX - originalX}px, ${randomY - originalY}px)`;
-
-      if (timerId) clearTimeout(timerId);
-      timerId = setTimeout(resetAvatarPosition, timeout);
-    }
-
-    function resetAvatarPosition() {
-      avatar.style.transition =
-        "transform 1s cubic-bezier(0.68, -0.55, 0.27, 1.55)";
-      avatar.style.transform = "translate(0, 0)";
-      timerId = null;
-
-      setTimeout(() => {
-        avatar.style.transition = "transform 0.5s ease";
-      }, 1000);
-    }
-
-    function simpleConfetti() {
-      for (let i = 0; i < confetti; i++) {
-        const confetto = document.createElement("div");
-        confetto.style.position = "fixed";
-        confetto.style.width = "6px";
-        confetto.style.height = "6px";
-        confetto.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
-        confetto.style.left = Math.random() * window.innerWidth + "px";
-        confetto.style.top = "-10px";
-        confetto.style.opacity = "0.8";
-        confetto.style.borderRadius = "50%";
-        confetto.style.pointerEvents = "none";
-        confetto.style.zIndex = "9999";
-        document.body.appendChild(confetto);
-
-        const fall = confetto.animate(
-          [
-            { transform: "translateY(0px) rotate(0deg)" },
-            {
-              transform: `translateY(${window.innerHeight + 20}px) rotate(${Math.random() * 720}deg)`
-            }
-          ],
-          {
-            duration: 2000 + Math.random() * 1000,
-            easing: "ease-out",
-            fill: "forwards"
-          }
-        );
-
-        fall.onfinish = () => confetto.remove();
-      }
-    }
-
-    let isFullscreen = false;
-    let fullscreenTimerId = null;
-    function toggleFullscreen() {
-      if (isMobile) return;
-      isFullscreen = !isFullscreen;
-
-      Object.assign(avatar.style, {
-        position: "fixed",
-        top: isFullscreen ? "50%" : originalY + "px",
-        left: isFullscreen ? "50%" : originalX + "px",
-        width: isFullscreen ? "50vmin" : "",
-        height: isFullscreen ? "50vmin" : "",
-        transform: isFullscreen ? "translate(-50%, -50%)" : "translate(0, 0)",
-        transition: "all 0.5s ease",
-        zIndex: isFullscreen ? "9999" : "",
-        borderRadius: "50%"
-      });
-
-      Object.assign(img.style, {
-        width: isFullscreen ? "100%" : "40px",
-        height: isFullscreen ? "100%" : "40px",
-        objectFit: "cover"
-      });
-
-      if (isFullscreen) {
-        fullscreenTimerId = setTimeout(toggleFullscreen, timeout);
-        simpleConfetti();
-      } else clearTimeout(fullscreenTimerId);
-    }
-
-    avatar.addEventListener(
-      "touchstart",
-      () => {
-        if (hoverTimer) clearTimeout(hoverTimer);
-        hoverTimer = setTimeout(moveToRandomPosition, delay);
-      },
-      { passive: true }
+  nav a:hover {
+    background: linear-gradient(
+      to right,
+      var(--accent-color-start),
+      var(--accent-color-end)
     );
-    avatar.addEventListener("mouseenter", () => {
-      if (hoverTimer) clearTimeout(hoverTimer);
-      hoverTimer = setTimeout(moveToRandomPosition, delay);
-    });
-    avatar.addEventListener("click", toggleFullscreen);
-  });
-</script>
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>

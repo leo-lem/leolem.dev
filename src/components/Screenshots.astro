@@ -9,7 +9,22 @@ const images = Object.entries(
   .sort(([a], [b]) => a.localeCompare(b));
 ---
 
-<style is:inline>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+  {
+    images.map(([path, img]) => (
+      <div>
+        <Image
+          src={img()}
+          alt="Project screenshot"
+          class="responsive card-image cursor-pointer object-contain"
+          onclick="this.closest('div').classList.toggle('fullscreen'); this.classList.remove('responsive', 'cursor-pointer');"
+        />
+      </div>
+    ))
+  }
+</div>
+
+<style>
   .fullscreen {
     position: fixed;
     inset: 0;
@@ -25,20 +40,6 @@ const images = Object.entries(
     max-height: 90%;
   }
 </style>
-<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-  {
-    images.map(([path, img]) => (
-      <div>
-        <Image
-          src={img()}
-          alt="Project screenshot"
-          class="responsive card-image cursor-pointer object-contain"
-          onclick="this.closest('div').classList.toggle('fullscreen'); this.classList.remove('responsive', 'cursor-pointer');"
-        />
-      </div>
-    ))
-  }
-</div>
 
 <script is:inline>
   document.addEventListener("keydown", (e) => {
