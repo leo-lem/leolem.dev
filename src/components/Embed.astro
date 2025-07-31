@@ -18,7 +18,7 @@ switch (kind) {
     classes += " h-[800px] dark:bg-gray-300";
     break;
   case "apple-music":
-    if (!albumID) throw new Error("albumID is required for apple-music embed.");
+    if (!albumID) throw new Error('The "albumID" prop is required when "kind" is set to "apple-music". Please provide a valid albumID.');
     src = `https://embed.music.apple.com/us/album/${albumID}?theme=auto`;
     title = "My Top Album";
     classes += " h-[450px]";
