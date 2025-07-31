@@ -7,7 +7,6 @@ links:
   - type: github
     url: "https://github.com/leo-lem/StudentScrollAPI"
 articles: [studentscroll]
-images: ["1.avif", "2.avif"]
 ---
 
 StudentScroll is a full-stack web application designed to serve as a social platform for university students. It enables users to create and interact with posts, follow fellow students, participate in discussions, and chat in real time.

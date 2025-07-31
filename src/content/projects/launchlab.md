@@ -8,7 +8,6 @@ links:
     url: "https://github.com/leo-lem/launchlab"
   - type: webpage
     url: "https://launchlab.leolem.dev"
-images: ["1.avif", "2.avif", "3.webp", "4.avif", "5.avif", "6.avif", "7.avif", "8.avif"]
 ---
 
 LaunchLab is an iOS application designed to guide aspiring entrepreneurs from ideation to startup success through structured learning paths, AI-powered assistance, and professional consultation. Developed for Transferagentur as part of the M-Lab course at the University of Hamburg, it provides users with interactive modules, document generation tools, and real consultant access to streamline the startup process.

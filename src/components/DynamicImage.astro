@@ -1,0 +1,28 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/**/*.{svg,avif}"
+);
+
+interface Props {
+  src: string;
+  alt?: string;
+  class?: string;
+  loading?: "lazy" | "eager";
+  onclick?: string;
+}
+const { src, alt, class: classes, loading = "eager", onclick } = Astro.props;
+
+if (!images[`/src/assets/${src}`]) {
+  throw new Error(`Image not found: ${src}`);
+}
+---
+
+<Image
+  src={images[`/src/assets/${src}`]()}
+  alt={alt}
+  class={classes}
+  loading={loading}
+  onclick={onclick}
+/>

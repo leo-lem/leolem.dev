@@ -15,7 +15,7 @@ This portfolio site highlights:
 - **DevOps & automation workflows** (CI/CD, Terraform, Docker)
 - **Backend services** (Python FastAPI, Java Spring Boot/Quarkus)
 - **iOS app dev** (SwiftUI prototypes, UI/UX design)
-- Engineering articles and case studies
+- **Engineering articles** and case studies
 
 ## 🧱 Tech Stack
 
@@ -27,8 +27,9 @@ This portfolio site highlights:
 ## 🛠 Key Sections
 
 - **Portfolio** – Featuring `Smokes`, `LaunchLab`, and more  
-- **Contact** – Ways to connect or request freelance work  
-- *(Planned)*: Blog section for technical writing  
+- **Services** – Ways to connect or request freelance work  
+- **Blog**: Blog section for technical writing  
+- **About**: My background and interests in tech
 
 ## 🚀 Quick Development Setup
 

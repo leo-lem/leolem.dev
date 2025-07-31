@@ -3,7 +3,6 @@ icon: "swift"
 title: "SwiftUI MVP App with Local Data & Animations"
 short: "Build a lightweight SwiftUI app or MVP with local persistence and smooth UI."
 tags: ["iOS", "SwiftUI", "MVP", "Mobile", "Core Data"]
-image: "swiftui.avif"
 cta: {
   text: "Order Now",
   url: "https://www.fiverr.com/s/wkNe3Xv"

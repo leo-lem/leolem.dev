@@ -7,7 +7,6 @@ export default defineCollection({
     short: z.string(),
     tags: z.array(zTopic),
     icon: zIcon.optional(),
-    image: z.string().optional(),
     cta: z.object({
       text: z.string(),
       url: z.string().url(),

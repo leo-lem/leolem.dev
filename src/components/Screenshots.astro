@@ -1,0 +1,48 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+const images = Object.entries(
+  import.meta.glob<{ default: ImageMetadata }>("/src/assets/projects/**/*.avif")
+)
+  .filter(([path]) => path.includes(`${Astro.props.slug}/`))
+  .sort(([a], [b]) => a.localeCompare(b));
+---
+
+<style is:inline>
+  .fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+
+  .fullscreen img {
+    max-width: 90%;
+    max-height: 90%;
+  }
+</style>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+  {
+    images.map(([path, img]) => (
+      <div>
+        <Image
+          src={img()}
+          alt="Project screenshot"
+          class="responsive card-image cursor-pointer object-contain"
+          onclick="this.closest('div').classList.toggle('fullscreen'); this.classList.remove('responsive', 'cursor-pointer');"
+        />
+      </div>
+    ))
+  }
+</div>
+
+<script is:inline>
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape")
+      document.querySelector(".fullscreen")?.classList.remove("fullscreen");
+  });
+</script>

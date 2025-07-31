@@ -1,8 +1,6 @@
 ---
 title: Sustainable IT Dashboard
 tags: ["Full Stack", "Cloud", "CI/CD"]
-images: ["thumbnail.webp"]
-thumbnail: "thumbnail.webp"
 articles: [devcontainers]
 ---
 

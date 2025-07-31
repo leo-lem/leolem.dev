@@ -3,6 +3,7 @@ import IconLink from "./IconLink.astro";
 import { Image } from "astro:assets";
 
 import profile from "../assets/about/profile.webp";
+import DynamicImage from "./DynamicImage.astro";
 
 const navigation = ["blog", "services", "projects", "about"];
 const { socials } = Astro.props;
@@ -44,7 +45,7 @@ const { socials } = Astro.props;
     src={profile}
     alt="Leopold Lemmermann Logo"
     class="w-10 h-10 absolute z-50 cursor-grab transition-transform duration-500 ease-in-out rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
-    loading="lazy"
+    loading="eager"
   />
 
   <div class="flex items-center justify-between gap-4">
@@ -72,7 +73,11 @@ const { socials } = Astro.props;
       }
 
       <button id="mobile-menu-toggle" class="sm:hidden focus:outline-none">
-        <img src="/icons/menu.svg" alt="Menu" class="h-6 w-6 dark:invert" />
+        <DynamicImage
+          src="icons/menu.svg"
+          alt="Menu"
+          class="h-6 w-6 dark:invert"
+        />
       </button>
     </div>
   </div>
@@ -223,10 +228,14 @@ const { socials } = Astro.props;
       } else clearTimeout(fullscreenTimerId);
     }
 
-    avatar.addEventListener("touchstart", () => {
-      if (hoverTimer) clearTimeout(hoverTimer);
-      hoverTimer = setTimeout(moveToRandomPosition, delay);
-    }, { passive: true });
+    avatar.addEventListener(
+      "touchstart",
+      () => {
+        if (hoverTimer) clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(moveToRandomPosition, delay);
+      },
+      { passive: true }
+    );
     avatar.addEventListener("mouseenter", () => {
       if (hoverTimer) clearTimeout(hoverTimer);
       hoverTimer = setTimeout(moveToRandomPosition, delay);

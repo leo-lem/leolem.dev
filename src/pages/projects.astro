@@ -2,30 +2,36 @@
 import { getCollection } from "astro:content";
 
 import BaseLayout from "../layout/BaseLayout.astro";
-import Screenshot from "../components/Screenshot.astro";
+import Screenshots from "../components/Screenshots.astro";
 import IconLink from "../components/IconLink.astro";
 import Tags from "../components/Tags.astro";
-import SponsorMe from "../components/SponsorMe.astro";
+import Embed from "../components/Embed.astro";
 
-const projects = await getCollection("projects");
+const projects = (await getCollection("projects")).sort(({ slug }) =>
+  (import.meta.env.FEATURED_PROJECTS?.split(",") ?? []).includes(slug) ? -1 : 1
+);
 ---
 
 <BaseLayout
   title="My Projects"
   description="Explore my projects showcasing my skills in iOS development, CI/CD automation, and more. Each project highlights my approach to clean, reliable code and production-ready solutions."
 >
-  <SponsorMe />
+  <Embed kind="github-sponsors" />
 
   {
     projects.map(
-      ({ data: { title, tags, links, articles, images }, slug, rendered }) => (
+      ({ data: { title, tags, links, articles }, slug, rendered }, index) => (
         <section id={slug} class="card flex flex-col gap-4">
           <div class="flex flex-col gap-3 sm:flex-row sm:items-baseline">
             <h2 class="m-0">{title}</h2>
 
             <div class="flex items-center gap-2">
               {links?.map((link) => (
-                <IconLink type={link.type} url={link.url} />
+                <IconLink
+                  type={link.type}
+                  url={link.url}
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
               ))}
             </div>
           </div>
@@ -51,13 +57,7 @@ const projects = await getCollection("projects");
             </div>
           )}
 
-          {images && (
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {images.map((img) => (
-                <Screenshot src={`projects/${slug}/${img}`} alt={title} />
-              ))}
-            </div>
-          )}
+          <Screenshots slug={slug} />
         </section>
       )
     )
