@@ -4,11 +4,11 @@ import { zTopic } from '../zTypes';
 export default defineCollection({
   schema: z.object({
     title: z.string(),
+    articles: z.array(z.string()).default([]),
+    tags: z.array(zTopic).default([]),
     links: z.array(z.object({
       type: z.enum(['github', 'appstore', 'webpage', 'document']),
       url: z.string().url()
-    })).optional(),
-    articles: z.array(z.string()).optional(),
-    tags: z.array(zTopic).optional()
+    })).default([])
   })
 });

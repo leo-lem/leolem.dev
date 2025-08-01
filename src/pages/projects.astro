@@ -20,11 +20,13 @@ const projects = (await getCollection("projects"))
   .map((project) => {
     return {
       ...project,
-      articles: project.data.articles
-        ?.flatMap((articleID) =>
-          blog.find((article) => article.id === articleID)
-        )
-        .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+      articles:
+        project.data.articles
+          ?.flatMap((articleID) =>
+            blog.find((article) => article.id === articleID)
+          )
+          .filter((article) => article !== undefined)
+          .sort((a, b) => b.data.date.getTime() - a.data.date.getTime()) ?? []
     };
   });
 ---
@@ -60,20 +62,20 @@ const projects = (await getCollection("projects"))
             set:html={rendered?.html}
           />
 
-          {articles && articles.length > 0 && (
-            <div class="flex flex-col gap-2">
+          {articles.length > 0 && (
+            <div class="flex flex-col gap-2 mx-2">
               <h3>Related Articles</h3>
-              {articles.map((article) => (
+              {articles.map(({ id, data: { title, description, date } }) => (
                 <a
-                  href={`/blog/${article.id}`}
-                  class="block p-3 border rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+                  href={`/blog/${id}`}
+                  class="responsive block p-3 border rounded"
                 >
-                  <div class="line-clamp-1">{article.data.title}</div>
+                  <div class="line-clamp-1">{title}</div>
                   <div class="text-sm text-secondary line-clamp-1">
-                    {article.data.description}
+                    {description}
                   </div>
                   <div class="text-xs text-muted text-right">
-                    {article.data.date.toLocaleDateString()}
+                    {date.toLocaleDateString()}
                   </div>
                 </a>
               ))}

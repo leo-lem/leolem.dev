@@ -62,7 +62,7 @@ const albumID = import.meta.env.FAVORITE_ALBUM;
 
       {
         stations.map(
-          ({ data: { title, subtitle, date, duration }, body }, index) => (
+          ({ data: { title, place, date, duration }, body }, index) => (
             <div
               class={`relative ml-5 sm:ml-0 ${index !== 0 ? "sm:-mt-20" : ""}`}
             >
@@ -76,7 +76,7 @@ const albumID = import.meta.env.FAVORITE_ALBUM;
                 <h3 class="m-0">{title}</h3>
 
                 <div class="font-semibold mb-4">
-                  <span class="text-secondary text-sm">@ {subtitle} |</span>
+                  <span class="text-secondary text-sm">@ {place} |</span>
                   <span class="text-muted text-xs">
                     {date.getFullYear()} - {duration}
                   </span>

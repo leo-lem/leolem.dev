@@ -87,7 +87,11 @@ h3 {
 }
 
 .responsive {
-  @apply hover:scale-105 transform transition;
+  @apply transform transition;
+}
+
+.responsive:hover {
+  @apply scale-105 brightness-110;
 }
 
 
