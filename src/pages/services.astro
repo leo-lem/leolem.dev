@@ -34,16 +34,23 @@ const services = await getCollection("services");
             set:html={rendered?.html}
           />
 
-          {cta && (
+          <div class="flex flex-col gap-2 font-bold text-center">
             <a
-              href={cta.url}
-              class="responsive bg-intense font-bold text-center rounded p-2"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#schedule-a-call"
+              class="responsive rounded bg-intense p-2"
             >
-              {cta.text || "Learn More"}
+              Contact Me
             </a>
-          )}
+            {cta.map(({ url, type }) => (
+              <a href={url} target="_blank" rel="noopener noreferrer" class={`responsive rounded ${type} p-2`}>
+                {type === "fiverr"
+                  ? "Order on Fiverr"
+                  : type === "upwork"
+                    ? "Hire on Upwork"
+                    : "Learn More"}
+              </a>
+            ))}
+          </div>
         </div>
       ))
     }
@@ -54,3 +61,15 @@ const services = await getCollection("services");
     <Embed kind="google-calendar" loading="lazy" />
   </section>
 </BaseLayout>
+
+<style>
+  .fiverr {
+    @apply text-white;
+    background-color: #19a463;
+  }
+
+  .upwork {
+    @apply text-white;
+    background-color: #14a800;
+  }
+</style>

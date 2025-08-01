@@ -1,6 +1,6 @@
 ---
 title: QA and Web
-subtitle: MaibornWolff
+place: MaibornWolff
 date: 2022-04-01
 duration: 9 months
 ---

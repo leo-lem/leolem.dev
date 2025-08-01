@@ -7,9 +7,9 @@ export default defineCollection({
     short: z.string(),
     tags: z.array(zTopic),
     icon: zIcon.optional(),
-    cta: z.object({
-      text: z.string(),
-      url: z.string().url(),
-    }).optional()
+    cta: z.array(z.object({
+      type: z.enum(['fiverr', 'upwork']),
+      url: z.string().url()
+    })).default([])
   })
 });
