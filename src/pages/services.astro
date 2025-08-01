@@ -42,7 +42,7 @@ const services = await getCollection("services");
               Contact Me
             </a>
             {cta.map(({ url, type }) => (
-              <a href={url} class={`responsive rounded ${type} p-2`}>
+              <a href={url} target="_blank" rel="noopener noreferrer" class={`responsive rounded ${type} p-2`}>
                 {type === "fiverr"
                   ? "Order on Fiverr"
                   : type === "upwork"
