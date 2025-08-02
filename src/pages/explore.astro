@@ -5,7 +5,6 @@ import DynamicImage from "../components/DynamicImage.astro";
 import Tags from "../components/Tags.astro";
 
 const skills = (await getCollection("topics"))
-  .filter((skill) => skill.data.confidence !== undefined)
   .sort((a, b) => (b.data.confidence ?? 0) - (a.data.confidence ?? 0))
   .sort((a, b) => (b.data.isPriority ? 1 : 0) - (a.data.isPriority ? 1 : 0));
 
@@ -35,30 +34,38 @@ const initialTags = url.searchParams.get("tags")?.split(",").filter(Boolean) || 
         <div id={category.toLowerCase().replace(/\s+/g, "-")} class="mb-10">
           <h3 class="mb-6">{category}</h3>
 
-          <div class="flex flex-wrap gap-3">
+          <div class="flex flex-wrap gap-2">
             {skills
               .filter((skill) => skill.data.category === category)
               .map(({ data: { id, icon, confidence, isPriority } }: any) => (
                 <button
-                  class={`skill-card card responsive flex flex-col items-center p-4 w-24 sm:w-28 gap-2 cursor-pointer transition-all hover:scale-105 ${
+                  class={`skill-card card responsive flex flex-col items-center p-2 w-16 sm:w-20 gap-1 cursor-pointer transition-all hover:scale-105 ${
                     isPriority ? "ring-2 ring-accent" : ""
                   }`}
                   data-tag={id}
                   data-category={category}
                 >
-                  <DynamicImage
-                    src={`icons/${icon}.svg`}
-                    alt={id}
-                    class="h-8 w-8 sm:h-10 sm:w-10 dark:invert"
-                    loading="lazy"
-                  />
-                  <span class="text-nowrap text-xs sm:text-sm font-medium">{id}</span>
-                  <div class="w-full h-1 bg-[var(--text-secondary-color)] rounded-full">
-                    <div
-                      class="h-1 bg-intense rounded-full transition-all"
-                      style={`width: ${confidence}%`}
+                  {icon ? (
+                    <DynamicImage
+                      src={`icons/${icon}.svg`}
+                      alt={id}
+                      class="h-4 w-4 sm:h-6 sm:w-6 dark:invert"
+                      loading="lazy"
                     />
-                  </div>
+                  ) : (
+                    <div class="h-4 w-4 sm:h-6 sm:w-6 bg-[var(--text-secondary-color)] rounded-full opacity-30"></div>
+                  )}
+                  <span class="text-nowrap text-xs font-medium text-center leading-tight">{id}</span>
+                  {confidence !== undefined ? (
+                    <div class="w-full h-1 bg-[var(--text-secondary-color)] rounded-full">
+                      <div
+                        class="h-1 bg-intense rounded-full transition-all"
+                        style={`width: ${confidence}%`}
+                      />
+                    </div>
+                  ) : (
+                    <div class="h-1"></div>
+                  )}
                 </button>
               ))}
           </div>
