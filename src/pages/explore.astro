@@ -37,7 +37,7 @@ const initialTags = url.searchParams.get("tags")?.split(",").filter(Boolean) || 
           <div class="flex flex-wrap gap-2">
             {skills
               .filter((skill) => skill.data.category === category)
-              .map(({ data: { id, icon, confidence, isPriority } }: any) => (
+              .map(({ data: { id, icon, confidence, isPriority } }: CollectionEntry<"topics">) => (
                 <button
                   class={`aspect-square skill-card card responsive flex flex-col items-center justify-center w-16 sm:w-20 gap-1 cursor-pointer transition-all hover:scale-105 ${
                     isPriority ? "ring-2 ring-accent" : ""
@@ -310,10 +310,16 @@ const initialTags = url.searchParams.get("tags")?.split(",").filter(Boolean) || 
       });
 
       // Show/hide sections based on content
+      // Mapping from section IDs to type keys
+      const sectionIdToType = {
+        'projects-section': 'projects',
+        'articles-section': 'articles',
+        'services-section': 'services'
+      };
       this.sections.forEach(sectionId => {
         const section = document.getElementById(sectionId);
-        const type = sectionId.replace('-section', '').replace('articles', 'article');
-        const count = sectionCounts[type + 's'] || sectionCounts[type];
+        const type = sectionIdToType[sectionId];
+        const count = sectionCounts[type] || 0;
         
         if (count > 0) {
           section.style.display = 'block';
