@@ -108,7 +108,7 @@ const initialTags = url.searchParams.get("tags")?.split(",").filter(Boolean) || 
                   </a>
                 </h3>
                 <div class="mb-4">
-                  <Tags tags={tags} linkToExplore={false} />
+                  <Tags tags={tags} />
                 </div>
                 <p class="text-muted text-sm">
                   View project details and links →
@@ -142,7 +142,7 @@ const initialTags = url.searchParams.get("tags")?.split(",").filter(Boolean) || 
                   {description}
                 </p>
                 <div>
-                  <Tags tags={tags || []} linkToExplore={false} />
+                  <Tags tags={tags || []} />
                 </div>
               </article>
             ))
@@ -170,7 +170,7 @@ const initialTags = url.searchParams.get("tags")?.split(",").filter(Boolean) || 
                   {short}
                 </p>
                 <div>
-                  <Tags tags={tags} linkToExplore={false} />
+                  <Tags tags={tags} />
                 </div>
               </article>
             ))
