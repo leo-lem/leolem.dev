@@ -4,7 +4,6 @@ import BaseLayout from "../layout/BaseLayout.astro";
 import DynamicImage from "../components/DynamicImage.astro";
 import Tags from "../components/Tags.astro";
 
-// Get all content collections
 const skills = (await getCollection("topics"))
   .filter((skill) => skill.data.confidence !== undefined)
   .sort((a, b) => (b.data.confidence ?? 0) - (a.data.confidence ?? 0))
@@ -22,19 +21,15 @@ const articles = (await getCollection("blog"))
   )
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-// Get query parameters for initial filter state
 const url = new URL(Astro.request.url);
 const initialTags = url.searchParams.get("tags")?.split(",").filter(Boolean) || [];
 ---
 
 <BaseLayout 
   title="Explore" 
-  description="Discover projects, blog articles, and services by exploring different technologies and topics. Filter by your interests to find relevant content."
+  description="Discover projects, articles, and services by exploring different technologies and topics. Filter by your interests to find relevant content."
 >
-  <!-- Skills/Topics Section (moved from About page) -->
   <section id="skills" class="max-w-4xl mx-auto mb-16">
-    <h2 class="text-center mb-8">My Skills & Expertise</h2>
-    
     {
       categories.map((category) => (
         <div id={category.toLowerCase().replace(/\s+/g, "-")} class="mb-10">
@@ -72,49 +67,34 @@ const initialTags = url.searchParams.get("tags")?.split(",").filter(Boolean) || 
     }
   </section>
 
-  <!-- Filter Status -->
-  <section class="max-w-4xl mx-auto mb-8">
-    <div id="filter-status" class="text-center text-muted">
-      <span id="filter-text">Select skills above to filter content, or <button id="show-all" class="underline text-primary">view all content</button></span>
-    </div>
-    <div id="selected-tags" class="flex flex-wrap gap-2 justify-center mt-4"></div>
-  </section>
-
-  <!-- Results Section -->
   <section class="max-w-6xl mx-auto">
     <div id="results-container">
       <!-- Projects -->
       <div id="projects-section" class="mb-12">
         <h2 class="text-2xl font-bold mb-6">Projects</h2>
-        <div id="projects-results" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div id="projects-results" class="grid gap-6 md:grid-cols-2">
           {
-            projects.map(({ id, data: { title, tags } }, index) => (
+            projects.map(({ slug, data: { title, tags } }, index) => (
               <article 
                 class="result-item card p-6 transition-all"
                 data-tags={JSON.stringify(tags)}
                 data-type="project"
               >
                 <h3 class="text-xl font-semibold mb-3">
-                  <a href={`/projects#${id}`} class="text-primary hover:underline">
+                  <a href={`/projects#${slug}`} class="text-primary hover:underline">
                     {title}
                   </a>
                 </h3>
-                <div class="mb-4">
-                  <Tags tags={tags} />
-                </div>
-                <p class="text-muted text-sm">
-                  View project details and links →
-                </p>
+                <Tags tags={tags} />
               </article>
             ))
           }
         </div>
       </div>
 
-      <!-- Blog Articles -->
       <div id="articles-section" class="mb-12">
-        <h2 class="text-2xl font-bold mb-6">Blog Articles</h2>
-        <div id="articles-results" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <h2 class="text-2xl font-bold mb-6">Articles</h2>
+        <div id="articles-results" class="grid gap-6 md:grid-cols-2">
           {
             articles.map(({ id, data: { title, description, tags, date } }) => (
               <article 
@@ -142,10 +122,9 @@ const initialTags = url.searchParams.get("tags")?.split(",").filter(Boolean) || 
         </div>
       </div>
 
-      <!-- Services -->
       <div id="services-section" class="mb-12">
         <h2 class="text-2xl font-bold mb-6">Services</h2>
-        <div id="services-results" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div id="services-results" class="grid gap-6 md:grid-cols-2">
           {
             services.map(({ id, data: { title, short, tags } }) => (
               <article 
@@ -171,7 +150,6 @@ const initialTags = url.searchParams.get("tags")?.split(",").filter(Boolean) || 
       </div>
     </div>
 
-    <!-- No results message -->
     <div id="no-results" class="text-center text-muted py-12 hidden">
       <p class="text-xl mb-4">No content found for the selected tags.</p>
       <p>Try selecting different skills or <button id="clear-filters" class="underline text-primary">clear all filters</button>.</p>

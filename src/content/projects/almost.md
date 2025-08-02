@@ -1,6 +1,6 @@
 ---
 title: Almost?
-tags: ["iOS", "SwiftUI", "Firebase"]
+tags: [iOS, Swift, SwiftUI, Firebase, "App Store"]
 links:
   - type: github
     url: "https://github.com/leo-lem/almost"

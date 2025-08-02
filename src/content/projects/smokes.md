@@ -1,6 +1,6 @@
 ---
 title: Smokes
-tags: ["iOS", "Swift Vapor", "SwiftUI"]
+tags: ["iOS", "Swift Vapor", "SwiftUI", "Swift", "App Store", "Vercel"]
 links:
   - type: appstore
     url: "https://apps.apple.com/de/app/smokes/id6446227741?l=en-GB"

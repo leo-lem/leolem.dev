@@ -1,6 +1,6 @@
 ---
 title: Sustainable IT Dashboard
-tags: ["Full Stack", "Cloud", "CI/CD"]
+tags: ["Full Stack", "Cloud", "CI/CD", "GitLab CI", "Kubernetes", "Terraform", "Devcontainers", "Docker"]
 articles: [devcontainers]
 ---
 

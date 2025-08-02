@@ -9,7 +9,7 @@ test("explore page loads", async ({ page }) => {
   
   // Test sections are present
   await expect(page.getByRole("heading", { name: "Projects" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Blog Articles" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Articles" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Services" })).toBeVisible();
 });
 

@@ -1,6 +1,6 @@
 ---
 title: StudentScroll
-tags: ["React", "Spring Boot"]
+tags: ["React", "Spring Boot", "Full Stack", "Typescript"]
 links:
   - type: github
     url: "https://github.com/leo-lem/StudentScrollApp"
