@@ -28,7 +28,7 @@ const initialTags = url.searchParams.get("tags")?.split(",").filter(Boolean) || 
   title="Explore" 
   description="Discover projects, articles, and services by exploring different technologies and topics. Filter by your interests to find relevant content."
 >
-  <section id="skills" class="max-w-4xl mx-auto mb-16">
+  <section id="skills" class="max-w-4xl mx-auto">
     {
       categories.map((category) => (
         <div id={category.toLowerCase().replace(/\s+/g, "-")} class="mb-10">
@@ -39,32 +39,30 @@ const initialTags = url.searchParams.get("tags")?.split(",").filter(Boolean) || 
               .filter((skill) => skill.data.category === category)
               .map(({ data: { id, icon, confidence, isPriority } }: any) => (
                 <button
-                  class={`skill-card card responsive flex flex-col items-center p-2 w-16 sm:w-20 gap-1 cursor-pointer transition-all hover:scale-105 ${
+                  class={`aspect-square skill-card card responsive flex flex-col items-center justify-center w-16 sm:w-20 gap-1 cursor-pointer transition-all hover:scale-105 ${
                     isPriority ? "ring-2 ring-accent" : ""
                   }`}
                   data-tag={id}
                   data-category={category}
                 >
-                  {icon ? (
+                  {icon && (
                     <DynamicImage
                       src={`icons/${icon}.svg`}
                       alt={id}
                       class="h-4 w-4 sm:h-6 sm:w-6 dark:invert"
                       loading="lazy"
                     />
-                  ) : (
-                    <div class="h-4 w-4 sm:h-6 sm:w-6 bg-[var(--text-secondary-color)] rounded-full opacity-30"></div>
                   )}
-                  <span class="text-nowrap text-xs font-medium text-center leading-tight">{id}</span>
-                  {confidence !== undefined ? (
+
+                  <span class="text-xs text-nowrap text-ellipsis overflow-hidden max-w-16 sm:max-w-20">{id}</span>
+
+                  {confidence && (
                     <div class="w-full h-1 bg-[var(--text-secondary-color)] rounded-full">
                       <div
                         class="h-1 bg-intense rounded-full transition-all"
                         style={`width: ${confidence}%`}
                       />
                     </div>
-                  ) : (
-                    <div class="h-1"></div>
                   )}
                 </button>
               ))}
@@ -74,9 +72,16 @@ const initialTags = url.searchParams.get("tags")?.split(",").filter(Boolean) || 
     }
   </section>
 
+  <section>
+    <div id="filter-status" class="text-center text-muted">
+      <span id="filter-text">Select skills above to filter content, or <button id="show-all" class="underline text-primary">view all content</button></span>
+    </div>
+    <div id="selected-tags" class="flex flex-wrap gap-2 justify-center mt-4"></div>
+  </section>
+
+
   <section class="max-w-6xl mx-auto">
     <div id="results-container">
-      <!-- Projects -->
       <div id="projects-section" class="mb-12">
         <h2 class="text-2xl font-bold mb-6">Projects</h2>
         <div id="projects-results" class="grid gap-6 md:grid-cols-2">

@@ -7,12 +7,11 @@ import Embed from "../components/Embed.astro";
 import { Content as AboutMe } from "../content/about.md";
 import { Content as Highlights } from "../content/highlights.md";
 import motorbike from "../assets/about/motorbike.avif";
+import SeeMore from "../components/SeeMore.astro";
 
 const stations = (await getCollection("stations")).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
-
-// Skills data moved to explore page
 
 const albumID = import.meta.env.FAVORITE_ALBUM;
 ---
@@ -93,16 +92,6 @@ const albumID = import.meta.env.FAVORITE_ALBUM;
       <Highlights />
     </div>
 
-    <div class="text-center">
-      <p class="text-muted mb-4">
-        Want to explore my full skillset and see how it applies to different projects?
-      </p>
-      <a 
-        href="/explore" 
-        class="inline-block px-6 py-3 bg-intense text-white rounded-lg hover:opacity-90 transition-opacity"
-      >
-        Explore My Skills & Work →
-      </a>
-    </div>
+    <SeeMore label="Explore My Skills & Work" href="/explore" />
   </section>
 </BaseLayout>
