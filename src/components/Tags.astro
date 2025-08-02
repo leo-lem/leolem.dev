@@ -1,36 +1,18 @@
 ---
 const { tags } = Astro.props;
-
-import { getCollection } from "astro:content";
-const skills = (await getCollection("topics")).filter(
-  (topic) => topic.data.confidence !== undefined
-);
-
-function isSkill(tag: string): boolean {
-  return skills.some((skill) => skill.data.id === tag);
-}
-function skill(tag: string) {
-  return skills.find((skill) => skill.data.id === tag);
-}
 ---
 
 {
   tags && tags.length > 0 && (
     <div class="flex flex-wrap gap-2">
-      {tags.sort().map((tag: string) => {
-        if (isSkill(tag)) {
-          return (
-            <a
-              class="responsive tag"
-              href={`/about#${skill(tag)?.data.category.toLowerCase().replace(/\s+/g, "-")}`}
-            >
-              {tag}
-            </a>
-          );
-        } else {
-          return <span class="tag">{tag}</span>;
-        }
-      })}
+      {tags.sort().map((tag: string) => (
+        <a
+          class="responsive tag"
+          href={`/explore?tags=${encodeURIComponent(tag)}`}
+        >
+          {tag}
+        </a>
+      ))}
     </div>
   )
 }

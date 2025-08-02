@@ -1,0 +1,368 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layout/BaseLayout.astro";
+import DynamicImage from "../components/DynamicImage.astro";
+import Tags from "../components/Tags.astro";
+
+const skills = (await getCollection("topics"))
+  .sort((a, b) => (b.data.confidence ?? 0) - (a.data.confidence ?? 0))
+  .sort((a, b) => (b.data.isPriority ? 1 : 0) - (a.data.isPriority ? 1 : 0));
+
+const categories = skills
+  .map((skill) => skill.data.category)
+  .filter((value, index, self) => self.indexOf(value) === index);
+
+const projects = await getCollection("projects");
+const services = await getCollection("services");
+const articles = (await getCollection("blog"))
+  .filter(
+    ({ id }) => !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(id)
+  )
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const url = new URL(Astro.request.url);
+const initialTags = url.searchParams.get("tags")?.split(",").filter(Boolean) || [];
+---
+
+<BaseLayout 
+  title="Explore" 
+  description="Discover projects, articles, and services by exploring different technologies and topics. Filter by your interests to find relevant content."
+>
+  <section id="skills" class="max-w-4xl mx-auto">
+    {
+      categories.map((category) => (
+        <div id={category.toLowerCase().replace(/\s+/g, "-")} class="mb-10">
+          <h3 class="mb-6">{category}</h3>
+
+          <div class="flex flex-wrap gap-2">
+            {skills
+              .filter((skill) => skill.data.category === category)
+              .map(({ data: { id, icon, confidence, isPriority } }: CollectionEntry<"topics">) => (
+                <button
+                  class={`aspect-square skill-card card responsive flex flex-col items-center justify-center w-16 sm:w-20 gap-1 cursor-pointer transition-all hover:scale-105 ${
+                    isPriority ? "ring-2 ring-accent" : ""
+                  }`}
+                  data-tag={id}
+                  data-category={category}
+                >
+                  {icon && (
+                    <DynamicImage
+                      src={`icons/${icon}.svg`}
+                      alt={id}
+                      class="h-4 w-4 sm:h-6 sm:w-6 dark:invert"
+                      loading="lazy"
+                    />
+                  )}
+
+                  <span class="text-xs text-nowrap text-ellipsis overflow-hidden max-w-16 sm:max-w-20">{id}</span>
+
+                  {confidence && (
+                    <div class="w-full h-1 bg-[var(--text-secondary-color)] rounded-full">
+                      <div
+                        class="h-1 bg-intense rounded-full transition-all"
+                        style={`width: ${confidence}%`}
+                      />
+                    </div>
+                  )}
+                </button>
+              ))}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  <section>
+    <div id="filter-status" class="text-center text-muted">
+      <span id="filter-text">Select skills above to filter content, or <button id="show-all" class="underline text-primary">view all content</button></span>
+    </div>
+    <div id="selected-tags" class="flex flex-wrap gap-2 justify-center mt-4"></div>
+  </section>
+
+
+  <section class="max-w-6xl mx-auto">
+    <div id="results-container">
+      <div id="projects-section" class="mb-12">
+        <h2 class="text-2xl font-bold mb-6">Projects</h2>
+        <div id="projects-results" class="grid gap-6 md:grid-cols-2">
+          {
+            projects.map(({ slug, data: { title, tags } }, index) => (
+              <article 
+                class="result-item card p-6 transition-all"
+                data-tags={JSON.stringify(tags)}
+                data-type="project"
+              >
+                <h3 class="text-xl font-semibold mb-3">
+                  <a href={`/projects#${slug}`} class="text-primary hover:underline">
+                    {title}
+                  </a>
+                </h3>
+                <Tags tags={tags} />
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
+      <div id="articles-section" class="mb-12">
+        <h2 class="text-2xl font-bold mb-6">Articles</h2>
+        <div id="articles-results" class="grid gap-6 md:grid-cols-2">
+          {
+            articles.map(({ id, data: { title, description, tags, date } }) => (
+              <article 
+                class="result-item card p-6 transition-all"
+                data-tags={JSON.stringify(tags || [])}
+                data-type="article"
+              >
+                <h3 class="text-xl font-semibold mb-2">
+                  <a href={`/blog/${id}`} class="text-primary hover:underline">
+                    {title}
+                  </a>
+                </h3>
+                <p class="text-muted text-sm mb-3">
+                  {date.toLocaleDateString()}
+                </p>
+                <p class="text-secondary mb-4">
+                  {description}
+                </p>
+                <div>
+                  <Tags tags={tags || []} />
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
+      <div id="services-section" class="mb-12">
+        <h2 class="text-2xl font-bold mb-6">Services</h2>
+        <div id="services-results" class="grid gap-6 md:grid-cols-2">
+          {
+            services.map(({ id, data: { title, short, tags } }) => (
+              <article 
+                class="result-item card p-6 transition-all"
+                data-tags={JSON.stringify(tags)}
+                data-type="service"
+              >
+                <h3 class="text-xl font-semibold mb-3">
+                  <a href={`/services#${id}`} class="text-primary hover:underline">
+                    {title}
+                  </a>
+                </h3>
+                <p class="text-secondary mb-4">
+                  {short}
+                </p>
+                <div>
+                  <Tags tags={tags} />
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div id="no-results" class="text-center text-muted py-12 hidden">
+      <p class="text-xl mb-4">No content found for the selected tags.</p>
+      <p>Try selecting different skills or <button id="clear-filters" class="underline text-primary">clear all filters</button>.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .skill-card {
+    transition: all 0.2s ease;
+  }
+
+  .skill-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .skill-card.selected {
+    @apply ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-900/20;
+  }
+
+  .result-item {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .result-item.hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+  }
+</style>
+
+<script define:vars={{ initialTags }}>
+  class ExploreFilter {
+    constructor() {
+      this.selectedTags = new Set(initialTags);
+      this.allResults = document.querySelectorAll('.result-item');
+      this.skillCards = document.querySelectorAll('.skill-card');
+      this.filterText = document.getElementById('filter-text');
+      this.selectedTagsContainer = document.getElementById('selected-tags');
+      this.noResults = document.getElementById('no-results');
+      this.sections = ['projects-section', 'articles-section', 'services-section'];
+      
+      this.init();
+    }
+
+    init() {
+      // Add click handlers to skill cards
+      this.skillCards.forEach(card => {
+        card.addEventListener('click', () => {
+          const tag = card.dataset.tag;
+          this.toggleTag(tag);
+        });
+      });
+
+      // Add handlers for utility buttons
+      document.getElementById('show-all')?.addEventListener('click', () => {
+        this.clearFilters();
+      });
+      
+      document.getElementById('clear-filters')?.addEventListener('click', () => {
+        this.clearFilters();
+      });
+
+      // Apply initial filters
+      this.updateDisplay();
+      this.updateURL();
+    }
+
+    toggleTag(tag) {
+      if (this.selectedTags.has(tag)) {
+        this.selectedTags.delete(tag);
+      } else {
+        this.selectedTags.add(tag);
+      }
+      this.updateDisplay();
+      this.updateURL();
+    }
+
+    clearFilters() {
+      this.selectedTags.clear();
+      this.updateDisplay();
+      this.updateURL();
+    }
+
+    updateDisplay() {
+      // Update skill card appearances
+      this.skillCards.forEach(card => {
+        const tag = card.dataset.tag;
+        if (this.selectedTags.has(tag)) {
+          card.classList.add('selected');
+        } else {
+          card.classList.remove('selected');
+        }
+      });
+
+      // Update selected tags display
+      this.updateSelectedTagsDisplay();
+
+      // Filter results
+      this.filterResults();
+
+      // Update filter status text
+      this.updateFilterText();
+    }
+
+    updateSelectedTagsDisplay() {
+      this.selectedTagsContainer.innerHTML = '';
+      
+      this.selectedTags.forEach(tag => {
+        const tagElement = document.createElement('span');
+        tagElement.className = 'inline-flex items-center gap-1 px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-full text-sm';
+        tagElement.innerHTML = `
+          ${tag}
+          <button class="ml-1 hover:bg-blue-200 dark:hover:bg-blue-800/30 rounded-full w-4 h-4 flex items-center justify-center text-xs" data-remove="${tag}">×</button>
+        `;
+        
+        tagElement.querySelector('[data-remove]').addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.toggleTag(tag);
+        });
+        
+        this.selectedTagsContainer.appendChild(tagElement);
+      });
+    }
+
+    filterResults() {
+      let visibleCount = 0;
+      let sectionCounts = { projects: 0, articles: 0, services: 0 };
+
+      this.allResults.forEach(result => {
+        const resultTags = JSON.parse(result.dataset.tags || '[]');
+        const resultType = result.dataset.type;
+        
+        let shouldShow = this.selectedTags.size === 0 || 
+          Array.from(this.selectedTags).some(tag => resultTags.includes(tag));
+
+        if (shouldShow) {
+          result.classList.remove('hidden');
+          visibleCount++;
+          if (resultType === 'project') sectionCounts.projects++;
+          else if (resultType === 'article') sectionCounts.articles++;
+          else if (resultType === 'service') sectionCounts.services++;
+        } else {
+          result.classList.add('hidden');
+        }
+      });
+
+      // Show/hide sections based on content
+      // Mapping from section IDs to type keys
+      const sectionIdToType = {
+        'projects-section': 'projects',
+        'articles-section': 'articles',
+        'services-section': 'services'
+      };
+      this.sections.forEach(sectionId => {
+        const section = document.getElementById(sectionId);
+        const type = sectionIdToType[sectionId];
+        const count = sectionCounts[type] || 0;
+        
+        if (count > 0) {
+          section.style.display = 'block';
+        } else {
+          section.style.display = 'none';
+        }
+      });
+
+      // Show/hide no results message
+      if (visibleCount === 0 && this.selectedTags.size > 0) {
+        this.noResults.classList.remove('hidden');
+      } else {
+        this.noResults.classList.add('hidden');
+      }
+    }
+
+    updateFilterText() {
+      if (this.selectedTags.size === 0) {
+        this.filterText.innerHTML = 'Select skills above to filter content, or <button id="show-all" class="underline text-primary">view all content</button>';
+        // Re-add event listener
+        document.getElementById('show-all')?.addEventListener('click', () => {
+          this.clearFilters();
+        });
+      } else {
+        this.filterText.innerHTML = `Showing content for ${this.selectedTags.size} selected skill${this.selectedTags.size > 1 ? 's' : ''}`;
+      }
+    }
+
+    updateURL() {
+      const url = new URL(window.location);
+      if (this.selectedTags.size > 0) {
+        url.searchParams.set('tags', Array.from(this.selectedTags).join(','));
+      } else {
+        url.searchParams.delete('tags');
+      }
+      
+      // Update URL without triggering page reload
+      window.history.replaceState({}, '', url);
+    }
+  }
+
+  // Initialize when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new ExploreFilter();
+  });
+</script>

@@ -1,6 +1,6 @@
 ---
 title: Analyzing Climate Opinions
-tags: ["Research", "Python", "Sentiment Analysis"]
+tags: ["Research", "Python", "Sentiment Analysis", "ML"]
 links:
   - type: github
     url: "https://github.com/Leo-Lem/climate-opinions"

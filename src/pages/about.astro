@@ -7,20 +7,11 @@ import Embed from "../components/Embed.astro";
 import { Content as AboutMe } from "../content/about.md";
 import { Content as Highlights } from "../content/highlights.md";
 import motorbike from "../assets/about/motorbike.avif";
-import DynamicImage from "../components/DynamicImage.astro";
+import SeeMore from "../components/SeeMore.astro";
 
 const stations = (await getCollection("stations")).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
-
-const skills = (await getCollection("topics"))
-  .filter((skill) => skill.data.confidence !== undefined)
-  .sort((a, b) => (b.data.confidence ?? 0) - (a.data.confidence ?? 0))
-  .sort((a, b) => (b.data.isPriority ? 1 : 0) - (a.data.isPriority ? 1 : 0));
-
-const categories = skills
-  .map((skill) => skill.data.category)
-  .filter((value, index, self) => self.indexOf(value) === index);
 
 const albumID = import.meta.env.FAVORITE_ALBUM;
 ---
@@ -101,38 +92,6 @@ const albumID = import.meta.env.FAVORITE_ALBUM;
       <Highlights />
     </div>
 
-    {
-      categories.map((category) => (
-        <div id={category.toLowerCase().replace(/\s+/g, "-")}>
-          <h3>{category}</h3>
-
-          <div class="flex flex-wrap gap-4">
-            {skills
-              .filter((skill) => skill.data.category === category)
-              .map(({ data: { id, icon, confidence, isPriority } }: any) => (
-                <div
-                  class={`card responsive aspect-square flex flex-col items-center w-28 gap-2 ${
-                    isPriority ? "ring-2 ring-accent" : ""
-                  }`}
-                >
-                  <DynamicImage
-                    src={`icons/${icon}.svg`}
-                    alt={id}
-                    class="h-10 w-10 dark:invert"
-                    loading="lazy"
-                  />
-                  <span class="text-nowrap">{id}</span>
-                  <div class="w-full h-1 bg-[var(--text-secondary-color)] rounded-full">
-                    <div
-                      class="h-1 bg-intense rounded-full"
-                      style={`width: ${confidence}%`}
-                    />
-                  </div>
-                </div>
-              ))}
-          </div>
-        </div>
-      ))
-    }
+    <SeeMore label="Explore My Skills & Work" href="/explore" />
   </section>
 </BaseLayout>

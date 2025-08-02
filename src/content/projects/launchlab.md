@@ -1,6 +1,6 @@
 ---
 title: LaunchLab
-tags: ["iOS", "Education"]
+tags: ["iOS", "Education", "App Store", "Swift", "SwiftUI"]
 links:
   - type: appstore
     url: "https://apps.apple.com/de/app/launch-lab/id6741350300?l=en-GB"
