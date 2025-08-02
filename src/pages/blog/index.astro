@@ -35,7 +35,7 @@ const articles = (await getCollection("blog"))
 
               <div class="flex flex-col mt-2 items-center sm:items-start">
                 {" "}
-                <Tags tags={tags} />{" "}
+                <Tags tags={tags} linkToExplore={true} />{" "}
               </div>
 
               <div class="border-[var(--border-color)] border w-1/2 my-3 mx-auto" />

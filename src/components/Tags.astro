@@ -1,5 +1,5 @@
 ---
-const { tags } = Astro.props;
+const { tags, linkToExplore = false } = Astro.props;
 
 import { getCollection } from "astro:content";
 const skills = (await getCollection("topics")).filter(
@@ -19,16 +19,31 @@ function skill(tag: string) {
     <div class="flex flex-wrap gap-2">
       {tags.sort().map((tag: string) => {
         if (isSkill(tag)) {
+          const href = linkToExplore 
+            ? `/explore?tags=${encodeURIComponent(tag)}`
+            : `/about#${skill(tag)?.data.category.toLowerCase().replace(/\s+/g, "-")}`;
+          
           return (
             <a
               class="responsive tag"
-              href={`/about#${skill(tag)?.data.category.toLowerCase().replace(/\s+/g, "-")}`}
+              href={href}
             >
               {tag}
             </a>
           );
         } else {
-          return <span class="tag">{tag}</span>;
+          if (linkToExplore) {
+            return (
+              <a
+                class="responsive tag"
+                href={`/explore?tags=${encodeURIComponent(tag)}`}
+              >
+                {tag}
+              </a>
+            );
+          } else {
+            return <span class="tag">{tag}</span>;
+          }
         }
       })}
     </div>
