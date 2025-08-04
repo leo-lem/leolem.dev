@@ -10,6 +10,10 @@
     "category": "Cloud & DevOps"
   },
   {
+    "id": "IoT",
+    "category": "Cloud & DevOps"
+  },
+  {
     "id": "Backend",
     "category": "Web Development",
     "icon": "backend",
@@ -97,6 +101,12 @@
     "category": "Web Development"
   },
   {
+    "id": "Node.js",
+    "category": "Web Development",
+    "icon": "nodejs",
+    "confidence": 60
+  },
+  {
     "id": "Kubernetes",
     "category": "Cloud & DevOps",
     "icon": "kubernetes",
@@ -130,6 +140,10 @@
     "category": "AI & Data",
     "icon": "python",
     "confidence": 80
+  },
+  {
+    "id": "Raspberry Pi",
+    "category": "Cloud & DevOps"
   },
   {
     "id": "React",
