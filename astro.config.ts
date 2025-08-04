@@ -3,6 +3,6 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'http://leolem.dev',
+  site: 'https://leolem.dev',
   integrations: [tailwind(), sitemap()],
 });
