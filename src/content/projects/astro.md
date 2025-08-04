@@ -9,6 +9,15 @@ links:
 articles: [astro, devcontainers]
 ---
 
+## Brief
+
+- **Goal:** Showcase personal projects, blog articles, and services through a fast, fully static portfolio site.
+- **Stack:** Astro, TailwindCSS, GitHub Pages, GitHub Actions
+- **Challenges:** Setting up Astro Content Collections and later restructuring to use `src/assets` for image handling. Migrating from older layouts required cleanup, but was smoother than expected.
+- **✅ Outcome:** A performant, responsive site that's regularly updated and serves as the main hub for my online presence.
+
+## Details
+
 leolem.dev is my personal website and portfolio — fast, clean, and fully static. It's built with [Astro](https://astro.build), styled with TailwindCSS, and deployed via GitHub Pages.
 
 The site features projects, blog articles, a services page, and is optimized for both content and performance. A collapsible mobile nav and custom theme make the site usable across devices and easy on the eyes.
