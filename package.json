@@ -13,7 +13,7 @@
     "@astrojs/sitemap": "^3.4",
     "@astrojs/tailwind": "^6.0",
     "@tailwindcss/typography": "^0.5",
-    "astro": "^5.12.6"
+    "astro": "^5.12.8"
   },
   "devDependencies": {
     "@playwright/test": "^1.54",
@@ -22,7 +22,7 @@
     "@types/tgwf__co2": "^0.14",
     "@types/xml2js": "^0.4.14",
     "tsx": "^4.20",
-    "typescript": "^5.8",
+    "typescript": "^5.9",
     "xml2js": "^0.6"
   }
 }
