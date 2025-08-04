@@ -22,7 +22,7 @@
     "@types/tgwf__co2": "^0.14",
     "@types/xml2js": "^0.4.14",
     "tsx": "^4.20",
-    "typescript": "^5.8",
+    "typescript": "^5.9",
     "xml2js": "^0.6"
   }
 }
