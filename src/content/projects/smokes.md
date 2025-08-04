@@ -11,6 +11,15 @@ links:
 articles: [smokes, vercel]
 ---
 
+## Brief
+
+- **Goal:** Support users in reducing smoking habits through visual feedback and structured habit tracking.
+- **Stack:** Swift, SwiftUI, Composable Architecture, local storage, Vercel-hosted API
+- **Challenges:** Rebuilding the app architecture and deciding against a custom backend due to cost. Built a working Swift Vapor prototype, later replaced by a simpler local-first approach.
+- **✅ Outcome:** Active App Store presence with an in-app facts API; still maintained, though no longer a personal priority.
+
+## Details
+
 Smokes is an iOS application designed to help users track their smoking habits by visualizing statistics and providing insights for behavioral improvement. The app offers a user-friendly interface, detailed analytics, and customization options to support users in monitoring and reducing their smoking habits.
 
 Originally prototyped in UIKit and rebuilt in SwiftUI, the app underwent multiple architectural overhauls before its release to the App Store in 2023. A major iteration introduced a foundation based on the Composable Architecture, providing a more scalable and testable structure. A Swift Vapor backend was also explored to serve educational content, though ultimately discontinued due to cost.

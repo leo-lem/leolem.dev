@@ -12,6 +12,15 @@ articles:
   - almost
 ---
 
+## Brief
+
+- **Goal:** Help users reflect on failures and emotional patterns through a lightweight, structured journaling experience.
+- **Stack:** Swift, SwiftUI, Firebase (Auth, Firestore, Remote Config, Analytics), GitHub Actions
+- **Challenges:** Managing Firebase integration with previews and maintaining a responsive UI using feature flags, haptics, and live filters.
+- **✅ Outcome:** Live on the App Store with a supporting marketing page, serving as a Firebase showcase app.
+
+## Details
+
 Almost? is a reflective iOS journaling app built around the idea of learning from near-misses — those moments when you almost did the right thing. It’s designed to help users log small failures, reflect constructively, and identify emotional patterns over time.
 
 The app was originally developed as a CloudKit-based portfolio project under the name *KeepinOn*, with iterations dating back to 2021. After multiple rewrites, a minimal local version was published to the App Store in early 2025. The current version is a Firebase-powered rewrite that emphasizes simplicity, reliability, and clean UX.
