@@ -2,7 +2,7 @@
 title: Why I Use Devcontainers
 short: Isolated, reproducible, and clean environments for modern development
 date: 2025-07-30
-tags: ["Devcontainers", "VS Code", "Productivity"]
+tags: [Devcontainers, VS Code, Productivity]
 ---
 
 When I first started experimenting with Devcontainers a couple of years ago, it was mostly to avoid polluting my local machine with LaTeX dependencies for university assignments. That small pain point quickly became a broader realization: I want all my projects to be self-contained and reproducible—across machines, across time.

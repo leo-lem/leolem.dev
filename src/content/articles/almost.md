@@ -2,7 +2,7 @@
 title: Almost? From Portfolio to Product
 short: A retrospective on building and rebuilding my first iOS app
 date: 2025-07-27
-tags: ["iOS", "Firebase", "SwiftUI", "Personal Project"]
+tags: [iOS, Firebase, SwiftUI, Personal Project]
 ---
 
 *Almost?* has a surprisingly long history for such a minimal app.

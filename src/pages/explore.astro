@@ -20,9 +20,21 @@ const articles = (await getCollection("articles")).filter(
 );
 
 const results = [
-  ...portfolio.map((item) => ({ ...item, type: "project" })),
-  ...articles.map((item) => ({ ...item, type: "article" })),
-  ...services.map((item) => ({ ...item, type: "service" }))
+  ...portfolio.map((item) => ({
+    ...item,
+    type: "project",
+    url: `/portfolio/${item.slug}`
+  })),
+  ...articles.map((item) => ({
+    ...item,
+    type: "article",
+    url: `/blog/${item.slug}`
+  })),
+  ...services.map((item) => ({
+    ...item,
+    type: "service",
+    url: `/services#${item.slug}`
+  }))
 ];
 ---
 
@@ -50,12 +62,12 @@ const results = [
 
   <section id="results" class="grid sm:grid-cols-2 gap-8">
     {
-      results.map(({ slug, data: { title, short, tags }, type }) => (
+      results.map(({ slug, data: { title, short, tags }, type, url }) => (
         <div
           class="responsive card text-center flex flex-col gap-4"
           data-tags={tags.join(",")}
         >
-          <a href={`/portfolio/${slug}`}>
+          <a href={url}>
             <span class="text-xs text-muted capitalize">«{type}»</span>
             <h3>{title}</h3>
             <p class="text-secondary">{short}</p>

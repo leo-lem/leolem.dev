@@ -1,7 +1,8 @@
 ---
 title: Smokes
-short: "Smokes is a privacy-conscious iOS habit tracker I built and released in 2023. It helps users track their smoking habits with visual feedback and structured habit tracking"
-tags: ["iOS", "Swift Vapor", "SwiftUI", "Swift", "App Store", "Vercel"]
+short: Smokes is a privacy-conscious iOS habit tracker I built and released in 2023. It helps users track their smoking habits with visual feedback and structured habit tracking.
+tags: [iOS, Swift Vapor, SwiftUI, Swift, App Store, Vercel]
+articles: [smokes, vercel]
 links:
   - type: appstore
     url: "https://apps.apple.com/de/app/smokes/id6446227741?l=en-GB"
@@ -9,7 +10,6 @@ links:
     url: "https://github.com/leo-lem/smokes"
   - type: webpage
     url: "https://smokes.leolem.dev"
-articles: [smokes, vercel]
 ---
 
 ## Brief

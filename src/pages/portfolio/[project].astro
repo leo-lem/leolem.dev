@@ -39,7 +39,7 @@ const articles = articles_raw
     "@type": "CreativeWork",
     name: title,
     description: short,
-    url: `https://leolem.dev/projects/${slug}`,
+    url: `https://leolem.dev/portfolio/${slug}`,
     keywords: tags?.join(", "),
     inLanguage: "en"
   }}
@@ -67,7 +67,7 @@ const articles = articles_raw
         {articles.map(({ id, data: { title, short, date } }: any) => (
           <a href={`/blog/${id}`} class="responsive card">
             <div class="line-clamp-1">{title}</div>
-            <div class="text-sm text-secondary line-clamp-1">{short}</div>
+            <div class="text-sm text-secondary line-clamp-1">{short}.</div>
             <div class="text-xs text-muted text-right">
               {date.toLocaleDateString()}
             </div>

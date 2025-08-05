@@ -15,7 +15,7 @@ const services = await getCollection("services");
 >
   <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     {
-      services.map(({ slug, data: { title, short, tags, cta }, rendered }) => (
+      services.map(({ slug, data: { title, tags, cta }, rendered }) => (
         <div class="card flex flex-col gap-4">
           <DynamicImage
             src={`services/${slug}.avif`}

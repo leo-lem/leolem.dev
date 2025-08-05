@@ -1,13 +1,13 @@
 ---
 title: leolem.dev
-short: "My personal website and portfolio, showcasing projects, blog articles, and services. Built with Astro and TailwindCSS, it features a fast, fully static design optimized for performance and usability"
-tags: ["Astro", "Personal Website"]
+short: My personal website and portfolio, showcasing projects, blog articles, and services. Built with Astro and TailwindCSS, it features a fast, fully static design optimized for performance and usability
+tags: [Astro, Personal Website]
+articles: [astro, devcontainers]
 links:
   - type: github
     url: "https://github.com/leo-lem/leolem.dev"
   - type: webpage
     url: "https://leolem.dev"
-articles: [astro, devcontainers]
 ---
 
 ## Brief
