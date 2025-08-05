@@ -64,14 +64,9 @@ const {
         }
 
         const updated = [...current].join(",");
-        const url = new URL(window.location.href);
-        if (updated.length > 0) {
-          url.searchParams.set("topics", updated);
-        } else {
-          url.searchParams.delete("topics");
-        }
-        url.hash = "results";
-        window.location.href = url.toString();
+        const base = window.location.origin + window.location.pathname;
+        const query = updated.length > 0 ? `?topics=${updated}` : "";
+        window.location.href = `${base}${query}#results`;
       });
     });
   });

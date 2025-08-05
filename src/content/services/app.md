@@ -2,7 +2,7 @@
 icon: swift
 title: "SwiftUI App with Local or Firebase Backend"
 short: "Build a lightweight SwiftUI app or MVP with local or Firebase backend and smooth UI."
-tags: ["iOS", "SwiftUI", "MVP", "Mobile", "Core Data", "Firebase"]
+tags: ["iOS", "SwiftUI", "Core Data", "Firebase"]
 cta:
   - type: fiverr
     url: "https://www.fiverr.com/s/wkNe3Xv"

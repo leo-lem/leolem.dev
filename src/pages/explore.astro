@@ -51,7 +51,10 @@ const results = [
   <section id="results" class="grid sm:grid-cols-2 gap-8">
     {
       results.map(({ slug, data: { title, short, tags }, type }) => (
-        <div class="responsive card text-center flex flex-col gap-4">
+        <div
+          class="responsive card text-center flex flex-col gap-4"
+          data-tags={tags.join(",")}
+        >
           <a href={`/portfolio/${slug}`}>
             <span class="text-xs text-muted capitalize">«{type}»</span>
             <h3>{title}</h3>
@@ -62,7 +65,7 @@ const results = [
       ))
     }
 
-    <div class="grid-cols-2 text-muted">
+    <div id="no-results-placeholder" class="col-span-2 text-muted hidden">
       No results found for the selected tags. Try selecting different skills or
       clear all filters.
     </div>
@@ -71,17 +74,30 @@ const results = [
 
 <script is:inline>
   document.addEventListener("DOMContentLoaded", () => {
-    const params = new URLSearchParams(window.location.search);
-    const selectedTopics = params.get("topics")?.split(",") ?? [];
+    const raw = window.location.search.match(/topics=([^#&]+)/)?.[1];
+    const selectedTopics = raw ? decodeURIComponent(raw).split(",") : [];
+
+    const cards = document.querySelectorAll("#results > div[data-tags]");
+    let anyVisible = false;
 
     if (selectedTopics.length > 0) {
-      document.querySelectorAll("#results > div").forEach((el) => {
-        const tagText = [...el.querySelectorAll("[data-tag]")].map(
-          (e) => e.dataset.tag
-        );
-        const match = selectedTopics.some((topic) => tagText.includes(topic));
+      cards.forEach((el) => {
+        const tags = (el.dataset.tags ?? "").split(",");
+        const match = selectedTopics.some((topic) => tags.includes(topic));
         el.style.display = match ? "" : "none";
+        if (match) anyVisible = true;
       });
+    } else {
+      // No topics selected: show all
+      cards.forEach((el) => {
+        el.style.display = "";
+      });
+      anyVisible = true;
+    }
+
+    const placeholder = document.getElementById("no-results-placeholder");
+    if (placeholder) {
+      placeholder.classList.toggle("hidden", anyVisible);
     }
   });
 </script>
