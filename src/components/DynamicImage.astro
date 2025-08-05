@@ -6,13 +6,21 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 );
 
 interface Props {
+  id?: string;
   src: string;
   alt: string | null;
   class?: string;
   loading?: "lazy" | "eager";
   onclick?: string;
 }
-const { src, alt, class: classes, loading = "eager", onclick } = Astro.props;
+const {
+  id,
+  src,
+  alt,
+  class: classes,
+  loading = "eager",
+  onclick
+} = Astro.props;
 
 if (!images[`/src/assets/${src}`]) {
   const availableImages = Object.keys(images).join(", ");
@@ -23,6 +31,7 @@ if (!images[`/src/assets/${src}`]) {
 ---
 
 <Image
+  id={id}
   src={images[`/src/assets/${src}`]()}
   alt={alt}
   class={classes}

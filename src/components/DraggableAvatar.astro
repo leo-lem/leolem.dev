@@ -1,12 +1,10 @@
 ---
-import { Image } from "astro:assets";
-
-import profile from "../assets/about/profile.avif";
+import DynamicImage from "./DynamicImage.astro";
 ---
 
-<Image
+<DynamicImage
   id="draggable-avatar"
-  src={profile}
+  src="about/profile.avif"
   alt="Avatar of Leopold Lemmermann"
   loading="eager"
 />
@@ -25,12 +23,14 @@ import profile from "../assets/about/profile.avif";
   document.addEventListener("DOMContentLoaded", () => {
     const avatar = document.getElementById("draggable-avatar");
 
+    if (!avatar) return;
+
     let dragging = false;
     let offsetX = 0,
       offsetY = 0;
     let startLeft = 0,
       startTop = 0;
-    let returnTimer = null;
+    let returnTimer: any = null;
 
     function startDrag(x, y) {
       dragging = true;
