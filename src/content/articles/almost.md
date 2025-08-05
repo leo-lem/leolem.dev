@@ -3,7 +3,6 @@ title: Almost? From Portfolio to Product
 description: A retrospective on building and rebuilding my first iOS app
 date: 2025-07-27
 tags: ["iOS", "Firebase", "SwiftUI", "Personal Project"]
-layout: ../../layout/BlogLayout.astro
 ---
 
 *Almost?* has a surprisingly long history for such a minimal app.

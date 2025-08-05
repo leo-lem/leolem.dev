@@ -7,7 +7,7 @@ import Tags from "../../components/Tags.astro";
 import Embed from "../../components/Embed.astro";
 import DynamicImage from "../../components/DynamicImage.astro";
 
-const projects = (await getCollection("projects")).sort(({ slug }) =>
+const portfolio = (await getCollection("portfolio")).sort(({ slug }) =>
   (import.meta.env.FEATURED_PROJECTS?.split(",") ?? []).includes(slug) ? -1 : 1
 );
 ---
@@ -20,15 +20,15 @@ const projects = (await getCollection("projects")).sort(({ slug }) =>
 
   <section class="flex flex-col gap-5">
     {
-      projects.map(
+      portfolio.map(
         ({ data: { title, tags, links, description }, slug }, index) => (
-          <a href={`/projects/${slug}`} class="responsive">
+          <a href={`/portfolio/${slug}`} class="responsive">
             <div>
               <h2 class="hover:underline">{title}</h2>
 
               <div class="card flex items-center gap-4">
                 <DynamicImage
-                  src={`projects/${slug}.avif`}
+                  src={`portfolio/${slug}.avif`}
                   alt={`Thumbnail for ${title}`}
                   class="w-32 aspect-square object-cover rounded-lg flex-shrink-0"
                 />

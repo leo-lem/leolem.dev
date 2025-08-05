@@ -3,64 +3,72 @@ import DraggableAvatar from "./DraggableAvatar.astro";
 import DynamicImage from "./DynamicImage.astro";
 import IconLink from "./IconLink.astro";
 
-const navigation = ["blog", "services", "projects", "explore", "about"];
+const navigation = ["blog", "services", "portfolio", "explore", "about"];
 const { socials } = Astro.props;
 ---
 
 <nav
-  class="sticky top-0 default-color flex flex-col gap-2 p-3 z-10 shadow shadow-[var(--border-color)] sm:flex-row sm:items-center sm:justify-between"
+  class="sticky top-0 default-color p-3 z-10 shadow shadow-[var(--border-color)]"
 >
-  <DraggableAvatar />
+  <div
+    class="max-w-3xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
+  >
+    <DraggableAvatar />
 
-  <div class="flex items-center justify-between gap-4">
-    <div class="flex items-center gap-4">
-      <span class="w-10 h-10 rounded-full border"></span>
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <span class="w-10 h-10 rounded-full border"></span>
 
-      <a
-        href="/"
-        class="animate-slidefadein navigation flex flex-col whitespace-nowrap"
-      >
-        <span class="font-semibold text-xs sm:text-sm">Leopold Lemmermann</span>
-        <span class="text-xs sm:text-sm">Software Engineer | MSc</span>
-      </a>
+        <a
+          href="/"
+          class="animate-slidefadein navigation flex flex-col whitespace-nowrap"
+        >
+          <span class="font-semibold text-xs sm:text-sm"
+            >Leopold Lemmermann</span
+          >
+          <span class="text-xs sm:text-sm">Software Engineer | MSc</span>
+        </a>
+      </div>
+
+      <div class="animate-slidefadein flex flex-row items-center gap-4">
+        {
+          socials.map((url: string) => (
+            <IconLink
+              type={url.split("https://")[1].split(".")[0]}
+              url={url}
+              size_class="h-6 w-6 sm:h-8 sm:w-8"
+            />
+          ))
+        }
+
+        <button id="mobile-menu-toggle" class="sm:hidden focus:outline-none">
+          <DynamicImage
+            src="icons/menu.svg"
+            alt="Menu"
+            class="h-6 w-6 dark:invert"
+          />
+        </button>
+      </div>
     </div>
 
-    <div class="animate-slidefadein flex flex-row items-center gap-4">
+    <div
+      id="mobile-menu"
+      class="hidden max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out flex-col items-center gap-2 sm:flex sm:flex-row sm:gap-2 sm:overflow-visible sm:animate-slidefadein"
+    >
       {
-        socials.map((url: string) => (
-          <IconLink
-            type={url.split("https://")[1].split(".")[0]}
-            url={url}
-            size_class="h-6 w-6 sm:h-8 sm:w-8"
-          />
+        navigation.map((item) => (
+          <a
+            href={`/${item}`}
+            class={`navigation capitalize ${Astro.url.pathname.includes(item) ? "active" : ""}`}
+            aria-current={
+              Astro.url.pathname.includes(item) ? "page" : undefined
+            }
+          >
+            {item}
+          </a>
         ))
       }
-
-      <button id="mobile-menu-toggle" class="sm:hidden focus:outline-none">
-        <DynamicImage
-          src="icons/menu.svg"
-          alt="Menu"
-          class="h-6 w-6 dark:invert"
-        />
-      </button>
     </div>
-  </div>
-
-  <div
-    id="mobile-menu"
-    class="hidden max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out flex-col items-center gap-2 sm:flex sm:flex-row sm:gap-4 sm:overflow-visible sm:animate-slidefadein"
-  >
-    {
-      navigation.map((item) => (
-        <a
-          href={`/${item}`}
-          class={`navigation capitalize ${Astro.url.pathname.includes(item) ? "active" : ""}`}
-          aria-current={Astro.url.pathname.includes(item) ? "page" : undefined}
-        >
-          {item}
-        </a>
-      ))
-    }
   </div>
 </nav>
 

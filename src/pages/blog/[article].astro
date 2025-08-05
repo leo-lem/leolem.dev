@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../../layout/BaseLayout.astro";
+import Tags from "../../components/Tags.astro";
+
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  return (await getCollection("articles"))
+    .filter(
+      ({ slug }) =>
+        !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(slug)
+    )
+    .map((article) => ({
+      params: { article: article.slug },
+      props: article
+    }));
+}
+
+const {
+  data: { title, description, author, date, tags },
+  rendered
+} = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ldJson={{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description: description,
+    author: author,
+    datePublished: date.toISOString(),
+    tags: tags?.join(", "),
+    url: `https://leolem.dev/blog/${Astro.props.slug}`,
+    inLanguage: "en"
+  }}
+>
+  <div class="flex flex-col gap-4 max-w-3xl mx-auto -mt-16">
+    <p class="text-muted font-semibold">
+      by {author ?? "Leopold Lemmermann"} | {date.toLocaleDateString()}
+    </p>
+    <Tags tags={tags} />
+  </div>
+
+  <article
+    class="prose prose-lg dark:prose-invert text-start sm:text-justify"
+    set:html={rendered?.html}
+  />
+</BaseLayout>

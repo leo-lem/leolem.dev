@@ -4,7 +4,11 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layout/BaseLayout.astro";
 import Tags from "../../components/Tags.astro";
 
-const articles = (await getCollection("blog"))
+const articles = (await getCollection("articles"))
+  .filter(
+    ({ slug }) =>
+      !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(slug)
+  )
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
@@ -16,10 +20,10 @@ const articles = (await getCollection("blog"))
     <ul class="flex flex-col gap-4">
       {
         articles.map(
-          ({ id, data: { title, author, date, description, tags } }) => (
+          ({ slug, data: { title, author, date, description, tags } }) => (
             <li class="w-full text-center sm:text-left">
               <h3 class="text-primary text-xl font-semibold mb-1">
-                <a href={`/blog/${id}`} class="text-primary hover:underline">
+                <a href={`/blog/${slug}`} class="text-primary hover:underline">
                   {title}
                 </a>
               </h3>
