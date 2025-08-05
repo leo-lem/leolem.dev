@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 
-import BaseLayout from "../../layout/BaseLayout.astro";
-import Tags from "../../components/Tags.astro";
+import BaseLayout from "../layout/BaseLayout.astro";
+import Tags from "../components/Tags.astro";
 
 const articles = (await getCollection("blog"))
   .filter(
