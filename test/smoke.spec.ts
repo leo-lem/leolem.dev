@@ -10,9 +10,9 @@ test('about page loads', async ({ page }) => {
   await expect(page.getByRole('heading', { name: "I'm Leo." })).toBeVisible();
 });
 
-test('projects page loads', async ({ page }) => {
-  await page.goto('/projects');
-  await expect(page.getByRole('heading', { name: 'Projects' })).toBeVisible();
+test('portfolio page loads', async ({ page }) => {
+  await page.goto('/portfolio');
+  await expect(page.getByRole('heading', { name: 'Portfolio' })).toBeVisible();
 });
 
 test('services page loads', async ({ page }) => {
