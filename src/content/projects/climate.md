@@ -1,5 +1,6 @@
 ---
 title: Analyzing Climate Opinions
+description: "This project analyzes public sentiment on climate change using NLP techniques on social media data from Twitter, YouTube, and Bluesky. Fine-tuned BERT models classify sentiment trends and correlate them with real-world events"
 tags: ["Research", "Python", "Sentiment Analysis", "ML"]
 links:
   - type: github

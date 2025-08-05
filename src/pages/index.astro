@@ -63,7 +63,7 @@ const featuredArticle = (await getCollection("blog")).find(
       {
         featuredProjects.map(({ slug, data: { title } }) => (
           <a
-            href={`/projects#${slug}`}
+            href={`/projects/${slug}`}
             class="card responsive cursor-pointer flex flex-col gap-4 text-center"
           >
             <DynamicImage

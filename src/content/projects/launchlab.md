@@ -1,5 +1,6 @@
 ---
 title: LaunchLab
+description: "LaunchLab is an iOS app that guides aspiring entrepreneurs through the startup process with AI assistance and professional consultation. Developed for Transferagentur as part of the M-Lab course at the University of Hamburg"
 tags: ["iOS", "Education", "App Store", "Swift", "SwiftUI"]
 links:
   - type: appstore

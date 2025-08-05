@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../layout/BaseLayout.astro";
+import Screenshots from "../../components/Screenshots.astro";
+import IconLink from "../../components/IconLink.astro";
+import Tags from "../../components/Tags.astro";
+
+import { getCollection } from "astro:content";
+import Embed from "../../components/Embed.astro";
+
+export async function getStaticPaths() {
+  return (await getCollection("projects")).map((project) => ({
+    params: { project: project.slug },
+    props: project
+  }));
+}
+
+const {
+  data: { title, description, links, articles: articles_raw, tags },
+  slug,
+  rendered
+} = Astro.props;
+
+const blog = (await getCollection("blog")).filter(
+  ({ id }) => !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(id)
+);
+
+const articles = articles_raw
+  ?.map((articleID) => blog.find((article) => article.id === articleID))
+  .filter((article) => article !== undefined)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="flex flex-col gap-4 max-w-3xl mx-auto -mt-16">
+    <Tags tags={tags} class="justify-center" />
+    <div class="flex items-center justify-center gap-4">
+      {links?.map((link) => <IconLink type={link.type} url={link.url} />)}
+    </div>
+  </section>
+
+  <article
+    class="prose dark:prose-invert max-w-none sm:text-justify"
+    set:html={rendered?.html}
+  />
+
+  {
+    articles.length > 0 && (
+      <div class="flex flex-col gap-2 mx-2">
+        <h3>Related Articles</h3>
+        {articles.map(({ id, data: { title, description, date } }) => (
+          <a href={`/blog/${id}`} class="responsive card">
+            <div class="line-clamp-1">{title}</div>
+            <div class="text-sm text-secondary line-clamp-1">{description}</div>
+            <div class="text-xs text-muted text-right">
+              {date.toLocaleDateString()}
+            </div>
+          </a>
+        ))}
+      </div>
+    )
+  }
+
+  <Screenshots slug={slug} />
+
+  <Embed kind="github-sponsors" />
+</BaseLayout>

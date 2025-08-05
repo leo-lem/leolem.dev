@@ -22,7 +22,7 @@ const topics = defineCollection({
     ]),
     confidence: z.number().min(0).max(100).optional(),
     isPriority: z.boolean().default(false).optional()
-  }),
+  })
 });
 
 

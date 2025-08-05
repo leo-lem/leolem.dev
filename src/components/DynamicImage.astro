@@ -7,7 +7,7 @@ const images = import.meta.glob<{ default: ImageMetadata }>(
 
 interface Props {
   src: string;
-  alt?: string;
+  alt: string | null;
   class?: string;
   loading?: "lazy" | "eager";
   onclick?: string;

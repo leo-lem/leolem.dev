@@ -1,5 +1,6 @@
 ---
 title: Sustainable IT Dashboard
+description: "A cloud-native dashboard for monitoring and improving sustainability metrics in IT systems, built with Java, Quarkus, and Google Cloud Platform"
 tags: ["Full Stack", "Cloud", "CI/CD", "GitLab CI", "Kubernetes", "Terraform", "Devcontainers", "Docker"]
 articles: [devcontainers]
 ---

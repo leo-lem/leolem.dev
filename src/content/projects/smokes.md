@@ -1,5 +1,6 @@
 ---
 title: Smokes
+description: "Smokes is a privacy-conscious iOS habit tracker I built and released in 2023. It helps users track their smoking habits with visual feedback and structured habit tracking"
 tags: ["iOS", "Swift Vapor", "SwiftUI", "Swift", "App Store", "Vercel"]
 links:
   - type: appstore
