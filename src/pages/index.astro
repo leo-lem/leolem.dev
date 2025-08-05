@@ -53,7 +53,7 @@ const featuredArticle = (await getCollection("articles"))
           <div class="flex flex-col items-center mb-2">
             <Tags tags={featuredArticle.data.tags} />
           </div>
-          <p class="text-secondary">{featuredArticle.data.description}.</p>
+          <p class="text-secondary">{featuredArticle.data.short}.</p>
         </article>
       )
     }
