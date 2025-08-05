@@ -7,7 +7,7 @@ import SeeMore from "../components/SeeMore.astro";
 import { Content as AboutMe } from "/src/content/about.md";
 import DynamicImage from "../components/DynamicImage.astro";
 
-const featuredProjects = (await getCollection("projects")).filter(({ slug }) =>
+const featuredProjects = (await getCollection("portfolio")).filter(({ slug }) =>
   (import.meta.env.FEATURED_PROJECTS?.split(",") ?? []).includes(slug)
 );
 
@@ -15,9 +15,12 @@ const featuredServices = (await getCollection("services")).filter(({ slug }) =>
   (import.meta.env.FEATURED_SERVICES?.split(",") ?? []).includes(slug)
 );
 
-const featuredArticle = (await getCollection("blog")).find(
-  ({ id }) => id === import.meta.env.FEATURED_ARTICLE?.toLowerCase()
-);
+const featuredArticle = (await getCollection("articles"))
+  .filter(
+    ({ slug }) =>
+      !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(slug)
+  )
+  .find(({ slug }) => slug === import.meta.env.FEATURED_ARTICLE?.toLowerCase());
 ---
 
 <BaseLayout title="Leopold Lemmermann - Software Engineer">
@@ -37,7 +40,7 @@ const featuredArticle = (await getCollection("blog")).find(
 
           <h3 class="text-xl font-bold mb-2">
             <a
-              href={`/blog/${featuredArticle.id}`}
+              href={`/blog/${featuredArticle.slug}`}
               class="text-primary hover:underline"
             >
               {featuredArticle.data.title}
@@ -50,7 +53,7 @@ const featuredArticle = (await getCollection("blog")).find(
           <div class="flex flex-col items-center mb-2">
             <Tags tags={featuredArticle.data.tags} />
           </div>
-          <p class="text-secondary">{featuredArticle.data.description}.</p>
+          <p class="text-secondary">{featuredArticle.data.short}.</p>
         </article>
       )
     }
@@ -63,11 +66,11 @@ const featuredArticle = (await getCollection("blog")).find(
       {
         featuredProjects.map(({ slug, data: { title } }) => (
           <a
-            href={`/projects#${slug}`}
+            href={`/portfolio/${slug}`}
             class="card responsive cursor-pointer flex flex-col gap-4 text-center"
           >
             <DynamicImage
-              src={`projects/${slug}.avif`}
+              src={`portfolio/${slug}.avif`}
               alt={`Thumbnail for ${title}`}
               class="w-max aspect-square object-cover rounded-lg"
             />
@@ -77,7 +80,7 @@ const featuredArticle = (await getCollection("blog")).find(
       }
     </div>
 
-    <SeeMore label="All my projects" href="/projects" />
+    <SeeMore label="All my projects" href="/portfolio" />
   </section>
 
   <section class="max-w-lg mx-auto flex flex-col items-center gap-4">

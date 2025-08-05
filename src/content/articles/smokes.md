@@ -1,9 +1,8 @@
 ---
 title: Building Smokes - From MVP to the App Store
-description: How a small smoking tracker app turned into a published SwiftUI project, and what I learned from it.
+short: How a small smoking tracker app turned into a published SwiftUI project, and what I learned from it.
 date: 2025-07-20
-tags: ["iOS", "SwiftUI", "MVP", "App Store", "Personal Project"]
-layout: ../../layout/BlogLayout.astro
+tags: [iOS, SwiftUI, App Store, Personal Project]
 ---
 
 Smokes is a simple smoking tracker app. But behind its simplicity lies a long journey that started back in 2021. This article walks through the evolution of the app, what I learned, and how I finally got it onto the App Store.

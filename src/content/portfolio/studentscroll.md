@@ -1,12 +1,13 @@
 ---
 title: StudentScroll
-tags: ["React", "Spring Boot", "Full Stack", "TypeScript"]
+short: StudentScroll is a full-stack web application for university students to share posts, follow peers, and chat in real time. Built with React and Spring Boot during a semester abroad
+tags: [React, Spring Boot, Full Stack, TypeScript]
+articles: [studentscroll]
 links:
   - type: github
     url: "https://github.com/leo-lem/StudentScrollApp"
   - type: github
     url: "https://github.com/leo-lem/StudentScrollAPI"
-articles: [studentscroll]
 ---
 
 StudentScroll is a full-stack web application designed to serve as a social platform for university students. It enables users to create and interact with posts, follow fellow students, participate in discussions, and chat in real time.

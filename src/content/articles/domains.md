@@ -1,9 +1,8 @@
 ---
 title: Migrating Domains from Squarespace to Cloudflare
-description: Saving money, gaining analytics, and smoothing out the rough edges
+short: Saving money, gaining analytics, and smoothing out the rough edges
 date: 2025-07-25
-tags: ["Cloudflare", "Personal Website", "Web Analytics"]
-layout: ../../layout/BlogLayout.astro
+tags: [Cloudflare, Personal Website, Web Analytics]
 ---
 
 Transferring my domain to [Cloudflare](https://www.cloudflare.com/) was a low-effort, high-impact upgrade. It gave me more control over my personal site [leolem.dev](https://leolem.dev) and significantly reduced annual costs. It also introduced better analytics and a cleaner developer experience.

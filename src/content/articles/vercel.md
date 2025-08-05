@@ -1,9 +1,8 @@
 ---
-title: "Why We Replaced Our Swift Backend with Vercel"
+title: Why We Replaced Our Swift Backend with Vercel
+short: Smokes used to use a Swift backend hosted on AWS. Here’s why we replaced it with Vercel
 date: 2025-07-31
-description: "Smokes used to use a Swift backend hosted on AWS. Here’s why we replaced it with Vercel."
-tags: ["Vercel", "Deployment", "Backend", "iOS"]
-layout: ../../layout/BlogLayout.astro
+tags: [Vercel, Deployment, Backend, iOS]
 ---
 
 Smokes is a privacy-conscious iOS habit tracker I built and released in 2023. One of its features is a little motivator: random facts about the effects of smoking, fetched from a backend. Initially, this backend was implemented using [Vapor](https://vapor.codes/), a Swift server-side framework, and hosted on AWS.

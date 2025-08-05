@@ -1,9 +1,8 @@
 ---
 title: Building my website with Astro
-description: A journey through creating my personal website using Astro
+short: A journey through creating my personal website using Astro
 date: 2025-07-16
-tags: ["Astro", "Personal Website"]
-layout: ../../layout/BlogLayout.astro
+tags: [Astro, Personal Website]
 ---
 
 Building this website was one of the first steps I took toward building my professional presence online. I had a few goals in mind: I wanted something fast, clean, easy to maintain, and flexible enough to grow into a portfolio, blog, and maybe even more. After some research, I landed on [Astro](https://astro.build) — and it turned out to be a great decision.

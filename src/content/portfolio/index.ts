@@ -4,6 +4,7 @@ import { zTopic } from '../zTypes';
 export default defineCollection({
   schema: z.object({
     title: z.string(),
+    short: z.string(),
     articles: z.array(z.string()).default([]),
     tags: z.array(zTopic).default([]),
     links: z.array(z.object({

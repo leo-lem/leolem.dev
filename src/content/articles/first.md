@@ -1,9 +1,8 @@
 ---
 title: Welcome to My Blog!
-description: Sharing thoughts on software, design, and building things that last
+short: Sharing thoughts on software, design, and building things that last
 date: 2025-07-15
-tags: ["Introduction", "Personal Website", "Blog"]
-layout: ../../layout/BlogLayout.astro
+tags: [Introduction, Personal Website, Blog]
 ---
 
 Welcome — and thanks for dropping by.

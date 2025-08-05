@@ -1,29 +1,7 @@
-import projects from "./projects";
+import portfolio from "./portfolio";
 import stations from "./stations";
 import services from "./services";
-import blog from "./blog";
+import articles from "./articles";
+import topics from "./topics";
 
-import { defineCollection, z } from "astro:content";
-import { file } from "astro/loaders";
-import { zIcon, zTopic } from "./zTypes";
-
-const topics = defineCollection({
-  loader: file("src/content/topics.json"),
-  schema: z.object({
-    id: zTopic,
-    icon: zIcon.optional(),
-    category: z.enum([
-      "Cloud & DevOps",
-      "AI & Data",
-      "Mobile Apps",
-      "Web Development",
-      "Community",
-      "Research"
-    ]),
-    confidence: z.number().min(0).max(100).optional(),
-    isPriority: z.boolean().default(false).optional()
-  }),
-});
-
-
-export const collections = { projects, stations, topics, services, blog };
+export const collections = { portfolio, stations, topics, services, articles };

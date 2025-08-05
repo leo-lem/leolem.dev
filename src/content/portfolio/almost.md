@@ -1,6 +1,8 @@
 ---
 title: Almost?
-tags: [iOS, Swift, SwiftUI, Firebase, "App Store"]
+short: Almost? is a reflective iOS journaling app built around the idea of learning from near-misses — those moments when you almost did the right thing. It’s designed to help users log small failures, reflect constructively, and identify emotional patterns over time
+tags: [iOS, Swift, SwiftUI, Firebase, App Store]
+articles: [almost]
 links:
   - type: github
     url: "https://github.com/leo-lem/almost"
@@ -8,8 +10,6 @@ links:
     url: "https://apps.apple.com/de/app/keepinon/id6742201361?l=en-GB"
   - type: webpage
     url: "https://almost.leolem.dev"
-articles:
-  - almost
 ---
 
 ## Brief

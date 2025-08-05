@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../../layout/BaseLayout.astro";
+import Screenshots from "../../components/Screenshots.astro";
+import IconLink from "../../components/IconLink.astro";
+import Tags from "../../components/Tags.astro";
+import Embed from "../../components/Embed.astro";
+
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  return (await getCollection("portfolio")).map((project) => ({
+    params: { project: project.slug },
+    props: project
+  }));
+}
+
+const {
+  data: { title, short, links, articles: articles_raw, tags },
+  slug,
+  rendered
+} = Astro.props;
+
+const blog = (await getCollection("articles")).filter(
+  ({ slug }) =>
+    !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(slug)
+);
+
+const articles = articles_raw
+  ?.map((articleID: string) => blog.find((article) => article.id === articleID))
+  .filter((article: any | undefined) => article !== undefined)
+  .sort((a: any, b: any) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout
+  title={title}
+  description={short}
+  ldJson={{
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: title,
+    description: short,
+    url: `https://leolem.dev/portfolio/${slug}`,
+    keywords: tags?.join(", "),
+    inLanguage: "en"
+  }}
+>
+  <section class="flex flex-col gap-4 max-w-3xl mx-auto -mt-16">
+    <Tags tags={tags} class="justify-center" />
+    <div class="flex items-center justify-center gap-4">
+      {
+        links?.map((link: { type: string; url: string }) => (
+          <IconLink type={link.type} url={link.url} />
+        ))
+      }
+    </div>
+  </section>
+
+  <article
+    class="prose dark:prose-invert max-w-none sm:text-justify"
+    set:html={rendered?.html}
+  />
+
+  {
+    articles.length > 0 && (
+      <div class="flex flex-col gap-2 mx-2">
+        <h3>Related Articles</h3>
+        {articles.map(({ id, data: { title, short, date } }: any) => (
+          <a href={`/blog/${id}`} class="responsive card">
+            <div class="line-clamp-1">{title}</div>
+            <div class="text-sm text-secondary line-clamp-1">{short}.</div>
+            <div class="text-xs text-muted text-right">
+              {date.toLocaleDateString()}
+            </div>
+          </a>
+        ))}
+      </div>
+    )
+  }
+
+  <Screenshots slug={slug} />
+
+  <Embed kind="github-sponsors" />
+</BaseLayout>

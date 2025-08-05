@@ -2,22 +2,18 @@
 import "/src/global.tailwind.css";
 import NavBar from "../components/NavBar.astro";
 
-const { title, description } = Astro.props;
+interface Props {
+  title: string;
+  description?: string;
+  ldJson?: Record<string, unknown>;
+}
+const { title, description, ldJson } = Astro.props;
 const defaultDescription = "Portfolio, blog, and engineering notes";
 
 const socials = [
   "https://github.com/leo-lem",
   "https://linkedin.com/in/leopoldlemmermann"
 ];
-const ldJson = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Leopold Lemmermann",
-  email: "mailto:hey@leolem.dev",
-  url: "https://leolem.dev",
-  sameAs: socials,
-  jobTitle: "Software Engineer"
-};
 const canonicalPath = Astro.url.pathname.replace(/\/$/, "");
 ---
 
@@ -47,7 +43,17 @@ const canonicalPath = Astro.url.pathname.replace(/\/$/, "");
     <script
       is:inline
       type="application/ld+json"
-      set:html={JSON.stringify(ldJson)}
+      set:html={JSON.stringify(
+        ldJson ?? {
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Leopold Lemmermann",
+          email: "mailto:hey@leolem.dev",
+          url: "https://leolem.dev",
+          sameAs: socials,
+          jobTitle: "Software Engineer"
+        }
+      )}
     />
 
     <!-- Google Fonts -->

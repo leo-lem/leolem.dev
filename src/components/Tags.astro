@@ -1,14 +1,15 @@
 ---
-const { tags } = Astro.props;
+const { tags, class: classes } = Astro.props;
 ---
 
 {
   tags && tags.length > 0 && (
-    <div class="flex flex-wrap gap-2">
+    <div class={`flex flex-wrap gap-2 ${classes}`}>
       {tags.sort().map((tag: string) => (
         <a
           class="responsive tag"
-          href={`/explore?tags=${encodeURIComponent(tag)}`}
+          href={`/explore?topics=${encodeURIComponent(tag)}`}
+          data-tag={tag}
         >
           {tag}
         </a>
