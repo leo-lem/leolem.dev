@@ -7,6 +7,6 @@ export default defineCollection({
     description: z.string(),
     date: z.date(),
     author: z.string().default("Leopold Lemmermann"),
-    tags: z.array(zTopic).optional()
+    tags: z.array(zTopic).default([])
   })
 });

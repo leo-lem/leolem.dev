@@ -5,5 +5,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://leolem.dev',
   integrations: [tailwind(), sitemap()],
-  prefetch: true
+  prefetch: true,
+  trailingSlash: "never",
+  output: "server"
 });

@@ -10,6 +10,7 @@
     "co2": "tsx test/check_co2.ts"
   },
   "dependencies": {
+    "@astrojs/node": "^9.3.3",
     "@astrojs/sitemap": "^3.4",
     "@astrojs/tailwind": "^6.0",
     "@tailwindcss/typography": "^0.5",
