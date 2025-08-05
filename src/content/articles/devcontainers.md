@@ -1,6 +1,6 @@
 ---
 title: Why I Use Devcontainers
-description: Isolated, reproducible, and clean environments for modern development
+short: Isolated, reproducible, and clean environments for modern development
 date: 2025-07-30
 tags: ["Devcontainers", "VS Code", "Productivity"]
 ---

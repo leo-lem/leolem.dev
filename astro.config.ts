@@ -7,5 +7,5 @@ export default defineConfig({
   integrations: [tailwind(), sitemap()],
   prefetch: true,
   trailingSlash: "never",
-  output: "server"
+  output: "static"
 });

@@ -1,6 +1,6 @@
 ---
 title: leolem.dev
-description: "My personal website and portfolio, showcasing projects, blog articles, and services. Built with Astro and TailwindCSS, it features a fast, fully static design optimized for performance and usability"
+short: "My personal website and portfolio, showcasing projects, blog articles, and services. Built with Astro and TailwindCSS, it features a fast, fully static design optimized for performance and usability"
 tags: ["Astro", "Personal Website"]
 links:
   - type: github

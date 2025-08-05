@@ -1,6 +1,6 @@
 ---
 title: Building my website with Astro
-description: A journey through creating my personal website using Astro
+short: A journey through creating my personal website using Astro
 date: 2025-07-16
 tags: ["Astro", "Personal Website"]
 ---

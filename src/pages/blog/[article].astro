@@ -17,19 +17,19 @@ export async function getStaticPaths() {
 }
 
 const {
-  data: { title, description, author, date, tags },
+  data: { title, short, author, date, tags },
   rendered
 } = Astro.props;
 ---
 
 <BaseLayout
   title={title}
-  description={description}
+  description={short}
   ldJson={{
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: title,
-    description: description,
+    description: short,
     author: author,
     datePublished: date.toISOString(),
     tags: tags?.join(", "),

@@ -13,23 +13,17 @@ const categories = skills
   .map((skill) => skill.data.category)
   .filter((value, index, self) => self.indexOf(value) === index);
 
-const topics = Astro.url.searchParams.get("topics")?.split(",") || [];
-
-function containsAny(tags: string[]): boolean {
-  return topics.length <= 1 || topics.some((topic) => tags.includes(topic));
-}
-
-const portfolio = (await getCollection("portfolio")).filter(
-  ({ data: { tags } }) => containsAny(tags)
+const portfolio = await getCollection("portfolio");
+const services = await getCollection("services");
+const articles = (await getCollection("articles")).filter(
+  ({ id }) => !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(id)
 );
-const services = (await getCollection("services")).filter(
-  ({ data: { tags } }) => containsAny(tags)
-);
-const articles = (await getCollection("articles"))
-  .filter(
-    ({ id }) => !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(id)
-  )
-  .filter(({ data: { tags } }) => containsAny(tags));
+
+const results = [
+  ...portfolio.map((item) => ({ ...item, type: "project" })),
+  ...articles.map((item) => ({ ...item, type: "article" })),
+  ...services.map((item) => ({ ...item, type: "service" }))
+];
 ---
 
 <BaseLayout
@@ -46,7 +40,7 @@ const articles = (await getCollection("articles"))
             {skills
               .filter((skill) => skill.data.category === category)
               .map((topic) => (
-                <TopicToggle topic={topic} selected={topics} />
+                <TopicToggle topic={topic} />
               ))}
           </div>
         </div>
@@ -56,37 +50,10 @@ const articles = (await getCollection("articles"))
 
   <section id="results" class="grid sm:grid-cols-2 gap-8">
     {
-      portfolio.map(({ slug, data: { title, description, tags } }) => (
-        <div class="responsive card text-center">
+      results.map(({ slug, data: { title, short, tags }, type }) => (
+        <div class="responsive card text-center flex flex-col gap-4">
           <a href={`/portfolio/${slug}`}>
-            <span class="text-xs text-muted">«Project»</span>
-            <h3>{title}</h3>
-            <p class="text-secondary">{description}</p>
-            <Tags tags={tags} class="items-center justify-center" />
-          </a>
-        </div>
-      ))
-    }
-
-    {
-      articles.map(({ id, data: { title, description, tags, date } }) => (
-        <div class="responsive card text-center">
-          <a href={`/blog/${id}`}>
-            <span class="text-xs text-muted">«Article»</span>
-            <h3>{title}</h3>
-            <p class="text-secondary">{description}</p>
-            <p class="text-muted text-sm">{date.toLocaleDateString()}</p>
-            <Tags tags={tags || []} class="items-center justify-center" />
-          </a>
-        </div>
-      ))
-    }
-
-    {
-      services.map(({ id, data: { title, short, tags } }) => (
-        <div class="responsive card text-center">
-          <a href={`/services#${id}`}>
-            <span class="text-xs text-muted">«Service»</span>
+            <span class="text-xs text-muted capitalize">«{type}»</span>
             <h3>{title}</h3>
             <p class="text-secondary">{short}</p>
             <Tags tags={tags} class="items-center justify-center" />
@@ -95,15 +62,26 @@ const articles = (await getCollection("articles"))
       ))
     }
 
-    {
-      portfolio.length === 0 &&
-        articles.length === 0 &&
-        services.length === 0 && (
-          <div class="grid-cols-2 text-muted">
-            No results found for the selected tags. Try selecting different
-            skills or clear all filters.
-          </div>
-        )
-    }
+    <div class="grid-cols-2 text-muted">
+      No results found for the selected tags. Try selecting different skills or
+      clear all filters.
+    </div>
   </section>
 </BaseLayout>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const selectedTopics = params.get("topics")?.split(",") ?? [];
+
+    if (selectedTopics.length > 0) {
+      document.querySelectorAll("#results > div").forEach((el) => {
+        const tagText = [...el.querySelectorAll("[data-tag]")].map(
+          (e) => e.dataset.tag
+        );
+        const match = selectedTopics.some((topic) => tagText.includes(topic));
+        el.style.display = match ? "" : "none";
+      });
+    }
+  });
+</script>

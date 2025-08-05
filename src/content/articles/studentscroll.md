@@ -1,7 +1,6 @@
 ---
 title: StudentScroll?
-slug: studentscroll
-description: A full-stack social platform for students, developed in a five-person team during my exchange semester in New Zealand
+short: A full-stack social platform for students, developed in a five-person team during my exchange semester in New Zealand
 date: 2025-08-01
 tags: ["Full Stack", "Spring Boot", "React", "University"]
 ---

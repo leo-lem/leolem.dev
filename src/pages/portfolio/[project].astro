@@ -15,7 +15,7 @@ export async function getStaticPaths() {
 }
 
 const {
-  data: { title, description, links, articles: articles_raw, tags },
+  data: { title, short, links, articles: articles_raw, tags },
   slug,
   rendered
 } = Astro.props;
@@ -33,12 +33,12 @@ const articles = articles_raw
 
 <BaseLayout
   title={title}
-  description={description}
+  description={short}
   ldJson={{
     "@context": "https://schema.org",
     "@type": "CreativeWork",
     name: title,
-    description: description,
+    description: short,
     url: `https://leolem.dev/projects/${slug}`,
     keywords: tags?.join(", "),
     inLanguage: "en"
@@ -64,10 +64,10 @@ const articles = articles_raw
     articles.length > 0 && (
       <div class="flex flex-col gap-2 mx-2">
         <h3>Related Articles</h3>
-        {articles.map(({ id, data: { title, description, date } }: any) => (
+        {articles.map(({ id, data: { title, short, date } }: any) => (
           <a href={`/blog/${id}`} class="responsive card">
             <div class="line-clamp-1">{title}</div>
-            <div class="text-sm text-secondary line-clamp-1">{description}</div>
+            <div class="text-sm text-secondary line-clamp-1">{short}</div>
             <div class="text-xs text-muted text-right">
               {date.toLocaleDateString()}
             </div>

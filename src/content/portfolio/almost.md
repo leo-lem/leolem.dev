@@ -1,6 +1,6 @@
 ---
 title: Almost?
-description: "Almost? is a reflective iOS journaling app built around the idea of learning from near-misses — those moments when you almost did the right thing. It’s designed to help users log small failures, reflect constructively, and identify emotional patterns over time"
+short: "Almost? is a reflective iOS journaling app built around the idea of learning from near-misses — those moments when you almost did the right thing. It’s designed to help users log small failures, reflect constructively, and identify emotional patterns over time"
 tags: [iOS, Swift, SwiftUI, Firebase, "App Store"]
 links:
   - type: github

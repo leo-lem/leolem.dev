@@ -1,7 +1,7 @@
 ---
 title: "Why We Replaced Our Swift Backend with Vercel"
+short: "Smokes used to use a Swift backend hosted on AWS. Here’s why we replaced it with Vercel."
 date: 2025-07-31
-description: "Smokes used to use a Swift backend hosted on AWS. Here’s why we replaced it with Vercel."
 tags: ["Vercel", "Deployment", "Backend", "iOS"]
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: MoinCam
-description: "MoinCam is a mobile livestream camera system I built for the Hamburg office, providing a live view of the Elbe river. It features a Raspberry Pi with a camera module, servos for movement, and a React web app for control"
+short: "MoinCam is a mobile livestream camera system I built for the Hamburg office, providing a live view of the Elbe river. It features a Raspberry Pi with a camera module, servos for movement, and a React web app for control"
 tags: ["IoT", "Raspberry Pi", "Node.js", "React", "DevOps"]
 ---
 

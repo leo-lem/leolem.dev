@@ -20,41 +20,37 @@ const portfolio = (await getCollection("portfolio")).sort(({ slug }) =>
 
   <section class="flex flex-col gap-5">
     {
-      portfolio.map(
-        ({ data: { title, tags, links, description }, slug }, index) => (
-          <a href={`/portfolio/${slug}`} class="responsive">
-            <div>
-              <h2 class="hover:underline">{title}</h2>
+      portfolio.map(({ data: { title, tags, links, short }, slug }, index) => (
+        <a href={`/portfolio/${slug}`} class="responsive">
+          <div>
+            <h2 class="hover:underline">{title}</h2>
 
-              <div class="card flex items-center gap-4">
-                <DynamicImage
-                  src={`portfolio/${slug}.avif`}
-                  alt={`Thumbnail for ${title}`}
-                  class="w-32 aspect-square object-cover rounded-lg flex-shrink-0"
-                />
+            <div class="card flex items-center gap-4">
+              <DynamicImage
+                src={`portfolio/${slug}.avif`}
+                alt={`Thumbnail for ${title}`}
+                class="w-32 aspect-square object-cover rounded-lg flex-shrink-0"
+              />
 
-                <div class="flex flex-col gap-2 flex-1">
-                  <div class="flex gap-1">
-                    {links?.map((link) => (
-                      <IconLink
-                        type={link.type}
-                        url={link.url}
-                        loading={index === 0 ? "eager" : "lazy"}
-                      />
-                    ))}
-                  </div>
-
-                  <Tags tags={tags} />
-
-                  <p class="text-sm text-secondary line-clamp-3">
-                    {description}
-                  </p>
+              <div class="flex flex-col gap-2 flex-1">
+                <div class="flex gap-1">
+                  {links?.map((link) => (
+                    <IconLink
+                      type={link.type}
+                      url={link.url}
+                      loading={index === 0 ? "eager" : "lazy"}
+                    />
+                  ))}
                 </div>
+
+                <Tags tags={tags} />
+
+                <p class="text-sm text-secondary line-clamp-3">{short}</p>
               </div>
             </div>
-          </a>
-        )
-      )
+          </div>
+        </a>
+      ))
     }
   </section>
 </BaseLayout>

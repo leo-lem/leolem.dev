@@ -1,6 +1,6 @@
 ---
 title: Migrating Domains from Squarespace to Cloudflare
-description: Saving money, gaining analytics, and smoothing out the rough edges
+short: Saving money, gaining analytics, and smoothing out the rough edges
 date: 2025-07-25
 tags: ["Cloudflare", "Personal Website", "Web Analytics"]
 ---
