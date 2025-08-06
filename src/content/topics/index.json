@@ -254,5 +254,17 @@
   {
     "id": "Deployment",
     "category": "DevOps"
+  },
+  {
+    "id": "Reflection",
+    "category": "Community"
+  },
+  {
+    "id": "Personal Growth",
+    "category": "Community"
+  },
+  {
+    "id": "Summer Semester",
+    "category": "Community"
   }
 ]
