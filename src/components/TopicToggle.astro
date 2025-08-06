@@ -4,19 +4,18 @@ import DynamicImage from "./DynamicImage.astro";
 
 interface Props {
   topic: CollectionEntry<"topics">;
+  class?: string;
 }
 const {
   topic: {
     id,
     data: { icon, confidence, isPriority }
-  }
-} = Astro.props;
+  },
+  class: classes = ""
+} = Astro.props as Props;
 ---
 
-<div
-  class={`w-16 sm:w-20 aspect-square responsive topic card flex flex-col items-center justify-center gap-1`}
-  data-topic-id={id}
->
+<div class={classes} data-topic-id={id}>
   <div class="flex flex-row gap-1">
     {
       icon && (
@@ -38,7 +37,7 @@ const {
   </div>
 
   <span
-    class="text-xs font-semibold text-nowrap text-ellipsis overflow-hidden max-w-24"
+    class="text-xs font-semibold text-nowrap text-ellipsis overflow-hidden max-w-20"
   >
     {id}
   </span>

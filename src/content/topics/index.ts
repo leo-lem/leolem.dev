@@ -7,14 +7,7 @@ export default defineCollection({
   schema: z.object({
     id: zTopic,
     icon: zIcon.optional(),
-    category: z.enum([
-      "Cloud & DevOps",
-      "AI & Data",
-      "Mobile Apps",
-      "Web Development",
-      "Community",
-      "Research"
-    ]),
+    category: z.enum(["DevOps", "AI", "Mobile", "Web", "Community"]),
     confidence: z.number().min(0).max(100).optional(),
     isPriority: z.boolean().default(false).optional()
   })

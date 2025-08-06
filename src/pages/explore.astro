@@ -45,14 +45,17 @@ const results = [
   <section id="skills" class="flex flex-col gap-4">
     {
       categories.map((category) => (
-        <div class="flex gap-4 items-center">
-          <h2 class="[writing-mode:sideways-lr] text-xl">{category}</h2>
+        <div class="flex flex-col sm:flex-row gap-4 items-center">
+          <h2 class="sm:[writing-mode:sideways-lr] text-2xl">{category}</h2>
 
           <div class="flex flex-wrap gap-2">
             {skills
               .filter((skill) => skill.data.category === category)
               .map((topic) => (
-                <TopicToggle topic={topic} />
+                <TopicToggle
+                  topic={topic}
+                  class="w-16 sm:w-20 aspect-square responsive topic card flex flex-col items-center justify-center gap-1"
+                />
               ))}
           </div>
         </div>
