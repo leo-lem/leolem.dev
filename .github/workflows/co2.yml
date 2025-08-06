@@ -12,6 +12,8 @@ permissions:
 jobs:
   co2:
     runs-on: ubuntu-latest
+    environment:
+      name: co2
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node
@@ -24,5 +26,5 @@ jobs:
       - name: Detect CO₂ regression
         run: npm run co2
         env:
-          CO2_BASELINE: 0.1
+          CO2_BASELINE: ${{ vars.CO2_BASELINE }}
           TARGET_URL: https://leolem.dev

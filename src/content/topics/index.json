@@ -1,21 +1,21 @@
 [
   {
     "id": "Astro",
-    "category": "Web Development",
+    "category": "Web",
     "icon": "astro",
     "confidence": 40
   },
   {
     "id": "Automation",
-    "category": "Cloud & DevOps"
+    "category": "DevOps"
   },
   {
     "id": "IoT",
-    "category": "Cloud & DevOps"
+    "category": "DevOps"
   },
   {
     "id": "Backend",
-    "category": "Web Development",
+    "category": "Web",
     "icon": "backend",
     "confidence": 40
   },
@@ -25,39 +25,39 @@
   },
   {
     "id": "CI/CD",
-    "category": "Cloud & DevOps",
+    "category": "DevOps",
     "icon": "cicd",
     "confidence": 90,
     "isPriority": true
   },
   {
     "id": "Cloud",
-    "category": "Cloud & DevOps"
+    "category": "DevOps"
   },
   {
     "id": "Cloud Infra",
-    "category": "Cloud & DevOps",
+    "category": "DevOps",
     "icon": "googlecloud",
     "confidence": 70,
     "isPriority": true
   },
   {
     "id": "Core Data",
-    "category": "Mobile Apps",
+    "category": "Mobile",
     "icon": "apple",
     "confidence": 70
   },
   {
     "id": "Data Science",
-    "category": "AI & Data"
+    "category": "AI"
   },
   {
     "id": "DevOps",
-    "category": "Cloud & DevOps"
+    "category": "DevOps"
   },
   {
     "id": "Docker",
-    "category": "Cloud & DevOps",
+    "category": "DevOps",
     "icon": "docker",
     "confidence": 80,
     "isPriority": true
@@ -68,19 +68,19 @@
   },
   {
     "id": "Frontend",
-    "category": "Web Development",
+    "category": "Web",
     "icon": "frontend",
     "confidence": 40
   },
   {
     "id": "Full Stack",
-    "category": "Web Development",
+    "category": "Web",
     "icon": "fullstack",
     "confidence": 40
   },
   {
     "id": "GH Actions",
-    "category": "Cloud & DevOps",
+    "category": "DevOps",
     "icon": "cicd",
     "confidence": 70,
     "isPriority": true
@@ -91,31 +91,31 @@
   },
   {
     "id": "iOS",
-    "category": "Mobile Apps",
+    "category": "Mobile",
     "icon": "apple",
     "confidence": 80,
     "isPriority": true
   },
   {
     "id": "JavaScript",
-    "category": "Web Development"
+    "category": "Web"
   },
   {
     "id": "Node.js",
-    "category": "Web Development",
+    "category": "Web",
     "icon": "nodejs",
     "confidence": 60
   },
   {
     "id": "Kubernetes",
-    "category": "Cloud & DevOps",
+    "category": "DevOps",
     "icon": "kubernetes",
     "confidence": 60,
     "isPriority": true
   },
   {
     "id": "ML",
-    "category": "AI & Data",
+    "category": "AI",
     "icon": "huggingface",
     "confidence": 60
   },
@@ -125,21 +125,21 @@
   },
   {
     "id": "Personal Website",
-    "category": "Web Development"
+    "category": "Web"
   },
   {
     "id": "Python",
-    "category": "AI & Data",
+    "category": "AI",
     "icon": "python",
     "confidence": 80
   },
   {
     "id": "Raspberry Pi",
-    "category": "Cloud & DevOps"
+    "category": "DevOps"
   },
   {
     "id": "React",
-    "category": "Web Development",
+    "category": "Web",
     "icon": "react",
     "confidence": 60
   },
@@ -149,7 +149,7 @@
   },
   {
     "id": "Sentiment Analysis",
-    "category": "AI & Data"
+    "category": "AI"
   },
   {
     "id": "Sustainability",
@@ -157,7 +157,7 @@
   },
   {
     "id": "Spring Boot",
-    "category": "Web Development"
+    "category": "Web"
   },
   {
     "id": "University",
@@ -165,34 +165,34 @@
   },
   {
     "id": "Swift",
-    "category": "Mobile Apps",
+    "category": "Mobile",
     "icon": "swift",
     "confidence": 95,
     "isPriority": true
   },
   {
     "id": "Swift Vapor",
-    "category": "Mobile Apps",
+    "category": "Mobile",
     "icon": "swift",
     "confidence": 50
   },
   {
     "id": "SwiftUI",
-    "category": "Mobile Apps",
+    "category": "Mobile",
     "icon": "swift",
     "confidence": 90,
     "isPriority": true
   },
   {
     "id": "Terraform",
-    "category": "Cloud & DevOps",
+    "category": "DevOps",
     "icon": "terraform",
     "confidence": 70,
     "isPriority": true
   },
   {
     "id": "TypeScript",
-    "category": "Web Development",
+    "category": "Web",
     "icon": "typescript",
     "confidence": 50
   },
@@ -202,40 +202,40 @@
   },
   {
     "id": "App Store",
-    "category": "Mobile Apps",
+    "category": "Mobile",
     "icon": "appstore",
     "confidence": 80,
     "isPriority": true
   },
   {
     "id": "Firebase",
-    "category": "Mobile Apps",
+    "category": "Mobile",
     "icon": "firebase",
     "confidence": 50,
     "isPriority": true
   },
   {
     "id": "GitLab CI",
-    "category": "Cloud & DevOps",
+    "category": "DevOps",
     "icon": "cicd",
     "confidence": 70,
     "isPriority": true
   },
   {
     "id": "Cloudflare",
-    "category": "Web Development"
+    "category": "Web"
   },
   {
     "id": "Web Analytics",
-    "category": "Web Development"
+    "category": "Web"
   },
   {
     "id": "VS Code",
-    "category": "Web Development"
+    "category": "Web"
   },
   {
     "id": "Devcontainers",
-    "category": "Cloud & DevOps",
+    "category": "DevOps",
     "icon": "vscode",
     "confidence": 90,
     "isPriority": true
@@ -246,13 +246,25 @@
   },
   {
     "id": "Vercel",
-    "category": "Web Development",
+    "category": "Web",
     "icon": "vercel",
     "confidence": 60,
     "isPriority": true
   },
   {
     "id": "Deployment",
-    "category": "Cloud & DevOps"
+    "category": "DevOps"
+  },
+  {
+    "id": "Reflection",
+    "category": "Community"
+  },
+  {
+    "id": "Personal Growth",
+    "category": "Community"
+  },
+  {
+    "id": "Summer Semester",
+    "category": "Community"
   }
 ]
