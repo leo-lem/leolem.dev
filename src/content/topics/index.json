@@ -266,5 +266,13 @@
   {
     "id": "Summer Semester",
     "category": "Community"
+  },
+  {
+    "id": "SwiftData",
+    "category": "Mobile"
+  },
+  {
+    "id": "CloudKit",
+    "category": "Mobile"
   }
 ]
