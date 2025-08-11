@@ -1,6 +1,6 @@
 ---
 title: Almost? From Portfolio to Product
-short: A retrospective on building and rebuilding my first iOS app
+short: A retrospective on building and rebuilding one of my first iOS apps
 date: 2025-07-27
 tags: [iOS, Firebase, SwiftUI, Personal Project]
 ---
