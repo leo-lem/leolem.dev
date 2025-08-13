@@ -14,7 +14,6 @@ const socials = [
   "https://github.com/leo-lem",
   "https://linkedin.com/in/leopoldlemmermann"
 ];
-const canonicalPath = Astro.url.pathname.replace(/\/$/, "");
 ---
 
 <html lang="en">
@@ -24,7 +23,7 @@ const canonicalPath = Astro.url.pathname.replace(/\/$/, "");
 
     <title>{title}</title>
     <meta name="description" content={defaultDescription} />
-    <link rel="canonical" href={`https://leolem.dev${canonicalPath}`} />
+    <link rel="canonical" href={`https://leolem.dev${Astro.url.pathname}`} />
 
     <!-- OpenGraph / Facebook -->
     <meta property="og:type" content="website" />
@@ -84,8 +83,8 @@ const canonicalPath = Astro.url.pathname.replace(/\/$/, "");
     </main>
 
     <footer class="mt-12 py-8 text-sm text-center text-muted">
-      <a href="/imprint" class="hover:underline mx-2">Imprint</a> ·
-      <a href="/privacy" class="hover:underline mx-2">Privacy</a>
+      <a href="/imprint/" class="hover:underline mx-2">Imprint</a> ·
+      <a href="/privacy/" class="hover:underline mx-2">Privacy</a>
     </footer>
   </body>
 </html>

@@ -8,7 +8,7 @@ const { tags, class: classes } = Astro.props;
       {tags.sort().map((tag: string) => (
         <a
           class="responsive tag"
-          href={`/explore?topics=${encodeURIComponent(tag)}`}
+          href={`/explore/?topics=${encodeURIComponent(tag)}`}
           data-tag={tag}
         >
           {tag}

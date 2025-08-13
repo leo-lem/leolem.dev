@@ -65,7 +65,7 @@ const articles = articles_raw
       <div class="flex flex-col gap-2 mx-2">
         <h3>Related Articles</h3>
         {articles.map(({ id, data: { title, short, date } }: any) => (
-          <a href={`/blog/${id}`} class="responsive card">
+          <a href={`/blog/${id}/`} class="responsive card">
             <div class="line-clamp-1">{title}</div>
             <div class="text-sm text-secondary line-clamp-1">{short}.</div>
             <div class="text-xs text-muted text-right">
