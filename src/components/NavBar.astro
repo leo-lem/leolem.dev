@@ -58,7 +58,7 @@ const { socials } = Astro.props;
       {
         navigation.map((item) => (
           <a
-            href={`/${item}`}
+            href={`/${item}/`}
             class={`navigation capitalize ${Astro.url.pathname.includes(item) ? "active" : ""}`}
             aria-current={
               Astro.url.pathname.includes(item) ? "page" : undefined

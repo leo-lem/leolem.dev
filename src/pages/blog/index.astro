@@ -22,7 +22,7 @@ const articles = (await getCollection("articles"))
         articles.map(({ slug, data: { title, author, date, short, tags } }) => (
           <li class="w-full text-center sm:text-left">
             <h3 class="text-primary text-xl font-semibold mb-1">
-              <a href={`/blog/${slug}`} class="text-primary hover:underline">
+              <a href={`/blog/${slug}/`} class="text-primary hover:underline">
                 {title}
               </a>
             </h3>

@@ -29,7 +29,7 @@ const featuredArticle = (await getCollection("articles"))
       <AboutMe />
     </article>
 
-    <SeeMore label="Find out more." href="/about" />
+    <SeeMore label="Find out more." href="/about/" />
   </section>
 
   <section class="max-w-lg mx-auto flex flex-col items-center gap-4">
@@ -40,7 +40,7 @@ const featuredArticle = (await getCollection("articles"))
 
           <h3 class="text-xl font-bold mb-2">
             <a
-              href={`/blog/${featuredArticle.slug}`}
+              href={`/blog/${featuredArticle.slug}/`}
               class="text-primary hover:underline"
             >
               {featuredArticle.data.title}
@@ -58,7 +58,7 @@ const featuredArticle = (await getCollection("articles"))
       )
     }
 
-    <SeeMore label="Latest articles" href="/blog" />
+    <SeeMore label="Latest articles" href="/blog/" />
   </section>
 
   <section class="flex flex-col items-center gap-4">
@@ -66,7 +66,7 @@ const featuredArticle = (await getCollection("articles"))
       {
         featuredProjects.map(({ slug, data: { title } }) => (
           <a
-            href={`/portfolio/${slug}`}
+            href={`/portfolio/${slug}/`}
             class="card responsive cursor-pointer flex flex-col gap-4 text-center"
           >
             <DynamicImage
@@ -80,7 +80,7 @@ const featuredArticle = (await getCollection("articles"))
       }
     </div>
 
-    <SeeMore label="All my projects" href="/portfolio" />
+    <SeeMore label="All my projects" href="/portfolio/" />
   </section>
 
   <section class="max-w-lg mx-auto flex flex-col items-center gap-4">
@@ -106,6 +106,6 @@ const featuredArticle = (await getCollection("articles"))
       }
     </div>
 
-    <SeeMore label="Explore services" href="/services" />
+    <SeeMore label="Explore services" href="/services/" />
   </section>
 </BaseLayout>

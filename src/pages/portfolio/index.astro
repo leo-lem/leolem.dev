@@ -21,7 +21,7 @@ const portfolio = (await getCollection("portfolio")).sort(({ slug }) =>
   <section class="flex flex-col gap-5">
     {
       portfolio.map(({ data: { title, tags, links, short }, slug }, index) => (
-        <a href={`/portfolio/${slug}`} class="responsive">
+        <a href={`/portfolio/${slug}/`} class="responsive">
           <div>
             <h2 class="hover:underline text-center sm:text-left">{title}</h2>
 
