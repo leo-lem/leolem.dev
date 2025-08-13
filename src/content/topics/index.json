@@ -274,5 +274,13 @@
   {
     "id": "CloudKit",
     "category": "Mobile"
+  },
+  {
+    "id": "Code Quality",
+    "category": "Community"
+  },
+  {
+    "id": "SwiftLint",
+    "category": "Community"
   }
 ]
