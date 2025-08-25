@@ -10,14 +10,14 @@
     "co2": "tsx test/check_co2.ts"
   },
   "dependencies": {
-    "@astrojs/node": "^9.4.2",
+    "@astrojs/node": "^9.4.3",
     "@astrojs/sitemap": "^3.5",
     "@astrojs/tailwind": "^6.0",
     "@tailwindcss/typography": "^0.5",
-    "astro": "^5.13.2"
+    "astro": "^5.13.3"
   },
   "devDependencies": {
-    "@playwright/test": "^1.54",
+    "@playwright/test": "^1.55",
     "@tgwf/co2": "^0.16",
     "@types/node-fetch": "^2.6",
     "@types/tgwf__co2": "^0.14",
