@@ -30,7 +30,7 @@ jobs:
           FEATURED_SERVICES: ${{ vars.FEATURED_SERVICES }}
           FAVORITE_ALBUM: ${{ vars.FAVORITE_ALBUM }}
           DRAFT_ARTICLES: ${{ vars.DRAFT_ARTICLES }}
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
       - name: Deploy to GitHub Pages
