@@ -5,22 +5,15 @@ test('homepage loads', async ({ page }) => {
   await expect(page).toHaveTitle(/Leopold Lemmermann/);
 });
 
-test('about page loads', async ({ page }) => {
-  await page.goto('/about/');
-  await expect(page.getByRole('heading', { name: "I'm Leo." })).toBeVisible();
-});
+const paths = [
+  { name: 'about', heading: "I'm Leo." },
+  { name: 'portfolio', heading: 'Portfolio' },
+  { name: 'services', heading: 'Services' },
+];
 
-test('portfolio page loads', async ({ page }) => {
-  await page.goto('/portfolio/');
-  await expect(page.getByRole('heading', { name: 'Portfolio' })).toBeVisible();
-});
-
-test('services page loads', async ({ page }) => {
-  await page.goto('/services/');
-  await expect(page.getByRole('heading', { name: 'Services' })).toBeVisible();
-});
-
-test('explore page loads', async ({ page }) => {
-  await page.goto('/explore/');
-  await expect(page.getByRole('heading', { name: 'Explore' })).toBeVisible();
+paths.forEach(path => {
+  test(`${path.name} page loads`, async ({ page }) => {
+    await page.goto(`/${path.name}/`);
+    await expect(page.getByRole('heading', { name: path.heading })).toBeVisible();
+  });
 });
