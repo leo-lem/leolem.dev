@@ -10,11 +10,11 @@
     "co2": "tsx test/check_co2.ts"
   },
   "dependencies": {
-    "@astrojs/node": "^9.4.3",
+    "@astrojs/node": "^9.4.4",
     "@astrojs/sitemap": "^3.6",
     "@astrojs/tailwind": "^6.0",
     "@tailwindcss/typography": "^0.5",
-    "astro": "^5.13.9"
+    "astro": "^5.14.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.55",
