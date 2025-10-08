@@ -282,5 +282,51 @@
   {
     "id": "SwiftLint",
     "category": "Community"
+  },
+  {
+    "id": "Mobile",
+    "category": "Mobile"
+  },
+  {
+    "id": "App Development",
+    "category": "Mobile"
+  },
+  {
+    "id": "Apple",
+    "category": "Mobile",
+    "icon": "apple"
+  },
+  {
+    "id": "Web Development",
+    "category": "Web"
+  },
+  {
+    "id": "App Integration",
+    "category": "Web"
+  },
+  {
+    "id": "Architecture",
+    "category": "DevOps"
+  },
+  {
+    "id": "Software Design",
+    "category": "Community"
+  },
+  {
+    "id": "Next.js",
+    "category": "Web"
+  },
+  {
+    "id": "GitHub Actions",
+    "category": "DevOps",
+    "icon": "github",
+    "confidence": 70,
+    "isPriority": true
+  },
+  {
+    "id": "Cloud Infrastructure",
+    "category": "DevOps",
+    "icon": "googlecloud",
+    "confidence": 70
   }
 ]
