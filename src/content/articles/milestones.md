@@ -2,7 +2,7 @@
 title: Counting Milestones
 short: Looking back at my journey as I turn 25
 date: 2025-09-29
-tags: [Personal Growth, Reflection]
+tags: [Personal, Reflection]
 ---
 
 I am turning 25 soon, and that feels like a good moment to look back. I often get caught up in what I have not done yet, or I compare myself to other people and feel behind. But the truth is, I have come a long way already. I just do not always take the time to notice it. Writing this is my way of becoming more conscious of what I have achieved, so I can build some confidence from it instead of always chasing the next thing.
