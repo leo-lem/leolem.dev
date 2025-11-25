@@ -20,7 +20,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/setup-node
       - run: npm run build
         env:
@@ -44,7 +44,7 @@ jobs:
       actions: read
       checks: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/setup-node
       - run: npx playwright install
       - name: Run smoke tests
