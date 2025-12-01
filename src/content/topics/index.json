@@ -1,5 +1,21 @@
 [
   {
+    "id": "Freelancing",
+    "category": "Community"
+  },
+  {
+    "id": "Finnish",
+    "category": "Community"
+  },
+  {
+    "id": "Language Learning",
+    "category": "Community"
+  },
+  {
+    "id": "Exchange",
+    "category": "Community"
+  },
+  {
     "id": "Astro",
     "category": "Web",
     "icon": "astro",
