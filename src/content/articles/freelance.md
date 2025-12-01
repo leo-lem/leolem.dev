@@ -2,7 +2,7 @@
 title: My First Paid Freelance Project
 short: A look back at building a small Firebase-powered MVP
 date: 2025-12-01
-tags: [Firebase, Next.js, Web Development, Freelancing]
+tags: [Firebase, Next.js, Freelancing]
 ---
 
 This was the first time I got paid to build something for someone else. It stayed small in scope but covered a lot of ground.
