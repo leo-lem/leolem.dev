@@ -14,15 +14,15 @@
     "@astrojs/sitemap": "^3.6",
     "@astrojs/tailwind": "^6.0",
     "@tailwindcss/typography": "^0.5",
-    "astro": "^5.16.0"
+    "astro": "^5.16.3"
   },
   "devDependencies": {
-    "@playwright/test": "^1.56",
+    "@playwright/test": "^1.57",
     "@tgwf/co2": "^0.16",
     "@types/node-fetch": "^2.6",
     "@types/tgwf__co2": "^0.14",
     "@types/xml2js": "^0.4.14",
-    "tsx": "^4.20",
+    "tsx": "^4.21",
     "typescript": "^5.9",
     "xml2js": "^0.6"
   }
