@@ -1,5 +1,9 @@
 [
   {
+    "id": "Freelancing",
+    "category": "Community"
+  },
+  {
     "id": "Astro",
     "category": "Web",
     "icon": "astro",
