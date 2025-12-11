@@ -1,5 +1,9 @@
 [
   {
+    "id": "Thesis",
+    "category": "Community"
+  },
+  {
     "id": "Freelancing",
     "category": "Community"
   },
@@ -62,6 +66,10 @@
     "category": "Mobile",
     "icon": "apple",
     "confidence": 70
+  },
+  {
+    "id": "AI",
+    "category": "AI"
   },
   {
     "id": "Data Science",
