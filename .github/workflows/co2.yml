@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/setup-node
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: baseline.co2
           key: baseline-co2-${{ github.sha }}
