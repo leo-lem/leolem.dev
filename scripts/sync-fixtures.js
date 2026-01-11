@@ -2,34 +2,53 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 const root = process.cwd();
-const dst = path.join(root, "src/content");
-const src = path.join(dst, ".fixtures");
 
-const keep = new Set([".fixtures", "README.md", "config.ts"]);
-const keepFile = (name) => keep.has(name) || name.endsWith(".ts");
+const contentDst = path.join(root, "src/content");
+const contentSrc = path.join(contentDst, ".fixtures");
+
+const assetsDst = path.join(root, "src/assets");
+const assetsSrc = path.join(assetsDst, ".fixtures");
 
 const rm = (p) => fs.rm(p, { recursive: true, force: true });
+const exists = (p) => fs.access(p).then(() => true).catch(() => false);
 
-const copyEntry = async (from, to, dirent) => {
-  await rm(to);
-  if (dirent.isDirectory()) return fs.cp(from, to, { recursive: true });
-  return fs.copyFile(from, to);
-};
+const keepContent = new Set([".fixtures", "README.md", "config.ts"]);
+const keepContentEntry = (name) => keepContent.has(name) || name.endsWith(".ts");
 
-const main = async () => {
-  // wipe generated entries in src/content
-  for (const e of await fs.readdir(dst, { withFileTypes: true })) {
-    if (keepFile(e.name)) continue;
-    await rm(path.join(dst, e.name));
+const keepAssets = new Set([".fixtures", "README.md"]);
+const keepAssetsEntry = (name) => keepAssets.has(name);
+
+async function wipe(dstDir, keepFn) {
+  for (const e of await fs.readdir(dstDir, { withFileTypes: true })) {
+    if (keepFn(e.name)) continue;
+    await rm(path.join(dstDir, e.name));
   }
+}
 
-  // copy fixtures into src/content
-  for (const e of await fs.readdir(src, { withFileTypes: true })) {
-    await copyEntry(path.join(src, e.name), path.join(dst, e.name), e);
+async function copyAll(srcDir, dstDir) {
+  for (const e of await fs.readdir(srcDir, { withFileTypes: true })) {
+    const s = path.join(srcDir, e.name);
+    const d = path.join(dstDir, e.name);
+    await rm(d);
+    if (e.isDirectory()) await fs.cp(s, d, { recursive: true });
+    else await fs.copyFile(s, d);
+  }
+}
+
+async function main() {
+  if (!(await exists(contentSrc))) throw new Error(`Missing: ${contentSrc}`);
+
+  await wipe(contentDst, keepContentEntry);
+  await copyAll(contentSrc, contentDst);
+
+  // assets fixtures are optional, but if present we sync them too
+  if (await exists(assetsSrc)) {
+    await wipe(assetsDst, keepAssetsEntry);
+    await copyAll(assetsSrc, assetsDst);
   }
 
   console.log("synced fixtures");
-};
+}
 
 main().catch((e) => {
   console.error(e);

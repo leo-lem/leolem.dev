@@ -4,7 +4,7 @@
   "version": "2.0",
   "scripts": {
     "start": "npm run dev",
-    "dev": "node scripts/sync-fixtures.js && astro dev --host",
+    "dev": "npm run sync:fixtures && astro dev --host",
     "sync:fixtures": "node scripts/sync-fixtures.js",
     "build": "astro build",
     "test": "playwright test",
