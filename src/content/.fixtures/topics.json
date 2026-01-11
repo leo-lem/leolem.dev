@@ -1,0 +1,276 @@
+[
+  {
+    "id": "Astro",
+    "category": "Web",
+    "icon": "astro",
+    "confidence": 40
+  },
+  {
+    "id": "Automation",
+    "category": "DevOps"
+  },
+  {
+    "id": "IoT",
+    "category": "DevOps"
+  },
+  {
+    "id": "Backend",
+    "category": "Web",
+    "icon": "backend",
+    "confidence": 40
+  },
+  {
+    "id": "CI/CD",
+    "category": "DevOps",
+    "icon": "cicd",
+    "confidence": 90,
+    "isPriority": true
+  },
+  {
+    "id": "Cloud",
+    "category": "DevOps"
+  },
+  {
+    "id": "Cloud Infra",
+    "category": "DevOps",
+    "icon": "googlecloud",
+    "confidence": 70,
+    "isPriority": true
+  },
+  {
+    "id": "Core Data",
+    "category": "Mobile",
+    "icon": "apple",
+    "confidence": 70
+  },
+  {
+    "id": "AI",
+    "category": "AI"
+  },
+  {
+    "id": "Data Science",
+    "category": "AI"
+  },
+  {
+    "id": "DevOps",
+    "category": "DevOps"
+  },
+  {
+    "id": "Docker",
+    "category": "DevOps",
+    "icon": "docker",
+    "confidence": 80,
+    "isPriority": true
+  },
+  {
+    "id": "Frontend",
+    "category": "Web",
+    "icon": "frontend",
+    "confidence": 40
+  },
+  {
+    "id": "Full Stack",
+    "category": "Web",
+    "icon": "fullstack",
+    "confidence": 40
+  },
+  {
+    "id": "GH Actions",
+    "category": "DevOps",
+    "icon": "cicd",
+    "confidence": 70,
+    "isPriority": true
+  },
+  {
+    "id": "iOS",
+    "category": "Mobile",
+    "icon": "apple",
+    "confidence": 80,
+    "isPriority": true
+  },
+  {
+    "id": "JavaScript",
+    "category": "Web"
+  },
+  {
+    "id": "Node.js",
+    "category": "Web",
+    "icon": "nodejs",
+    "confidence": 60
+  },
+  {
+    "id": "Kubernetes",
+    "category": "DevOps",
+    "icon": "kubernetes",
+    "confidence": 60,
+    "isPriority": true
+  },
+  {
+    "id": "ML",
+    "category": "AI",
+    "icon": "huggingface",
+    "confidence": 60
+  },
+  {
+    "id": "Personal Website",
+    "category": "Web"
+  },
+  {
+    "id": "Python",
+    "category": "AI",
+    "icon": "python",
+    "confidence": 80
+  },
+  {
+    "id": "Raspberry Pi",
+    "category": "DevOps"
+  },
+  {
+    "id": "React",
+    "category": "Web",
+    "icon": "react",
+    "confidence": 60
+  },
+  {
+    "id": "Sentiment Analysis",
+    "category": "AI"
+  },
+  {
+    "id": "Spring Boot",
+    "category": "Web"
+  },
+  {
+    "id": "Swift",
+    "category": "Mobile",
+    "icon": "swift",
+    "confidence": 95,
+    "isPriority": true
+  },
+  {
+    "id": "Swift Vapor",
+    "category": "Mobile",
+    "icon": "swift",
+    "confidence": 50
+  },
+  {
+    "id": "SwiftUI",
+    "category": "Mobile",
+    "icon": "swift",
+    "confidence": 90,
+    "isPriority": true
+  },
+  {
+    "id": "Terraform",
+    "category": "DevOps",
+    "icon": "terraform",
+    "confidence": 70,
+    "isPriority": true
+  },
+  {
+    "id": "TypeScript",
+    "category": "Web",
+    "icon": "typescript",
+    "confidence": 50
+  },
+  {
+    "id": "App Store",
+    "category": "Mobile",
+    "icon": "appstore",
+    "confidence": 80,
+    "isPriority": true
+  },
+  {
+    "id": "Firebase",
+    "category": "Mobile",
+    "icon": "firebase",
+    "confidence": 50,
+    "isPriority": true
+  },
+  {
+    "id": "GitLab CI",
+    "category": "DevOps",
+    "icon": "cicd",
+    "confidence": 70,
+    "isPriority": true
+  },
+  {
+    "id": "Cloudflare",
+    "category": "Web"
+  },
+  {
+    "id": "Web Analytics",
+    "category": "Web"
+  },
+  {
+    "id": "VS Code",
+    "category": "Web"
+  },
+  {
+    "id": "Devcontainers",
+    "category": "DevOps",
+    "icon": "vscode",
+    "confidence": 90,
+    "isPriority": true
+  },
+  {
+    "id": "Vercel",
+    "category": "Web",
+    "icon": "vercel",
+    "confidence": 60,
+    "isPriority": true
+  },
+  {
+    "id": "Deployment",
+    "category": "DevOps"
+  },
+  {
+    "id": "SwiftData",
+    "category": "Mobile"
+  },
+  {
+    "id": "CloudKit",
+    "category": "Mobile"
+  },
+  {
+    "id": "Mobile",
+    "category": "Mobile"
+  },
+  {
+    "id": "App Development",
+    "category": "Mobile"
+  },
+  {
+    "id": "Apple",
+    "category": "Mobile",
+    "icon": "apple"
+  },
+  {
+    "id": "Web Development",
+    "category": "Web"
+  },
+  {
+    "id": "App Integration",
+    "category": "Web"
+  },
+  {
+    "id": "Architecture",
+    "category": "DevOps"
+  },
+  {
+    "id": "Next.js",
+    "category": "Web"
+  },
+  {
+    "id": "GitHub Actions",
+    "category": "DevOps",
+    "icon": "github",
+    "confidence": 70,
+    "isPriority": true
+  },
+  {
+    "id": "Cloud Infrastructure",
+    "category": "DevOps",
+    "icon": "googlecloud",
+    "confidence": 70
+  }
+]

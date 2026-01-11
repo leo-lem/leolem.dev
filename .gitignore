@@ -5,3 +5,18 @@ npm-debug.log*
 .DS_Store
 .vscode/
 test-results*
+
+# Ignore all files in src/content and src/assets except specific ones
+src/content/**
+!src/content/
+!src/content/config.ts
+!src/content/*.ts
+!src/content/README.md
+!src/content/.fixtures/
+!src/content/.fixtures/**
+
+src/assets/**
+!src/assets/
+!src/assets/README.md
+!src/assets/.fixtures/
+!src/assets/.fixtures/**
