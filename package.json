@@ -1,10 +1,12 @@
 {
   "name": "leolem.dev",
   "type": "module",
-  "version": "1.5",
+  "version": "2.0",
   "scripts": {
+    "start": "npm run dev",
+    "dev": "node scripts/sync-fixtures.js && astro dev --host",
+    "sync:fixtures": "node scripts/sync-fixtures.js",
     "build": "astro build",
-    "start": "astro dev --host",
     "test": "playwright test",
     "smoke": "npm test -- test/smoke.spec.ts",
     "co2": "tsx test/check_co2.ts"

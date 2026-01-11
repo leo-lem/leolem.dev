@@ -15,6 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/setup-node
+      - run: npm run sync:fixtures
       - run: npm run build
 
   test:
@@ -26,6 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/setup-node
+      - run: npm run sync:fixtures
       - run: npx playwright install
       - name: Run tests
         run: npm test

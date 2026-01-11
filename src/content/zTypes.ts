@@ -8,12 +8,4 @@ export const zIcon = z.string().refine(icon => availableIcons.includes(icon), (i
   message: `Icon '${icon}' not found in src/assets/icons directory. Available icons: ${availableIcons.join(', ')}`
 }));
 
-import topics from "./topics/index.json";
-const availableTopics = topics.map(t => t.id);
-
-export const zTopic = z.string().refine(
-  (topic: string) => availableTopics.includes(topic),
-  (topic: string) => ({
-    message: `Topic '${topic}' not found in topics.json. Available topics: ${availableTopics.join(", ")}`
-  })
-);
+export const zTopic = z.string();

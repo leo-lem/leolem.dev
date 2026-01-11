@@ -21,7 +21,20 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v6
+
+      - name: Checkout content repo
+        uses: actions/checkout@v6
+        with:
+          repository: leo-lem/content.leolem.dev
+          ref: main
+          path: _content
+          token: ${{ secrets.CONTENT_REPO_TOKEN }}
+
+      - name: Sync content + assets
+        run: node scripts/sync-content.js --from _content
+
       - uses: ./.github/actions/setup-node
+
       - run: npm run build
         env:
           NODE_ENV: production
@@ -30,9 +43,11 @@ jobs:
           FEATURED_SERVICES: ${{ vars.FEATURED_SERVICES }}
           FAVORITE_ALBUM: ${{ vars.FAVORITE_ALBUM }}
           DRAFT_ARTICLES: ${{ vars.DRAFT_ARTICLES }}
+          
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
