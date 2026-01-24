@@ -58,7 +58,7 @@ const featuredArticle = (await getCollection("articles"))
       )
     }
 
-    <SeeMore label="Latest articles" href="/blog/" />
+    <SeeMore label="Read the latest articles" href="/blog/" />
   </section>
 
   <section class="flex flex-col items-center gap-4">
@@ -80,13 +80,12 @@ const featuredArticle = (await getCollection("articles"))
       }
     </div>
 
-    <SeeMore label="All my projects" href="/portfolio/" />
+    <SeeMore label="Check out my portfolio" href="/portfolio/" />
   </section>
 
   <section class="max-w-lg mx-auto flex flex-col items-center gap-4">
     <p class="text-lg text-center">
-      I also offer services — including mobile app development with SwiftUI and
-      custom CI/CD automation for modern software projects.
+      I also offer services in software architecture, development, and consulting.
     </p>
 
     <div class="grid sm:grid-cols-2 gap-6">
@@ -106,6 +105,6 @@ const featuredArticle = (await getCollection("articles"))
       }
     </div>
 
-    <SeeMore label="Explore services" href="/services/" />
+    <SeeMore label="Explore my services." href="/services/" />
   </section>
 </BaseLayout>
