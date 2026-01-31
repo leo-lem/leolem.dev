@@ -10,3 +10,5 @@ permissions:
 jobs:
   codeql:
     uses: leo-lem/leo-lem/.github/workflows/codeql.yml@main
+    with:
+      languages: 'javascript-typescript,actions'
