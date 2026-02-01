@@ -1,0 +1,1 @@
+I’m a Master’s student at the University of Hamburg and a software engineer at Capgemini. I work across product and systems, building iOS apps, backend services, and the infrastructure around them. I enjoy turning rough ideas into usable software and keeping things simple, reliable, and grounded in real-world constraints.

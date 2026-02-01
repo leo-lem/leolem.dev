@@ -8,7 +8,8 @@ interface Props {
   ldJson?: Record<string, unknown>;
 }
 const { title, description, ldJson } = Astro.props;
-const defaultDescription = "Portfolio, blog, and engineering notes";
+const descriptionText = description ?? "Portfolio, blog, and engineering notes";
+const ogImage = "/social.jpg";
 
 const socials = [
   "https://github.com/leo-lem",
@@ -22,21 +23,24 @@ const socials = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>{title}</title>
-    <meta name="description" content={defaultDescription} />
+    <meta name="description" content={descriptionText} />
     <link rel="canonical" href={`https://leolem.dev${Astro.url.pathname}`} />
 
     <!-- OpenGraph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={defaultDescription} />
-    <meta property="og:image" content="/social.jpg" />
-    <meta property="og:url" content="https://leolem.dev" />
+    <meta property="og:description" content={descriptionText} />
+    <meta property="og:image" content={ogImage} />
+    <meta
+      property="og:url"
+      content={`https://leolem.dev${Astro.url.pathname}`}
+    />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={defaultDescription} />
-    <meta name="twitter:image" content="/social.jpg" />
+    <meta name="twitter:description" content={descriptionText} />
+    <meta name="twitter:image" content={ogImage} />
 
     <!-- JSON LD -->
     <script
@@ -73,6 +77,7 @@ const socials = [
       {
         description && (
           <section class="text-center px-10">
+            <slot name="thumbnail" />
             <h1 class="text-4xl font-bold capitalize mb-5">{title}</h1>
             <p class="secondary max-w-xl mx-auto text-xl">{description}</p>
           </section>

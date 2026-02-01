@@ -1,0 +1,24 @@
+---
+icon: lucide:message-circle
+title: Have an Idea? Let’s Talk.
+short: A low-friction way to explore ideas, prototypes, or collaborations together
+tags: [Consulting, Prototyping, Collaboration, Product]
+cta:
+  - type: email
+    url: "mailto:hello@leolem.dev"
+---
+
+Have an idea you’d like to explore? A rough concept, a half-formed product, or something you’re not quite sure how to approach yet?
+
+I’m happy to jump on a call and help you think it through.
+
+This is a lightweight starting point for collaboration. No rigid scope, no pressure to turn it into a full project. Just a focused conversation to clarify direction, feasibility, and next steps.
+
+**What this can include**
+- Talking through product or technical ideas  
+- Early architecture or implementation guidance  
+- Rapid prototyping concepts  
+- Feedback on existing projects  
+- Exploring whether a longer collaboration makes sense  
+
+If it feels like a good fit, we can take it further. If not, you’ll still leave with clearer thinking and concrete next steps.

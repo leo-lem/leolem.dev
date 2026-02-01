@@ -3,44 +3,110 @@ import { getCollection } from "astro:content";
 
 import BaseLayout from "../../layout/BaseLayout.astro";
 import Tags from "../../components/Tags.astro";
+import DynamicImage from "../../components/DynamicImage.astro";
 
-const articles = (await getCollection("articles"))
-  .filter(
-    ({ slug }) =>
-      !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(slug)
-  )
+const draftSlugs = import.meta.env.DRAFT_ARTICLES?.split(",") ?? [];
+const featuredSlug = import.meta.env.FEATURED_ARTICLE;
+
+const allArticles = (await getCollection("blog"))
+  .filter(({ slug }) => !draftSlugs.includes(slug))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const featuredIndex = featuredSlug
+  ? allArticles.findIndex((a) => a.slug === featuredSlug)
+  : -1;
+
+const featured = featuredIndex >= 0 ? allArticles[featuredIndex] : undefined;
+
+const articles =
+  featuredIndex >= 0
+    ? allArticles.filter((_, i) => i !== featuredIndex)
+    : allArticles;
 ---
 
 <BaseLayout
   title="My Blog"
   description="Welcome to my blog! I write about software development, technology, and things I'm exploring. Expect articles on Swift, CI/CD, architecture, and my personal experiences building things."
 >
-  <section>
-    <ul class="flex flex-col gap-4">
-      {
-        articles.map(({ slug, data: { title, author, date, short, tags } }) => (
-          <li class="w-full text-center sm:text-left">
-            <h3 class="text-primary text-xl font-semibold mb-1">
-              <a href={`/blog/${slug}/`} class="text-primary hover:underline">
-                {title}
-              </a>
-            </h3>
+  <section class="flex flex-col gap-10">
+    {
+      featured && (
+        <article class="border border-[var(--border-color)] rounded-2xl p-6 sm:p-8">
+          <div class="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+            <a href={`/blog/${featured.slug}/`} class="shrink-0">
+              <DynamicImage
+                src={`blog/${featured.slug}.avif`}
+                alt=""
+                class="w-full sm:w-56 rounded-xl"
+                loading="eager"
+              />
+            </a>
 
-            <span class="text-sm text-muted text-nowrap">
-              by {author} | {date.toLocaleDateString()}
-            </span>
+            <div class="w-full text-center sm:text-left">
+              <p class="text-xs uppercase tracking-wide text-muted mb-2">
+                Featured
+              </p>
 
-            <p class="text-secondary">{short}.</p>
+              <h2 class="text-primary text-2xl font-semibold mb-2">
+                <a href={`/blog/${featured.slug}/`} class="hover:underline">
+                  {featured.data.title}
+                </a>
+              </h2>
 
-            <div class="flex flex-col mt-2 items-center sm:items-start">
-              {" "}
-              <Tags tags={tags} />{" "}
+              <span class="text-sm text-muted text-nowrap">
+                by {featured.data.author} |{" "}
+                {featured.data.date.toLocaleDateString()}
+              </span>
+
+              <p class="text-secondary mt-3">{featured.data.short}.</p>
+
+              <div class="flex flex-col mt-3 items-center sm:items-start">
+                <Tags tags={featured.data.tags} />
+              </div>
             </div>
+          </div>
+        </article>
+      )
+    }
 
-            <div class="border-[var(--border-color)] border w-1/2 my-3 mx-auto" />
-          </li>
-        ))
+    <ul class="flex flex-col">
+      {
+        articles.map(
+          ({ slug, data: { title, author, date, short, tags } }, idx) => (
+            <li class="w-full py-6">
+              <div class="flex flex-col sm:flex-row gap-5 items-center sm:items-start">
+                <a href={`/blog/${slug}/`} class="shrink-0">
+                  <DynamicImage
+                    src={`blog/${slug}.avif`}
+                    alt=""
+                    class="w-full sm:w-36 rounded-xl"
+                    loading={idx < 3 ? "eager" : "lazy"}
+                  />
+                </a>
+
+                <div class="w-full text-center sm:text-left">
+                  <h3 class="text-primary text-xl font-semibold mb-1">
+                    <a href={`/blog/${slug}/`} class="hover:underline">
+                      {title}
+                    </a>
+                  </h3>
+
+                  <span class="text-sm text-muted text-nowrap">
+                    by {author} | {date.toLocaleDateString()}
+                  </span>
+
+                  <p class="text-secondary mt-2">{short}.</p>
+
+                  <div class="flex flex-col mt-3 items-center sm:items-start">
+                    <Tags tags={tags} />
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-[var(--border-color)] border w-full my-6 mx-auto" />
+            </li>
+          )
+        )
       }
     </ul>
   </section>

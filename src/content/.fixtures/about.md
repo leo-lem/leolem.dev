@@ -1,1 +1,0 @@
-I'm a Master's student at the University of Hamburg and a Software Engineer at Capgemini. I love building solutions that connect technology with purpose. My journey has taken me through various roles, from developing sustainability tools to full-stack and iOS development.

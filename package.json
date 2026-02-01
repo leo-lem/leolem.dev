@@ -3,9 +3,7 @@
   "type": "module",
   "version": "2.0",
   "scripts": {
-    "start": "npm run dev",
-    "dev": "npm run sync:fixtures && astro dev --host",
-    "sync:fixtures": "node scripts/sync-fixtures.js",
+    "start": "astro dev --host",
     "build": "astro build",
     "test": "playwright test",
     "smoke": "npm test -- test/smoke.spec.ts",
@@ -17,10 +15,13 @@
     "@astrojs/sitemap": "^3.7",
     "@astrojs/tailwind": "^6.0",
     "@tailwindcss/typography": "^0.5",
-    "astro": "^5.16.15",
+    "astro": "^5.16.5",
+    "astro-icon": "^1.1.5",
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {
+    "@iconify-json/lucide": "^1.2.87",
+    "@iconify-json/simple-icons": "^1.2.69",
     "@playwright/test": "^1.58",
     "@tgwf/co2": "^0.17",
     "@types/node-fetch": "^2.6",

@@ -1,0 +1,104 @@
+[
+  {
+    "id": "Swift",
+    "category": "Engineering",
+    "icon": "simple-icons:swift",
+    "confidence": 95,
+    "isPriority": true
+  },
+  {
+    "id": "SwiftUI",
+    "category": "Product",
+    "icon": "simple-icons:swift",
+    "confidence": 90,
+    "isPriority": true
+  },
+  {
+    "id": "iOS",
+    "category": "Product",
+    "icon": "simple-icons:apple",
+    "confidence": 80
+  },
+  {
+    "id": "App Store",
+    "category": "Product",
+    "icon": "simple-icons:appstore",
+    "confidence": 80
+  },
+  {
+    "id": "Core Data",
+    "category": "Engineering",
+    "icon": "simple-icons:apple",
+    "confidence": 70
+  },
+  {
+    "id": "Astro",
+    "category": "Product",
+    "icon": "simple-icons:astro",
+    "confidence": 60
+  },
+  {
+    "id": "React",
+    "category": "Product",
+    "icon": "simple-icons:react",
+    "confidence": 60
+  },
+  {
+    "id": "Node.js",
+    "category": "Engineering",
+    "icon": "simple-icons:nodedotjs",
+    "confidence": 60
+  },
+  {
+    "id": "Vercel",
+    "category": "Systems",
+    "icon": "simple-icons:vercel",
+    "confidence": 60
+  },
+  {
+    "id": "CI/CD",
+    "category": "Systems",
+    "icon": "lucide:workflow",
+    "confidence": 90,
+    "isPriority": true
+  },
+  {
+    "id": "Docker",
+    "category": "Systems",
+    "icon": "simple-icons:docker",
+    "confidence": 80,
+    "isPriority": true
+  },
+  {
+    "id": "Terraform",
+    "category": "Systems",
+    "icon": "simple-icons:terraform",
+    "confidence": 70
+  },
+  {
+    "id": "Cloud Infrastructure",
+    "category": "Systems",
+    "icon": "simple-icons:googlecloud",
+    "confidence": 70,
+    "isPriority": true
+  },
+  {
+    "id": "GitHub Actions",
+    "category": "Systems",
+    "icon": "simple-icons:github",
+    "confidence": 70
+  },
+  {
+    "id": "Devcontainers",
+    "category": "Systems",
+    "icon": "simple-icons:visualstudiocode",
+    "confidence": 90,
+    "isPriority": true
+  },
+  {
+    "id": "Python",
+    "category": "Systems",
+    "icon": "simple-icons:python",
+    "confidence": 80
+  }
+]

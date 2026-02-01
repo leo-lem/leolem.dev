@@ -6,17 +6,17 @@ npm-debug.log*
 .vscode/
 test-results*
 
-# Ignore all files in src/content and src/assets except specific ones
-src/content/**
-!src/content/
-!src/content/config.ts
-!src/content/*.ts
-!src/content/README.md
-!src/content/.fixtures/
-!src/content/.fixtures/**
+# Allow specific content files
+src/content/blog/**
+!src/content/blog/start.md
+src/content/portfolio/**
+!src/content/portfolio/this.md
+src/content/offering/**
+!src/content/offering/base.md
 
-src/assets/**
-!src/assets/
-!src/assets/README.md
-!src/assets/.fixtures/
-!src/assets/.fixtures/**
+src/assets/blog/**
+!src/assets/blog/default.*
+src/assets/portfolio/**
+!src/assets/portfolio/default.*
+src/assets/offering/**
+!src/assets/offering/default.*

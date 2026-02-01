@@ -4,6 +4,7 @@ import Screenshots from "../../components/Screenshots.astro";
 import IconLink from "../../components/IconLink.astro";
 import Tags from "../../components/Tags.astro";
 import Embed from "../../components/Embed.astro";
+import DynamicImage from "../../components/DynamicImage.astro";
 
 import { getCollection } from "astro:content";
 
@@ -20,7 +21,7 @@ const {
   rendered
 } = Astro.props;
 
-const blog = (await getCollection("articles")).filter(
+const blog = (await getCollection("blog")).filter(
   ({ slug }) =>
     !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(slug)
 );
@@ -44,6 +45,14 @@ const articles = articles_raw
     inLanguage: "en"
   }}
 >
+  <DynamicImage
+    slot="thumbnail"
+    src={`portfolio/${slug}.avif`}
+    alt=""
+    class="w-full max-w-3xl mx-auto rounded-2xl mb-8"
+    loading="eager"
+  />
+
   <section class="flex flex-col gap-4 max-w-3xl mx-auto -mt-16">
     <Tags tags={tags} class="justify-center" />
     <div class="flex items-center justify-center gap-4">
