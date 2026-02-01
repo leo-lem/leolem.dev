@@ -6,9 +6,9 @@ import Tags from "../../components/Tags.astro";
 import Embed from "../../components/Embed.astro";
 import DynamicImage from "../../components/DynamicImage.astro";
 
-const portfolio = (await getCollection("portfolio")).sort(({ slug }) =>
-  (import.meta.env.FEATURED_PROJECTS?.split(",") ?? []).includes(slug) ? -1 : 1
-);
+const featured = new Set(import.meta.env.FEATURED_PROJECTS?.split(",") ?? []);
+
+const portfolio = await getCollection("portfolio");
 ---
 
 <BaseLayout
@@ -24,7 +24,13 @@ const portfolio = (await getCollection("portfolio")).sort(({ slug }) =>
           <div>
             <h2 class="hover:underline text-center sm:text-left">{title}</h2>
 
-            <div class="card flex flex-col sm:flex-row items-center gap-4">
+            <div
+              class={`card flex flex-col sm:flex-row items-center gap-4 ${
+                featured.has(slug)
+                  ? "border border-blue-400/60 ring-2 ring-blue-400/20 shadow-2xl"
+                  : ""
+              }`}
+            >
               <DynamicImage
                 src={`portfolio/${slug}`}
                 alt={`Thumbnail for ${title}`}
