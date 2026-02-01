@@ -6,16 +6,16 @@ import Embed from "../components/Embed.astro";
 import Tags from "../components/Tags.astro";
 import DynamicImage from "../components/DynamicImage.astro";
 
-const services = await getCollection("offering");
+const offering = await getCollection("offering");
 ---
 
 <BaseLayout
-  title="My Services"
+  title="My Offering"
   description="Explore the services I offer. Each service is designed to help you achieve your goals with clean, reliable code and production-ready solutions."
 >
   <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     {
-      services.map(({ slug, data: { title, tags, cta }, rendered }) => (
+      offering.map(({ slug, data: { title, tags, cta }, rendered }) => (
         <div class="card flex flex-col gap-4">
           <DynamicImage
             src={`offering/${slug}`}
