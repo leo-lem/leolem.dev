@@ -27,12 +27,11 @@ jobs:
         with:
           repository: leo-lem/content.leolem.dev
           ref: main
-          path: _content
+          path: .content
           token: ${{ secrets.CONTENT_REPO_TOKEN }}
 
       - name: Sync content + assets
-        run: node .sync.js --from _content
-
+        run: node .sync.js --from .content
       - uses: ./.github/actions/setup-node
 
       - run: npm run build

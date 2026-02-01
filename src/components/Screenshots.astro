@@ -1,17 +1,21 @@
 ---
 import { Image } from "astro:assets";
 
-const images = Object.entries(import.meta.glob("/src/assets/portfolio/*"))
-  .filter(([path]) => path.includes(`${Astro.props.slug}/`))
+const { slug } = Astro.props;
+
+const images = Object.entries(
+  import.meta.glob("/src/assets/portfolio/**/*", { eager: true })
+)
+  .filter(([path]) => path.includes(`/portfolio/${slug}/`))
   .sort(([a], [b]) => a.localeCompare(b));
 ---
 
 <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
   {
-    images.map(([path, img]) => (
+    images.map(([path, mod]: [string, any]) => (
       <div>
         <Image
-          src={img()}
+          src={mod.default}
           alt="Project screenshot"
           class="responsive card-image cursor-pointer object-contain"
           tabindex="0"

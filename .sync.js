@@ -3,7 +3,7 @@ import path from "node:path";
 
 const root = process.cwd();
 const i = process.argv.indexOf("--from");
-const from = path.resolve(root, i === -1 ? "_content" : process.argv[i + 1]);
+const from = path.resolve(root, i === -1 ? ".content" : process.argv[i + 1]);
 
 const collections = ["blog", "portfolio", "offering"];
 const exists = (p) => fs.access(p).then(() => true).catch(() => false);
