@@ -18,7 +18,7 @@ const services = await getCollection("offering");
       services.map(({ slug, data: { title, tags, cta }, rendered }) => (
         <div class="card flex flex-col gap-4">
           <DynamicImage
-            src={`offering/${slug}.avif`}
+            src={`offering/${slug}`}
             alt={title}
             class="card-image"
           />

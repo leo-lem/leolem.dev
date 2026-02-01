@@ -26,7 +26,7 @@ const portfolio = (await getCollection("portfolio")).sort(({ slug }) =>
 
             <div class="card flex flex-col sm:flex-row items-center gap-4">
               <DynamicImage
-                src={`portfolio/${slug}.avif`}
+                src={`portfolio/${slug}`}
                 alt={`Thumbnail for ${title}`}
                 class="w-1/2 mx-auto sm:w-32 aspect-square object-cover rounded-lg flex-shrink-0"
               />

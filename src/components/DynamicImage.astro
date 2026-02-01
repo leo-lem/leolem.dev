@@ -5,7 +5,7 @@ const images = import.meta.glob("/src/assets/**/*");
 
 interface Props {
   id?: string;
-  src: string;
+  src: string; // WITHOUT extension
   alt: string | null;
   class?: string;
   loading?: "lazy" | "eager";
@@ -21,12 +21,15 @@ const {
   onclick
 } = Astro.props;
 
+const dir = src.includes("/") ? src.slice(0, src.lastIndexOf("/") + 1) : "";
+const name = src.split("/").pop();
+
 const image =
-  images[`/src/assets/${src}`] ??
-  Object.entries(images).find(([image]) =>
-    image.startsWith(
-      `/src/assets/${src.includes("/") ? src.slice(0, src.lastIndexOf("/") + 1) : ""}default.`
-    )
+  Object.entries(images).find(([p]) =>
+    p.startsWith(`/src/assets/${dir}${name}.`)
+  )?.[1] ??
+  Object.entries(images).find(([p]) =>
+    p.startsWith(`/src/assets/${dir}default.`)
   )?.[1];
 
 if (!image) throw new Error(`Image not found: ${src}`);

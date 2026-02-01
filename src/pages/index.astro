@@ -41,7 +41,7 @@ const featuredArticle = (await getCollection("blog"))
 
           <a href={`/blog/${featuredArticle.slug}/`} class="block mb-4">
             <DynamicImage
-              src={`blog/${featuredArticle.slug}.avif`}
+              src={`blog/${featuredArticle.slug}`}
               alt=""
               class="w-full rounded-xl"
               loading="eager"
@@ -83,7 +83,7 @@ const featuredArticle = (await getCollection("blog"))
             class="card responsive cursor-pointer flex flex-col gap-4 text-center"
           >
             <DynamicImage
-              src={`portfolio/${slug}.avif`}
+              src={`portfolio/${slug}`}
               alt={`Thumbnail for ${title}`}
               class="w-max aspect-square object-cover rounded-lg"
             />
