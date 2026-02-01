@@ -8,7 +8,15 @@ import DynamicImage from "../../components/DynamicImage.astro";
 
 const featured = new Set(import.meta.env.FEATURED_PROJECTS?.split(",") ?? []);
 
-const portfolio = await getCollection("portfolio");
+const portfolio = (await getCollection("portfolio")).sort((a, b) => {
+  const aFeatured = featured.has(a.slug);
+  const bFeatured = featured.has(b.slug);
+
+  if (aFeatured && !bFeatured) return -1;
+  if (!aFeatured && bFeatured) return 1;
+
+  return 0;
+});
 ---
 
 <BaseLayout
