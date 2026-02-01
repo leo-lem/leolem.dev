@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import DynamicImage from "./DynamicImage.astro";
+import { Icon } from "astro-icon/components";
 
 interface Props {
   topic: CollectionEntry<"topics">;
@@ -17,15 +18,7 @@ const {
 
 <div class={classes} data-topic-id={id}>
   <div class="flex flex-row gap-1">
-    {
-      icon && (
-        <DynamicImage
-          src={`icons/${icon}.svg`}
-          alt={id}
-          class="w-4 sm:w-6 aspect-square dark:invert"
-        />
-      )
-    }
+    {icon && <Icon name={icon} class="w-4 sm:w-6 aspect-square" />}
 
     {
       confidence && (

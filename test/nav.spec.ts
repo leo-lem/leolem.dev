@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const pages = ["about", "portfolio", "services", "blog", "explore"];
+const pages = ["about", "portfolio", "offering", "blog", "explore"];
 
 test.describe("Global navigation", () => {
   for (const name of pages) {

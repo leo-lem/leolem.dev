@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 
 import BaseLayout from "../../layout/BaseLayout.astro";
-import IconLink from "../../components/IconLink.astro";
 import Tags from "../../components/Tags.astro";
 import Embed from "../../components/Embed.astro";
 import DynamicImage from "../../components/DynamicImage.astro";
@@ -20,29 +19,19 @@ const portfolio = (await getCollection("portfolio")).sort(({ slug }) =>
 
   <section class="flex flex-col gap-5">
     {
-      portfolio.map(({ data: { title, tags, links, short }, slug }, index) => (
+      portfolio.map(({ data: { title, tags, short }, slug }) => (
         <a href={`/portfolio/${slug}/`} class="responsive">
           <div>
             <h2 class="hover:underline text-center sm:text-left">{title}</h2>
 
             <div class="card flex flex-col sm:flex-row items-center gap-4">
               <DynamicImage
-                src={`portfolio/${slug}.avif`}
+                src={`portfolio/${slug}`}
                 alt={`Thumbnail for ${title}`}
                 class="w-1/2 mx-auto sm:w-32 aspect-square object-cover rounded-lg flex-shrink-0"
               />
 
               <div class="flex flex-col gap-2 flex-1 items-center sm:items-start">
-                <div class="flex gap-1">
-                  {links?.map((link) => (
-                    <IconLink
-                      type={link.type}
-                      url={link.url}
-                      loading={index === 0 ? "eager" : "lazy"}
-                    />
-                  ))}
-                </div>
-
                 <Tags
                   tags={tags}
                   class="items-center justify-center sm:items-start sm:justify-start"

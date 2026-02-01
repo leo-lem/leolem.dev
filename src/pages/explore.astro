@@ -14,8 +14,8 @@ const categories = skills
   .filter((value, index, self) => self.indexOf(value) === index);
 
 const portfolio = await getCollection("portfolio");
-const services = await getCollection("services");
-const articles = (await getCollection("articles")).filter(
+const services = await getCollection("offering");
+const articles = (await getCollection("blog")).filter(
   ({ id }) => !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(id)
 );
 
@@ -33,7 +33,7 @@ const results = [
   ...services.map((item) => ({
     ...item,
     type: "service",
-    url: `/services#${item.slug}`
+    url: `/offering#${item.slug}`
   }))
 ];
 ---

@@ -1,0 +1,85 @@
+---
+import { getCollection } from "astro:content";
+
+import BaseLayout from "../layout/BaseLayout.astro";
+import Embed from "../components/Embed.astro";
+import Tags from "../components/Tags.astro";
+import DynamicImage from "../components/DynamicImage.astro";
+
+const offering = await getCollection("offering");
+---
+
+<BaseLayout
+  title="My Offering"
+  description="Explore the services I offer. Each service is designed to help you achieve your goals with clean, reliable code and production-ready solutions."
+>
+  <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    {
+      offering.map(({ slug, data: { title, tags, cta }, rendered }) => (
+        <div class="card flex flex-col gap-4">
+          <DynamicImage
+            src={`offering/${slug}`}
+            alt={title}
+            class="card-image"
+          />
+
+          <h2>{title}</h2>
+
+          <Tags tags={tags} />
+
+          <article
+            class="prose prose-md dark:prose-invert"
+            set:html={rendered?.html}
+          />
+
+          <div class="flex-grow flex flex-col gap-2 font-bold text-center justify-end">
+            <a
+              href="#schedule-a-call"
+              class="responsive rounded bg-intense p-2"
+            >
+              Contact Me
+            </a>
+            {cta.map(({ url, type }) => (
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class={`responsive rounded ${type} p-2`}
+              >
+                {type === "fiverr"
+                  ? "Order on Fiverr"
+                  : type === "upwork"
+                    ? "Hire on Upwork"
+                    : type === "email"
+                      ? "Reach out via Email"
+                      : "Learn More"}
+              </a>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  <section id="schedule-a-call" class="flex flex-col items-center">
+    <h2>Book a Meeting</h2>
+    <Embed kind="google-calendar" loading="lazy" />
+  </section>
+</BaseLayout>
+
+<style>
+  .fiverr {
+    @apply text-white;
+    background-color: #19a463;
+  }
+
+  .upwork {
+    @apply text-white;
+    background-color: #14a800;
+  }
+
+  .email {
+    @apply text-black;
+    background-color: #e2e8f0;
+  }
+</style>

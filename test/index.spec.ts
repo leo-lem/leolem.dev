@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const links = ["about", "portfolio", "services", "blog"];
+const links = ["about", "portfolio", "offering", "blog"];
 
 test("homepage has expected links", async ({ page }) => {
   await page.goto("/");

@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 
 import BaseLayout from "../layout/BaseLayout.astro";
@@ -11,11 +12,11 @@ const featuredProjects = (await getCollection("portfolio")).filter(({ slug }) =>
   (import.meta.env.FEATURED_PROJECTS?.split(",") ?? []).includes(slug)
 );
 
-const featuredServices = (await getCollection("services")).filter(({ slug }) =>
+const featuredServices = (await getCollection("offering")).filter(({ slug }) =>
   (import.meta.env.FEATURED_SERVICES?.split(",") ?? []).includes(slug)
 );
 
-const featuredArticle = (await getCollection("articles"))
+const featuredArticle = (await getCollection("blog"))
   .filter(
     ({ slug }) =>
       !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(slug)
@@ -38,6 +39,15 @@ const featuredArticle = (await getCollection("articles"))
         <article class="pb-4 text-xl text-center card mb-4">
           <p class="text-sm text-muted font-bold mb-2">«Featured Article»</p>
 
+          <a href={`/blog/${featuredArticle.slug}/`} class="block mb-4">
+            <DynamicImage
+              src={`blog/${featuredArticle.slug}`}
+              alt=""
+              class="w-full rounded-xl"
+              loading="eager"
+            />
+          </a>
+
           <h3 class="text-xl font-bold mb-2">
             <a
               href={`/blog/${featuredArticle.slug}/`}
@@ -46,13 +56,16 @@ const featuredArticle = (await getCollection("articles"))
               {featuredArticle.data.title}
             </a>
           </h3>
+
           <p class="text-muted text-sm mb-2">
             by {featuredArticle.data.author} |{" "}
             {featuredArticle.data.date.toLocaleDateString()}
           </p>
+
           <div class="flex flex-col items-center mb-2">
             <Tags tags={featuredArticle.data.tags} />
           </div>
+
           <p class="text-secondary">{featuredArticle.data.short}.</p>
         </article>
       )
@@ -70,7 +83,7 @@ const featuredArticle = (await getCollection("articles"))
             class="card responsive cursor-pointer flex flex-col gap-4 text-center"
           >
             <DynamicImage
-              src={`portfolio/${slug}.avif`}
+              src={`portfolio/${slug}`}
               alt={`Thumbnail for ${title}`}
               class="w-max aspect-square object-cover rounded-lg"
             />
@@ -85,26 +98,25 @@ const featuredArticle = (await getCollection("articles"))
 
   <section class="max-w-lg mx-auto flex flex-col items-center gap-4">
     <p class="text-lg text-center">
-      I also offer services in software architecture, development, and consulting.
+      I also offer services in software architecture, development, and
+      consulting.
     </p>
 
     <div class="grid sm:grid-cols-2 gap-6">
       {
-        featuredServices.map(({ data: { icon, title, short } }: any) => (
-          <div class="card flex flex-col items-center gap-2">
-            <DynamicImage
-              src={`icons/${icon}.svg`}
-              alt={title}
-              class="h-10 w-10 dark:invert"
-              loading="lazy"
-            />
+        featuredServices.map(({ data: { icon, title, short }, slug }: any) => (
+          <a
+            href={`/offering/#${slug}`}
+            class="responsive card flex flex-col items-center gap-2"
+          >
+            <Icon name={icon} class="h-10 w-10 invert dark:invert-0" />
             <h2 class="text-lg font-semibold mb-0">{title}</h2>
             <p class="text-muted text-sm">{short}</p>
-          </div>
+          </a>
         ))
       }
     </div>
 
-    <SeeMore label="Explore my services." href="/services/" />
+    <SeeMore label="Explore my services." href="/offering/" />
   </section>
 </BaseLayout>

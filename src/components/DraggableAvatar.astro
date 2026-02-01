@@ -4,7 +4,7 @@ import DynamicImage from "./DynamicImage.astro";
 
 <DynamicImage
   id="draggable-avatar"
-  src="about/profile.avif"
+  src="about/profile"
   alt="Avatar of Leopold Lemmermann"
   loading="eager"
   class="w-10 h-10 absolute z-50 cursor-grab transition-transform duration-500 ease-in-out rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
@@ -19,7 +19,6 @@ import DynamicImage from "./DynamicImage.astro";
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const avatar = document.getElementById("draggable-avatar");
-
     if (!avatar) return;
 
     let dragging = false;
@@ -29,7 +28,8 @@ import DynamicImage from "./DynamicImage.astro";
       startTop = 0;
     let returnTimer: any = null;
 
-    function startDrag(x, y) {
+    function startDrag(x: any, y: any) {
+      if (!avatar) return;
       dragging = true;
       avatar.classList.remove("moving-back");
       avatar.style.position = "fixed";
@@ -41,13 +41,15 @@ import DynamicImage from "./DynamicImage.astro";
       avatar.style.top = startTop + "px";
     }
 
-    function moveDrag(x, y) {
+    function moveDrag(x: any, y: any) {
+      if (!avatar) return;
       if (!dragging) return;
       avatar.style.left = `${x - offsetX}px`;
       avatar.style.top = `${y - offsetY}px`;
     }
 
     function endDrag() {
+      if (!avatar) return;
       if (!dragging) return;
       dragging = false;
       if (returnTimer) clearTimeout(returnTimer);

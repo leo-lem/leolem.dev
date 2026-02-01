@@ -8,7 +8,7 @@ test('homepage loads', async ({ page }) => {
 const paths = [
   { name: 'about', heading: "I'm Leo." },
   { name: 'portfolio', heading: 'Portfolio' },
-  { name: 'services', heading: 'Services' },
+  { name: 'offering', heading: 'Offering' },
 ];
 
 paths.forEach(path => {

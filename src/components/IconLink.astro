@@ -1,20 +1,26 @@
 ---
-import DynamicImage from "./DynamicImage.astro";
+import { Icon } from "astro-icon/components";
 
 interface Props {
   type: string;
   url: string;
   size_class?: string;
-  loading?: "eager" | "lazy";
 }
-const { type, url, size_class = "h-7 w-7", loading = "eager" } = Astro.props;
+
+const { type, url, size_class = "h-7 w-7" } = Astro.props;
+
+const linkIcons: Record<string, string> = {
+  github: "simple-icons:github",
+  appstore: "simple-icons:appstore",
+  webpage: "lucide:globe",
+  document: "lucide:file-text",
+  linkedin: "simple-icons:linkedin"
+};
+
+const icon =
+  linkIcons[type] ?? (console.log(`Unknown link type: ${type}`), "lucide:link");
 ---
 
 <a href={url} class="responsive" rel="noopener noreferrer" target="_blank">
-  <DynamicImage
-    src={`icons/${type}.svg`}
-    alt={type}
-    class={`${size_class} invert-0 dark:invert`}
-    loading={loading}
-  />
+  <Icon name={icon} class={`${size_class} invert dark:invert-0`} />
 </a>

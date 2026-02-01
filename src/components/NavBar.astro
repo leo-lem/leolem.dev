@@ -1,9 +1,10 @@
 ---
+import { Icon } from "astro-icon/components";
+
 import DraggableAvatar from "./DraggableAvatar.astro";
-import DynamicImage from "./DynamicImage.astro";
 import IconLink from "./IconLink.astro";
 
-const navigation = ["blog", "services", "portfolio", "explore", "about"];
+const navigation = ["blog", "portfolio", "offering", "explore", "about"];
 const { socials } = Astro.props;
 ---
 
@@ -42,11 +43,7 @@ const { socials } = Astro.props;
         }
 
         <button id="mobile-menu-toggle" class="sm:hidden focus:outline-none">
-          <DynamicImage
-            src="icons/menu.svg"
-            alt="Menu"
-            class="h-6 w-6 dark:invert"
-          />
+          <Icon name="lucide:menu" class="h-6 w-6 invert dark:invert-0" />
         </button>
       </div>
     </div>

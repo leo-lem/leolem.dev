@@ -1,12 +1,7 @@
 ---
-import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 
-const images = Object.entries(
-  import.meta.glob<{ default: ImageMetadata }>(
-    "/src/assets/portfolio/**/*.avif"
-  )
-)
+const images = Object.entries(import.meta.glob("/src/assets/portfolio/*"))
   .filter(([path]) => path.includes(`${Astro.props.slug}/`))
   .sort(([a], [b]) => a.localeCompare(b));
 ---
