@@ -18,7 +18,7 @@
 
   --text-color: #111111;
   --text-secondary-color: #666666;
-  --text-muted-color: color-mix(in srgb, var(--text-color) 50%, white);
+  --text-muted-color: color-mix(in srgb, var(--text-color) 70%, white);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -119,15 +119,22 @@ h3 {
 
 .subscribe {
   @apply flex items-center gap-2 px-4 py-2 rounded-lg
-    border border-white/10 bg-white/[0.03]
-    text-xs font-medium
-    transition hover:bg-white/[0.06] hover:border-white/20;
+    text-xs font-medium transition;
+  border: 1px solid var(--border-color);
+  background: var(--card-color);
+  color: var(--text-card-color);
 }
 
-.subscribe:disabled {
-  @apply opacity-40 cursor-not-allowed hover:bg-white/[0.03];
+.subscribe:hover {
+  filter: brightness(0.97);
 }
 
 .icon {
-  @apply h-4 w-4 opacity-80;
+  filter: invert(0);
+}
+
+@media (prefers-color-scheme: dark) {
+  .icon {
+    filter: invert(1);
+  }
 }
