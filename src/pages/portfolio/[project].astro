@@ -16,20 +16,17 @@ export async function getStaticPaths() {
 }
 
 const {
-  data: { title, short, links, articles: articles_raw, tags },
+  data: { title, short, links, articles: articleSlugs, tags },
   slug,
   rendered
 } = Astro.props;
 
-const blog = (await getCollection("blog")).filter(
-  ({ slug }) =>
-    !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(slug)
-);
-
-const articles = articles_raw
-  ?.map((articleID: string) => blog.find((article) => article.id === articleID))
-  .filter((article: any | undefined) => article !== undefined)
-  .sort((a: any, b: any) => b.data.date.getTime() - a.data.date.getTime());
+const articles = (await getCollection("blog"))
+  .filter(
+    ({ slug, data: { date } }) =>
+      date <= new Date() && articleSlugs.includes(slug)
+  )
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <BaseLayout
@@ -73,8 +70,8 @@ const articles = articles_raw
     articles.length > 0 && (
       <div class="flex flex-col gap-2 mx-2">
         <h3>Related Articles</h3>
-        {articles.map(({ id, data: { title, short, date } }: any) => (
-          <a href={`/blog/${id}/`} class="responsive card">
+        {articles.map(({ slug, data: { title, short, date } }: any) => (
+          <a href={`/blog/${slug}/`} class="responsive card">
             <div class="line-clamp-1">{title}</div>
             <div class="text-sm text-secondary line-clamp-1">{short}.</div>
             <div class="text-xs text-muted text-right">

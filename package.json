@@ -1,7 +1,7 @@
 {
   "name": "leolem.dev",
   "type": "module",
-  "version": "2.0",
+  "version": "2.1",
   "scripts": {
     "start": "astro dev --host",
     "build": "astro build",

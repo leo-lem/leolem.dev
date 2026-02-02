@@ -2,16 +2,13 @@
 import BlogLayout from "../../layout/BlogLayout.astro";
 import DynamicImage from "../../components/DynamicImage.astro";
 import Tags from "../../components/Tags.astro";
+import SubscribePanel from "../../components/SubscribePanel.astro";
 
 import { getCollection } from "astro:content";
-import SubscribePanel from "../../components/SubscribePanel.astro";
 
 export async function getStaticPaths() {
   return (await getCollection("blog"))
-    .filter(
-      ({ slug }) =>
-        !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(slug)
-    )
+    .filter(({ data: { date } }) => date <= new Date())
     .map((article) => ({
       params: { article: article.slug },
       props: article
@@ -23,6 +20,10 @@ const {
   slug,
   rendered
 } = Astro.props;
+
+const projects = (await getCollection("portfolio")).filter(
+  ({ data: { articles } }) => articles.includes(slug)
+);
 ---
 
 <BlogLayout
@@ -50,7 +51,13 @@ const {
 
   <div class="flex flex-col gap-4 max-w-3xl mx-auto -mt-16">
     <p class="text-muted font-semibold">
-      by {author ?? "Leopold Lemmermann"} | {date.toLocaleDateString()}
+      by {author ?? "Leopold Lemmermann"} | {
+        date.toLocaleDateString(undefined, {
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        })
+      }
     </p>
     <Tags tags={tags} class="justify-center" />
   </div>
@@ -61,4 +68,33 @@ const {
   />
 
   <SubscribePanel class="max-w-3xl mx-auto" />
+
+  {
+    projects.length > 0 && (
+      <section class="flex flex-col gap-4 max-w-3xl mx-auto">
+        <h2 class="text-2xl">Projects Featured In This Article</h2>
+        <div class="grid sm:grid-cols-2 gap-4">
+          {projects.map(
+            ({
+              slug: projectSlug,
+              data: { title: projectTitle, short: projectShort }
+            }) => (
+              <a
+                href={`/portfolio/${projectSlug}/`}
+                class="card responsive cursor-pointer flex flex-col gap-4 text-center"
+              >
+                <DynamicImage
+                  src={`portfolio/${projectSlug}`}
+                  alt={`Thumbnail for ${projectTitle}`}
+                  class="w-max aspect-square object-cover rounded-lg"
+                />
+                <h2>{projectTitle}</h2>
+                <p class="text-muted">{projectShort}</p>
+              </a>
+            )
+          )}
+        </div>
+      </section>
+    )
+  }
 </BlogLayout>

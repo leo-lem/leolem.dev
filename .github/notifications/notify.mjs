@@ -1,5 +1,4 @@
 import fs from "node:fs/promises";
-import { execSync } from "node:child_process";
 import path from "node:path";
 
 const APP_ID = process.env.ONESIGNAL_APP_ID;
@@ -70,6 +69,12 @@ const main = async () => {
       const slug = path.basename(file).replace(/\.(md|mdx)$/i, "");
 
       const fm = parseFrontmatter(await fs.readFile(file, "utf8"));
+
+      if (fm.date && new Date(fm.date) > new Date()) {
+        console.log("Skipping future article:", slug);
+        return null;
+      }
+
       const short = (fm.short || "").trim();
       if (!short) throw new Error(`Missing frontmatter 'short' in ${file}`);
 
@@ -80,7 +85,10 @@ const main = async () => {
         short
       };
     })
-  )).filter((a) => !alreadyNotified.has(a.slug));
+  ))
+  .filter(Boolean)
+  .filter((a) => !alreadyNotified.has(a.slug));
+  
   if (articles.length === 0) {
     console.log("No new articles to notify.");
     return;
