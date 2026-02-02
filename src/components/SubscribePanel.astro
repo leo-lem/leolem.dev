@@ -32,72 +32,70 @@ const { class: className = "" } = Astro.props;
       <span>RSS</span>
     </a>
   </div>
+
+  <div id="subscribe-status" class="mt-2 text-sm text-gray-600"></div>
 </section>
 
 <script is:inline type="module">
   const status = document.getElementById("subscribe-status");
-  const pushBtn = document.getElementById("push-btn");
-  const emailBtn = document.getElementById("email-btn");
-
-  const disable = (el) => el && (el.disabled = true);
-  const enable = (el) => el && (el.disabled = false);
-  const setStatus = (m) => status && (status.textContent = m || "");
 
   const hostOk =
     location.hostname === "leolem.dev" ||
     location.hostname === "www.leolem.dev";
 
-  const withOS = (fn) =>
-    new Promise((resolve, reject) => {
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      window.OneSignalDeferred.push(async (os) => {
-        try {
-          resolve(await fn(os));
-        } catch (e) {
-          reject(e);
-        }
-      });
-    });
-
-  (async () => {
-    disable(pushBtn);
-    disable(emailBtn);
-    if (!hostOk) return;
-
-    try {
-      enable(emailBtn);
-
-      const pushOk = await withOS((os) => os.Notifications.isPushSupported());
-      if (pushOk) enable(pushBtn);
-    } catch (e) {
-      console.error("OneSignal unavailable", e);
-      disable(pushBtn);
-      disable(emailBtn);
+  document.getElementById("push-btn")?.addEventListener("click", async () => {
+    if (!hostOk) {
+      console.error("Push not available on this host:", location.origin);
+      status.textContent = "Push not available here.";
       return;
     }
 
-    pushBtn?.addEventListener("click", async () => {
-      try {
-        await withOS((os) => os.Notifications.requestPermission());
-        setStatus("Push enabled.");
-      } catch (e) {
-        console.error("Push failed", e);
-        setStatus("Push not enabled.");
+    try {
+      const os = window.OneSignal;
+      if (!os?.Notifications?.requestPermission) {
+        console.error("OneSignal not ready or Notifications API missing:", os);
+        status.textContent = "Push unavailable right now.";
+        return;
       }
-    });
 
-    emailBtn?.addEventListener("click", async () => {
-      const v = (prompt("Email for updates:") || "").trim();
+      await os.Notifications.requestPermission();
+      status.textContent = "Push enabled.";
+    } catch (e) {
+      console.error("Push failed", e);
+      status.textContent = "Push not enabled.";
+    }
+  });
+
+  document.getElementById("email-btn")?.addEventListener("click", async () => {
+    if (!hostOk) {
+      console.error("Email not available on this host:", location.origin);
+      status.textContent = "Email not available here.";
+      return;
+    }
+
+    let v = "";
+    while (true) {
+      v = (prompt("Email for updates:", v) || "").trim();
       if (!v) return;
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return alert("Invalid email.");
 
-      try {
-        await withOS((os) => os.User.addEmail(v));
-        setStatus("Email subscribed.");
-      } catch (e) {
-        console.error("Email failed", e);
-        setStatus("Email failed.");
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) break;
+
+      alert("Invalid email. Please try again.");
+    }
+
+    try {
+      const os = window.OneSignal;
+      if (!os?.User?.addEmail) {
+        console.error("OneSignal not ready or User API missing:", os);
+        status.textContent = "Email unavailable right now.";
+        return;
       }
-    });
-  })();
+
+      os.User.addEmail(v);
+      status.textContent = "Email submitted.";
+    } catch (e) {
+      console.error("Email failed", e);
+      status.textContent = "Email failed.";
+    }
+  });
 </script>
