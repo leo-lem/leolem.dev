@@ -2,7 +2,7 @@ name: Notify
 
 on:
   push:
-    branches: [main]
+    branches: [main, fix] # TODO
   workflow_dispatch:
 
 permissions:
@@ -14,8 +14,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Clone content repo
-        run: git clone https://github.com/leo-lem/content.leolem.dev .content
+      
+      - name: Checkout content repo
+        uses: actions/checkout@v6
+        with:
+          repository: leo-lem/content.leolem.dev
+          ref: main
+          path: .content
+          token: ${{ secrets.CONTENT_REPO_TOKEN }}
+      
       - uses: ./.github/actions/setup-node
 
       - name: Send OneSignal notifications
