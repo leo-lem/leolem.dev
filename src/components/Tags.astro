@@ -17,3 +17,13 @@ const { tags, class: classes } = Astro.props;
     </div>
   )
 }
+
+<style>
+  .tag {
+    color: var(--text-tag-color);
+    background-color: var(--tag-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    @apply text-xs font-semibold;
+  }
+</style>

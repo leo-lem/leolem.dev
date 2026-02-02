@@ -1,17 +1,17 @@
 [
   {
+    "isPriority": true,
     "id": "Swift",
     "category": "Engineering",
     "icon": "simple-icons:swift",
-    "confidence": 95,
-    "isPriority": true
+    "confidence": 95
   },
   {
+    "isPriority": true,
     "id": "SwiftUI",
     "category": "Product",
     "icon": "simple-icons:swift",
-    "confidence": 90,
-    "isPriority": true
+    "confidence": 90
   },
   {
     "id": "iOS",
@@ -56,18 +56,18 @@
     "confidence": 60
   },
   {
+    "isPriority": true,
     "id": "CI/CD",
     "category": "Systems",
     "icon": "lucide:workflow",
-    "confidence": 90,
-    "isPriority": true
+    "confidence": 90
   },
   {
+    "isPriority": true,
     "id": "Docker",
     "category": "Systems",
     "icon": "simple-icons:docker",
-    "confidence": 80,
-    "isPriority": true
+    "confidence": 80
   },
   {
     "id": "Terraform",
@@ -76,11 +76,11 @@
     "confidence": 70
   },
   {
+    "isPriority": true,
     "id": "Cloud Infrastructure",
     "category": "Systems",
     "icon": "simple-icons:googlecloud",
-    "confidence": 70,
-    "isPriority": true
+    "confidence": 70
   },
   {
     "id": "GitHub Actions",
@@ -89,11 +89,11 @@
     "confidence": 70
   },
   {
+    "isPriority": true,
     "id": "Devcontainers",
     "category": "Systems",
     "icon": "simple-icons:visualstudiocode",
-    "confidence": 90,
-    "isPriority": true
+    "confidence": 90
   },
   {
     "id": "Python",

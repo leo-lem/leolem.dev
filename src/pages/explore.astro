@@ -2,7 +2,7 @@
 import BaseLayout from "../layout/BaseLayout.astro";
 import Tags from "../components/Tags.astro";
 
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import TopicToggle from "../components/TopicToggle.astro";
 
 const skills = (await getCollection("topics"))
@@ -13,29 +13,26 @@ const categories = skills
   .map((skill) => skill.data.category)
   .filter((value, index, self) => self.indexOf(value) === index);
 
-const portfolio = await getCollection("portfolio");
-const services = await getCollection("offering");
-const articles = (await getCollection("blog")).filter(
-  ({ id }) => !(import.meta.env.DRAFT_ARTICLES?.split(",") ?? []).includes(id)
-);
-
 const results = [
-  ...portfolio.map((item) => ({
+  ...(await getCollection("blog"))
+    .filter((article) => !article.data.draft)
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+    .map((item) => ({
+      ...item,
+      type: "article",
+      url: `/blog/${item.slug}/`
+    })),
+  ...(await getCollection("portfolio")).map((item) => ({
     ...item,
     type: "project",
-    url: `/portfolio/${item.slug}`
+    url: `/portfolio/${item.slug}/`
   })),
-  ...articles.map((item) => ({
-    ...item,
-    type: "article",
-    url: `/blog/${item.slug}`
-  })),
-  ...services.map((item) => ({
+  ...(await getCollection("offering")).map((item) => ({
     ...item,
     type: "service",
     url: `/offering#${item.slug}`
   }))
-];
+].sort((a, b) => (b.data.featured ? 1 : -1) - (a.data.featured ? 1 : -1));
 ---
 
 <BaseLayout
@@ -81,8 +78,7 @@ const results = [
     }
 
     <div id="no-results-placeholder" class="col-span-2 text-muted hidden">
-      No results found for the selected tags. Try selecting different skills or
-      clear all filters.
+      No results found. Try selecting different skills or clear all filters.
     </div>
   </section>
 </BaseLayout>
@@ -103,10 +99,7 @@ const results = [
         if (match) anyVisible = true;
       });
     } else {
-      // No topics selected: show all
-      cards.forEach((el) => {
-        el.style.display = "";
-      });
+      cards.forEach((el) => (el.style.display = ""));
       anyVisible = true;
     }
 

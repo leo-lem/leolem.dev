@@ -97,14 +97,6 @@ h3 {
 
 
 /* Component Styles */
-.tag {
-  color: var(--text-tag-color);
-  background-color: var(--tag-color);
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  @apply text-xs font-semibold;
-}
-
 .card {
   background-color: var(--card-color);
   color: var(--text-card-color);
@@ -117,24 +109,6 @@ h3 {
   @apply rounded-lg shadow;
 }
 
-.subscribe {
-  @apply flex items-center gap-2 px-4 py-2 rounded-lg
-    text-xs font-medium transition;
-  border: 1px solid var(--border-color);
-  background: var(--card-color);
-  color: var(--text-card-color);
-}
-
-.subscribe:hover {
-  filter: brightness(0.97);
-}
-
-.icon {
-  filter: invert(0);
-}
-
-@media (prefers-color-scheme: dark) {
-  .icon {
-    filter: invert(1);
+.see-more {
+    @apply text-intense text-center inline-block transform hover:underline hover:scale-105 transition duration-200;
   }
-}

@@ -6,7 +6,9 @@ import Embed from "../components/Embed.astro";
 import Tags from "../components/Tags.astro";
 import DynamicImage from "../components/DynamicImage.astro";
 
-const offering = await getCollection("offering");
+const offering = (await getCollection("offering")).sort(
+  (a, b) => (b.data.featured ? 1 : -1) - (a.data.featured ? 1 : -1)
+);
 ---
 
 <BaseLayout

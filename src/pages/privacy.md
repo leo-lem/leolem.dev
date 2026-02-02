@@ -4,7 +4,7 @@ description: Datenschutzerklärung gemäß DSGVO
 layout: ../layout/MarkdownLayout.astro
 ---
 
-Diese Website erhebt und speichert keine personenbezogenen Daten über ihre Besucher, außer in dem Umfang, der für den technischen Betrieb erforderlich ist.
+Diese Website erhebt und speichert keine personenbezogenen Daten über ihre Besucher, außer im Rahmen freiwilliger Abonnements für Blog-Benachrichtigungen (E-Mail oder Push).
 
 ### Verantwortlicher
 Leopold Lemmermann  
@@ -24,6 +24,31 @@ Diese Daten dienen ausschließlich zur Gewährleistung eines sicheren und stabil
 Diese Website verwendet **keine** Cookies und kein Tracking.
 
 Diese Website verwendet Cloudflare Web Analytics, einen datenschutzfreundlichen Analysedienst, der ohne Cookies arbeitet. Cloudflare Web Analytics speichert oder verarbeitet keine personenbezogenen Daten, jedoch werden technische Daten wie Seitenaufrufe, Referrer-URLs und User-Agent-Informationen anonym erfasst. Es findet keinerlei Tracking oder Profiling statt. Die Verarbeitung erfolgt vollständig anonym und konform mit der DSGVO sowie anderen Datenschutzgesetzen.
+
+### Blog-Benachrichtigungen (E-Mail & Push)
+
+Diese Website bietet optionale Abonnements für neue Blogartikel per E-Mail oder Push-Benachrichtigung an.
+
+Für diesen Zweck wird der Dienst **OneSignal** verwendet.
+
+Wenn Sie sich anmelden, werden folgende Daten verarbeitet:
+
+- E-Mail-Adresse (bei E-Mail-Abonnement)
+- Geräte- und Browserinformationen (bei Push-Benachrichtigungen)
+- Technische Identifikatoren zur Zustellung der Benachrichtigungen
+
+Die Verarbeitung erfolgt ausschließlich zum Versand von Blog-Updates.
+
+Rechtsgrundlage ist Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).
+
+Sie können das Abonnement jederzeit über den Abmelde-Link in jeder E-Mail oder über die Browser-Einstellungen für Push-Benachrichtigungen widerrufen.
+
+Anbieter:
+OneSignal, Inc.  
+2194 Esperanca Ave, Santa Clara, CA 95054, USA  
+Datenschutzerklärung: https://onesignal.com/privacy_policy
+
+Die Daten können in die USA übertragen werden. OneSignal stützt sich hierfür auf Standardvertragsklauseln gemäß Art. 46 DSGVO.
 
 ### Kontaktaufnahme
 Wenn Sie per E-Mail Kontakt aufnehmen, wird Ihre Anfrage zwecks Bearbeitung und für den Fall von Anschlussfragen gespeichert. Diese Daten werden nicht ohne Ihre Einwilligung weitergegeben.
@@ -45,4 +70,4 @@ Diese Website wird über [GitHub Pages](https://pages.github.com) gehostet. Es g
 
 ---
 
-Letzte Aktualisierung: Juli 2025
+Letzte Aktualisierung: Februar 2026

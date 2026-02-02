@@ -6,17 +6,9 @@ import Tags from "../../components/Tags.astro";
 import Embed from "../../components/Embed.astro";
 import DynamicImage from "../../components/DynamicImage.astro";
 
-const featured = new Set(import.meta.env.FEATURED_PROJECTS?.split(",") ?? []);
-
-const portfolio = (await getCollection("portfolio")).sort((a, b) => {
-  const aFeatured = featured.has(a.slug);
-  const bFeatured = featured.has(b.slug);
-
-  if (aFeatured && !bFeatured) return -1;
-  if (!aFeatured && bFeatured) return 1;
-
-  return 0;
-});
+const portfolio = (await getCollection("portfolio")).sort(
+  (a, b) => (b.data.featured ? 1 : -1) - (a.data.featured ? 1 : -1)
+);
 ---
 
 <BaseLayout
@@ -27,14 +19,14 @@ const portfolio = (await getCollection("portfolio")).sort((a, b) => {
 
   <section class="flex flex-col gap-5">
     {
-      portfolio.map(({ data: { title, tags, short }, slug }) => (
+      portfolio.map(({ data: { title, tags, short, featured }, slug }) => (
         <a href={`/portfolio/${slug}/`} class="responsive">
           <div>
             <h2 class="hover:underline text-center sm:text-left">{title}</h2>
 
             <div
               class={`card flex flex-col sm:flex-row items-center gap-4 ${
-                featured.has(slug)
+                featured
                   ? "border border-blue-400/60 ring-2 ring-blue-400/20 shadow-2xl"
                   : ""
               }`}

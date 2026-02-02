@@ -3,9 +3,9 @@ import { getCollection } from "astro:content";
 
 import BaseLayout from "../layout/BaseLayout.astro";
 import Embed from "../components/Embed.astro";
-import { Content as AboutMe } from "../content/about.md";
-import SeeMore from "../components/SeeMore.astro";
 import DynamicImage from "../components/DynamicImage.astro";
+
+import { Content as AboutMe } from "../content/about.md";
 
 const stations = (await getCollection("stations")).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
@@ -84,6 +84,8 @@ const albumID = import.meta.env.FAVORITE_ALBUM;
   </section>
 
   <section id="skills" class="max-w-3xl flex flex-col gap-10 mx-auto">
-    <SeeMore label="Explore My Skills & Work" href="/explore/" />
+    <a href="/explore/" class="see-more">
+      <span>Explore My Skills & Work →</span>
+    </a>
   </section>
 </BaseLayout>
