@@ -12,6 +12,20 @@ const { title, description, ldJson } = Astro.props;
 
 <BaseLayout title={title} description={description} ldJson={ldJson}>
   <Fragment slot="head">
+    <script is:inline>
+      // iOS Safari (and some in-app browsers) may not expose Notification at all.
+      // OneSignal’s ES6 SDK references it. Stub it so the SDK can load for email.
+      if (
+        typeof window !== "undefined" &&
+        typeof window.Notification === "undefined"
+      ) {
+        window.Notification = {
+          permission: "denied",
+          requestPermission: () => Promise.resolve("denied")
+        };
+      }
+    </script>
+
     <script
       is:inline
       src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"

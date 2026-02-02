@@ -13,12 +13,12 @@ const { class: className = "" } = Astro.props;
 
   <div class="flex gap-2">
     <button id="email-btn" class="subscribe" type="button">
-      <Icon name="lucide:mail" class="icon" />
+      <Icon name="lucide:mail" class="h-4 w-4" />
       <span>Email</span>
     </button>
 
     <button id="push-btn" class="subscribe" type="button">
-      <Icon name="lucide:bell" class="icon" />
+      <Icon name="lucide:bell" class="h-4 w-4" />
       <span>Push</span>
     </button>
 
@@ -28,25 +28,31 @@ const { class: className = "" } = Astro.props;
       rel="noopener noreferrer"
       class="subscribe"
     >
-      <Icon name="lucide:rss" class="icon" />
+      <Icon name="lucide:rss" class="h-4 w-4" />
       <span>RSS</span>
     </a>
   </div>
 </section>
 
 <script is:inline type="module">
-  document.getElementById("push-btn")?.addEventListener("click", async () => {
-    try {
-      if (!OneSignal.Notifications.permission) {
-        window.OneSignalDeferred?.push((OneSignal) =>
-          OneSignal.Slidedown.promptPush({ force: true })
-        );
-      } else {
-        alert("You are already subscribed to push notifications.");
-      }
-    } catch (e) {
-      console.error("Push failed", e);
+  const status = document.getElementById("subscribe-status");
+
+  document.getElementById("push-btn")?.addEventListener("click", () => {
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+      alert(
+        "Push on iPhone does not work currently.\nPlease use another device, Email or RSS instead.\nSorry for the inconvenience!"
+      );
+      return;
     }
+
+    window.OneSignalDeferred?.push((OneSignal) => {
+      if (OneSignal.Notifications.permission) {
+        alert("You are already subscribed to push notifications!");
+        return;
+      }
+
+      OneSignal.Slidedown.promptPush({ force: true });
+    });
   });
 
   document.getElementById("email-btn")?.addEventListener("click", async () => {
