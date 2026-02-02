@@ -1,9 +1,10 @@
 ---
-import BaseLayout from "../../layout/BaseLayout.astro";
+import BlogLayout from "../../layout/BlogLayout.astro";
 import DynamicImage from "../../components/DynamicImage.astro";
 import Tags from "../../components/Tags.astro";
 
 import { getCollection } from "astro:content";
+import SubscribePanel from "../../components/SubscribePanel.astro";
 
 export async function getStaticPaths() {
   return (await getCollection("blog"))
@@ -24,7 +25,7 @@ const {
 } = Astro.props;
 ---
 
-<BaseLayout
+<BlogLayout
   title={title}
   description={short}
   ldJson={{
@@ -58,4 +59,6 @@ const {
     class="prose prose-lg dark:prose-invert text-start sm:text-justify"
     set:html={rendered?.html}
   />
-</BaseLayout>
+
+  <SubscribePanel class="max-w-3xl mx-auto" />
+</BlogLayout>

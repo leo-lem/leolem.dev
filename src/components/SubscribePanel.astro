@@ -1,0 +1,61 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<section class={`${className} card flex flex-col`}>
+  <h2 class="text-sm font-semibold mb-2">Subscribe</h2>
+
+  <div class="flex gap-2">
+    <button id="email-btn" class="subscribe" type="button">
+      <Icon name="lucide:mail" class="icon" />
+      <span>Email</span>
+    </button>
+
+    <button id="push-btn" class="subscribe" type="button">
+      <Icon name="lucide:bell" class="icon" />
+      <span>Push</span>
+    </button>
+
+    <a
+      href="/rss.xml"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="subscribe"
+    >
+      <Icon name="lucide:rss" class="icon" />
+      <span>RSS</span>
+    </a>
+  </div>
+</section>
+
+<script is:inline type="module">
+  document.getElementById("push-btn")?.addEventListener("click", async () => {
+    try {
+      if (!OneSignal.Notifications.permission) {
+        window.OneSignalDeferred?.push((OneSignal) =>
+          OneSignal.Slidedown.promptPush({ force: true })
+        );
+      } else {
+        alert("You are already subscribed to push notifications.");
+      }
+    } catch (e) {
+      console.error("Push failed", e);
+    }
+  });
+
+  document.getElementById("email-btn")?.addEventListener("click", async () => {
+    try {
+      window.OneSignalDeferred?.push((OneSignal) =>
+        OneSignal.Slidedown.promptEmail({ force: true })
+      );
+    } catch (e) {
+      console.error("Email failed", e);
+    }
+  });
+</script>

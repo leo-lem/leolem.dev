@@ -116,3 +116,18 @@ h3 {
 .card-image {
   @apply rounded-lg shadow;
 }
+
+.subscribe {
+  @apply flex items-center gap-2 px-4 py-2 rounded-lg
+    border border-white/10 bg-white/[0.03]
+    text-xs font-medium
+    transition hover:bg-white/[0.06] hover:border-white/20;
+}
+
+.subscribe:disabled {
+  @apply opacity-40 cursor-not-allowed hover:bg-white/[0.03];
+}
+
+.icon {
+  @apply h-4 w-4 opacity-80;
+}

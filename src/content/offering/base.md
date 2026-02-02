@@ -5,7 +5,7 @@ short: A low-friction way to explore ideas, prototypes, or collaborations togeth
 tags: [Consulting, Prototyping, Collaboration, Product]
 cta:
   - type: email
-    url: "mailto:hello@leolem.dev"
+    url: "mailto:hey@leolem.dev"
 ---
 
 Have an idea you’d like to explore? A rough concept, a half-formed product, or something you’re not quite sure how to approach yet?
