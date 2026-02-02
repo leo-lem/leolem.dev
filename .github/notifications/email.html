@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    body {
+      margin: 0;
+      background: #0b0f14;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      line-height: 1.5;
+      color: #e6edf3;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 28px 16px;
+    }
+
+    .card {
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .03);
+      padding: 16px;
+    }
+
+    .card+.card,
+    .footer {
+      margin-top: 14px;
+    }
+
+    .footer {
+      font-size: 12px;
+      color: rgba(230, 237, 243, .6);
+    }
+
+    .header-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: transform .15s ease, opacity .15s ease;
+    }
+
+    .header-link:hover {
+      transform: scale(1.03);
+      opacity: .9;
+    }
+
+    .brand {
+      font-size: 20px;
+      font-weight: 600;
+      color: rgba(230, 237, 243, .6);
+    }
+
+    img {
+      border-radius: 6px;
+    }
+
+    h2 {
+      margin: 14px 0 6px;
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      margin: 0 0 14px;
+      font-size: 15px;
+      color: rgba(230, 237, 243, .85);
+    }
+
+    .content p:first-child {
+      font-size: 16px;
+    }
+
+    .content {
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .03), 0 10px 30px rgba(0, 0, 0, .4);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(255, 255, 255, .04);
+      color: #e6edf3;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: transform .15s ease, background .15s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.04);
+      background: rgba(255, 255, 255, .07);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="card">
+      <a href="https://leolem.dev/blog" class="header-link">
+        <img src="https://leolem.dev/apple-touch-icon.png" width="32" height="32" />
+        <span class="brand">Leopold Lemmermann</span>
+      </a>
+    </div>
+
+    <div class="card content">
+      <p>Hey there, I just published a new article! :)</p>
+
+      <h2>{{title}}</h2>
+      <p>{{short}}</p>
+
+      <a href="{{url}}" class="btn">Read it now →</a>
+
+      <div style="margin-top:16px;">
+        All the best to you!<br />
+        Leo
+      </div>
+    </div>
+
+    <div class="footer">
+      You are receiving this email because you subscribed to leolem.dev.<br />
+      <a href="[unsubscribe_url]" style="color:rgba(230,237,243,.75);text-decoration:underline;">
+        Unsubscribe
+      </a>
+    </div>
+
+  </div>
+</body>
+
+</html>
