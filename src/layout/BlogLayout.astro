@@ -1,0 +1,40 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  ldJson?: Record<string, unknown>;
+}
+
+const { title, description, ldJson } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} ldJson={ldJson}>
+  <Fragment slot="head">
+    <script
+      is:inline
+      src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+      defer></script>
+
+    <script is:inline>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function (OneSignal) {
+        await OneSignal.init({
+          appId: "932ddbaa-045a-49d6-80ab-774924450946",
+          safari_web_id:
+            "web.onesignal.auto.1a94b592-c98a-427e-9490-520bfcd23754",
+          notifyButton: { enable: false },
+          promptOptions: {
+            slidedown: {
+              enabled: false
+            }
+          }
+        });
+      });
+    </script>
+  </Fragment>
+
+  <slot name="thumbnail" slot="thumbnail" />
+  <slot />
+</BaseLayout>
