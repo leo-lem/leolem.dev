@@ -2,7 +2,7 @@ name: Notify
 
 on:
   push:
-    branches: [main, fix] # TODO
+    branches: [main, fix-again] # TODO
   workflow_dispatch:
 
 permissions:

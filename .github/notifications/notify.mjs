@@ -13,6 +13,7 @@ const ROOT = process.cwd();
 const CONTENT_REPO_DIR = process.env.CONTENT_REPO_DIR || ".content";
 const STATE = path.join(ROOT, CONTENT_REPO_DIR, ".github/notified.json");
 const TEMPLATE = path.join(ROOT, ".github/notifications/email.html");
+const BLOG_DIR = path.join(ROOT, CONTENT_REPO_DIR, "content/blog");
 
 
 function parseFrontmatter(md) {
@@ -60,12 +61,10 @@ const main = async () => {
   }
 
   const template = await fs.readFile(TEMPLATE, "utf8");
-  
-  const files = execSync(`git ls-files "${CONTENT_REPO_DIR}/content/blog/*"`, { encoding: "utf8" })
-    .split("\n")
-    .map((s) => s.trim())
-    .filter(Boolean)
-    .filter((file) => /\.(md|mdx)$/i.test(file));
+
+  const files = (await fs.readdir(BLOG_DIR))
+    .filter((f) => /\.(md|mdx)$/i.test(f))
+    .map((f) => path.join(BLOG_DIR, f));
   const articles = (await Promise.all(
     files.map(async (file) => {
       const slug = file
@@ -94,14 +93,14 @@ const main = async () => {
       app_id: APP_ID,
       included_segments: ["All"],
       url: article.url,
-      headings: { en: `New article: ${article.title}` },
+      headings: { en: `leolem.dev: ${article.title}` },
       contents: { en: article.short },
     });
 
     await post({
       app_id: APP_ID,
       included_segments: ["All"],
-      email_subject: `New article: ${article.title}`,
+      email_subject: `New article on leolem.dev: ${article.title}`,
       email_body: template.replace(/{{(\w+)}}/g, (_, k) => article[k] ?? ""),
     });
 
