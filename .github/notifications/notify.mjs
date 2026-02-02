@@ -67,9 +67,7 @@ const main = async () => {
     .map((f) => path.join(BLOG_DIR, f));
   const articles = (await Promise.all(
     files.map(async (file) => {
-      const slug = file
-        .replace(new RegExp(`^${CONTENT_REPO_DIR}/content/blog/`), "")
-        .replace(/\.(md|mdx)$/i, "");
+      const slug = path.basename(file).replace(/\.(md|mdx)$/i, "");
 
       const fm = parseFrontmatter(await fs.readFile(file, "utf8"));
       const short = (fm.short || "").trim();
