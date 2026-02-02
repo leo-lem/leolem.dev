@@ -8,95 +8,95 @@ interface Props {
 const { class: className = "" } = Astro.props;
 ---
 
-<section class={`${className} flex flex-col gap-3`}>
-  <div class="flex gap-2 flex-wrap">
+<section class={`${className} card flex flex-col`}>
+  <h2 class="text-sm font-semibold mb-2">Subscribe</h2>
+
+  <div class="flex gap-2">
+    <button id="email-btn" class="subscribe" type="button">
+      <Icon name="lucide:mail" class="icon" />
+      <span>Email</span>
+    </button>
+
+    <button id="push-btn" class="subscribe" type="button">
+      <Icon name="lucide:bell" class="icon" />
+      <span>Push</span>
+    </button>
+
     <a
       href="/rss.xml"
       target="_blank"
       rel="noopener noreferrer"
-      class="responsive card px-3 py-2 flex items-center gap-2"
-      title="RSS"
+      class="subscribe"
     >
-      <Icon name="lucide:rss" class="h-4 w-4" />
-      <span class="hidden sm:inline text-xs">RSS</span>
+      <Icon name="lucide:rss" class="icon" />
+      <span>RSS</span>
     </a>
-
-    <button
-      id="push-btn"
-      class="responsive card px-3 py-2 flex items-center gap-2"
-    >
-      <Icon name="lucide:bell" class="h-4 w-4" />
-      <span class="hidden sm:inline text-xs">Push</span>
-    </button>
-
-    <button
-      id="email-btn"
-      class="responsive card px-3 py-2 flex items-center gap-2"
-    >
-      <Icon name="lucide:mail" class="h-4 w-4" />
-      <span class="hidden sm:inline text-xs">Email</span>
-    </button>
   </div>
 </section>
 
-<script is:inline>
-  (() => {
-    const $ = (id) => document.getElementById(id);
-    const pushBtn = $("push-btn");
-    const emailBtn = $("email-btn");
+<script is:inline type="module">
+  const status = document.getElementById("subscribe-status");
+  const pushBtn = document.getElementById("push-btn");
+  const emailBtn = document.getElementById("email-btn");
 
-    const disable = (el) => {
-      if (!el) return;
-      el.disabled = true;
-      el.classList.add("opacity-50", "cursor-not-allowed");
-    };
+  const disable = (el) => el && (el.disabled = true);
+  const enable = (el) => el && (el.disabled = false);
+  const setStatus = (m) => status && (status.textContent = m || "");
 
-    // Only allow prod
-    const allowed = new Set(["leolem.dev", "www.leolem.dev"]);
-    if (!allowed.has(location.hostname)) {
-      console.error("[OneSignal] disabled on", location.hostname);
+  const hostOk =
+    location.hostname === "leolem.dev" ||
+    location.hostname === "www.leolem.dev";
+
+  const withOS = (fn) =>
+    new Promise((resolve, reject) => {
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      window.OneSignalDeferred.push(async (os) => {
+        try {
+          resolve(await fn(os));
+        } catch (e) {
+          reject(e);
+        }
+      });
+    });
+
+  (async () => {
+    disable(pushBtn);
+    disable(emailBtn);
+    if (!hostOk) return;
+
+    try {
+      enable(emailBtn);
+
+      const pushOk = await withOS((os) => os.Notifications.isPushSupported());
+      if (pushOk) enable(pushBtn);
+    } catch (e) {
+      console.error("OneSignal unavailable", e);
       disable(pushBtn);
       disable(emailBtn);
       return;
     }
 
-    window.OneSignalDeferred = window.OneSignalDeferred || [];
-
-    OneSignalDeferred.push(async (OneSignal) => {
+    pushBtn?.addEventListener("click", async () => {
       try {
-        if (pushBtn) {
-          pushBtn.onclick = async () => {
-            try {
-              await OneSignal.Notifications.requestPermission();
-              console.log("Push enabled");
-            } catch (e) {
-              console.error("Push failed", e);
-            }
-          };
-        }
-
-        if (emailBtn) {
-          emailBtn.onclick = async () => {
-            const email = prompt("Enter your email:");
-            if (!email) return;
-
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-              alert("Invalid email");
-              return;
-            }
-
-            try {
-              await OneSignal.User.addEmail(email.trim());
-              console.log("Email subscribed");
-            } catch (e) {
-              console.error("Email failed", e);
-            }
-          };
-        }
+        await withOS((os) => os.Notifications.requestPermission());
+        setStatus("Push enabled.");
       } catch (e) {
-        console.error("OneSignal init failed", e);
-        disable(pushBtn);
-        disable(emailBtn);
+        console.error("Push failed", e);
+        setStatus("Push not enabled.");
+      }
+    });
+
+    emailBtn?.addEventListener("click", async () => {
+      const v = (prompt("Email for updates:") || "").trim();
+      if (!v) return;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return alert("Invalid email.");
+
+      try {
+        await withOS((os) => os.User.addEmail(v));
+        setStatus("Email subscribed.");
+      } catch (e) {
+        console.error("Email failed", e);
+        setStatus("Email failed.");
       }
     });
   })();

@@ -24,12 +24,14 @@ const { title, description, ldJson } = Astro.props;
           appId: "932ddbaa-045a-49d6-80ab-774924450946",
           safari_web_id:
             "web.onesignal.auto.1a94b592-c98a-427e-9490-520bfcd23754",
-          notifyButton: { enable: false },
           promptOptions: {
             slidedown: {
-              enabled: false
+              autoPrompt: false
             }
-          }
+          },
+          notifyButton: { enable: false },
+          serviceWorkerPath: "/OneSignalSDKWorker.js",
+          serviceWorkerParam: { scope: "/" }
         });
       });
     </script>
