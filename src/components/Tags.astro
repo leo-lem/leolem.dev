@@ -4,7 +4,7 @@ const { tags, class: classes } = Astro.props;
 
 {
   tags && tags.length > 0 && (
-    <div class={`flex flex-wrap gap-2 ${classes}`}>
+    <div class={`${classes} flex flex-wrap gap-2`}>
       {tags.sort().map((tag: string) => (
         <a
           class="responsive tag"

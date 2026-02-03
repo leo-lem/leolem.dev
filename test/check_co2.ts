@@ -21,14 +21,14 @@ function getBaselineCO2(): number | null {
 }
 
 export async function getUrlsFromSitemapIndex(): Promise<string[]> {
-  const { TARGET_URL } = process.env;
+  const { BASE_URL } = process.env;
 
-  if (!TARGET_URL)
-    throw new Error("Environment variable TARGET_URL must be set.");
+  if (!BASE_URL)
+    throw new Error("Environment variable BASE_URL must be set.");
 
   const urls: string[] = [];
 
-  const res = await fetch(`${TARGET_URL}/sitemap-index.xml`);
+  const res = await fetch(`${BASE_URL}/sitemap-index.xml`);
   const xml = await res.text();
   const parsedIndex = await parseStringPromise(xml);
 

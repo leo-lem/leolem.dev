@@ -20,36 +20,38 @@ const portfolio = (await getCollection("portfolio")).sort(
   <section class="flex flex-col gap-5">
     {
       portfolio.map(({ data: { title, tags, short, featured }, slug }) => (
-        <a href={`/portfolio/${slug}/`} class="responsive">
-          <div>
+        <div>
+          <a href={`/portfolio/${slug}`} class="responsive">
             <h2 class="hover:underline text-center sm:text-left">{title}</h2>
+          </a>
 
-            <div
-              class={`card flex flex-col sm:flex-row items-center gap-4 ${
-                featured
-                  ? "border border-blue-400/60 ring-2 ring-blue-400/20 shadow-2xl"
-                  : ""
-              }`}
-            >
+          <div
+            class={`card flex flex-col sm:flex-row items-center gap-4 ${
+              featured
+                ? "border border-blue-400/60 ring-2 ring-blue-400/20 shadow-2xl"
+                : ""
+            }`}
+          >
+            <a href={`/portfolio/${slug}`} class="responsive">
               <DynamicImage
                 src={`portfolio/${slug}`}
                 alt={`Thumbnail for ${title}`}
-                class="w-1/2 mx-auto sm:w-32 aspect-square object-cover rounded-lg flex-shrink-0"
+                class="w-full mx-auto sm:w-32 aspect-square object-cover rounded-lg flex-shrink-0"
+              />
+            </a>
+
+            <div class="flex flex-col gap-2 flex-1 items-center sm:items-start">
+              <Tags
+                tags={tags}
+                class="items-center justify-center sm:items-start sm:justify-start"
               />
 
-              <div class="flex flex-col gap-2 flex-1 items-center sm:items-start">
-                <Tags
-                  tags={tags}
-                  class="items-center justify-center sm:items-start sm:justify-start"
-                />
-
-                <p class="text-sm text-secondary text-center sm:text-left">
-                  {short}.
-                </p>
-              </div>
+              <p class="text-sm text-secondary text-center sm:text-left">
+                {short}.
+              </p>
             </div>
           </div>
-        </a>
+        </div>
       ))
     }
   </section>

@@ -5,12 +5,12 @@ const APP_ID = process.env.ONESIGNAL_APP_ID;
 if (!APP_ID) throw new Error("Missing env var: ONESIGNAL_APP_ID");
 const API_KEY = process.env.ONESIGNAL_REST_API_KEY;
 if (!API_KEY) throw new Error("Missing env var: ONESIGNAL_REST_API_KEY");
-const SITE = process.env.SITE_URL;
-if (!SITE) throw new Error("Missing env var: SITE_URL");
+const SITE = process.env.BASE_URL;
+if (!SITE) throw new Error("Missing env var: BASE_URL");
 
 const ROOT = process.cwd();
-const CONTENT_REPO_DIR = process.env.CONTENT_REPO_DIR || ".content";
-const STATE = path.join(ROOT, CONTENT_REPO_DIR, ".github/notified.json");
+const CONTENT_REPO_DIR = ".content";
+const STATE = path.join(ROOT, CONTENT_REPO_DIR, ".notified.json");
 const TEMPLATE = path.join(ROOT, ".github/notifications/email.html");
 const BLOG_DIR = path.join(ROOT, CONTENT_REPO_DIR, "content/blog");
 

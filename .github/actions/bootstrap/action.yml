@@ -1,9 +1,10 @@
-name: Setup Node and Install Dependencies
-description: Sets up Node, installs dependencies
+name: Bootstrap Node Environment
+description: Set up Node, install dependencies
+
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@v6
       with:
         node-version: '20'
         cache: 'npm'

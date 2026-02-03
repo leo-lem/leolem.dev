@@ -1,14 +1,15 @@
-name: Deploy
+name: Deploy Site
 on:
-  push:
-    branches: [main]
-    paths-ignore: ["README.md", ".devcontainer.json", ".github/workflows/pr.yml"]
   workflow_dispatch:
+  schedule:
+    - cron: "0 22 * * 0" # Sundays 22:00 UTC
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 permissions:
   contents: read
+env:
+  BASE_URL: https://leolem.dev
 
 jobs:
   deploy:
@@ -21,32 +22,20 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v6
-
-      - name: Checkout content repo
-        uses: actions/checkout@v6
-        with:
-          repository: leo-lem/content.leolem.dev
-          ref: main
-          path: .content
-          token: ${{ secrets.CONTENT_REPO_TOKEN }}
-
-      - name: Sync content + assets
-        run: node .sync.js --from .content
-      - uses: ./.github/actions/setup-node
-
-      - run: npm run build
+      - uses: ./.github/actions/bootstrap
+      - uses: ./.github/actions/checkout-content
+        env:
+          CONTENT_REPO_TOKEN: ${{ secrets.CONTENT_REPO_TOKEN }}
+      - run: npm run sync
+      - name: Build site
+        run: npm run build
         env:
           NODE_ENV: production
-          FEATURED_ARTICLE: ${{ vars.FEATURED_ARTICLE }}
-          FEATURED_PROJECTS: ${{ vars.FEATURED_PROJECTS }}
-          FEATURED_SERVICES: ${{ vars.FEATURED_SERVICES }}
           FAVORITE_ALBUM: ${{ vars.FAVORITE_ALBUM }}
-          DRAFT_ARTICLES: ${{ vars.DRAFT_ARTICLES }}
-          
-      - uses: actions/upload-pages-artifact@v4
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v4
         with:
           path: dist
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
@@ -59,9 +48,60 @@ jobs:
       checks: write
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/setup-node
+      - uses: ./.github/actions/bootstrap
       - run: npx playwright install
+      - uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+          restore-keys: ${{ runner.os }}-playwright-
       - name: Run smoke tests
         run: npm run smoke
+
+  co2:
+    needs: deploy
+    runs-on: ubuntu-latest
+    environment:
+      name: co2
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/bootstrap
+      - uses: actions/cache@v5
+        with:
+          path: baseline.co2
+          key: baseline-co2-${{ github.sha }}
+          restore-keys: baseline-co2-
+      - name: Detect CO₂ regression
+        run: npm run co2
         env:
-          BASE_URL: https://leolem.dev
+          CO2_BASELINE: ${{ vars.CO2_BASELINE }}
+
+  notify:
+    needs: [smoke, co2]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/bootstrap
+      - uses: ./.github/actions/checkout-content
+        env:
+          CONTENT_REPO_TOKEN: ${{ secrets.CONTENT_REPO_TOKEN }}
+      - name: Send OneSignal notifications
+        run: node .github/notifications/notify.mjs
+        env:
+          ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
+          ONESIGNAL_REST_API_KEY: ${{ secrets.ONESIGNAL_REST_API_KEY }}
+      - name: Commit notification state
+        env:
+          CONTENT_REPO_TOKEN: ${{ secrets.CONTENT_REPO_TOKEN }}
+        run: |
+          cd .content
+          if git diff --quiet; then exit 0; fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git remote set-url origin https://x-access-token:${CONTENT_REPO_TOKEN}@github.com/leo-lem/content.leolem.dev.git
+
+          git add .notified.json
+          git commit -m "chore: mark blog notifications sent"
+          git push
