@@ -20,8 +20,8 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/bootstrap
       - uses: ./.github/actions/checkout-content
         env:
@@ -46,8 +46,8 @@ jobs:
     permissions:
       actions: read
       checks: write
-
     steps:
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/bootstrap
       - run: npx playwright install
       - uses: actions/cache@v5
@@ -63,8 +63,8 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: co2
-
     steps:
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/bootstrap
       - uses: actions/cache@v5
         with:
@@ -79,8 +79,8 @@ jobs:
   notify:
     needs: [smoke, co2]
     runs-on: ubuntu-latest
-
     steps:
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/bootstrap
       - uses: ./.github/actions/checkout-content
         env:
