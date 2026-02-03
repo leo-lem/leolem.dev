@@ -1,8 +1,8 @@
-name: Test
+name: Verify Pull Request
 on:
   pull_request:
     branches: [main]
-    paths-ignore: ["README.md", ".devcontainer.json", ".github/workflows/main.yml", ".github/workflows/co2.yml"]
+    paths-ignore: ["README.md", "SECURITY.md", "LICENSE", ".devcontainer*"]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -27,5 +27,4 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/setup-node
       - run: npx playwright install
-      - name: Run tests
-        run: npm test
+      - run: npm test

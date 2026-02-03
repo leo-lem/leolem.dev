@@ -110,5 +110,5 @@ h3 {
 }
 
 .see-more {
-    @apply text-intense text-center inline-block transform hover:underline hover:scale-105 transition duration-200;
-  }
+  @apply text-intense text-center inline-block transform hover:underline hover:scale-105 transition duration-200;
+}

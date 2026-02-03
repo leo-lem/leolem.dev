@@ -1,0 +1,13 @@
+name: Bootstrap Node Environment
+description: Check out repo, set up Node, install dependencies
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v6
+    - uses: actions/setup-node@v6
+      with:
+        node-version: '20'
+        cache: 'npm'
+    - run: npm ci
+      shell: bash

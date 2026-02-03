@@ -1,0 +1,12 @@
+name: Checkout Content Repo
+description: Checks out leo-lem/content.leolem.dev into .content
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v6
+      with:
+        repository: leo-lem/content.leolem.dev
+        ref: main
+        path: .content
+        token: ${{ env.CONTENT_REPO_TOKEN }}
