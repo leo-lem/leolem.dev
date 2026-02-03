@@ -1,7 +1,6 @@
 # leolem.dev
 
 [![Deploy](https://github.com/leo-lem/leolem.dev/actions/workflows/main.yml/badge.svg)](https://github.com/leo-lem/leolem.dev/actions/workflows/main.yml)
-[![CO₂](https://github.com/leo-lem/leolem.dev/actions/workflows/co2.yml/badge.svg)](https://github.com/leo-lem/leolem.dev/actions/workflows/co2.yml)
 [![Search](https://img.shields.io/badge/Search-console-brightgreen?logo=google&logoColor=white)](https://search.google.com/search-console?resource_id=sc-domain%3Aleolem.dev)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-console-orange?logo=cloudflare&logoColor=white)](https://dash.cloudflare.com/f755b753711edb6424a86788d5e355c2/leolem.dev)
 [![OneSignal](https://img.shields.io/badge/OneSignal-console-red)](https://dashboard.onesignal.com/apps/932ddbaa-045a-49d6-80ab-774924450946)

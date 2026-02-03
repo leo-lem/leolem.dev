@@ -6,12 +6,12 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-permissions:
-  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/bootstrap
@@ -19,6 +19,7 @@ jobs:
 
   test:
     permissions:
+      contents: read
       actions: read
       checks: write
     needs: build
