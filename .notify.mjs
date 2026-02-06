@@ -102,7 +102,7 @@ const main = async () => {
         short: article.short,
         url: article.url,
       },
-      included_segments: ["Staging"],
+      included_segments: ["All"],
     });
     
     await post({
@@ -110,7 +110,7 @@ const main = async () => {
       headings: { en: `leolem.dev: ${article.title}` },
       contents: { en: `${article.short}.` },
       url: article.url,
-      included_segments: ["Staging"],
+      included_segments: ["All"],
     });
 
     console.log("Sent:", article.slug);
