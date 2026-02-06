@@ -11,7 +11,7 @@ if (!SITE) throw new Error("Missing env var: BASE_URL");
 const ROOT = process.cwd();
 const CONTENT_REPO_DIR = ".content";
 const STATE = path.join(ROOT, CONTENT_REPO_DIR, ".notified.json");
-const TEMPLATE = path.join(ROOT, ".github/notifications/email.html");
+const TEMPLATE = path.join(ROOT, ".notify/published.html");
 const BLOG_DIR = path.join(ROOT, CONTENT_REPO_DIR, "content/blog");
 
 
