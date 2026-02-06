@@ -3,7 +3,7 @@
   "include": [
     ".astro/types.d.ts",
     "**/*",
-    ".sync.js",
+    ".sync.mjs",
     ".notify.mjs"
   ],
   "exclude": [

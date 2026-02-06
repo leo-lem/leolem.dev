@@ -5,7 +5,8 @@
   "scripts": {
     "start": "astro dev --host",
     "build": "astro build",
-    "sync": "node .sync",
+    "sync": "node .sync.mjs",
+    "icons": "node .icons.mjs",
     "test": "playwright test",
     "smoke": "npm test -- test/smoke.spec.ts",
     "co2": "tsx test/check_co2.ts"
@@ -28,6 +29,7 @@
     "@types/node-fetch": "^2.6",
     "@types/tgwf__co2": "^0.14",
     "@types/xml2js": "^0.4.14",
+    "favicons": "^7.2.0",
     "tsx": "^4.21",
     "typescript": "^5.9",
     "xml2js": "^0.6"

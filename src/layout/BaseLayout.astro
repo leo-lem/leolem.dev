@@ -10,7 +10,7 @@ interface Props {
 }
 const { title, description, ldJson } = Astro.props;
 const descriptionText = description ?? "Portfolio, blog, and engineering notes";
-const ogImage = "/social.jpg";
+const ogImage = "/social.png";
 
 const socials = [
   "https://github.com/leo-lem",
@@ -24,8 +24,31 @@ const socials = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>{title}</title>
-    <meta name="description" content={descriptionText} />
     <link rel="canonical" href={`https://leolem.dev${Astro.url.pathname}`} />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <meta name="application-name" content="Leopold Lemmermann" />
+    <meta name="description" content={descriptionText} />
+    <meta
+      name="theme-color"
+      content="#ffffff"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#1a1c1f"
+      media="(prefers-color-scheme: dark)"
+    />
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/apple-touch-icon-180x180.png"
+    />
 
     <!-- OpenGraph / Facebook -->
     <meta property="og:type" content="website" />
@@ -60,8 +83,6 @@ const socials = [
       )}
     />
 
-    <slot name="head" />
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -71,6 +92,8 @@ const socials = [
       media="print"
       onload="this.media='all'"
     />
+
+    <slot name="head" />
   </head>
 
   <body class="default-color min-w-[360px] flex flex-col min-h-screen">
