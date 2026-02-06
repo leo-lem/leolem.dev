@@ -70,7 +70,7 @@ const main = async () => {
       const fm = parseFrontmatter(await fs.readFile(file, "utf8"));
 
       if (fm.date && new Date(fm.date) > new Date()) {
-        console.log("Skipping future article:", slug);
+        console.log("Skipping scheduled article:", slug);
         return null;
       }
 
@@ -108,7 +108,7 @@ const main = async () => {
       included_segments: ["Staging"],
     });
 
-    console.log("Sent (template):", article.slug);
+    console.log("Sent:", article.slug);
     alreadyNotified.add(article.slug);
   }
 
