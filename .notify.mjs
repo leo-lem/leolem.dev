@@ -8,7 +8,7 @@ const SITE = process.env.BASE_URL;
 if (!APP_ID || !API_KEY || !TEMPLATE_ID || !SITE) throw new Error("Missing env vars");
 
 const ROOT = process.cwd();
-const CONTENT_REPO_DIR = path.join(ROOT, "..", ".content");
+const CONTENT_REPO_DIR = path.join(ROOT, ".content");
 const STATE = path.join(CONTENT_REPO_DIR, ".notified.json");
 const BLOG_DIR = path.join(CONTENT_REPO_DIR, "content/blog");
 

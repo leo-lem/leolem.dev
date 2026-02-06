@@ -65,7 +65,7 @@ const featuredServices = (await getCollection("offering")).filter(
               <Tags tags={featuredArticle.data.tags} />
             </div>
 
-            <p class="text-secondary">{featuredArticle.data.short}.</p>
+            <p class="text-secondary">{featuredArticle.data.short}</p>
           </article>
         )
       }

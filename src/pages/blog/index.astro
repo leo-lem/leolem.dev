@@ -45,7 +45,7 @@ const articles = allArticles.filter((article) => article !== featured);
             })}
           </span>
 
-          <p class="text-secondary mt-3">{featured.data.short}.</p>
+          <p class="text-secondary mt-3">{featured.data.short}</p>
 
           <div class="flex flex-col mt-3 items-center">
             <Tags tags={featured.data.tags} />
@@ -58,46 +58,44 @@ const articles = allArticles.filter((article) => article !== featured);
 
     <ul class="flex flex-col">
       {
-        articles.map(
-          ({ slug, data: { title, author, date, short, tags } }, idx) => (
-            <li class="w-full py-6">
-              <div class="flex flex-col sm:flex-row gap-5 items-center sm:items-start">
-                <a href={`/blog/${slug}/`} class="shrink-0">
-                  <DynamicImage
-                    src={`blog/${slug}`}
-                    alt=""
-                    class="w-full sm:w-36 rounded-xl"
-                    loading={idx < 3 ? "eager" : "lazy"}
-                  />
-                </a>
+        articles.map(({ slug, data: { title, author, date, short } }, idx) => (
+          <li class="w-full py-6">
+            <div class="flex flex-col sm:flex-row gap-5 items-center sm:items-start">
+              <a href={`/blog/${slug}/`} class="shrink-0">
+                <DynamicImage
+                  src={`blog/${slug}`}
+                  alt=""
+                  class="w-full sm:w-36 rounded-xl"
+                  loading={idx < 3 ? "eager" : "lazy"}
+                />
+              </a>
 
-                <div class="w-full text-center sm:text-left">
-                  <h3 class="text-primary text-xl font-semibold mb-1">
-                    <a
-                      href={`/blog/${slug}/`}
-                      class="hover:underline line-clamp-1"
-                    >
-                      {title}
-                    </a>
-                  </h3>
+              <div class="w-full text-center sm:text-left">
+                <h3 class="text-primary text-xl font-semibold mb-1">
+                  <a
+                    href={`/blog/${slug}/`}
+                    class="hover:underline line-clamp-1"
+                  >
+                    {title}
+                  </a>
+                </h3>
 
-                  <span class="text-sm text-muted text-nowrap">
-                    by {author} |{" "}
-                    {date.toLocaleDateString(undefined, {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric"
-                    })}
-                  </span>
+                <span class="text-sm text-muted text-nowrap">
+                  by {author} |{" "}
+                  {date.toLocaleDateString(undefined, {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                  })}
+                </span>
 
-                  <p class="text-secondary mt-2">{short}.</p>
-                </div>
+                <p class="text-secondary mt-2">{short}</p>
               </div>
+            </div>
 
-              <div class="border-[var(--border-color)] border w-full my-6 mx-auto" />
-            </li>
-          )
-        )
+            <div class="border-[var(--border-color)] border w-full my-6 mx-auto" />
+          </li>
+        ))
       }
     </ul>
   </section>
