@@ -33,7 +33,7 @@ const projects = (await getCollection("portfolio")).filter(
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline: title,
-    description: short,
+    description: `${short}.`,
     author: author,
     datePublished: date.toISOString(),
     tags: tags?.join(", "),

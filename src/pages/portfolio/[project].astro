@@ -31,12 +31,12 @@ const articles = (await getCollection("blog"))
 
 <BaseLayout
   title={title}
-  description={short}
+  description={`${short}.`}
   ldJson={{
     "@context": "https://schema.org",
     "@type": "CreativeWork",
     name: title,
-    description: short,
+    description: `${short}.`,
     url: `https://leolem.dev/portfolio/${slug}`,
     keywords: tags?.join(", "),
     inLanguage: "en"
