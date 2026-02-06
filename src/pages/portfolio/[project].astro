@@ -73,7 +73,7 @@ const articles = (await getCollection("blog"))
         {articles.map(({ slug, data: { title, short, date } }: any) => (
           <a href={`/blog/${slug}/`} class="responsive card">
             <div class="line-clamp-1">{title}</div>
-            <div class="text-sm text-secondary line-clamp-1">{short}.</div>
+            <div class="text-sm text-secondary line-clamp-1">{short}</div>
             <div class="text-xs text-muted text-right">
               {date.toLocaleDateString()}
             </div>

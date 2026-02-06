@@ -90,10 +90,11 @@ jobs:
         env:
           CONTENT_REPO_TOKEN: ${{ secrets.CONTENT_REPO_TOKEN }}
       - name: Send OneSignal notifications
-        run: node .github/notifications/notify.mjs
+        run: node .notify.mjs
         env:
           ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
           ONESIGNAL_REST_API_KEY: ${{ secrets.ONESIGNAL_REST_API_KEY }}
+          ONESIGNAL_TEMPLATE_ID: ${{ secrets.ONESIGNAL_TEMPLATE_ID }}
       - name: Commit notification state
         env:
           CONTENT_REPO_TOKEN: ${{ secrets.CONTENT_REPO_TOKEN }}
