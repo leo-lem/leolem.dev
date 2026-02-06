@@ -102,6 +102,11 @@ const main = async () => {
         short: article.short,
         url: article.url,
       },
+      included_segments: ["Staging"],
+    });
+    
+    await post({
+      app_id: APP_ID,
       headings: { en: `leolem.dev: ${article.title}` },
       contents: { en: `${article.short}.` },
       url: article.url,
