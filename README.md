@@ -1,11 +1,11 @@
 # leolem.dev
 
 [![Deploy](https://github.com/leo-lem/leolem.dev/actions/workflows/main.yml/badge.svg)](https://github.com/leo-lem/leolem.dev/actions/workflows/main.yml)
-[![Search](https://img.shields.io/badge/Search-console-brightgreen?logo=google&logoColor=white)](https://search.google.com/search-console?resource_id=sc-domain%3Aleolem.dev)
-[![Cloudflare](https://img.shields.io/badge/Cloudflare-console-orange?logo=cloudflare&logoColor=white)](https://dash.cloudflare.com/f755b753711edb6424a86788d5e355c2/leolem.dev)
+[![Cloudflare](https://img.shields.io/badge/Cloudflare-console-orange?logo=cloudflare)](https://dash.cloudflare.com/f755b753711edb6424a86788d5e355c2/leolem.dev)
 [![OneSignal](https://img.shields.io/badge/OneSignal-console-red)](https://dashboard.onesignal.com/apps/932ddbaa-045a-49d6-80ab-774924450946)
-[![Open in Dev Containers](https://img.shields.io/badge/Dev_Containers-open-blue)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/leo-lem/leolem.dev.git)
-[![Content Repository](https://img.shields.io/badge/content-repo-white?logo=github)](https://github.com/leo-lem/content.leolem.dev.git)
+[![Search](https://img.shields.io/badge/Search-console-brightgreen?logo=google&logoColor=brightgreen)](https://search.google.com/search-console?resource_id=sc-domain%3Aleolem.dev)
+[![Open in Dev Containers](https://img.shields.io/badge/Dev_Containers-open-blue?logo=docker)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/leo-lem/leolem.dev.git)
+[![Content Repository](https://img.shields.io/badge/Content-repo-white?logo=github)](https://github.com/leo-lem/content.leolem.dev.git)
 
 Welcome to my personal site! Built with **Astro**, designed to showcase my work in backend automation, DevOps, and SwiftUI mobile development.
 

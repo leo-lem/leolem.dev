@@ -9,6 +9,7 @@ const response = await favicons(source, {
   appName: "Leopold Lemmermann",
   appShortName: "leolem.dev",
   developerName: "Leopold Lemmermann",
+  appDescription: "Portfolio, blog, and engineering notes",
   icons: {
     favicons: true,
     android: true,
