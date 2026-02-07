@@ -1,0 +1,69 @@
+---
+import DynamicImage from "./DynamicImage.astro";
+
+interface Props {
+  article: {
+    slug: string;
+    data: {
+      title: string;
+      short: string;
+      date: Date;
+      author?: {
+        name: string;
+        url?: string;
+      };
+    };
+  };
+  class?: string;
+}
+const {
+  article: {
+    slug,
+    data: { title, short, date, author }
+  },
+  class: classes
+} = Astro.props;
+
+const dateLabel = date.toLocaleDateString(undefined, {
+  day: "numeric",
+  month: "long",
+  year: "numeric"
+});
+---
+
+<article class={`relative ${classes ?? ""}`}>
+  <div
+    class="absolute top-0 z-10 w-full flex justify-between p-2 text-xs sm:text-base"
+  >
+    <a href={`/blog/${slug}/`} class="pill-overlay">{dateLabel}</a>
+
+    {
+      author?.name &&
+        (author.url ? (
+          <a
+            href={author.url}
+            class="pill-overlay link-muted"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {author.name}
+          </a>
+        ) : (
+          <span class="pill-overlay">{author.name}</span>
+        ))
+    }
+  </div>
+
+  <a href={`/blog/${slug}/`}>
+    <DynamicImage
+      src={`blog/${slug}`}
+      alt={`Thumbnail for ${title}`}
+      class="eager"
+    />
+
+    <div class="absolute bottom-0 fade w-full p-2">
+      <h2 class="title">{title}</h2>
+      <p class="summary">{short}</p>
+    </div>
+  </a>
+</article>

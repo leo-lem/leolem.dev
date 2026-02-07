@@ -96,16 +96,16 @@ const socials = [
     <slot name="head" />
   </head>
 
-  <body class="default-color min-w-[360px] flex flex-col min-h-screen">
+  <body class="min-w-[360px] min-h-screen stack">
     <NavBar socials={socials} />
 
-    <main class="flex-1 max-w-3xl mx-auto flex flex-col gap-20 p-10 mb-32">
+    <main class="container-wide flex-1 mx-auto stack-lg mb-20">
       {
         description && (
-          <section class="text-center px-10">
+          <section class="stack text-center ">
             <slot name="thumbnail" />
-            <h1 class="text-4xl font-bold capitalize mb-5">{title}</h1>
-            <p class="secondary max-w-xl mx-auto text-xl">{description}</p>
+            <h1 class="title-lg capitalize">{title}</h1>
+            <p class="summary text-lg line-clamp-none">{description}</p>
           </section>
         )
       }
@@ -113,9 +113,10 @@ const socials = [
       <slot />
     </main>
 
-    <footer class="mt-12 py-8 text-sm text-center text-muted">
-      <a href="/imprint/" class="hover:underline mx-2">Imprint</a> ·
-      <a href="/privacy/" class="hover:underline mx-2">Privacy</a>
+    <footer class="container-narrow text-center mb-10">
+      <a href="/imprint/" class="link-muted">Imprint</a>
+      ·
+      <a href="/privacy/" class="link-muted">Privacy</a>
     </footer>
   </body>
 </html>

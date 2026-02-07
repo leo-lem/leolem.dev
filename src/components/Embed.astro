@@ -1,32 +1,45 @@
 ---
 interface Props {
-  kind: "google-calendar" | "github-sponsors" | "apple-music";
+  kind: "calendar" | "sponsors" | "music" | "polarsteps";
   loading?: "eager" | "lazy";
   albumID?: string;
+  tripID?: string;
 }
-const { kind, loading = "eager", albumID } = Astro.props;
+const { kind, loading = "eager", albumID, tripID } = Astro.props;
 
 let src = "";
 let title = "Embed";
 let classes = "card w-full";
 
 switch (kind) {
-  case "google-calendar":
+  case "calendar":
     src =
       "https://calendar.google.com/calendar/appointments/AcZssZ0Uf9NSuQOy5kmC7a86grhHsaI3ESFj1eLPems=?gv=true";
     title = "Schedule a Meeting with me.";
     classes += " h-[800px] dark:bg-gray-300";
     break;
-  case "apple-music":
-    if (!albumID) throw new Error('The "albumID" prop is required when "kind" is set to "apple-music". Please provide a valid albumID.');
+  case "music":
+    if (!albumID)
+      throw new Error(
+        'The "albumID" prop is required when "kind" is set to "music". Please provide a valid albumID.'
+      );
     src = `https://embed.music.apple.com/us/album/${albumID}?theme=auto`;
     title = "My Top Album";
     classes += " h-[450px]";
     break;
-  case "github-sponsors":
+  case "sponsors":
     src = "https://github.com/sponsors/leo-lem/card";
     title = "Sponsor me on GitHub";
-    classes += " responsive h-[375px] sm:h-[200px]";
+    classes += " h-[375px] sm:h-[200px]";
+    break;
+  case "polarsteps":
+    if (!tripID)
+      throw new Error(
+        'The "tripID" prop is required when "kind" is set to "polarsteps". Please provide a valid tripID.'
+      );
+    src = `https://www.polarsteps.com/leolem/${tripID}/embed`;
+    title = "My Travel Journey";
+    classes += " h-[450px]";
     break;
 }
 ---

@@ -50,12 +50,6 @@
     "confidence": 60
   },
   {
-    "id": "Vercel",
-    "category": "Systems",
-    "icon": "simple-icons:vercel",
-    "confidence": 60
-  },
-  {
     "isPriority": true,
     "id": "CI/CD",
     "category": "Systems",

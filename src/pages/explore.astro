@@ -1,9 +1,10 @@
 ---
 import BaseLayout from "../layout/BaseLayout.astro";
 import Tags from "../components/Tags.astro";
+import TopicToggle from "../components/TopicToggle.astro";
 
 import { getCollection } from "astro:content";
-import TopicToggle from "../components/TopicToggle.astro";
+import DynamicImage from "../components/DynamicImage.astro";
 
 const skills = (await getCollection("topics"))
   .sort((a, b) => (b.data.confidence ?? 0) - (a.data.confidence ?? 0))
@@ -15,7 +16,7 @@ const categories = skills
 
 const results = [
   ...(await getCollection("blog"))
-    .filter((article) => !article.data.draft)
+    .filter(({ data: { date } }) => !date || date.getTime() <= Date.now())
     .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
     .map((item) => ({
       ...item,
@@ -39,20 +40,19 @@ const results = [
   title="Explore"
   description="Discover projects, articles, and services by exploring different technologies and topics. Filter by your interests to find relevant content."
 >
-  <section id="skills" class="flex flex-col gap-4">
+  <section id="skills" class="container stack">
     {
       categories.map((category) => (
-        <div class="flex flex-col sm:flex-row gap-4 items-center">
-          <h2 class="sm:[writing-mode:sideways-lr] text-2xl">{category}</h2>
+        <div class="stack sm:flex-row items-center">
+          <h2 class="sm:[writing-mode:sideways-lr] text-2xl font-bold">
+            {category}
+          </h2>
 
-          <div class="flex flex-wrap gap-2">
+          <div class="cluster">
             {skills
               .filter((skill) => skill.data.category === category)
               .map((topic) => (
-                <TopicToggle
-                  topic={topic}
-                  class="w-16 sm:w-20 aspect-square responsive topic card flex flex-col items-center justify-center gap-1"
-                />
+                <TopicToggle topic={topic} class="responsive w-36 pill" />
               ))}
           </div>
         </div>
@@ -60,18 +60,36 @@ const results = [
     }
   </section>
 
-  <section id="results" class="grid sm:grid-cols-2 gap-8">
+  <section id="results" class="container-wide split">
     {
       results.map(({ slug, data: { title, short, tags }, type, url }) => (
         <div
-          class="responsive card text-center flex flex-col gap-4"
+          class="relative responsive card-elevated"
           data-tags={tags.join(",")}
         >
           <a href={url}>
-            <span class="text-xs text-muted capitalize">«{type}»</span>
-            <h3>{title}</h3>
-            <p class="text-secondary">{short}</p>
-            <Tags tags={tags} class="items-center justify-center" />
+            <span class="absolute top-2 left-2 meta pill-overlay capitalize ">
+              «{type}»
+            </span>
+
+            {type === "project" || type === "article" ? (
+              <DynamicImage
+                src={`blog/${slug}`}
+                alt={`Thumbnail for ${title}`}
+                class="thumbnail eager"
+              />
+            ) : (
+              <div class="thumbnail h-10" />
+            )}
+
+            <div class="stack text-center p-2">
+              <h2 class="title-sm">{title}</h2>
+              <p class="summary">{short}</p>
+              <Tags
+                tags={tags}
+                class="items-center justify-center text-xs sm:text-sm"
+              />
+            </div>
           </a>
         </div>
       ))

@@ -8,11 +8,9 @@ const navigation = ["blog", "portfolio", "offering", "explore", "about"];
 const { socials } = Astro.props;
 ---
 
-<nav
-  class="sticky top-0 default-color p-3 z-10 shadow shadow-[var(--border-color)]"
->
+<nav class="sticky top-0 p-3 z-10">
   <div
-    class="max-w-3xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
+    class="container-wide mx-auto stack-sm sm:flex-row sm:items-center sm:justify-between"
   >
     <DraggableAvatar />
 
@@ -24,9 +22,9 @@ const { socials } = Astro.props;
           href="/"
           class="animate-slidefadein navigation flex flex-col whitespace-nowrap"
         >
-          <span class="font-semibold text-xs sm:text-sm"
-            >Leopold Lemmermann</span
-          >
+          <span class="font-semibold text-xs sm:text-sm">
+            Leopold Lemmermann
+          </span>
           <span class="text-xs sm:text-sm">Software Engineer | MSc</span>
         </a>
       </div>
@@ -37,13 +35,13 @@ const { socials } = Astro.props;
             <IconLink
               type={url.split("https://")[1].split(".")[0]}
               url={url}
-              size_class="h-6 w-6 sm:h-8 sm:w-8 invert-0"
+              class="icon-sm"
             />
           ))
         }
 
         <button id="mobile-menu-toggle" class="sm:hidden focus:outline-none">
-          <Icon name="lucide:menu" class="h-6 w-6 invert-0" />
+          <Icon name="lucide:menu" class="icon" />
         </button>
       </div>
     </div>
@@ -71,8 +69,9 @@ const { socials } = Astro.props;
 
 <style>
   nav {
+    @apply shadow shadow-[var(--shadow-color)];
     color: var(--text-color);
-    background-color: var(--bg-color);
+    background-color: var(--base-color);
     border-color: var(--border-color);
   }
 
@@ -80,20 +79,8 @@ const { socials } = Astro.props;
     @apply font-bold underline;
   }
 
-  nav a {
-    color: var(--text-color);
-    @apply transition;
-  }
-
   nav a:hover {
-    background: linear-gradient(
-      to right,
-      var(--accent-color-start),
-      var(--accent-color-end)
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    @apply text-accent;
   }
 </style>
 
