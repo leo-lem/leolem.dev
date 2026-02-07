@@ -6,47 +6,51 @@ import Embed from "../components/Embed.astro";
 import DynamicImage from "../components/DynamicImage.astro";
 
 import { Content as AboutMe } from "../content/about.md";
+import SeeMore from "../components/SeeMore.astro";
 
 const stations = (await getCollection("stations")).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime()
 );
 
 const albumID = import.meta.env.FAVORITE_ALBUM;
+const tripID = import.meta.env.CURRENT_TRIP;
 ---
 
 <BaseLayout title="About me">
-  <section
-    class="flex flex-col items-center justify-center gap-5 text-center sm:flex-row sm:text-left"
-  >
-    <div class="flex flex-col gap-3">
-      <p class="text-muted uppercase tracking-widest text-sm">Hey there!</p>
-      <h1 class="text-4xl font-bold">I'm Leo.</h1>
-      <AboutMe />
-      <p class="text-muted">
-        Feel free to reach out via <a href="mailto:hey@leolem.dev"
-          >hey@leolem.dev</a
-        >.
-      </p>
+  <section class="container-wide stack text-center sm:flex-row sm:text-left">
+    <div class="stack-sm">
+      <p class="summary">Hey there!</p>
+      <h1 class="title-lg">I'm Leo.</h1>
+      <p><AboutMe /></p>
+      <p class="summary">Feel free to reach out via</p>
+      <a href="mailto:hey@leolem.dev" class="link-muted"> hey@leolem.dev </a>
     </div>
 
     <DynamicImage
       src="about/motorbike"
       alt="Me!"
-      class="w-full sm:w-1/2 rounded-xl"
+      class="thumbnail w-full sm:w-1/2"
       loading="eager"
     />
   </section>
 
-  <section>
-    <h2>My Current Favorite</h2>
-
-    <Embed kind="apple-music" albumID={albumID} loading="eager" />
+  <section id="skills" class="container-narrow stack">
+    <SeeMore href="/explore/">Explore Everything I Do</SeeMore>
   </section>
 
-  <section class="max-w-xl mx-auto">
-    <h2 class="text-center">My Journey</h2>
+  <section class="container-wide stack text-center">
+    <h2 class="title-lg">What I Enjoy</h2>
 
-    <div class="relative flex flex-col gap-10">
+    <div class="split">
+      <Embed kind="music" albumID={albumID} loading="eager" />
+      {tripID && <Embed kind="polarsteps" tripID={tripID} loading="eager" />}
+    </div>
+  </section>
+
+  <section class="container stack">
+    <h2 class="title-lg text-center">My Journey</h2>
+
+    <div class="relative stack">
       <div class="absolute h-full border sm:left-1/2 sm:-translate-x-1/2"></div>
 
       {
@@ -66,13 +70,13 @@ const albumID = import.meta.env.FAVORITE_ALBUM;
 
                 <div class="font-semibold mb-4">
                   <span class="text-secondary text-sm">@ {place} |</span>
-                  <span class="text-muted text-xs">
+                  <span class="meta line-clamp-0">
                     {date.getFullYear()} - {duration}
                   </span>
                 </div>
 
                 <article
-                  class="text-muted prose prose-sm dark:prose-invert"
+                  class="summary line-clamp-none prose prose-sm dark:prose-invert"
                   set:html={body}
                 />
               </div>
@@ -81,11 +85,5 @@ const albumID = import.meta.env.FAVORITE_ALBUM;
         )
       }
     </div>
-  </section>
-
-  <section id="skills" class="max-w-3xl flex flex-col gap-10 mx-auto">
-    <a href="/explore/" class="see-more">
-      <span>Explore My Skills & Work →</span>
-    </a>
   </section>
 </BaseLayout>

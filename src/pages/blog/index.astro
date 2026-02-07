@@ -2,9 +2,9 @@
 import { getCollection } from "astro:content";
 
 import BlogLayout from "../../layout/BlogLayout.astro";
-import Tags from "../../components/Tags.astro";
 import DynamicImage from "../../components/DynamicImage.astro";
 import SubscribePanel from "../../components/SubscribePanel.astro";
+import FeaturedArticle from "../../components/FeaturedArticle.astro";
 
 const allArticles = (await getCollection("blog"))
   .filter(({ data: { date } }) => date <= new Date())
@@ -18,82 +18,51 @@ const articles = allArticles.filter((article) => article !== featured);
   description="Welcome to my blog. I write about building software, exploring systems, and learning in public. Expect posts on Swift, CI/CD, architecture, side projects, and personal reflections from whatever I'm working through."
 >
   <section class="flex flex-col gap-10">
-    {
-      featured && (
-        <div class="flex flex-col text-center border border-[var(--border-color)] rounded-2xl p-6 sm:p-8">
-          <a href={`/blog/${featured.slug}/`} class="shrink-0 mb-4">
-            <DynamicImage
-              src={`blog/${featured.slug}`}
-              alt="Featured article thumbnail"
-              class="w-full rounded-xl"
-              loading="eager"
-            />
-          </a>
+    {featured && <FeaturedArticle article={featured} />}
 
-          <h2 class="text-primary text-2xl font-semibold mb-2">
-            <a href={`/blog/${featured.slug}/`} class="hover:underline">
-              {featured.data.title}
-            </a>
-          </h2>
+    <SubscribePanel class="" />
 
-          <span class="text-sm text-muted text-nowrap">
-            by {featured.data.author} |{" "}
-            {featured.data.date.toLocaleDateString(undefined, {
-              day: "numeric",
-              month: "long",
-              year: "numeric"
-            })}
-          </span>
-
-          <p class="text-secondary mt-3">{featured.data.short}</p>
-
-          <div class="flex flex-col mt-3 items-center">
-            <Tags tags={featured.data.tags} />
-          </div>
-        </div>
-      )
-    }
-
-    <SubscribePanel class="max-w-3xl mx-auto" />
-
-    <ul class="flex flex-col">
+    <ul class="flex flex-col gap-4">
       {
         articles.map(({ slug, data: { title, author, date, short } }, idx) => (
-          <li class="w-full py-6">
-            <div class="flex flex-col sm:flex-row gap-5 items-center sm:items-start">
-              <a href={`/blog/${slug}/`} class="shrink-0">
-                <DynamicImage
-                  src={`blog/${slug}`}
-                  alt=""
-                  class="w-full sm:w-36 rounded-xl"
-                  loading={idx < 3 ? "eager" : "lazy"}
-                />
-              </a>
+          <li>
+            <a
+              href={`/blog/${slug}/`}
+              class="group block rounded-xl overflow-hidden border border-[var(--border-color)] hover:bg-[var(--card-color)] transition"
+            >
+              <div class="flex flex-col sm:flex-row">
+                <div class="relative sm:w-[40%] shrink-0">
+                  <DynamicImage
+                    src={`blog/${slug}`}
+                    alt=""
+                    class="w-full h-full object-cover"
+                    loading={idx < 3 ? "eager" : "lazy"}
+                  />
 
-              <div class="w-full text-center sm:text-left">
-                <h3 class="text-primary text-xl font-semibold mb-1">
-                  <a
-                    href={`/blog/${slug}/`}
-                    class="hover:underline line-clamp-1"
-                  >
+                  <div class="absolute top-2 left-2 pill text-xs backdrop-blur">
+                    {date.toLocaleDateString(undefined, {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric"
+                    })}
+                  </div>
+
+                  {author?.name && (
+                    <div class="absolute bottom-2 left-2 pill text-xs backdrop-blur z-10">
+                      {author.name}
+                    </div>
+                  )}
+                </div>
+
+                <div class="flex flex-col justify-center gap-2 p-4 sm:p-6">
+                  <h3 class="text-xl font-semibold text-primary group-hover:underline line-clamp-2">
                     {title}
-                  </a>
-                </h3>
+                  </h3>
 
-                <span class="text-sm text-muted text-nowrap">
-                  by {author} |{" "}
-                  {date.toLocaleDateString(undefined, {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric"
-                  })}
-                </span>
-
-                <p class="text-secondary mt-2">{short}</p>
+                  <p class="text-secondary line-clamp-2">{short}</p>
+                </div>
               </div>
-            </div>
-
-            <div class="border-[var(--border-color)] border w-full my-6 mx-auto" />
+            </a>
           </li>
         ))
       }

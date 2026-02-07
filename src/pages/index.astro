@@ -3,9 +3,10 @@ import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 
 import BaseLayout from "../layout/BaseLayout.astro";
-import Tags from "../components/Tags.astro";
 import DynamicImage from "../components/DynamicImage.astro";
+import FeaturedArticle from "../components/FeaturedArticle.astro";
 import { Content as AboutMe } from "/src/content/about.md";
+import SeeMore from "../components/SeeMore.astro";
 
 const featuredArticle = (await getCollection("blog")).filter(
   ({ data: { date, featured } }) => date <= new Date() && featured
@@ -19,113 +20,64 @@ const featuredServices = (await getCollection("offering")).filter(
 ---
 
 <BaseLayout title="Leopold Lemmermann - Software Engineer">
-  <section class="max-w-xl mx-auto flex flex-col items-center gap-4">
-    <article class="text-center text-2xl">
-      <AboutMe />
-    </article>
+  <section class="stack-lg text-center">
+    <section class="container-narrow stack">
+      <article class="text-xl"><AboutMe /></article>
 
-    <a href="/about/" class="see-more">
-      <span>Learn more about me. →</span>
-    </a>
+      <SeeMore href="/about/">Learn more about me</SeeMore>
+    </section>
 
-    <section class="max-w-lg mx-auto flex flex-col items-center gap-4">
+    <section class="container-wide stack">
       {
         featuredArticle && (
-          <article class="pb-4 text-xl text-center card mb-4">
-            <p class="text-sm text-muted font-bold mb-2">«Featured Article»</p>
-
-            <a href={`/blog/${featuredArticle.slug}/`} class="block mb-4">
-              <DynamicImage
-                src={`blog/${featuredArticle.slug}`}
-                alt=""
-                class="w-full rounded-xl"
-                loading="eager"
-              />
-            </a>
-
-            <h3 class="text-xl font-bold mb-2">
-              <a
-                href={`/blog/${featuredArticle.slug}/`}
-                class="text-primary hover:underline"
-              >
-                {featuredArticle.data.title}
-              </a>
-            </h3>
-
-            <p class="text-muted text-sm mb-2">
-              by {featuredArticle.data.author} |{" "}
-              {featuredArticle.data.date.toLocaleDateString(undefined, {
-                day: "numeric",
-                month: "long",
-                year: "numeric"
-              })}
-            </p>
-
-            <div class="flex flex-col items-center mb-2">
-              <Tags tags={featuredArticle.data.tags} />
-            </div>
-
-            <p class="text-secondary">{featuredArticle.data.short}</p>
-          </article>
+          <FeaturedArticle
+            article={featuredArticle}
+            class="card-hover card-elevated"
+          />
         )
       }
 
-      <a href="/blog/" class="see-more">
-        <span>Read my latest articles. →</span>
-      </a>
+      <SeeMore href="/blog/">Read my latest articles</SeeMore>
     </section>
 
-    <section class="flex flex-col items-center gap-4">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+    <section class="container stack">
+      <div class="split">
         {
           featuredProjects.map(({ slug, data: { title, short } }) => (
-            <a
-              href={`/portfolio/${slug}/`}
-              class="card responsive cursor-pointer flex flex-col gap-4 text-center"
-            >
+            <a href={`/portfolio/${slug}/`} class="relative card-hover stack">
               <DynamicImage
                 src={`portfolio/${slug}`}
                 alt={`Thumbnail for ${title}`}
-                class="w-max aspect-square object-cover rounded-lg"
+                class="thumbnail w-full aspect-square"
               />
-              <h2>{title}</h2>
-              <p class="text-muted">{short}</p>
+              <div class="absolute bottom-0 fade p-2">
+                <h2 class="title-sm">{title}</h2>
+                <p class="summary">{short}</p>
+              </div>
             </a>
           ))
         }
       </div>
 
-      <a href="/portfolio/" class="see-more">
-        <span>Explore my projects. →</span>
-      </a>
+      <SeeMore href="/portfolio/">Explore my projects</SeeMore>
     </section>
 
-    <section class="max-w-lg mx-auto flex flex-col items-center gap-4">
-      <p class="text-lg text-center">
-        I also offer services in software architecture, development, and
-        consulting.
-      </p>
-
-      <div class="grid sm:grid-cols-2 gap-6">
+    <section class="container-narrow stack">
+      <div class="split-sm">
         {
           featuredServices.map(
             ({ data: { icon, title, short }, slug }: any) => (
-              <a
-                href={`/offering/#${slug}`}
-                class="responsive card flex flex-col items-center gap-2"
-              >
-                <Icon name={icon} class="h-10 w-10 invert dark:invert-0" />
-                <h2 class="text-lg font-semibold mb-0">{title}</h2>
-                <p class="text-muted text-sm">{short}</p>
+              <a href={`/offering/#${slug}`} class="card-hover stack p-2">
+                <Icon name={icon} class="icon-lg w-full" />
+                <h2 class="title-sm">{title}</h2>
+                <p class="summary">{short}</p>
               </a>
             )
           )
         }
       </div>
 
-      <a href="/offering/" class="see-more">
-        <span>Explore my services. →</span>
-      </a>
+      <SeeMore href="/offering/">Explore my services</SeeMore>
     </section>
   </section>
 </BaseLayout>

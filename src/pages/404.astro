@@ -1,4 +1,5 @@
 ---
+import SeeMore from "../components/SeeMore.astro";
 import Layout from "../layout/BaseLayout.astro";
 ---
 
@@ -6,12 +7,10 @@ import Layout from "../layout/BaseLayout.astro";
   <section
     class="max-w-xl mx-auto flex flex-col items-center justify-center gap-4"
   >
-    <h1 class="font-bold" style="font-size: 10rem">404</h1>
+    <h1 style="font-size: 10rem">404</h1>
 
-    <p class="text-xl text-muted">
-      Oops! The page you're looking for doesn't exist.
-    </p>
+    <p class="summary">Oops! The page you're looking for doesn't exist.</p>
 
-    <a href="/explore/" class="responsive card">Explore my work</a>
+    <SeeMore href="/explore/">Explore All I Do</SeeMore>
   </section>
 </Layout>
