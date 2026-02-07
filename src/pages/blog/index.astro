@@ -2,9 +2,9 @@
 import { getCollection } from "astro:content";
 
 import BlogLayout from "../../layout/BlogLayout.astro";
-import DynamicImage from "../../components/DynamicImage.astro";
 import SubscribePanel from "../../components/SubscribePanel.astro";
 import FeaturedArticle from "../../components/FeaturedArticle.astro";
+import Article from "../../components/Article.astro";
 
 const allArticles = (await getCollection("blog"))
   .filter(({ data: { date } }) => date <= new Date())
@@ -17,55 +17,26 @@ const articles = allArticles.filter((article) => article !== featured);
   title="My Blog"
   description="Welcome to my blog. I write about building software, exploring systems, and learning in public. Expect posts on Swift, CI/CD, architecture, side projects, and personal reflections from whatever I'm working through."
 >
-  <section class="flex flex-col gap-10">
-    {featured && <FeaturedArticle article={featured} />}
-
-    <SubscribePanel class="" />
-
-    <ul class="flex flex-col gap-4">
-      {
-        articles.map(({ slug, data: { title, author, date, short } }, idx) => (
-          <li>
-            <a
-              href={`/blog/${slug}/`}
-              class="group block rounded-xl overflow-hidden border border-[var(--border-color)] hover:bg-[var(--card-color)] transition"
-            >
-              <div class="flex flex-col sm:flex-row">
-                <div class="relative sm:w-[40%] shrink-0">
-                  <DynamicImage
-                    src={`blog/${slug}`}
-                    alt=""
-                    class="w-full h-full object-cover"
-                    loading={idx < 3 ? "eager" : "lazy"}
-                  />
-
-                  <div class="absolute top-2 left-2 pill text-xs backdrop-blur">
-                    {date.toLocaleDateString(undefined, {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric"
-                    })}
-                  </div>
-
-                  {author?.name && (
-                    <div class="absolute bottom-2 left-2 pill text-xs backdrop-blur z-10">
-                      {author.name}
-                    </div>
-                  )}
-                </div>
-
-                <div class="flex flex-col justify-center gap-2 p-4 sm:p-6">
-                  <h3 class="text-xl font-semibold text-primary group-hover:underline line-clamp-2">
-                    {title}
-                  </h3>
-
-                  <p class="text-secondary line-clamp-2">{short}</p>
-                </div>
-              </div>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+  <section class="container">
+    {
+      featured && (
+        <FeaturedArticle
+          article={featured}
+          class="responsive card card-elevated text-center"
+        />
+      )
+    }
   </section>
+
+  <SubscribePanel class="container-narrow stack-sm justify-center p-2" />
+
+  <ul class="container-wide stack">
+    {
+      articles.map((article, idx) => (
+        <li>
+          <Article article={article} class={idx < 3 ? "eager" : "lazy"} />
+        </li>
+      ))
+    }
+  </ul>
 </BlogLayout>

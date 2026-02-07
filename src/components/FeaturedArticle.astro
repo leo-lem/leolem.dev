@@ -16,9 +16,15 @@ interface Props {
   };
   class?: string;
 }
-const { article, class: classes } = Astro.props;
+const {
+  article: {
+    slug,
+    data: { title, short, date, author }
+  },
+  class: classes
+} = Astro.props;
 
-const dateLabel = article.data.date.toLocaleDateString(undefined, {
+const dateLabel = date.toLocaleDateString(undefined, {
   day: "numeric",
   month: "long",
   year: "numeric"
@@ -26,36 +32,38 @@ const dateLabel = article.data.date.toLocaleDateString(undefined, {
 ---
 
 <article class={`relative ${classes ?? ""}`}>
-  <div class="absolute top-0 z-10 w-full flex justify-between p-2">
-    <a href={`/blog/${article.slug}/`} class="pill-overlay">{dateLabel}</a>
+  <div
+    class="absolute top-0 z-10 w-full flex justify-between p-2 text-xs sm:text-base"
+  >
+    <a href={`/blog/${slug}/`} class="pill-overlay">{dateLabel}</a>
 
     {
-      article.data.author?.name &&
-        (article.data.author.url ? (
+      author?.name &&
+        (author.url ? (
           <a
-            href={article.data.author.url}
+            href={author.url}
             class="pill-overlay link-muted"
             rel="noopener noreferrer"
             target="_blank"
           >
-            {article.data.author.name}
+            {author.name}
           </a>
         ) : (
-          <span class="pill-overlay">{article.data.author.name}</span>
+          <span class="pill-overlay">{author.name}</span>
         ))
     }
   </div>
 
-  <a href={`/blog/${article.slug}/`}>
+  <a href={`/blog/${slug}/`}>
     <DynamicImage
-      src={`blog/${article.slug}`}
-      alt={`Thumbnail for ${article.data.title}`}
-      loading="eager"
+      src={`blog/${slug}`}
+      alt={`Thumbnail for ${title}`}
+      class="eager"
     />
 
     <div class="absolute bottom-0 fade w-full p-2">
-      <h2 class="title-md">{article.data.title}</h2>
-      <p class="summary">{article.data.short}</p>
+      <h2 class="title">{title}</h2>
+      <p class="summary">{short}</p>
     </div>
   </a>
 </article>

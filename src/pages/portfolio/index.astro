@@ -2,57 +2,50 @@
 import { getCollection } from "astro:content";
 
 import BaseLayout from "../../layout/BaseLayout.astro";
-import Tags from "../../components/Tags.astro";
 import Embed from "../../components/Embed.astro";
 import DynamicImage from "../../components/DynamicImage.astro";
+import FeaturedProject from "../../components/FeaturedProject.astro";
 
-const portfolio = (await getCollection("portfolio")).sort(
-  (a, b) => (b.data.featured ? 1 : -1) - (a.data.featured ? 1 : -1)
-);
+const allProjects = await getCollection("portfolio");
+const featured = allProjects.filter(({ data: { featured } }) => featured);
+const projects = allProjects.filter((project) => !featured.includes(project));
 ---
 
 <BaseLayout
   title="My Portfolio"
   description="Explore my projects showcasing my skills in iOS development, CI/CD automation, and more. Each project highlights my approach to clean, reliable code and production-ready solutions."
 >
-  <Embed kind="github-sponsors" />
-
-  <section class="flex flex-col gap-5">
+  <section class="container-wide split">
     {
-      portfolio.map(({ data: { title, tags, short, featured }, slug }) => (
-        <div>
-          <a href={`/portfolio/${slug}`} class="responsive">
-            <h2 class="hover:underline text-center sm:text-left">{title}</h2>
-          </a>
-
-          <div
-            class={`card flex flex-col sm:flex-row items-center gap-4 ${
-              featured
-                ? "border border-blue-400/60 ring-2 ring-blue-400/20 shadow-2xl"
-                : ""
-            }`}
-          >
-            <a href={`/portfolio/${slug}`} class="responsive">
-              <DynamicImage
-                src={`portfolio/${slug}`}
-                alt={`Thumbnail for ${title}`}
-                class="w-full mx-auto sm:w-32 aspect-square object-cover rounded-lg flex-shrink-0"
-              />
-            </a>
-
-            <div class="flex flex-col gap-2 flex-1 items-center sm:items-start">
-              <Tags
-                tags={tags}
-                class="items-center justify-center sm:items-start sm:justify-start"
-              />
-
-              <p class="text-sm text-secondary text-center sm:text-left">
-                {short}
-              </p>
-            </div>
-          </div>
-        </div>
+      featured.map((project) => (
+        <FeaturedProject project={project} class="card-elevated" />
       ))
     }
   </section>
+
+  <ul class="container-wide stack-lg">
+    {
+      projects.map(({ data: { title, short }, slug }) => (
+        <li class="stack-sm text-center sm:text-left">
+          <a href={`/portfolio/${slug}/`} class="link">
+            <h2 class="title">{title}</h2>
+          </a>
+
+          <a href={`/portfolio/${slug}/`}>
+            <div class="responsive card stack sm:flex-row items-center">
+              <DynamicImage
+                src={`portfolio/${slug}`}
+                alt={`Thumbnail for ${title}`}
+                class="thumbnail w-full aspect-square sm:w-1/3"
+              />
+
+              <p class="summary line-clamp-none m-2">{short}</p>
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <Embed kind="sponsors" />
 </BaseLayout>

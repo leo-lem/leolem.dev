@@ -5,29 +5,24 @@ interface Props {
   class?: string;
 }
 
-const { class: className = "" } = Astro.props;
+const { class: classes = "" } = Astro.props;
 ---
 
-<section class={`${className} card flex flex-col`}>
-  <h2 class="text-sm font-semibold mb-2">Subscribe</h2>
+<section class={`card-elevated ${classes} `}>
+  <h2 class="title-sm">Subscribe</h2>
 
-  <div class="flex gap-2">
-    <button id="email-btn" class="subscribe" type="button">
+  <div class="cluster">
+    <button id="email-btn" class="btn" type="button">
       <Icon name="lucide:mail" class="h-4 w-4" />
       <span>Email</span>
     </button>
 
-    <button id="push-btn" class="subscribe" type="button">
+    <button id="push-btn" class="btn" type="button">
       <Icon name="lucide:bell" class="h-4 w-4" />
       <span>Push</span>
     </button>
 
-    <a
-      href="/rss.xml"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="subscribe"
-    >
+    <a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="btn">
       <Icon name="lucide:rss" class="h-4 w-4" />
       <span>RSS</span>
     </a>
@@ -65,17 +60,3 @@ const { class: className = "" } = Astro.props;
     }
   });
 </script>
-
-<style>
-  .subscribe {
-    @apply flex items-center gap-2 px-4 py-2 rounded-lg
-    text-xs font-medium transition;
-    border: 1px solid var(--border-color);
-    background: var(--card-color);
-    color: var(--text-card-color);
-  }
-
-  .subscribe:hover {
-    filter: brightness(0.97);
-  }
-</style>

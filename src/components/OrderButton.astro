@@ -1,0 +1,46 @@
+---
+type Props = {
+  url: string;
+  type: "fiverr" | "upwork" | "email";
+  class?: string;
+};
+const { url, type, class: classes } = Astro.props;
+const label = (() => {
+  switch (type) {
+    case "fiverr":
+      return "Order on Fiverr";
+    case "upwork":
+      return "Hire on Upwork";
+    case "email":
+      return "Reach out via Email";
+    default:
+      return "Learn More";
+  }
+})();
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class={`${type} ${classes ?? ""}`}
+>
+  {label}
+</a>
+
+<style>
+  .fiverr {
+    @apply text-white;
+    background-color: #19a463;
+  }
+
+  .upwork {
+    @apply text-white;
+    background-color: #14a800;
+  }
+
+  .email {
+    @apply text-black;
+    background-color: #e2e8f0;
+  }
+</style>

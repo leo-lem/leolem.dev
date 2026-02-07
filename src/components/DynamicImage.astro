@@ -9,18 +9,10 @@ interface Props {
   src: string; // WITHOUT extension
   alt: string | null;
   class?: string;
-  loading?: "lazy" | "eager";
   onclick?: string;
 }
 
-const {
-  id,
-  src,
-  alt,
-  class: classes,
-  loading = "eager",
-  onclick
-} = Astro.props;
+const { id, src, alt, class: classes, onclick } = Astro.props;
 
 const dir = src.includes("/") ? src.slice(0, src.lastIndexOf("/") + 1) : "";
 const name = src.split("/").pop();
@@ -43,6 +35,6 @@ if (!image) throw new Error(`Image not found: ${src}`);
   src={image()}
   alt={alt}
   class={classes}
-  loading={loading}
+  loading={classes?.includes("eager") ? "eager" : "lazy"}
   onclick={onclick}
 />

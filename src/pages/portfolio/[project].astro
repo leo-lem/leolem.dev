@@ -7,6 +7,7 @@ import Embed from "../../components/Embed.astro";
 import DynamicImage from "../../components/DynamicImage.astro";
 
 import { getCollection } from "astro:content";
+import Article from "../../components/Article.astro";
 
 export async function getStaticPaths() {
   return (await getCollection("portfolio")).map((project) => ({
@@ -42,42 +43,42 @@ const articles = (await getCollection("blog"))
     inLanguage: "en"
   }}
 >
-  <DynamicImage
-    slot="thumbnail"
-    src={`portfolio/${slug}`}
-    alt=""
-    class="w-full max-w-3xl mx-auto rounded-2xl mb-8"
-    loading="eager"
-  />
+  <div slot="thumbnail" class="relative card-elevated sm:w-2/3 mx-auto">
+    <DynamicImage
+      src={`portfolio/${slug}`}
+      alt={`Thumbnail for ${title}`}
+      class="thumbnail"
+    />
 
-  <section class="flex flex-col gap-4 max-w-3xl mx-auto -mt-16">
-    <Tags tags={tags} class="justify-center" />
-    <div class="flex items-center justify-center gap-4">
+    <Tags
+      tags={tags}
+      class="absolute bottom-2 left-2 justify-center text-xs sm:text-base"
+    />
+
+    <div class="absolute top-2 left-2 flex gap-2">
       {
         links?.map((link: { type: string; url: string }) => (
-          <IconLink type={link.type} url={link.url} />
+          <IconLink
+            type={link.type}
+            url={link.url}
+            class="icon sm:icon-lg btn"
+          />
         ))
       }
     </div>
-  </section>
+  </div>
 
   <article
-    class="prose dark:prose-invert max-w-none sm:text-justify"
+    class="card p-4 prose dark:prose-invert max-w-none text-center sm:text-justify"
     set:html={rendered?.html}
   />
 
   {
     articles.length > 0 && (
       <div class="flex flex-col gap-2 mx-2">
-        <h3>Related Articles</h3>
-        {articles.map(({ slug, data: { title, short, date } }: any) => (
-          <a href={`/blog/${slug}/`} class="responsive card">
-            <div class="line-clamp-1">{title}</div>
-            <div class="text-sm text-secondary line-clamp-1">{short}</div>
-            <div class="text-xs text-muted text-right">
-              {date.toLocaleDateString()}
-            </div>
-          </a>
+        <h2 class="title">Related Articles</h2>
+        {articles.map((article) => (
+          <Article article={article} />
         ))}
       </div>
     )
@@ -85,5 +86,5 @@ const articles = (await getCollection("blog"))
 
   <Screenshots slug={slug} />
 
-  <Embed kind="github-sponsors" />
+  <Embed kind="sponsors" />
 </BaseLayout>

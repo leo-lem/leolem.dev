@@ -64,6 +64,8 @@ body {
   }
 
   .pressable { @apply active:scale-[0.98]; }
+
+  .responsive { @apply interactive hover-lift hover-surface; }
 }
 
 @layer components {
@@ -75,7 +77,13 @@ body {
     );
   }
 
-  .fade { @apply bg-gradient-to-t from-black/90 via-black/60 to-transparent; }
+  .fade { 
+    background: linear-gradient(
+      to top,
+      var(--base-color) 50%,
+      transparent
+    )
+  }
 
   .text-primary { color: var(--text-color); }
   .text-secondary { color: var(--text-secondary-color); }
@@ -87,6 +95,15 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+
+  .title-base { @apply text-primary leading-snug line-clamp-2; }
+  .title-lg { @apply title-base font-bold text-3xl sm:text-4xl; }
+  .title { @apply title-base font-semibold text-xl sm:text-2xl; }
+  .title-sm { @apply title-base font-semibold text-lg leading-snug; }
+
+  .summary { @apply text-secondary text-sm sm:text-base leading-relaxed line-clamp-2; }
+  .meta { @apply text-muted text-sm; }
+  .caption { @apply text-muted text-xs; }
 }
 
 @layer components {
@@ -117,7 +134,6 @@ body {
     border: 1px solid var(--border-color);
     @apply text-primary rounded-xl overflow-hidden;
   }
-  .card-hover { @apply card interactive hover-lift hover-surface; }
   .card-elevated {
     @apply card shadow-sm;
     background-color: var(--elevated-color);
@@ -128,6 +144,12 @@ body {
     @apply rounded-full px-3 py-1 inline-flex items-center gap-1 whitespace-nowrap text-secondary;
     background-color: var(--surface-color);
     border: 1px solid var(--border-color);
+  }
+  .pill-accent {
+    @apply pill;
+    color: var(--text-color);
+    background-color: var(--accent-color);
+    border-color: transparent;
   }
   .pill-overlay {
     @apply pill;
@@ -143,17 +165,6 @@ body {
 }
 
 @layer components {
-  .title-base { @apply text-primary leading-snug line-clamp-2; }
-  .title-lg { @apply title-base font-bold text-3xl sm:text-4xl; }
-  .title-md { @apply title-base font-semibold text-xl sm:text-3xl; }
-  .title-sm { @apply title-base font-semibold text-lg leading-snug; }
-
-  .summary { @apply text-secondary text-sm sm:text-base leading-relaxed line-clamp-2; }
-  .meta { @apply text-muted text-sm; }
-  .caption { @apply text-muted text-xs; }
-}
-
-@layer components {
   .link { @apply text-primary hover-underline focus-ring interactive; }
   .link-muted { @apply text-muted hover:text-primary hover-underline focus-ring interactive; }
   .btn {
@@ -165,10 +176,9 @@ body {
 }
 
 @layer components {
-  .icon-base { @apply invert dark:invert-0; }
-  .icon-sm { @apply icon-base h-6 w-6; }
-  .icon { @apply icon-base h-10 w-10; }
-  .icon-lg { @apply icon-base h-16 w-16; }
+  .icon-sm { @apply h-8 w-8; }
+  .icon { @apply h-12 w-12; }
+  .icon-lg { @apply h-16 w-16; }
 }
 
 @layer components {

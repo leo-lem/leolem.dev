@@ -1,0 +1,37 @@
+---
+import DynamicImage from "./DynamicImage.astro";
+
+interface Props {
+  project: {
+    slug: string;
+    data: {
+      title: string;
+      short: string;
+    };
+  };
+  class?: string;
+}
+const {
+  project: {
+    slug,
+    data: { title, short }
+  },
+  class: classes
+} = Astro.props;
+---
+
+<a
+  href={`/portfolio/${slug}/`}
+  class={`relative responsive card stack ${classes}`}
+>
+  <DynamicImage
+    src={`portfolio/${slug}`}
+    alt={`Thumbnail for ${title}`}
+    class="thumbnail w-full aspect-square"
+  />
+
+  <div class="absolute bottom-0 fade p-2">
+    <h2 class="title-sm">{title}</h2>
+    <p class="summary">{short}</p>
+  </div>
+</a>

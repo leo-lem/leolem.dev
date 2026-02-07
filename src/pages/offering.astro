@@ -5,6 +5,7 @@ import BaseLayout from "../layout/BaseLayout.astro";
 import Embed from "../components/Embed.astro";
 import Tags from "../components/Tags.astro";
 import DynamicImage from "../components/DynamicImage.astro";
+import OrderButton from "../components/OrderButton.astro";
 
 const offering = (await getCollection("offering")).sort(
   (a, b) => (b.data.featured ? 1 : -1) - (a.data.featured ? 1 : -1)
@@ -15,73 +16,43 @@ const offering = (await getCollection("offering")).sort(
   title="My Offering"
   description="Explore the services I offer. Each service is designed to help you achieve your goals with clean, reliable code and production-ready solutions."
 >
-  <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+  <section class="container-wide split">
     {
       offering.map(({ slug, data: { title, tags, cta }, rendered }) => (
-        <div class="card flex flex-col gap-4">
-          <DynamicImage
-            src={`offering/${slug}`}
-            alt={title}
-            class="card-image"
-          />
+        <div class="card-elevated stack-sm text-center">
+          <div class="relative">
+            <DynamicImage
+              src={`offering/${slug}`}
+              alt={`Image for ${title} service`}
+            />
 
-          <h2>{title}</h2>
+            <Tags
+              tags={tags}
+              class="absolute bottom-2 inset-x-0 justify-center text-xs gap-1"
+            />
+          </div>
 
-          <Tags tags={tags} />
+          <h2 class="title p-2">{title}</h2>
 
           <article
-            class="prose prose-md dark:prose-invert"
+            class="flex-grow summary line-clamp-none prose prose-md dark:prose-invert p-1"
             set:html={rendered?.html}
           />
 
-          <div class="flex-grow flex flex-col gap-2 font-bold text-center justify-end">
-            <a
-              href="#schedule-a-call"
-              class="responsive rounded bg-intense p-2"
-            >
-              Contact Me
-            </a>
-            {cta.map(({ url, type }) => (
-              <a
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class={`responsive rounded ${type} p-2`}
-              >
-                {type === "fiverr"
-                  ? "Order on Fiverr"
-                  : type === "upwork"
-                    ? "Hire on Upwork"
-                    : type === "email"
-                      ? "Reach out via Email"
-                      : "Learn More"}
-              </a>
-            ))}
-          </div>
+          <a href="#schedule-a-call" class="responsive btn justify-center m-2">
+            Contact Me
+          </a>
+
+          {cta.map(({ url, type }) => (
+            <OrderButton url={url} type={type} class="responsive p-2" />
+          ))}
         </div>
       ))
     }
   </section>
 
-  <section id="schedule-a-call" class="flex flex-col items-center">
-    <h2>Book a Meeting</h2>
-    <Embed kind="google-calendar" loading="lazy" />
+  <section id="schedule-a-call" class="container stack">
+    <h2 class="title">Book a Meeting</h2>
+    <Embed kind="calendar" loading="lazy" />
   </section>
 </BaseLayout>
-
-<style>
-  .fiverr {
-    @apply text-white;
-    background-color: #19a463;
-  }
-
-  .upwork {
-    @apply text-white;
-    background-color: #14a800;
-  }
-
-  .email {
-    @apply text-black;
-    background-color: #e2e8f0;
-  }
-</style>

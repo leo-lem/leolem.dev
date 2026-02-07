@@ -1,0 +1,61 @@
+---
+import DynamicImage from "./DynamicImage.astro";
+
+interface Props {
+  article: {
+    slug: string;
+    data: {
+      title: string;
+      short: string;
+      date: Date;
+      author?: {
+        name: string;
+      };
+    };
+  };
+  class?: string;
+}
+const {
+  article: {
+    slug,
+    data: { title, short, date, author }
+  },
+  class: classes
+} = Astro.props;
+
+const dateLabel = date.toLocaleDateString(undefined, {
+  day: "numeric",
+  month: "long",
+  year: "numeric"
+});
+---
+
+<a
+  href={`/blog/${slug}/`}
+  class={`responsive card group block ${classes ?? ""}`}
+>
+  <div class="text-center stack-sm sm:flex-row">
+    <div class="relative sm:w-1/3 shrink-0 text-xs sm:text-sm">
+      <DynamicImage
+        src={`blog/${slug}`}
+        alt={`Thumbnail image for ${title}`}
+        class={`w-full h-full object-cover ${classes?.includes("eager") ? "eager" : "lazy"}`}
+      />
+
+      <div class="absolute top-2 left-2 pill-overlay">{dateLabel}</div>
+
+      {
+        author?.name && (
+          <div class="absolute bottom-2 right-2 pill-overlay">
+            {author.name}
+          </div>
+        )
+      }
+    </div>
+
+    <div class="stack-sm m-2 justify-center sm:text-left">
+      <h2 class="title">{title}</h2>
+      <p class="summary">{short}</p>
+    </div>
+  </div>
+</a>

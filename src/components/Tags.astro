@@ -4,10 +4,10 @@ const { tags, class: classes } = Astro.props;
 
 {
   tags && tags.length > 0 && (
-    <div class={`${classes} flex flex-wrap gap-2`}>
+    <div class={`cluster-sm ${classes} `}>
       {tags.sort().map((tag: string) => (
         <a
-          class="responsive tag capitalize"
+          class="responsive pill pill-accent capitalize"
           href={`/explore/?topics=${encodeURIComponent(tag)}`}
           data-tag={tag}
         >
@@ -17,13 +17,3 @@ const { tags, class: classes } = Astro.props;
     </div>
   )
 }
-
-<style>
-  .tag {
-    color: var(--text-tag-color);
-    background-color: var(--tag-color);
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    @apply text-xs font-semibold;
-  }
-</style>
