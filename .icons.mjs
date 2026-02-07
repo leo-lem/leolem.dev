@@ -1,10 +1,7 @@
 import { favicons } from "favicons";
 import fs from "fs/promises";
 
-const source = "src/assets/icon.jpg";
-const outputDir = "public";
-
-const response = await favicons(source, {
+const response = await favicons("src/assets/profile.jpg", {
   path: "/",
   appName: "Leopold Lemmermann",
   appShortName: "leolem.dev",
@@ -14,23 +11,16 @@ const response = await favicons(source, {
     favicons: true,
     android: true,
     appleIcon: true,
-
     appleStartup: false,
     windows: false,
     yandex: false
   },
 });
 
-await Promise.all(
-  response.images.map(img =>
-    fs.writeFile(`${outputDir}/${img.name}`, img.contents)
-  )
-);
+for (const {name, contents} of response.images)
+  await fs.writeFile(`public/${name}`, contents);
+for (const {name, contents} of response.files)
+  await fs.writeFile(`public/${name}`, contents);
+await fs.copyFile("src/assets/thumbnail.png", `public/social.png`);
 
-await Promise.all(
-  response.files.map(file =>
-    fs.writeFile(`${outputDir}/${file.name}`, file.contents)
-  )
-);
-
-console.log("Icons generated.");
+console.log("Public has been populated with icons and social image.");
