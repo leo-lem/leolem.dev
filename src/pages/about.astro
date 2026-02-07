@@ -17,20 +17,25 @@ const tripID = import.meta.env.CURRENT_TRIP;
 ---
 
 <BaseLayout title="About me">
-  <section class="container-wide stack text-center sm:flex-row sm:text-left">
-    <div class="stack-sm">
+  <section
+    class="container-wide stack sm:flex-row text-center sm:text-left items-center"
+  >
+    <DynamicImage src="thumbnail" alt="Me!" class="thumbnail eager sm:hidden" />
+    <div class="stack-sm w-full sm:w-1/2">
       <p class="summary">Hey there!</p>
       <h1 class="title-lg">I'm Leo.</h1>
       <p><AboutMe /></p>
+    </div>
+
+    <div class="stack-sm text-center w-full sm:w-1/2">
+      <DynamicImage
+        src="thumbnail"
+        alt="Me!"
+        class="thumbnail eager hidden sm:block"
+      />
       <p class="summary">Feel free to reach out via</p>
       <a href="mailto:hey@leolem.dev" class="link-muted"> hey@leolem.dev </a>
     </div>
-
-    <DynamicImage
-      src="thumbnail"
-      alt="Me!"
-      class="thumbnail w-full sm:w-1/2 eager"
-    />
   </section>
 
   <section id="skills" class="container-narrow stack">
