@@ -22,8 +22,8 @@
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {
-    "@iconify-json/lucide": "^1.2.87",
-    "@iconify-json/simple-icons": "^1.2.69",
+    "@iconify-json/lucide": "^1.2.89",
+    "@iconify-json/simple-icons": "^1.2.70",
     "@playwright/test": "^1.58",
     "@tgwf/co2": "^0.17",
     "@types/node-fetch": "^2.6",
