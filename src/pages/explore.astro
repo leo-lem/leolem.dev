@@ -74,7 +74,7 @@ const results = [
 
             {type === "project" || type === "article" ? (
               <DynamicImage
-                src={`blog/${slug}`}
+                src={`${type === "project" ? "portfolio" : "blog"}/${slug}`}
                 alt={`Thumbnail for ${title}`}
                 class="thumbnail eager"
               />
