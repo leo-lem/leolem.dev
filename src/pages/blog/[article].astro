@@ -1,5 +1,5 @@
 ---
-import BlogLayout from "../../layout/BlogLayout.astro";
+import BaseLayout from "../../layout/BaseLayout.astro";
 import DynamicImage from "../../components/DynamicImage.astro";
 import Tags from "../../components/Tags.astro";
 import SubscribePanel from "../../components/SubscribePanel.astro";
@@ -33,7 +33,7 @@ const projects = (await getCollection("portfolio")).filter(
 );
 ---
 
-<BlogLayout
+<BaseLayout
   title={title}
   description={short}
   ldJson={{
@@ -87,8 +87,10 @@ const projects = (await getCollection("portfolio")).filter(
     set:html={rendered?.html}
   />
 
-  <SubscribePanel class="container-narrow stack-sm justify-center p-2" />
-
+  <div class="container stack-sm text-center line-clamp-0">
+    If you're still here, might as well subscribe :)
+    <SubscribePanel class="container-narrow stack-sm justify-center p-2" />
+  </div>
   {
     projects.length > 0 && (
       <section class="container-narrow stack">
@@ -102,4 +104,4 @@ const projects = (await getCollection("portfolio")).filter(
       </section>
     )
   }
-</BlogLayout>
+</BaseLayout>

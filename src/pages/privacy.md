@@ -1,7 +1,8 @@
 ---
-title: Datenschutz
-description: Datenschutzerklärung gemäß DSGVO
 layout: ../layout/MarkdownLayout.astro
+title: Datenschutz
+description: Datenschutzerklärung gemäß DSGVO.
+subscribe: false
 ---
 
 Diese Website erhebt und speichert keine personenbezogenen Daten über ihre Besucher, außer im Rahmen freiwilliger Abonnements für Blog-Benachrichtigungen (E-Mail oder Push).

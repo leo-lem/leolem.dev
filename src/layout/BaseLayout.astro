@@ -7,9 +7,11 @@ interface Props {
   title: string;
   description?: string;
   ldJson?: Record<string, unknown>;
+  subscribe?: boolean;
 }
-const { title, description, ldJson } = Astro.props;
-const descriptionText = description ?? "Portfolio, blog, and engineering notes";
+const { title, description, ldJson, subscribe } = Astro.props;
+const descriptionText =
+  description ?? "Portfolio, blog, and what I offer as a software engineer.";
 const ogImage = "/social.png";
 
 const socials = [
@@ -93,11 +95,69 @@ const socials = [
       onload="this.media='all'"
     />
 
-    <slot name="head" />
+    <!-- OneSignal Web Push SDK -->
+    <script is:inline>
+      // iOS Safari (and some in-app browsers) may not expose Notification at all.
+      // OneSignal’s ES6 SDK references it. Stub it so the SDK can load for email.
+      if (
+        typeof window !== "undefined" &&
+        typeof window.Notification === "undefined"
+      ) {
+        window.Notification = {
+          permission: "denied",
+          requestPermission: () => Promise.resolve("denied")
+        };
+      }
+    </script>
+
+    <script
+      is:inline
+      src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.es6.js"
+      defer></script>
+    <script is:inline>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function (OneSignal) {
+        await OneSignal.init({
+          appId: "932ddbaa-045a-49d6-80ab-774924450946",
+          safari_web_id:
+            "web.onesignal.auto.1a94b592-c98a-427e-9490-520bfcd23754",
+          allowLocalhostAsSecureOrigin: true,
+          autoResubscribe: true,
+          promptOptions: {
+            slidedown: {
+              prompts: [
+                {
+                  type: "push",
+                  autoPrompt: false,
+                  text: {
+                    actionMessage: "Do you want to be notified?",
+                    acceptButton: "Yes",
+                    cancelButton: "No Thanks",
+                    confirmMessage:
+                      "Thanks for subscribing! I'll keep you updated."
+                  }
+                },
+                {
+                  type: "email",
+                  autoPrompt: false,
+                  text: {
+                    actionMessage: "Enter your email to subscribe to my blog.",
+                    acceptButton: "Subscribe",
+                    cancelButton: "No Thanks",
+                    confirmMessage:
+                      "Thanks for subscribing! I'll keep you updated via email."
+                  }
+                }
+              ]
+            }
+          }
+        });
+      });
+    </script>
   </head>
 
   <body class="min-w-[360px] min-h-screen stack">
-    <NavBar socials={socials} />
+    <NavBar socials={socials} subscribe={subscribe} />
 
     <main class="container-wide flex-1 mx-auto stack-lg mb-20">
       {

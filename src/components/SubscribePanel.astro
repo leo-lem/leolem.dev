@@ -2,14 +2,15 @@
 import { Icon } from "astro-icon/components";
 
 interface Props {
+  label?: string;
   class?: string;
 }
 
-const { class: classes = "" } = Astro.props;
+const { label, class: classes = "" } = Astro.props;
 ---
 
-<section class={`card-elevated ${classes} `}>
-  <h2 class="title-sm">Subscribe</h2>
+<section id="subscribe" class={`card-elevated ${classes} `}>
+  {label && <p class="title-sm">{label}</p>}
 
   <div class="cluster">
     <button id="email-btn" class="btn" type="button">

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 
-import BlogLayout from "../../layout/BlogLayout.astro";
+import BaseLayout from "../../layout/BaseLayout.astro";
 import SubscribePanel from "../../components/SubscribePanel.astro";
 import FeaturedArticle from "../../components/FeaturedArticle.astro";
 import Article from "../../components/Article.astro";
@@ -13,7 +13,7 @@ const featured = allArticles.find(({ data: { featured } }) => featured);
 const articles = allArticles.filter((article) => article !== featured);
 ---
 
-<BlogLayout
+<BaseLayout
   title="My Blog"
   description="Welcome to my blog. I write about building software, exploring systems, and learning in public. Expect posts on Swift, CI/CD, architecture, side projects, and personal reflections from whatever I'm working through."
 >
@@ -28,7 +28,10 @@ const articles = allArticles.filter((article) => article !== featured);
     }
   </section>
 
-  <SubscribePanel class="container-narrow stack-sm justify-center p-2" />
+  <SubscribePanel
+    label="Get notified via"
+    class="container-narrow stack-sm justify-center p-2 scroll-mt-32"
+  />
 
   <ul class="container-wide stack">
     {
@@ -39,4 +42,4 @@ const articles = allArticles.filter((article) => article !== featured);
       ))
     }
   </ul>
-</BlogLayout>
+</BaseLayout>

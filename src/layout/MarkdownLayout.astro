@@ -2,13 +2,12 @@
 import BaseLayout from "./BaseLayout.astro";
 
 const {
-  frontmatter: { title, description }
+  frontmatter: { title, description, subscribe }
 } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} subscribe={subscribe}>
   <article class="prose prose-invert">
-    <h1 class="text-center">{title}</h1>
     <slot />
   </article>
 </BaseLayout>

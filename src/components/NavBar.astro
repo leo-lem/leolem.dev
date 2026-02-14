@@ -5,82 +5,91 @@ import DraggableAvatar from "./DraggableAvatar.astro";
 import IconLink from "./IconLink.astro";
 
 const navigation = ["blog", "portfolio", "offering", "explore", "about"];
-const { socials } = Astro.props;
+const { socials, subscribe = true } = Astro.props;
 ---
 
-<nav class="sticky top-0 p-3 z-10">
-  <div
-    class="container-wide mx-auto stack-sm sm:flex-row sm:items-center sm:justify-between"
-  >
-    <DraggableAvatar />
+<header class="sticky top-0 p-3 z-10 stack-sm hover:text-accent">
+  <nav>
+    <div
+      class="container-wide mx-auto stack-sm sm:flex-row sm:items-center sm:justify-between"
+    >
+      <DraggableAvatar />
 
-    <div class="flex items-center justify-between gap-4">
-      <div class="flex items-center gap-4">
-        <span class="w-10 h-10 rounded-full border"></span>
+      <div class="flex items-center justify-between gap-4">
+        <div class="flex items-center gap-4">
+          <span class="w-10 h-10 rounded-full border"></span>
 
-        <a
-          href="/"
-          class="animate-slidefadein navigation flex flex-col whitespace-nowrap"
-        >
-          <span class="font-semibold text-xs sm:text-sm">
-            Leopold Lemmermann
-          </span>
-          <span class="text-xs sm:text-sm">Software Engineer | MSc</span>
-        </a>
+          <a
+            href="/"
+            class="animate-slidefadein navigation flex flex-col whitespace-nowrap"
+          >
+            <span class="font-semibold text-xs sm:text-sm">
+              Leopold Lemmermann
+            </span>
+            <span class="text-xs sm:text-sm">Software Engineer | MSc</span>
+          </a>
+        </div>
+
+        <div class="animate-slidefadein flex flex-row items-center gap-4">
+          {
+            socials.map((url: string) => (
+              <IconLink
+                type={url.split("https://")[1].split(".")[0]}
+                url={url}
+                class="icon-sm"
+              />
+            ))
+          }
+
+          <button id="mobile-menu-toggle" class="sm:hidden focus:outline-none">
+            <Icon name="lucide:menu" class="icon" />
+          </button>
+        </div>
       </div>
 
-      <div class="animate-slidefadein flex flex-row items-center gap-4">
+      <div
+        id="mobile-menu"
+        class="hidden max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out flex-col items-center gap-4 sm:flex sm:flex-row sm:overflow-visible sm:animate-slidefadein"
+      >
         {
-          socials.map((url: string) => (
-            <IconLink
-              type={url.split("https://")[1].split(".")[0]}
-              url={url}
-              class="icon-sm"
-            />
+          navigation.map((item) => (
+            <a
+              href={`/${item}/`}
+              class={`navigation capitalize ${Astro.url.pathname.includes(item) ? "active" : ""}`}
+              aria-current={
+                Astro.url.pathname.includes(item) ? "page" : undefined
+              }
+            >
+              {item}
+            </a>
           ))
         }
-
-        <button id="mobile-menu-toggle" class="sm:hidden focus:outline-none">
-          <Icon name="lucide:menu" class="icon" />
-        </button>
       </div>
     </div>
+  </nav>
 
-    <div
-      id="mobile-menu"
-      class="hidden max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out flex-col items-center gap-4 sm:flex sm:flex-row sm:overflow-visible sm:animate-slidefadein"
-    >
-      {
-        navigation.map((item) => (
-          <a
-            href={`/${item}/`}
-            class={`navigation capitalize ${Astro.url.pathname.includes(item) ? "active" : ""}`}
-            aria-current={
-              Astro.url.pathname.includes(item) ? "page" : undefined
-            }
-          >
-            {item}
-          </a>
-        ))
-      }
-    </div>
-  </div>
-</nav>
+  {
+    subscribe && (
+      <section class="container-wide mx-auto text-center text-muted">
+        New article weekly. No noise.{" "}
+        <a href="/blog/#subscribe" class="text-primary">
+          Subscribe
+        </a>
+      </section>
+    )
+  }
+</header>
 
 <style>
-  nav {
+  header {
     @apply shadow shadow-[var(--shadow-color)];
     color: var(--text-color);
     background-color: var(--base-color);
     border-color: var(--border-color);
   }
 
-  nav a.active {
+  header a.active {
     @apply font-bold underline;
-  }
-
-  nav a:hover {
-    @apply text-accent;
   }
 </style>
 

@@ -1,7 +1,8 @@
 ---
-title: Impressum
 layout: ../layout/MarkdownLayout.astro
-description: Gesetzlich vorgeschriebene Anbieterkennzeichnung
+title: Impressum
+description: Gesetzlich vorgeschriebene Anbieterkennzeichnung.
+subscribe: false
 ---
 
 Angaben gemäß § 5 TMG:
