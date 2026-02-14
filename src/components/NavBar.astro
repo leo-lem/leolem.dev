@@ -8,7 +8,7 @@ const navigation = ["blog", "portfolio", "offering", "explore", "about"];
 const { socials, subscribe = true } = Astro.props;
 ---
 
-<header class="sticky top-0 p-3 z-10 stack-sm">
+<header class="sticky top-0 p-3 z-10 stack-sm hover:text-accent">
   <nav>
     <div
       class="container-wide mx-auto stack-sm sm:flex-row sm:items-center sm:justify-between"
@@ -90,10 +90,6 @@ const { socials, subscribe = true } = Astro.props;
 
   header a.active {
     @apply font-bold underline;
-  }
-
-  header a:hover {
-    @apply text-accent;
   }
 </style>
 
