@@ -27,7 +27,6 @@ export default {
         app_id: env.ONESIGNAL_APP_ID,
         template_id: "0f492c1c-e843-4707-afa0-ab2f20b8c253",
         included_segments: ["Staging"],
-        channel_for_external_user_ids: "email",
         custom_data: {
           email: payload?.email ?? "unknown",
           page: payload?.page ?? "unknown",
