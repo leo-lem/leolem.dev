@@ -13,6 +13,10 @@
 			]
 		}
 	},
+	"runArgs": [
+		"-p",
+		"4321:4321"
+	],
 	"portsAttributes": {
 		"4321": {
 			"label": "Astro",
