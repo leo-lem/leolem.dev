@@ -1,0 +1,4 @@
+name = "dev-leolem-alert"
+main = "tool/alert.mjs"
+compatibility_date = "2026-02-15"
+routes = [{ pattern = "alert.leolem.dev/*", zone_name = "leolem.dev" }]

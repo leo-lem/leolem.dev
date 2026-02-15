@@ -1,5 +1,5 @@
 import { favicons } from "favicons";
-import fs from "fs/promises";
+import fs from "node:fs/promises";
 
 const response = await favicons("src/assets/profile.jpg", {
   path: "/",

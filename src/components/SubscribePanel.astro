@@ -9,29 +9,89 @@ interface Props {
 const { label, class: classes = "" } = Astro.props;
 ---
 
-<section id="subscribe" class={`card-elevated ${classes} `}>
-  {label && <p class="title-sm">{label}</p>}
+<section id="subscribe" class={`card-elevated ${classes}`}>
+  <div class="flex items-center justify-between gap-4">
+    <p class="title-sm">{label ?? ""}</p>
 
-  <div class="cluster">
-    <button id="email-btn" class="btn" type="button">
-      <Icon name="lucide:mail" class="h-4 w-4" />
-      <span>Email</span>
-    </button>
+    <div class="cluster-sm">
+      <button id="push-btn" class="link-muted text-xs" type="button"
+        >Push</button
+      >
+      <span class="caption">·</span>
+      <a
+        href="/rss.xml"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link-muted text-xs"
+      >
+        RSS
+      </a>
+    </div>
+  </div>
 
-    <button id="push-btn" class="btn" type="button">
-      <Icon name="lucide:bell" class="h-4 w-4" />
-      <span>Push</span>
-    </button>
+  <div class="stack-sm">
+    <div class="cluster">
+      <div class="flex-1 min-w-[220px]">
+        <input
+          id="subscribe-email"
+          class="input"
+          type="email"
+          inputmode="email"
+          autocomplete="email"
+          placeholder="your@email.here"
+          aria-label="Email address"
+        />
+      </div>
 
-    <a href="/rss.xml" target="_blank" rel="noopener noreferrer" class="btn">
-      <Icon name="lucide:rss" class="h-4 w-4" />
-      <span>RSS</span>
-    </a>
+      <button
+        id="subscribe-email-btn"
+        class="btn px-3 text-sm"
+        type="button"
+        aria-label="Subscribe"
+        title="Subscribe"
+        >→
+      </button>
+    </div>
   </div>
 </section>
 
 <script is:inline type="module">
-  const status = document.getElementById("subscribe-status");
+  async function alertSubscribe(kind, emailOverride = null) {
+    try {
+      let email = emailOverride;
+
+      if (!email) {
+        const deferred =
+          typeof window !== "undefined" ? window.OneSignalDeferred : undefined;
+        if (deferred && typeof deferred.push === "function") {
+          await new Promise((resolve) => {
+            deferred.push(async (OneSignal) => {
+              try {
+                email = (await OneSignal.User?.getEmail?.()) ?? null;
+              } catch {}
+              resolve();
+            });
+          });
+        }
+      }
+
+      await fetch("https://alert.leolem.dev/subscribe", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-webhook-secret":
+            "ZXPLyTrVPeT0Y6RbKpG547VsHr+7UDrbKnTLzuSeHOIm/OdwoRWRdSzey/aC0aCD"
+        },
+        body: JSON.stringify({
+          kind,
+          page: location.href,
+          email
+        })
+      });
+    } catch (e) {
+      console.error("Subscribe alert failed", e);
+    }
+  }
 
   document.getElementById("push-btn")?.addEventListener("click", () => {
     if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
@@ -48,16 +108,32 @@ const { label, class: classes = "" } = Astro.props;
       }
 
       OneSignal.Slidedown.promptPush({ force: true });
+      setTimeout(() => alertSubscribe("push"), 1500);
     });
   });
 
-  document.getElementById("email-btn")?.addEventListener("click", async () => {
-    try {
-      window.OneSignalDeferred?.push((OneSignal) =>
-        OneSignal.Slidedown.promptEmail({ force: true })
-      );
-    } catch (e) {
-      console.error("Email failed", e);
-    }
-  });
+  document
+    .getElementById("subscribe-email-btn")
+    ?.addEventListener("click", () => {
+      const input = document.getElementById("subscribe-email");
+      const email = (input?.value || "").trim();
+
+      if (!email) return;
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      window.OneSignalDeferred?.push(async (OneSignal) => {
+        try {
+          await OneSignal.User.addEmail(email);
+        } catch (e) {
+          console.error("OneSignal addEmail failed", e);
+        }
+
+        await alertSubscribe("email", email);
+        input.value = "";
+      });
+    });
 </script>

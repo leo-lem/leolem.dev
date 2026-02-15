@@ -173,6 +173,12 @@ body {
       interactive pressable hover-surface focus-ring;
     background-color: var(--surface-color);
   }
+  .input {
+    @apply w-full px-3 py-2 rounded-lg
+      text-secondary border border-[var(--border-color)]
+      interactive hover-surface focus-ring;
+    background-color: var(--surface-color);
+  }
 }
 
 @layer components {

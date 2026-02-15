@@ -25,7 +25,7 @@ jobs:
       - uses: ./.github/actions/checkout-content
         env:
           CONTENT_REPO_TOKEN: ${{ secrets.CONTENT_REPO_TOKEN }}
-      - run: npm run sync
+      - run: npm run tool:sync
       - name: Build site
         run: npm run build
         env:
@@ -49,14 +49,14 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/bootstrap
-      - run: npx playwright install
       - uses: actions/cache@v5
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
           restore-keys: ${{ runner.os }}-playwright-
+      - run: npx playwright install
       - name: Run smoke tests
-        run: npm run smoke
+        run: npm run test:smoke
 
   co2:
     needs: deploy
@@ -74,7 +74,7 @@ jobs:
           key: baseline-co2-${{ github.sha }}
           restore-keys: baseline-co2-
       - name: Detect CO₂ regression
-        run: npm run co2
+        run: npm run test:co2
         env:
           CO2_BASELINE: ${{ vars.CO2_BASELINE }}
 
@@ -90,7 +90,7 @@ jobs:
         env:
           CONTENT_REPO_TOKEN: ${{ secrets.CONTENT_REPO_TOKEN }}
       - name: Send OneSignal notifications
-        run: node .notify.mjs
+        run: npm run tool:notify
         env:
           ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
           ONESIGNAL_REST_API_KEY: ${{ secrets.ONESIGNAL_REST_API_KEY }}
