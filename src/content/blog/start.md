@@ -29,7 +29,7 @@ If you care about clean software, practical systems, or the quieter side of buil
 
 ## Staying in touch
 
-You can follow along here via RSS, or connect with me on LinkedIn. If you’d like to talk about an idea or a potential collaboration, there’s also a contact option on the site.
+You can follow along here via Email, Push Notification, RSS, or connect with me on LinkedIn. If you’d like to talk about an idea or a potential collaboration, there’s also a contact option on the site.
 
 No pressure. This is a slow blog.
 

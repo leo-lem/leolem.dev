@@ -1,15 +1,12 @@
 ---
-import { getCollection } from "astro:content";
-
 import BaseLayout from "../layout/BaseLayout.astro";
 import Embed from "../components/Embed.astro";
 import Tags from "../components/Tags.astro";
 import DynamicImage from "../components/DynamicImage.astro";
 import OrderButton from "../components/OrderButton.astro";
+import { getOffering } from "../content/offering";
 
-const offering = (await getCollection("offering")).sort(
-  (a, b) => (b.data.featured ? 1 : -1) - (a.data.featured ? 1 : -1)
-);
+const offering = await getOffering();
 ---
 
 <BaseLayout

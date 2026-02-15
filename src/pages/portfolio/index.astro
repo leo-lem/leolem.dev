@@ -1,14 +1,14 @@
 ---
-import { getCollection } from "astro:content";
-
 import BaseLayout from "../../layout/BaseLayout.astro";
 import Embed from "../../components/Embed.astro";
 import DynamicImage from "../../components/DynamicImage.astro";
 import FeaturedProject from "../../components/FeaturedProject.astro";
+import { getFeaturedPortfolio, getPortfolio } from "../../content/portfolio";
 
-const allProjects = await getCollection("portfolio");
-const featured = allProjects.filter(({ data: { featured } }) => featured);
-const projects = allProjects.filter((project) => !featured.includes(project));
+const featured = await getFeaturedPortfolio();
+const projects = (await getPortfolio()).filter(
+  ({ data: { featured } }) => !featured
+);
 ---
 
 <BaseLayout

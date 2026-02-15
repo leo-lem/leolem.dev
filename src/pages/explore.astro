@@ -2,38 +2,33 @@
 import BaseLayout from "../layout/BaseLayout.astro";
 import Tags from "../components/Tags.astro";
 import TopicToggle from "../components/TopicToggle.astro";
-
-import { getCollection } from "astro:content";
 import DynamicImage from "../components/DynamicImage.astro";
+import { getTopicCategories, getTopics } from "../content/topics";
+import { getBlog } from "../content/blog";
+import { getPortfolio } from "../content/portfolio";
+import { getOffering } from "../content/offering";
 
-const skills = (await getCollection("topics"))
-  .sort((a, b) => (b.data.confidence ?? 0) - (a.data.confidence ?? 0))
-  .sort((a, b) => (b.data.isPriority ? 1 : 0) - (a.data.isPriority ? 1 : 0));
+const skills = await getTopics();
 
-const categories = skills
-  .map((skill) => skill.data.category)
-  .filter((value, index, self) => self.indexOf(value) === index);
+const categories = await getTopicCategories();
 
 const results = [
-  ...(await getCollection("blog"))
-    .filter(({ data: { date } }) => !date || date.getTime() <= Date.now())
-    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-    .map((item) => ({
-      ...item,
-      type: "article",
-      url: `/blog/${item.slug}/`
-    })),
-  ...(await getCollection("portfolio")).map((item) => ({
+  ...(await getBlog()).map((item) => ({
+    ...item,
+    type: "article",
+    url: `/blog/${item.slug}/`
+  })),
+  ...(await getPortfolio()).map((item) => ({
     ...item,
     type: "project",
     url: `/portfolio/${item.slug}/`
   })),
-  ...(await getCollection("offering")).map((item) => ({
+  ...(await getOffering()).map((item) => ({
     ...item,
     type: "service",
-    url: `/offering#${item.slug}`
+    url: `/offering#${item.slug}/`
   }))
-].sort((a, b) => (b.data.featured ? 1 : -1) - (a.data.featured ? 1 : -1));
+];
 ---
 
 <BaseLayout

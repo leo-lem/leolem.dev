@@ -1,16 +1,14 @@
 ---
-import { getCollection } from "astro:content";
-
 import BaseLayout from "../../layout/BaseLayout.astro";
 import SubscribePanel from "../../components/SubscribePanel.astro";
 import FeaturedArticle from "../../components/FeaturedArticle.astro";
-import Article from "../../components/Article.astro";
+import ArticleRow from "../../components/ArticleRow.astro";
+import { getBlog, getFeaturedBlog } from "../../content/blog";
 
-const allArticles = (await getCollection("blog"))
-  .filter(({ data: { date } }) => date <= new Date())
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-const featured = allArticles.find(({ data: { featured } }) => featured);
-const articles = allArticles.filter((article) => article !== featured);
+const featured = await getFeaturedBlog();
+const articles = (await getBlog()).filter(
+  ({ data: { featured } }) => !featured
+);
 ---
 
 <BaseLayout
@@ -37,7 +35,7 @@ const articles = allArticles.filter((article) => article !== featured);
     {
       articles.map((article, idx) => (
         <li>
-          <Article article={article} class={idx < 3 ? "eager" : "lazy"} />
+          <ArticleRow article={article} class={idx < 3 ? "eager" : "lazy"} />
         </li>
       ))
     }

@@ -1,17 +1,12 @@
 ---
-import { getCollection } from "astro:content";
-
 import BaseLayout from "../layout/BaseLayout.astro";
 import Embed from "../components/Embed.astro";
 import DynamicImage from "../components/DynamicImage.astro";
-
-import { Content as AboutMe } from "../content/about.md";
 import SeeMore from "../components/SeeMore.astro";
+import { Content as AboutMe } from "../content/about.md";
+import { getStations } from "../content/stations";
 
-const stations = (await getCollection("stations")).sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime()
-);
-
+const stations = await getStations();
 const albumID = import.meta.env.FAVORITE_ALBUM;
 const tripID = import.meta.env.CURRENT_TRIP;
 ---

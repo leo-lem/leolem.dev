@@ -1,8 +1,8 @@
 import rss from "@astrojs/rss";
-import { getCollection } from "astro:content";
+import { getBlog } from "../content/blog";
 
 export async function GET(context: { site: URL }) {
-  const posts = await getCollection("blog");
+  const posts = await getBlog();
 
   return rss({
     title: "Leopold Lemmermann",
