@@ -34,7 +34,7 @@ const projects = (await getPortfolio())
 const related = (await getBlog())
   .filter((entry) => {
     if (entry.slug === slug) return false;
-    return entry.data.tags.some((tag) => new Set(tags).has(tag));
+    return entry.data.tags.some((tag) => tags.includes(tag));
   })
   .map((entry) => {
     return {
