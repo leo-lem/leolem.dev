@@ -114,10 +114,10 @@ const { label, class: classes = "" } = Astro.props;
           return statusMessage("Please enter a valid email address.", true);
 
         await OneSignal.User.addEmail(email());
-
-        input.value = "";
         await alertSubscribe("email", email());
         statusMessage("Nice. If it went through, you're all set for updates.");
+
+        input.value = "";
       } catch (e) {
         console.error("OneSignal addEmail failed", e);
       }

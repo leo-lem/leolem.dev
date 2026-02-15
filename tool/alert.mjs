@@ -33,7 +33,7 @@ export default {
       if (typeof payload.kind !== "string")
         throw new Error("Missing or invalid 'kind' field");
     } catch (e) {
-      return withCors(request, new Response(`Bad JSON: ${e.message}`, { status: 400 }));
+      return withCors(request, new Response(`Bad JSON: ${e}`, { status: 400 }));
     }
 
     const resp = await fetch("https://onesignal.com/api/v1/notifications", {
