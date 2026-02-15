@@ -2,9 +2,9 @@
   "extends": "astro/tsconfigs/strict",
   "include": [
     ".astro/types.d.ts",
-    "**/*",
-    ".sync.mjs",
-    ".notify.mjs"
+    "src/**/*",
+    "test/**/*",
+    "tool/**/*"
   ],
   "exclude": [
     "dist"

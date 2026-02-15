@@ -5,11 +5,12 @@
   "scripts": {
     "start": "astro dev --host",
     "build": "astro build",
-    "sync": "node .sync.mjs",
-    "icons": "node .icons.mjs",
     "test": "playwright test",
-    "smoke": "npm test -- test/smoke.spec.ts",
-    "co2": "tsx test/check_co2.ts"
+    "test:smoke": "npm test -- test/smoke.spec.ts",
+    "test:co2": "tsx test/check_co2.ts",
+    "tool:sync": "node tool/sync.mjs",
+    "tool:icons": "node tool/icons.mjs",
+    "tool:alert": "wrangler deploy -c wrangler.alert.toml"
   },
   "dependencies": {
     "@astrojs/node": "^9.5.2",
@@ -32,6 +33,7 @@
     "favicons": "^7.2.0",
     "tsx": "^4.21",
     "typescript": "^5.9",
+    "wrangler": "^4.65.0",
     "xml2js": "^0.6"
   }
 }

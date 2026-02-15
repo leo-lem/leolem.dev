@@ -15,7 +15,8 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/bootstrap
-      - run: npm run build
+      - name: Build site
+        run: npm run build
 
   test:
     permissions:
@@ -28,4 +29,10 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ./.github/actions/bootstrap
       - run: npx playwright install
-      - run: npm test
+      - uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+          restore-keys: ${{ runner.os }}-playwright-
+      - name: Run tests
+        run: npm test
