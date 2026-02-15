@@ -25,5 +25,5 @@ export async function getBlog() {
 }
 
 export async function getFeaturedBlog() {
-  return (await getBlog()).filter(({ data: { featured } }) => featured === true)[0];
+  return (await getBlog()).find(({ data: { featured } }) => featured === true);
 }
