@@ -109,7 +109,6 @@ const socials = [
         };
       }
     </script>
-
     <script
       is:inline
       src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.es6.js"
@@ -122,35 +121,7 @@ const socials = [
           safari_web_id:
             "web.onesignal.auto.1a94b592-c98a-427e-9490-520bfcd23754",
           allowLocalhostAsSecureOrigin: true,
-          autoResubscribe: true,
-          promptOptions: {
-            slidedown: {
-              prompts: [
-                {
-                  type: "push",
-                  autoPrompt: false,
-                  text: {
-                    actionMessage: "Do you want to be notified?",
-                    acceptButton: "Yes",
-                    cancelButton: "No Thanks",
-                    confirmMessage:
-                      "Thanks for subscribing! I'll keep you updated."
-                  }
-                },
-                {
-                  type: "email",
-                  autoPrompt: false,
-                  text: {
-                    actionMessage: "Enter your email to subscribe to my blog.",
-                    acceptButton: "Subscribe",
-                    cancelButton: "No Thanks",
-                    confirmMessage:
-                      "Thanks for subscribing! I'll keep you updated via email."
-                  }
-                }
-              ]
-            }
-          }
+          autoResubscribe: true
         });
       });
     </script>

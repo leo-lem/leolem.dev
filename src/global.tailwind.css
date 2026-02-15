@@ -88,6 +88,7 @@ body {
   .text-primary { color: var(--text-color); }
   .text-secondary { color: var(--text-secondary-color); }
   .text-muted { color: var(--text-muted-color); }
+  .text-error { color: #dc2626; }
   .text-accent {
     @apply accent;
     color: transparent;
@@ -172,6 +173,9 @@ body {
       text-secondary border border-[var(--border-color)]
       interactive pressable hover-surface focus-ring;
     background-color: var(--surface-color);
+  }
+  .btn:disabled {
+    @apply cursor-not-allowed pointer-events-none opacity-50;
   }
   .input {
     @apply w-full px-3 py-2 rounded-lg

@@ -30,8 +30,10 @@ export default {
     let payload;
     try {
       payload = await request.json();
-    } catch {
-      return withCors(request, new Response("Bad JSON", { status: 400 }));
+      if (typeof payload.kind !== "string")
+        throw new Error("Missing or invalid 'kind' field");
+    } catch (e) {
+      return withCors(request, new Response(`Bad JSON: ${e}`, { status: 400 }));
     }
 
     const resp = await fetch("https://onesignal.com/api/v1/notifications", {
@@ -45,9 +47,9 @@ export default {
         template_id: "0f492c1c-e843-4707-afa0-ab2f20b8c253",
         included_segments: ["Staging"],
         custom_data: {
-          kind: payload?.kind ?? "unknown",
-          email: payload?.email ?? "unknown",
-          page: payload?.page ?? "unknown",
+          kind: payload.kind,
+          page: payload.page ?? "unknown",
+          email: payload.email ?? "none"
         },
       }),
     });
