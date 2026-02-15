@@ -39,6 +39,7 @@ const { label, class: classes = "" } = Astro.props;
           inputmode="email"
           autocomplete="email"
           placeholder="your@email.here"
+          aria-label="Email address"
         />
       </div>
 
@@ -60,14 +61,18 @@ const { label, class: classes = "" } = Astro.props;
       let email = emailOverride;
 
       if (!email) {
-        await new Promise((resolve) => {
-          window.OneSignalDeferred?.push(async (OneSignal) => {
-            try {
-              email = (await OneSignal.User?.getEmail?.()) ?? null;
-            } catch {}
-            resolve();
+        const deferred =
+          typeof window !== "undefined" ? window.OneSignalDeferred : undefined;
+        if (deferred && typeof deferred.push === "function") {
+          await new Promise((resolve) => {
+            deferred.push(async (OneSignal) => {
+              try {
+                email = (await OneSignal.User?.getEmail?.()) ?? null;
+              } catch {}
+              resolve();
+            });
           });
-        });
+        }
       }
 
       await fetch("https://alert.leolem.dev/subscribe", {
@@ -131,15 +136,4 @@ const { label, class: classes = "" } = Astro.props;
         input.value = "";
       });
     });
-
-  document.getElementById("email-btn")?.addEventListener("click", async () => {
-    try {
-      window.OneSignalDeferred?.push((OneSignal) => {
-        OneSignal.Slidedown.promptEmail({ force: true });
-        setTimeout(() => alertSubscribe("email"), 1500);
-      });
-    } catch (e) {
-      console.error("Email failed", e);
-    }
-  });
 </script>

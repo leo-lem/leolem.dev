@@ -10,7 +10,8 @@
     "test:co2": "tsx test/check_co2.ts",
     "tool:sync": "node tool/sync.mjs",
     "tool:icons": "node tool/icons.mjs",
-    "tool:alert": "wrangler deploy -c wrangler.alert.toml"
+    "tool:alert": "wrangler deploy -c wrangler.alert.toml",
+    "tool:notify": "node tool/notify.mjs"
   },
   "dependencies": {
     "@astrojs/node": "^9.5.2",
