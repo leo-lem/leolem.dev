@@ -8,7 +8,7 @@ const navigation = ["blog", "portfolio", "offering", "explore", "about"];
 const { socials, subscribe = true } = Astro.props;
 ---
 
-<header class="sticky top-0 p-3 z-10 stack-sm hover:text-accent">
+<header class="sticky top-0 p-3 z-10 stack-sm">
   <nav>
     <div
       class="container-wide mx-auto stack-sm sm:flex-row sm:items-center sm:justify-between"
@@ -21,7 +21,7 @@ const { socials, subscribe = true } = Astro.props;
 
           <a
             href="/"
-            class="animate-slidefadein navigation flex flex-col whitespace-nowrap"
+            class="animate-slidefadein navigation flex flex-col whitespace-nowrap hover:text-accent"
           >
             <span class="font-semibold text-xs sm:text-sm">
               Leopold Lemmermann
@@ -55,7 +55,7 @@ const { socials, subscribe = true } = Astro.props;
           navigation.map((item) => (
             <a
               href={`/${item}/`}
-              class={`navigation capitalize ${Astro.url.pathname.includes(item) ? "active" : ""}`}
+              class={`navigation capitalize hover:text-accent ${Astro.url.pathname.includes(item) ? "active" : ""}`}
               aria-current={
                 Astro.url.pathname.includes(item) ? "page" : undefined
               }
@@ -72,7 +72,7 @@ const { socials, subscribe = true } = Astro.props;
     subscribe && (
       <section class="container-wide mx-auto text-center text-muted">
         New article weekly. No noise.{" "}
-        <a href="/blog/#subscribe" class="text-primary">
+        <a href="/blog/#subscribe" class="text-primary hover:text-accent">
           Subscribe
         </a>
       </section>

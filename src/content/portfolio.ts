@@ -1,4 +1,4 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, z, getCollection } from 'astro:content';
 
 export default defineCollection({
   schema: z.object({
@@ -13,3 +13,15 @@ export default defineCollection({
     })).default([])
   })
 });
+
+export async function getPortfolio() {
+  return (await getCollection("portfolio")).sort((a, b) => {
+    if (a.data.featured && !b.data.featured) return -1;
+    if (!a.data.featured && b.data.featured) return 1;
+    return a.data.title.localeCompare(b.data.title, undefined, { sensitivity: "base" });
+  });
+}
+
+export async function getFeaturedPortfolio() {
+  return (await getPortfolio()).filter(({ data: { featured } }) => featured === true);
+}

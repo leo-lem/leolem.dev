@@ -5,12 +5,12 @@ import IconLink from "../../components/IconLink.astro";
 import Tags from "../../components/Tags.astro";
 import Embed from "../../components/Embed.astro";
 import DynamicImage from "../../components/DynamicImage.astro";
-
-import { getCollection } from "astro:content";
-import Article from "../../components/Article.astro";
+import ArticleRow from "../../components/ArticleRow.astro";
+import { getPortfolio } from "../../content/portfolio";
+import { getBlog } from "../../content/blog";
 
 export async function getStaticPaths() {
-  return (await getCollection("portfolio")).map((project) => ({
+  return (await getPortfolio()).map((project) => ({
     params: { project: project.slug },
     props: project
   }));
@@ -22,12 +22,9 @@ const {
   rendered
 } = Astro.props;
 
-const articles = (await getCollection("blog"))
-  .filter(
-    ({ slug, data: { date } }) =>
-      date <= new Date() && articleSlugs.includes(slug)
-  )
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const articles = (await getBlog())
+  .filter(({ slug }) => articleSlugs.includes(slug))
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -78,7 +75,7 @@ const articles = (await getCollection("blog"))
       <div class="flex flex-col gap-2 mx-2">
         <h2 class="title">Related Articles</h2>
         {articles.map((article) => (
-          <Article article={article} />
+          <ArticleRow article={article} />
         ))}
       </div>
     )

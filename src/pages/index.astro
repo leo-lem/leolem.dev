@@ -1,22 +1,18 @@
 ---
 import { Icon } from "astro-icon/components";
-import { getCollection } from "astro:content";
 
 import BaseLayout from "../layout/BaseLayout.astro";
 import FeaturedArticle from "../components/FeaturedArticle.astro";
-import { Content as AboutMe } from "/src/content/about.md";
 import SeeMore from "../components/SeeMore.astro";
 import FeaturedProject from "../components/FeaturedProject.astro";
+import { Content as AboutMe } from "/src/content/about.md";
+import { getFeaturedBlog } from "../content/blog";
+import { getFeaturedPortfolio } from "../content/portfolio";
+import { getFeaturedOffering } from "../content/offering";
 
-const featuredArticle = (await getCollection("blog")).filter(
-  ({ data: { date, featured } }) => date <= new Date() && featured
-)[0];
-const featuredProjects = (await getCollection("portfolio")).filter(
-  ({ data: { featured } }) => featured
-);
-const featuredServices = (await getCollection("offering")).filter(
-  ({ data: { featured } }) => featured
-);
+const featuredArticle = await getFeaturedBlog();
+const featuredProjects = await getFeaturedPortfolio();
+const featuredServices = await getFeaturedOffering();
 ---
 
 <BaseLayout title="Leopold Lemmermann - Software Engineer">

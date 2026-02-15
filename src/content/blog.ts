@@ -1,4 +1,4 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, z, getCollection } from "astro:content";
 
 export default defineCollection({
   schema: z.object({
@@ -13,3 +13,17 @@ export default defineCollection({
     }).optional()
   })
 });
+
+export async function getBlog() {
+  return (await getCollection("blog"))
+  .filter(({ data: { date } }) => import.meta.env.DEV || date <= new Date())
+  .sort((a, b) => {
+    if (a.data.featured && !b.data.featured) return -1;
+    if (!a.data.featured && b.data.featured) return 1;
+    return b.data.date.getTime() - a.data.date.getTime();
+  });
+}
+
+export async function getFeaturedBlog() {
+  return (await getBlog()).find(({ data: { featured } }) => featured === true);
+}

@@ -1,5 +1,5 @@
 ---
-title: Building leolem.dev
+title: leolem.dev
 short: My personal website and writing space, built as a fast, static Astro project to showcase work, document projects, and support regular blogging.
 tags: [Astro, Product, Systems]
 articles: [astro, devcontainers]

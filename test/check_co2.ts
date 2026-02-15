@@ -1,6 +1,6 @@
 import { co2 as CO2 } from "@tgwf/co2";
 import fetch from "node-fetch";
-import { writeFileSync, readFileSync, existsSync } from "fs";
+import { writeFileSync, readFileSync, existsSync } from "node:fs";
 import { parseStringPromise } from 'xml2js';
 
 const BASELINE_FILE = "baseline.co2";
@@ -10,12 +10,12 @@ function getBaselineCO2(): number | null {
 
   let baseline = null;
   if (CO2_BASELINE)
-    baseline = parseFloat(CO2_BASELINE);
+    baseline = Number.parseFloat(CO2_BASELINE);
   else if (existsSync(BASELINE_FILE))
-    baseline = parseFloat(readFileSync(BASELINE_FILE, "utf-8"));
+    baseline = Number.parseFloat(readFileSync(BASELINE_FILE, "utf-8"));
 
-  if (baseline === null || isNaN(baseline) || baseline < 0)
-    console.warn(baseline !== null ? `CO₂ baseline '${baseline}' is invalid. Using null.` : "No CO₂ baseline found.");
+  if (baseline === null || Number.isNaN(baseline) || baseline < 0)
+    console.warn(baseline === null ? "No CO₂ baseline found." : `CO₂ baseline '${baseline}' is invalid. Using null.`);
 
   return baseline;
 }
@@ -50,7 +50,7 @@ export async function getUrlsFromSitemapIndex(): Promise<string[]> {
 }
 
 async function checkCO2() {
-  const calc = new CO2({});
+  const calc = new CO2({ model: "swd", version: 4});
   let totalCO2 = 0;
 
   for (const url of await getUrlsFromSitemapIndex()) {
@@ -58,7 +58,7 @@ async function checkCO2() {
     if (!response.ok)
       throw new Error(`Failed to fetch ${url}: ${response.status}`);
     const contentLength = response.headers.get("content-length");
-    const pageSize = contentLength ? parseInt(contentLength, 10) : (await response.arrayBuffer()).byteLength;
+    const pageSize = contentLength ? Number.parseInt(contentLength, 10) : (await response.arrayBuffer()).byteLength;
     const co2 = calc.perByte(pageSize) as number;
 
     totalCO2 += co2;
@@ -87,7 +87,9 @@ async function checkCO2() {
   process.exit(isRegression ? 1 : 0);
 }
 
-checkCO2().catch((error) => {
+try {
+  await checkCO2();
+} catch (error) {
   console.error("An error occurred:", error);
   process.exit(1);
-});
+}

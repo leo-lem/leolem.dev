@@ -3,17 +3,16 @@ import BaseLayout from "../../layout/BaseLayout.astro";
 import DynamicImage from "../../components/DynamicImage.astro";
 import Tags from "../../components/Tags.astro";
 import SubscribePanel from "../../components/SubscribePanel.astro";
-
-import { getCollection } from "astro:content";
+import ArticleRow from "../../components/ArticleRow.astro";
 import FeaturedProject from "../../components/FeaturedProject.astro";
+import { getBlog } from "../../content/blog";
+import { getPortfolio } from "../../content/portfolio";
 
 export async function getStaticPaths() {
-  return (await getCollection("blog"))
-    .filter(({ data: { date } }) => date <= new Date())
-    .map((article) => ({
-      params: { article: article.slug },
-      props: article
-    }));
+  return (await getBlog()).map((article) => ({
+    params: { article: article.slug },
+    props: article
+  }));
 }
 
 const {
@@ -28,9 +27,27 @@ const dateLabel = date.toLocaleDateString(undefined, {
   year: "numeric"
 });
 
-const projects = (await getCollection("portfolio")).filter(
-  ({ data: { articles } }) => articles.includes(slug)
-);
+const projects = (await getPortfolio())
+  .filter(({ data: { articles } }) => articles.includes(slug))
+  .slice(0, 3);
+
+const related = (await getBlog())
+  .filter((entry) => {
+    if (entry.slug === slug) return false;
+    return entry.data.tags.some((tag) => tags.includes(tag));
+  })
+  .map((entry) => {
+    return {
+      entry,
+      score: entry.data.tags.reduce(
+        (acc, t) => acc + (tags.includes(t) ? 1 : 0),
+        0
+      )
+    };
+  })
+  .sort((x, y) => y.score - x.score)
+  .map(({ entry }) => entry)
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -99,6 +116,20 @@ const projects = (await getCollection("portfolio")).filter(
         <div class="split">
           {projects.map((project) => (
             <FeaturedProject project={project} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  {
+    related.length > 0 && (
+      <section class="container-wide stack">
+        <h2 class="title">Related Articles</h2>
+
+        <div class="flex flex-col gap-2">
+          {related.map((article) => (
+            <ArticleRow article={article} />
           ))}
         </div>
       </section>
