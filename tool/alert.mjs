@@ -34,15 +34,6 @@ export default {
       JSON.stringify(payload, null, 2),
     ].join("\n");
 
-    return new Response(
-      JSON.stringify({
-        has_app_id: Boolean(env.ONESIGNAL_APP_ID),
-        has_key: Boolean(env.ONESIGNAL_REST_API_KEY),
-        has_secret: Boolean(env.WEBHOOK_SECRET),
-      }),
-      { status: 200, headers: { "content-type": "application/json" } }
-    );
-
     const resp = await fetch("https://onesignal.com/api/v1/notifications", {
       method: "POST",
       headers: {
