@@ -33,40 +33,33 @@ const { label, class: classes = "" } = Astro.props;
 <script is:inline type="module">
   async function alertSubscribe(kind) {
     try {
+      let email = null;
+
+      await new Promise((resolve) => {
+        window.OneSignalDeferred?.push(async (OneSignal) => {
+          try {
+            email = (await OneSignal.User?.getEmail?.()) ?? null;
+          } catch {}
+          resolve();
+        });
+      });
+
       await fetch("https://alert.leolem.dev/subscribe", {
         method: "POST",
         headers: {
           "content-type": "application/json",
-          "x-webhook-secret":
-            "ZXPLyTrVPeT0Y6RbKpG547VsHr+7UDrbKnTLzuSeHOIm/OdwoRWRdSzey/aC0aCD"
+          "x-webhook-secret": "YOUR_WEBHOOK_SECRET"
         },
         body: JSON.stringify({
           kind,
           page: location.href,
-          email: null
+          email
         })
       });
     } catch (e) {
       console.error("Subscribe alert failed", e);
     }
   }
-
-  window.OneSignalDeferred?.push((OneSignal) => {
-    OneSignal.User.PushSubscription.addEventListener("change", (event) => {
-      const wasIn = Boolean(event.previous?.optedIn);
-      const isIn = Boolean(event.current?.optedIn);
-      if (!wasIn && isIn) alertSubscribe("push");
-    });
-
-    OneSignal.User.EmailSubscription?.addEventListener?.("change", (event) => {
-      const wasIn = Boolean(event.previous?.optedIn);
-      const isIn = Boolean(event.current?.optedIn);
-      if (!wasIn && isIn) {
-        const email = event.current?.email ?? null;
-        alertSubscribe("email", email);
-      }
-    });
-  });
 
   document.getElementById("push-btn")?.addEventListener("click", () => {
     if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
@@ -83,14 +76,18 @@ const { label, class: classes = "" } = Astro.props;
       }
 
       OneSignal.Slidedown.promptPush({ force: true });
+
+      setTimeout(() => alertSubscribe("push"), 1500);
     });
   });
 
   document.getElementById("email-btn")?.addEventListener("click", async () => {
     try {
-      window.OneSignalDeferred?.push((OneSignal) =>
-        OneSignal.Slidedown.promptEmail({ force: true })
-      );
+      window.OneSignalDeferred?.push((OneSignal) => {
+        OneSignal.Slidedown.promptEmail({ force: true });
+
+        setTimeout(() => alertSubscribe("email"), 1500);
+      });
     } catch (e) {
       console.error("Email failed", e);
     }
