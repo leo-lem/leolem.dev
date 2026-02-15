@@ -33,7 +33,7 @@ const { label, class: classes = "" } = Astro.props;
     <div class="cluster">
       <div class="flex-1 min-w-[220px]">
         <input
-          id="subscribe-email"
+          id="email"
           class="input"
           type="email"
           inputmode="email"
@@ -44,37 +44,45 @@ const { label, class: classes = "" } = Astro.props;
       </div>
 
       <button
-        id="subscribe-email-btn"
+        id="email-btn"
         class="btn px-3 text-sm"
         type="button"
         aria-label="Subscribe"
         title="Subscribe"
+        disabled="true"
         >→
       </button>
     </div>
+
+    <div id="subscribe-status" class="text-xs hidden"></div>
   </div>
 </section>
 
 <script is:inline type="module">
-  async function alertSubscribe(kind, emailOverride = null) {
+  const input = document.getElementById("email");
+  const emailbtn = document.getElementById("email-btn");
+  const pushbtn = document.getElementById("push-btn");
+  const status = document.getElementById("subscribe-status");
+
+  function email() {
+    return (input?.value || "").trim();
+  }
+
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  function statusMessage(message, isError = false) {
+    if (!status) return;
+    if (message == null || message === "")
+      return status?.classList.add("hidden");
+    status.textContent = message;
+    status.classList.toggle("text-error", isError);
+    status.classList.remove("hidden");
+  }
+
+  async function alertSubscribe(kind, email = null) {
     try {
-      let email = emailOverride;
-
-      if (!email) {
-        const deferred =
-          typeof window !== "undefined" ? window.OneSignalDeferred : undefined;
-        if (deferred && typeof deferred.push === "function") {
-          await new Promise((resolve) => {
-            deferred.push(async (OneSignal) => {
-              try {
-                email = (await OneSignal.User?.getEmail?.()) ?? null;
-              } catch {}
-              resolve();
-            });
-          });
-        }
-      }
-
       await fetch("https://alert.leolem.dev/subscribe", {
         method: "POST",
         headers: {
@@ -93,47 +101,58 @@ const { label, class: classes = "" } = Astro.props;
     }
   }
 
-  document.getElementById("push-btn")?.addEventListener("click", () => {
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-      alert(
-        "Push on iPhone does not work currently.\nPlease use another device, Email or RSS instead.\nSorry for the inconvenience!"
-      );
-      return;
-    }
+  input?.addEventListener("input", () => {
+    if (!isValidEmail(email())) return emailbtn?.setAttribute("disabled", true);
+    emailbtn?.removeAttribute("disabled");
+    statusMessage("");
+  });
 
-    window.OneSignalDeferred?.push((OneSignal) => {
-      if (OneSignal.Notifications.permission) {
-        alert("You are already subscribed to push notifications!");
-        return;
+  emailbtn?.addEventListener("click", () => {
+    window.OneSignal?.push(async (OneSignal) => {
+      try {
+        if (!isValidEmail(email()))
+          return statusMessage("Please enter a valid email address.", true);
+
+        await OneSignal.User.addEmail(email());
+
+        input.value = "";
+        await alertSubscribe("email", email());
+        statusMessage("Nice. If it went through, you're all set for updates.");
+      } catch (e) {
+        console.error("OneSignal addEmail failed", e);
       }
-
-      OneSignal.Slidedown.promptPush({ force: true });
-      setTimeout(() => alertSubscribe("push"), 1500);
     });
   });
 
-  document
-    .getElementById("subscribe-email-btn")
-    ?.addEventListener("click", () => {
-      const input = document.getElementById("subscribe-email");
-      const email = (input?.value || "").trim();
+  pushbtn?.addEventListener("click", () => {
+    window.OneSignal?.push((OneSignal) => {
+      try {
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream)
+          return statusMessage("Push on iOS is not supported.", true);
 
-      if (!email) return;
+        if (
+          OneSignal.Notifications.permission &&
+          OneSignal.User.PushSubscription.optedIn
+        )
+          return statusMessage("You are already subscribed!");
 
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        alert("Please enter a valid email address.");
-        return;
+        OneSignal.User.PushSubscription.addEventListener(
+          "change",
+          async ({ current: { optedIn } }) => {
+            if (optedIn) {
+              await alertSubscribe("push");
+              statusMessage("Subscribed successfully!");
+            } else {
+              console.error("Subscription failed or was dismissed.", true);
+            }
+          },
+          { once: true }
+        );
+
+        OneSignal.User.PushSubscription.optIn();
+      } catch (e) {
+        console.error("OneSignal push subscription failed", e);
       }
-
-      window.OneSignalDeferred?.push(async (OneSignal) => {
-        try {
-          await OneSignal.User.addEmail(email);
-        } catch (e) {
-          console.error("OneSignal addEmail failed", e);
-        }
-
-        await alertSubscribe("email", email);
-        input.value = "";
-      });
     });
+  });
 </script>
