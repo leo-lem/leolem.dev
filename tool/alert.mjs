@@ -1,13 +1,13 @@
 export default {
   async fetch(request, env) {
-    if (request.method === "GET") 
+    if (request.method === "GET")
       return new Response("ok", { status: 200 });
-    if (request.method !== "POST") 
+    if (request.method !== "POST")
       return new Response("Method Not Allowed", { status: 405 });
     const secret = request.headers.get("x-webhook-secret");
     if (!secret || secret !== env.WEBHOOK_SECRET)
       return new Response("Unauthorized", { status: 401 });
-    if ((new URL(request.url)).pathname !== "/subscribe") 
+    if ((new URL(request.url)).pathname !== "/subscribe")
       return new Response("Not Found", { status: 404 });
 
     let payload;
@@ -25,18 +25,19 @@ export default {
       },
       body: JSON.stringify({
         app_id: env.ONESIGNAL_APP_ID,
+        template_id: "0f492c1c-e843-4707-afa0-ab2f20b8c253",
         included_segments: ["Staging"],
         channel_for_external_user_ids: "email",
-        email_subject: "New subscriber",
-        email_body: `
-        New subscriber: ${payload.email ?? "unknown"}
-        Page: ${payload.page ?? "unknown"}`
+        custom_data: {
+          email: payload?.email ?? "unknown",
+          page: payload?.page ?? "unknown",
+        },
       }),
     });
 
     if (!resp.ok)
       return new Response((await resp.text().catch(() => "")).slice(0, 4000), { status: 502 });
-    
+
     return new Response("ok", { status: 200 });
   },
 };
