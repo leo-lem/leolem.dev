@@ -50,6 +50,58 @@ const offering = await getOffering();
 
   <section id="schedule-a-call" class="container stack">
     <h2 class="title">Book a Meeting</h2>
-    <Embed kind="calendar" loading="lazy" />
+    <div id="my-cal-inline-gettoknow" class="w-full h-full overflow-y-auto">
+    </div>
   </section>
 </BaseLayout>
+
+<script is:inline type="text/javascript">
+  (function (C, A, L) {
+    let p = function (a, ar) {
+      a.q.push(ar);
+    };
+    let d = C.document;
+    C.Cal =
+      C.Cal ||
+      function () {
+        let cal = C.Cal;
+        let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement("script")).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api = function () {
+            p(api, arguments);
+          };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === "string") {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ["initNamespace", namespace]);
+          } else p(cal, ar);
+          return;
+        }
+        p(cal, ar);
+      };
+  })(window, "https://app.cal.eu/embed/embed.js", "init");
+  Cal("init", "gettoknow", { origin: "https://app.cal.eu" });
+
+  Cal.ns.gettoknow("inline", {
+    elementOrSelector: "#my-cal-inline-gettoknow",
+    config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
+    calLink: "leo-lem/gettoknow"
+  });
+
+  Cal.ns.gettoknow("ui", {
+    cssVarsPerTheme: {
+      light: { "cal-brand": "#1a1c1f" },
+      dark: { "cal-brand": "#f3f4f6" }
+    },
+    hideEventTypeDetails: false,
+    layout: "month_view"
+  });
+</script>
