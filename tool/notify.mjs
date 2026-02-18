@@ -30,6 +30,19 @@ function parseFrontmatter(md) {
   return out;
 }
 
+async function listMarkdownFiles(dir) {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  const out = [];
+
+  for (const e of entries) {
+    const p = path.join(dir, e.name);
+    if (e.isDirectory()) out.push(...(await listMarkdownFiles(p)));
+    else if (e.isFile() && /\.(md|mdx)$/i.test(e.name)) out.push(p);
+  }
+
+  return out;
+}
+
 async function post(body) {
   const res = await fetch("https://onesignal.com/api/v1/notifications", {
     method: "POST",
@@ -58,13 +71,15 @@ const main = async () => {
     alreadyNotified = new Set();
   }
 
-  const files = (await fs.readdir(BLOG_DIR))
-    .filter((f) => /\.(md|mdx)$/i.test(f))
-    .map((f) => path.join(BLOG_DIR, f));
+  const files = await listMarkdownFiles(BLOG_DIR);
 
   const articles = (await Promise.all(
     files.map(async (file) => {
-      const slug = path.basename(file).replace(/\.(md|mdx)$/i, "");
+      const slug = path
+      .relative(BLOG_DIR, file)
+      .replace(/\.(md|mdx)$/i, "")
+      .split(path.sep)
+      .join("/");
       if (alreadyNotified.has(slug)) return null;
 
       const fm = parseFrontmatter(await fs.readFile(file, "utf8"));
@@ -102,7 +117,7 @@ const main = async () => {
         short: article.short,
         url: article.url,
       },
-      included_segments: ["All"],
+      included_segments: ["Staging"],
     });
     
     await post({
@@ -110,7 +125,7 @@ const main = async () => {
       headings: { en: `leolem.dev: ${article.title}` },
       contents: { en: `${article.short}.` },
       url: article.url,
-      included_segments: ["All"],
+      included_segments: ["Staging"],
     });
 
     console.log("Sent:", article.slug);
