@@ -11,6 +11,7 @@ const ROOT = process.cwd();
 const CONTENT_REPO_DIR = path.join(ROOT, ".content");
 const STATE = path.join(CONTENT_REPO_DIR, ".notified.json");
 const BLOG_DIR = path.join(CONTENT_REPO_DIR, "content/blog");
+const SEGMENT = "All";
 
 function parseFrontmatter(md) {
   if (!md.startsWith("---")) return {};
@@ -27,6 +28,19 @@ function parseFrontmatter(md) {
     v = v.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1");
     out[k] = v;
   }
+  return out;
+}
+
+async function listMarkdownFiles(dir) {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  const out = [];
+
+  for (const e of entries) {
+    const p = path.join(dir, e.name);
+    if (e.isDirectory()) out.push(...(await listMarkdownFiles(p)));
+    else if (e.isFile() && /\.(md|mdx)$/i.test(e.name)) out.push(p);
+  }
+
   return out;
 }
 
@@ -58,13 +72,15 @@ const main = async () => {
     alreadyNotified = new Set();
   }
 
-  const files = (await fs.readdir(BLOG_DIR))
-    .filter((f) => /\.(md|mdx)$/i.test(f))
-    .map((f) => path.join(BLOG_DIR, f));
+  const files = await listMarkdownFiles(BLOG_DIR);
 
   const articles = (await Promise.all(
     files.map(async (file) => {
-      const slug = path.basename(file).replace(/\.(md|mdx)$/i, "");
+      const slug = path
+      .relative(BLOG_DIR, file)
+      .replace(/\.(md|mdx)$/i, "")
+      .split(path.sep)
+      .join("/");
       if (alreadyNotified.has(slug)) return null;
 
       const fm = parseFrontmatter(await fs.readFile(file, "utf8"));
@@ -102,7 +118,7 @@ const main = async () => {
         short: article.short,
         url: article.url,
       },
-      included_segments: ["All"],
+      included_segments: [SEGMENT],
     });
     
     await post({
@@ -110,7 +126,7 @@ const main = async () => {
       headings: { en: `leolem.dev: ${article.title}` },
       contents: { en: `${article.short}.` },
       url: article.url,
-      included_segments: ["All"],
+      included_segments: [SEGMENT],
     });
 
     console.log("Sent:", article.slug);
