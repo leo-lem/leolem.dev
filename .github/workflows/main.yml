@@ -31,6 +31,8 @@ jobs:
         env:
           NODE_ENV: production
           FAVORITE_ALBUM: ${{ vars.FAVORITE_ALBUM }}
+          ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
+          ONESIGNAL_SAFARI_WEB_ID: ${{ secrets.ONESIGNAL_SAFARI_WEB_ID }}
       - name: Upload to GitHub Pages
         uses: actions/upload-pages-artifact@v4
         with:
