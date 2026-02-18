@@ -11,6 +11,7 @@ const ROOT = process.cwd();
 const CONTENT_REPO_DIR = path.join(ROOT, ".content");
 const STATE = path.join(CONTENT_REPO_DIR, ".notified.json");
 const BLOG_DIR = path.join(CONTENT_REPO_DIR, "content/blog");
+const SEGMENT = "All";
 
 function parseFrontmatter(md) {
   if (!md.startsWith("---")) return {};
@@ -117,7 +118,7 @@ const main = async () => {
         short: article.short,
         url: article.url,
       },
-      included_segments: ["Staging"],
+      included_segments: [SEGMENT],
     });
     
     await post({
@@ -125,7 +126,7 @@ const main = async () => {
       headings: { en: `leolem.dev: ${article.title}` },
       contents: { en: `${article.short}.` },
       url: article.url,
-      included_segments: ["Staging"],
+      included_segments: [SEGMENT],
     });
 
     console.log("Sent:", article.slug);
