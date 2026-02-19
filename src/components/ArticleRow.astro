@@ -15,15 +15,16 @@ const dateLabel = date.toLocaleDateString(undefined, {
   month: "long",
   year: "numeric"
 });
-
-const image = await thumbnail(`blog/${slug}`);
 ---
 
-<a href={image.src} class={`responsive card group block ${classes ?? ""}`}>
+<a
+  href={`/blog/${slug}/`}
+  class={`responsive card group block ${classes ?? ""}`}
+>
   <div class="text-center stack-sm sm:flex-row">
     <div class="relative sm:w-1/3 shrink-0 text-xs sm:text-sm">
       <Image
-        src={image}
+        src={await thumbnail(`blog/${slug}`)}
         alt={`Thumbnail image for ${title}`}
         class={"w-full h-full object-cover"}
         loading={classes?.includes("eager") ? "eager" : "lazy"}
