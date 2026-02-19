@@ -1,3 +1,5 @@
+import { type ImageMetadata } from "astro";
+
 const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/**/*");
 
 export default async function thumbnail(src: string): Promise<ImageMetadata> {
