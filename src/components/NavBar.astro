@@ -1,68 +1,81 @@
 ---
 import { Icon } from "astro-icon/components";
 
-import Avatar from "./Avatar.astro";
 import IconLink from "./IconLink.astro";
+import { frontmatter } from "/src/content/about.md";
+import { Image } from "astro:assets";
+import thumbnail from "../assets/thumbnail";
+
+const { socials, subscribe = true } = Astro.props;
 
 const navigation = ["blog", "portfolio", "offering", "explore", "about"];
-const { socials, subscribe = true } = Astro.props;
 ---
 
-<header class="sticky top-0 p-3 z-10 stack-sm">
-  <nav>
-    <div
-      class="container-wide mx-auto stack-sm sm:flex-row sm:items-center sm:justify-between"
-    >
-      <div class="flex items-center justify-between gap-4">
-        <div class="flex items-center gap-4">
-          <Avatar />
+<header class="sticky top-0 py-3 z-10 stack-sm">
+  <nav
+    class="w-full container-wide mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+  >
+    <div class="w-full flex items-center justify-between gap-4">
+      <Image
+        id="avatar"
+        src={await thumbnail("profile")}
+        alt="Avatar of Leopold Lemmermann"
+        class="w-10 h-10 rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
+        loading="eager"
+      />
 
-          <a
-            href="/"
-            class="animate-slidefadein navigation flex flex-col whitespace-nowrap hover:text-accent"
-          >
-            <span class="font-semibold text-xs sm:text-sm">
-              Leopold Lemmermann
-            </span>
-            <span class="text-xs sm:text-sm">Software Engineer | MSc</span>
-          </a>
-        </div>
-
-        <div class="animate-slidefadein flex flex-row items-center gap-4">
-          {
-            socials.map((url: string) => (
-              <IconLink
-                type={url.split("https://")[1].split(".")[0]}
-                url={url}
-                class="icon-sm"
-              />
-            ))
-          }
-
-          <button id="mobile-menu-toggle" class="sm:hidden focus:outline-none">
-            <Icon name="lucide:menu" class="icon-sm" />
-          </button>
-        </div>
-      </div>
-
-      <div
-        id="mobile-menu"
-        class="hidden max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out flex-col items-center gap-4 sm:flex sm:flex-row sm:overflow-visible sm:animate-slidefadein"
+      <a
+        href="/"
+        class="flex flex-col navigation animate-slidefadein hover:text-accent"
       >
-        {
-          navigation.map((item) => (
-            <a
-              href={`/${item}/`}
-              class={`navigation capitalize hover:text-accent ${Astro.url.pathname.includes(item) ? "active" : ""}`}
-              aria-current={
-                Astro.url.pathname.includes(item) ? "page" : undefined
-              }
-            >
-              {item}
-            </a>
-          ))
-        }
-      </div>
+        <span class="font-semibold text-xs sm:text-sm">
+          Leopold Lemmermann
+        </span>
+        <span class="text-xs whitespace-nowrap">
+          {frontmatter.titles.join(" · ")}
+        </span>
+      </a>
+
+      <div class="ml-auto"></div>
+
+      {
+        socials.map((url: string) => (
+          <IconLink
+            type={url.split("https://")[1].split(".")[0]}
+            url={url}
+            class="icon-sm animate-slidefadein"
+          />
+        ))
+      }
+
+      <button
+        id="mobile-menu-toggle"
+        class="sm:hidden focus:outline-none"
+        aria-label="Open menu"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+      >
+        <Icon name="lucide:menu" class="icon-sm animate-slidefadein" />
+      </button>
+    </div>
+
+    <div
+      id="mobile-menu"
+      class="hidden max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out flex-col items-center gap-2 sm:flex sm:flex-row sm:overflow-visible sm:animate-slidefadein"
+    >
+      {
+        navigation.map((item) => (
+          <a
+            href={`/${item}/`}
+            class={`navigation capitalize hover:text-accent ${Astro.url.pathname.includes(item) ? "active" : ""}`}
+            aria-current={
+              Astro.url.pathname.includes(item) ? "page" : undefined
+            }
+          >
+            {item}
+          </a>
+        ))
+      }
     </div>
   </nav>
 
@@ -103,8 +116,12 @@ const { socials, subscribe = true } = Astro.props;
         menu.classList.remove("hidden");
         menu.classList.add("flex");
         menu.style.maxHeight = menu.scrollHeight + "px";
+        toggle.setAttribute("aria-expanded", "true");
+        toggle.setAttribute("aria-label", "Close menu");
       } else {
         menu.style.maxHeight = "0px";
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Open menu");
         setTimeout(() => {
           menu.classList.remove("flex");
           menu.classList.add("hidden");

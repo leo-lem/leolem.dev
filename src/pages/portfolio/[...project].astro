@@ -4,10 +4,11 @@ import Screenshots from "../../components/Screenshots.astro";
 import IconLink from "../../components/IconLink.astro";
 import Tags from "../../components/Tags.astro";
 import Embed from "../../components/Embed.astro";
-import DynamicImage from "../../components/DynamicImage.astro";
 import ArticleRow from "../../components/ArticleRow.astro";
 import { getPortfolio } from "../../content/portfolio";
 import { getBlog } from "../../content/blog";
+import thumbnail from "../../assets/thumbnail";
+import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
   return (await getPortfolio()).map((project) => ({
@@ -25,11 +26,14 @@ const {
 const articles = (await getBlog())
   .filter(({ slug }) => articleSlugs.includes(slug))
   .slice(0, 3);
+
+const image = await thumbnail(`portfolio/${slug}`);
 ---
 
 <BaseLayout
   title={title}
   description={short}
+  thumbnail={image.src}
   ldJson={{
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -41,11 +45,7 @@ const articles = (await getBlog())
   }}
 >
   <div slot="thumbnail" class="relative card-elevated sm:w-2/3 mx-auto">
-    <DynamicImage
-      src={`portfolio/${slug}`}
-      alt={`Thumbnail for ${title}`}
-      class="thumbnail"
-    />
+    <Image src={image} alt={`Thumbnail for ${title}`} class="thumbnail" />
 
     <Tags
       tags={tags}

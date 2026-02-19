@@ -1,16 +1,7 @@
 ---
-import DynamicImage from "./DynamicImage.astro";
+import { Image } from "astro:assets";
+import thumbnail from "../assets/thumbnail";
 
-interface Props {
-  project: {
-    slug: string;
-    data: {
-      title: string;
-      short: string;
-    };
-  };
-  class?: string;
-}
 const {
   project: {
     slug,
@@ -24,8 +15,8 @@ const {
   href={`/portfolio/${slug}/`}
   class={`relative responsive card stack ${classes}`}
 >
-  <DynamicImage
-    src={`portfolio/${slug}`}
+  <Image
+    src={await thumbnail(`portfolio/${slug}`)}
     alt={`Thumbnail for ${title}`}
     class="thumbnail w-full aspect-square"
   />

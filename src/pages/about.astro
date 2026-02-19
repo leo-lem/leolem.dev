@@ -1,33 +1,36 @@
 ---
 import BaseLayout from "../layout/BaseLayout.astro";
 import Embed from "../components/Embed.astro";
-import DynamicImage from "../components/DynamicImage.astro";
+import { Image } from "astro:assets";
 import SeeMore from "../components/SeeMore.astro";
 import { Content as AboutMe } from "../content/about.md";
 import { getStations } from "../content/stations";
+import thumbnail from "../assets/thumbnail";
 
 const stations = await getStations();
 const albumID = import.meta.env.FAVORITE_ALBUM;
 const tripID = import.meta.env.CURRENT_TRIP;
 ---
 
-<BaseLayout title="About me">
-  <section
-    class="container-wide stack sm:flex-row text-center sm:text-left items-center"
-  >
-    <DynamicImage src="thumbnail" alt="Me!" class="thumbnail eager sm:hidden" />
-    <div class="stack-sm w-full sm:w-1/2">
+<BaseLayout title="About me" showHeader={false}>
+  <section class="container-wide stack sm:text-left items-center">
+    <Image
+      src={await thumbnail("about")}
+      alt="Me!"
+      class="thumbnail"
+      loading="eager"
+    />
+
+    <div class="stack-sm text-center">
       <p class="summary">Hey there!</p>
       <h1 class="title-lg">I'm Leo.</h1>
-      <p><AboutMe /></p>
     </div>
 
-    <div class="stack-sm text-center w-full sm:w-1/2">
-      <DynamicImage
-        src="thumbnail"
-        alt="Me!"
-        class="thumbnail eager hidden sm:block"
-      />
+    <div class="container prose dark:prose-invert text-justify">
+      <AboutMe />
+    </div>
+
+    <div class="stack-sm text-center">
       <p class="summary">Feel free to reach out via</p>
       <a href="mailto:hey@leolem.dev" class="link-muted"> hey@leolem.dev </a>
     </div>

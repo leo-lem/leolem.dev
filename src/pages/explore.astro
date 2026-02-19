@@ -2,11 +2,12 @@
 import BaseLayout from "../layout/BaseLayout.astro";
 import Tags from "../components/Tags.astro";
 import TopicToggle from "../components/TopicToggle.astro";
-import DynamicImage from "../components/DynamicImage.astro";
 import { getTopicCategories, getTopics } from "../content/topics";
 import { getBlog } from "../content/blog";
 import { getPortfolio } from "../content/portfolio";
 import { getOffering } from "../content/offering";
+import thumbnail from "../assets/thumbnail";
+import { Image } from "astro:assets";
 
 const skills = await getTopics();
 
@@ -57,7 +58,7 @@ const results = [
 
   <section id="results" class="container-wide split">
     {
-      results.map(({ slug, data: { title, short, tags }, type, url }) => (
+      results.map(async ({ slug, data: { title, short, tags }, type, url }) => (
         <div
           class="relative responsive card-elevated"
           data-tags={tags.join(",")}
@@ -68,10 +69,13 @@ const results = [
             </span>
 
             {type === "project" || type === "article" ? (
-              <DynamicImage
-                src={`${type === "project" ? "portfolio" : "blog"}/${slug}`}
+              <Image
+                src={await thumbnail(
+                  `${type === "project" ? "portfolio" : "blog"}/${slug}`
+                )}
                 alt={`Thumbnail for ${title}`}
-                class="thumbnail eager"
+                class="thumbnail"
+                loading="eager"
               />
             ) : (
               <div class="thumbnail h-10" />
