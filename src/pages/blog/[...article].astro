@@ -1,12 +1,13 @@
 ---
 import BaseLayout from "../../layout/BaseLayout.astro";
-import DynamicImage from "../../components/DynamicImage.astro";
 import Tags from "../../components/Tags.astro";
 import SubscribePanel from "../../components/SubscribePanel.astro";
 import ArticleRow from "../../components/ArticleRow.astro";
 import FeaturedProject from "../../components/FeaturedProject.astro";
 import { getBlog } from "../../content/blog";
 import { getPortfolio } from "../../content/portfolio";
+import thumbnail from "../../assets/thumbnail";
+import { Image } from "astro:assets";
 
 export async function getStaticPaths() {
   return (await getBlog()).map((article) => ({
@@ -48,11 +49,14 @@ const related = (await getBlog())
   .sort((x, y) => y.score - x.score)
   .map(({ entry }) => entry)
   .slice(0, 3);
+
+const image = await thumbnail(`blog/${slug}`);
 ---
 
 <BaseLayout
   title={title}
   description={short}
+  thumbnail={image.src}
   ldJson={{
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -60,16 +64,18 @@ const related = (await getBlog())
     description: short,
     author: author,
     datePublished: date.toISOString(),
+    image: image.src,
     tags: tags?.join(", "),
-    url: `https://leolem.dev/blog/${slug}`,
+    url: Astro.url,
     inLanguage: "en"
   }}
 >
   <div slot="thumbnail" class="relative">
-    <DynamicImage
-      src={`blog/${slug}`}
+    <Image
+      src={image}
       alt={`Thumbnail image for ${title}`}
-      class="thumbnail card-elevated eager"
+      class="thumbnail card-elevated"
+      loading="eager"
     />
 
     <div class="absolute top-2 left-2 pill-overlay meta">{dateLabel}</div>
@@ -105,7 +111,9 @@ const related = (await getBlog())
   />
 
   <div class="container stack-sm text-center line-clamp-0">
-    <div class="whitespace-nowrap text-xs sm:text-base">If you're still here, might as well subscribe :)</div>
+    <div class="whitespace-nowrap text-xs sm:text-base">
+      If you're still here, might as well subscribe :)
+    </div>
     <SubscribePanel class="container-narrow stack-sm justify-center p-2" />
   </div>
   {

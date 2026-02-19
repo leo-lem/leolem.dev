@@ -1,9 +1,10 @@
 ---
 import BaseLayout from "../../layout/BaseLayout.astro";
 import Embed from "../../components/Embed.astro";
-import DynamicImage from "../../components/DynamicImage.astro";
 import FeaturedProject from "../../components/FeaturedProject.astro";
 import { getFeaturedPortfolio, getPortfolio } from "../../content/portfolio";
+import { Image } from "astro:assets";
+import thumbnail from "../../assets/thumbnail";
 
 const featured = await getFeaturedPortfolio();
 const projects = (await getPortfolio()).filter(
@@ -25,7 +26,7 @@ const projects = (await getPortfolio()).filter(
 
   <ul class="container-wide stack-lg">
     {
-      projects.map(({ data: { title, short }, slug }) => (
+      projects.map(async ({ data: { title, short }, slug }) => (
         <li class="stack-sm text-center sm:text-left">
           <a href={`/portfolio/${slug}/`} class="link">
             <h2 class="title">{title}</h2>
@@ -33,8 +34,8 @@ const projects = (await getPortfolio()).filter(
 
           <a href={`/portfolio/${slug}/`}>
             <div class="responsive card stack sm:flex-row items-center">
-              <DynamicImage
-                src={`portfolio/${slug}`}
+              <Image
+                src={await thumbnail(`portfolio/${slug}`)}
                 alt={`Thumbnail for ${title}`}
                 class="thumbnail w-full aspect-square sm:w-1/3"
               />

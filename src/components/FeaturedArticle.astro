@@ -1,21 +1,7 @@
 ---
-import DynamicImage from "./DynamicImage.astro";
+import { Image } from "astro:assets";
+import thumbnail from "../assets/thumbnail";
 
-interface Props {
-  article: {
-    slug: string;
-    data: {
-      title: string;
-      short: string;
-      date: Date;
-      author?: {
-        name: string;
-        url?: string;
-      };
-    };
-  };
-  class?: string;
-}
 const {
   article: {
     slug,
@@ -55,10 +41,10 @@ const dateLabel = date.toLocaleDateString(undefined, {
   </div>
 
   <a href={`/blog/${slug}/`}>
-    <DynamicImage
-      src={`blog/${slug}`}
+    <Image
+      src={await thumbnail(`blog/${slug}`)}
       alt={`Thumbnail for ${title}`}
-      class="eager"
+      loading="eager"
     />
 
     <div class="absolute bottom-0 fade w-full p-2">

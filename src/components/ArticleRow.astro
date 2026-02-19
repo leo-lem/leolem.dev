@@ -1,20 +1,7 @@
 ---
-import DynamicImage from "./DynamicImage.astro";
+import { Image } from "astro:assets";
+import thumbnail from "../assets/thumbnail";
 
-interface Props {
-  article: {
-    slug: string;
-    data: {
-      title: string;
-      short: string;
-      date: Date;
-      author?: {
-        name: string;
-      };
-    };
-  };
-  class?: string;
-}
 const {
   article: {
     slug,
@@ -28,18 +15,18 @@ const dateLabel = date.toLocaleDateString(undefined, {
   month: "long",
   year: "numeric"
 });
+
+const image = await thumbnail(`blog/${slug}`);
 ---
 
-<a
-  href={`/blog/${slug}/`}
-  class={`responsive card group block ${classes ?? ""}`}
->
+<a href={image.src} class={`responsive card group block ${classes ?? ""}`}>
   <div class="text-center stack-sm sm:flex-row">
     <div class="relative sm:w-1/3 shrink-0 text-xs sm:text-sm">
-      <DynamicImage
-        src={`blog/${slug}`}
+      <Image
+        src={image}
         alt={`Thumbnail image for ${title}`}
-        class={`w-full h-full object-cover ${classes?.includes("eager") ? "eager" : "lazy"}`}
+        class={"w-full h-full object-cover"}
+        loading={classes?.includes("eager") ? "eager" : "lazy"}
       />
 
       <div class="absolute top-2 left-2 pill-overlay">{dateLabel}</div>

@@ -5,7 +5,7 @@ import BaseLayout from "../layout/BaseLayout.astro";
 import FeaturedArticle from "../components/FeaturedArticle.astro";
 import SeeMore from "../components/SeeMore.astro";
 import FeaturedProject from "../components/FeaturedProject.astro";
-import { Content as AboutMe } from "/src/content/about.md";
+import { frontmatter } from "/src/content/about.md";
 import { getFeaturedBlog } from "../content/blog";
 import { getFeaturedPortfolio } from "../content/portfolio";
 import { getFeaturedOffering } from "../content/offering";
@@ -15,10 +15,10 @@ const featuredProjects = await getFeaturedPortfolio();
 const featuredServices = await getFeaturedOffering();
 ---
 
-<BaseLayout title="Leopold Lemmermann - Software Engineer">
+<BaseLayout title="Leopold Lemmermann" showHeader={false}>
   <section class="stack-lg text-center">
-    <section class="container-narrow stack">
-      <article class="text-xl"><AboutMe /></article>
+    <section class="container stack">
+      <article class="text-2xl font-bold">{frontmatter.short}</article>
 
       <SeeMore href="/about/">Learn more about me</SeeMore>
     </section>

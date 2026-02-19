@@ -2,22 +2,20 @@
 import "/src/global.tailwind.css";
 
 import NavBar from "../components/NavBar.astro";
+import { frontmatter } from "/src/content/about.md";
 
-interface Props {
-  title: string;
-  description?: string;
-  ldJson?: Record<string, unknown>;
-  subscribe?: boolean;
-}
-const { title, description, ldJson, subscribe } = Astro.props;
-const descriptionText =
-  description ?? "Portfolio, blog, and what I offer as a software engineer.";
-const ogImage = "/social.png";
+const {
+  title,
+  description = frontmatter.caption,
+  thumbnail = "/social.png",
+  ldJson,
+  subscribe,
+  showHeader = true
+} = Astro.props;
 
-const socials = [
-  "https://github.com/leo-lem",
-  "https://linkedin.com/in/leopoldlemmermann"
-];
+const url = Astro.url;
+const thumbnailUrl = new URL(thumbnail, Astro.site).href;
+const socials = frontmatter.socials.map((social: any) => social.url);
 
 const appId = import.meta.env.ONESIGNAL_APP_ID;
 const safariWebId = import.meta.env.ONESIGNAL_SAFARI_WEB_ID;
@@ -30,14 +28,14 @@ const allowLocalhost = import.meta.env.NODE_ENV === "development";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>{title}</title>
-    <link rel="canonical" href={`https://leolem.dev${Astro.url.pathname}`} />
+    <link rel="canonical" href={url} />
     <link rel="manifest" href="/manifest.webmanifest" />
 
     <meta name="application-name" content="Leopold Lemmermann" />
-    <meta name="description" content={descriptionText} />
+    <meta name="description" content={description} />
     <meta
       name="theme-color"
-      content="#ffffff"
+      content="#f3f4f6"
       media="(prefers-color-scheme: light)"
     />
     <meta
@@ -59,18 +57,16 @@ const allowLocalhost = import.meta.env.NODE_ENV === "development";
     <!-- OpenGraph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={descriptionText} />
-    <meta property="og:image" content={ogImage} />
-    <meta
-      property="og:url"
-      content={`https://leolem.dev${Astro.url.pathname}`}
-    />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={thumbnailUrl} />
+    <meta property="og:url" content={url} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={descriptionText} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={thumbnailUrl} />
+    <meta name="twitter:url" content={url} />
 
     <!-- JSON LD -->
     <script
@@ -81,22 +77,14 @@ const allowLocalhost = import.meta.env.NODE_ENV === "development";
           "@context": "https://schema.org",
           "@type": "Person",
           name: "Leopold Lemmermann",
+          description: description,
+          jobTitle: frontmatter.titles.join(", "),
+          image: thumbnailUrl,
           email: "mailto:hey@leolem.dev",
-          url: "https://leolem.dev",
-          sameAs: socials,
-          jobTitle: "Software Engineer"
+          url: url,
+          sameAs: socials
         }
       )}
-    />
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
     />
 
     <!-- OneSignal Web Push SDK -->
@@ -135,7 +123,7 @@ const allowLocalhost = import.meta.env.NODE_ENV === "development";
 
     <main class="container-wide flex-1 mx-auto stack-lg mb-20">
       {
-        description && (
+        showHeader && (
           <section class="stack text-center ">
             <slot name="thumbnail" />
             <h1 class="title-lg capitalize line-clamp-none">{title}</h1>
