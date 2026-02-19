@@ -48,7 +48,13 @@ const navigation = ["blog", "portfolio", "offering", "explore", "about"];
         ))
       }
 
-      <button id="mobile-menu-toggle" class="sm:hidden focus:outline-none">
+      <button
+        id="mobile-menu-toggle"
+        class="sm:hidden focus:outline-none"
+        aria-label="Open menu"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+      >
         <Icon name="lucide:menu" class="icon-sm animate-slidefadein" />
       </button>
     </div>
@@ -110,8 +116,12 @@ const navigation = ["blog", "portfolio", "offering", "explore", "about"];
         menu.classList.remove("hidden");
         menu.classList.add("flex");
         menu.style.maxHeight = menu.scrollHeight + "px";
+        toggle.setAttribute("aria-expanded", "true");
+        toggle.setAttribute("aria-label", "Close menu");
       } else {
         menu.style.maxHeight = "0px";
+        toggle.setAttribute("aria-expanded", "false");
+        toggle.setAttribute("aria-label", "Open menu");
         setTimeout(() => {
           menu.classList.remove("flex");
           menu.classList.add("hidden");
