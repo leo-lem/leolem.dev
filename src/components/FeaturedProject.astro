@@ -13,6 +13,8 @@ const {
 <a
   href={`/portfolio/${slug}/`}
   class={`relative responsive card stack ${classes}`}
+  data-testid="portfolio-card"
+  data-slug={slug}
 >
   <Thumbnail
     src={`portfolio/${slug}`}

@@ -143,7 +143,10 @@ const { label, class: classes = "" } = Astro.props as {
         statusMessage("Nice. If it went through, you're all set for updates.");
       } catch (e) {
         console.error("OneSignal addEmail failed", e);
-        statusMessage("Could not subscribe right now.", true);
+        statusMessage(
+          "Could not subscribe right now. Try reloading without content blockers.",
+          true
+        );
       }
     });
   });
@@ -178,7 +181,10 @@ const { label, class: classes = "" } = Astro.props as {
         statusMessage("Requesting permission...");
       } catch (e) {
         console.error("OneSignal push subscription failed", e);
-        statusMessage("Could not subscribe right now.", true);
+        statusMessage(
+          "Could not subscribe right now. Try reloading without content blockers.",
+          true
+        );
       }
     });
   });

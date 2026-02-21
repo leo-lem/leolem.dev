@@ -21,7 +21,6 @@ test("email subscribe validates, enables button, and posts alert payload", async
   const res = await page.goto("/blog/");
   expect(res?.status()).toBe(200);
 
-  // Go to a blog article (any) so we hit the subscribe panel on the article template
   const firstRow = page.getByTestId("article-row").first();
   const href = await firstRow.getAttribute("href");
   expect(href).toBeTruthy();
@@ -44,4 +43,14 @@ test("email subscribe validates, enables button, and posts alert payload", async
   await submit.click();
 
   await expect(status).toBeVisible();
+});
+
+test("rss endpoint returns 200 and looks like RSS or Atom", async ({ page }) => {
+  const res = await page.goto("/rss.xml");
+  expect(res?.status()).toBe(200);
+
+  const body = await page.content();
+  const hasRss = body.includes("<rss");
+  const hasAtom = body.includes("<feed");
+  expect(hasRss || hasAtom).toBe(true);
 });

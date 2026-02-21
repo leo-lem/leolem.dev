@@ -32,5 +32,10 @@ export function onlyNonFeatured(item: { data: { featured: boolean } }): boolean 
 }
 
 export function onlyPublished(item: { data: { date: Date } }): boolean {
-  return import.meta.env.DEV || item.data.date <= new Date();;
+  const isDev =
+    typeof import.meta !== "undefined" &&
+    typeof (import.meta as any).env !== "undefined" &&
+    Boolean((import.meta as any).env.DEV);
+
+  return isDev || item.data.date <= new Date();
 }

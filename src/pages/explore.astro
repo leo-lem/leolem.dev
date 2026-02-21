@@ -30,7 +30,7 @@ const results = [
   title="Explore"
   description="Discover projects, articles, and services by exploring different technologies and topics. Filter by your interests to find relevant content."
 >
-  <section id="skills" class="container stack">
+  <section id="skills" class="container stack" data-testid="explore-skills">
     {
       categories.map((category) => (
         <div class="stack sm:flex-row items-center">
@@ -50,12 +50,19 @@ const results = [
     }
   </section>
 
-  <section id="results" class="container-wide split">
+  <section
+    id="results"
+    class="container-wide split"
+    data-testid="explore-results"
+  >
     {
       results.map(async ({ slug, data: { title, short, tags }, type, url }) => (
         <div
           class="relative responsive card-elevated"
           data-tags={tags.join(",")}
+          data-type={type}
+          data-slug={slug}
+          data-testid="explore-result"
         >
           <a href={url}>
             <span class="absolute top-2 left-2 meta pill-overlay capitalize ">
@@ -85,7 +92,11 @@ const results = [
       ))
     }
 
-    <div id="no-results-placeholder" class="col-span-2 text-muted hidden">
+    <div
+      id="no-results-placeholder"
+      class="col-span-2 text-muted hidden"
+      data-testid="explore-no-results"
+    >
       No results found. Try selecting different skills or clear all filters.
     </div>
   </section>

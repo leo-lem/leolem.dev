@@ -1,3 +1,5 @@
+// TODO: refactor to typescript and add tests
+
 const ALLOWED_ORIGINS = new Set(["https://leolem.dev", "http://localhost:4321"]);
 
 function withCors(request, response) {
