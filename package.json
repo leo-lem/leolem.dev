@@ -7,11 +7,12 @@
     "build": "astro build",
     "test": "playwright test",
     "test:smoke": "npm test -- test/smoke.spec.ts",
+    "test:tool": "npm test -- -c playwright.tool.config.ts",
     "test:co2": "tsx test/check_co2.ts",
     "tool:sync": "node tool/sync.mjs",
     "tool:icons": "node tool/icons.mjs",
-    "tool:alert": "wrangler deploy -c wrangler.alert.toml",
-    "tool:notify": "node tool/notify.mjs"
+    "tool:notify": "node tool/notify.mjs",
+    "tool:alert": "wrangler deploy -c wrangler.alert.toml"
   },
   "dependencies": {
     "@astrojs/node": "^9.5.3",

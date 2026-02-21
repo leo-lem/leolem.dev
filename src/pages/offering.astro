@@ -10,9 +10,17 @@ const offering = await getOffering();
   title="My Offering"
   description="Explore the services I offer. Each service is designed to help you achieve your goals with clean, reliable code and production-ready solutions."
 >
-  <section id="schedule-a-call" class="container stack">
+  <section
+    id="schedule-a-call"
+    class="container stack"
+    data-testid="cal-section"
+  >
     <h2 class="title">Book a Meeting</h2>
-    <div id="my-cal-inline-gettoknow" class="w-full h-full overflow-y-auto">
+    <div
+      id="my-cal-inline-gettoknow"
+      class="w-full h-full overflow-y-auto"
+      data-testid="cal-embed"
+    >
     </div>
   </section>
 

@@ -2,6 +2,8 @@ import { devices, type Config } from "@playwright/test";
 
 export default {
   testDir: "test",
+  testIgnore: ["test/tool/**"],
+
   retries: process.env.CI ? 1 : 0,
   outputDir: "/tmp/playwright",
   reporter: process.env.CI ? "github" : "list",

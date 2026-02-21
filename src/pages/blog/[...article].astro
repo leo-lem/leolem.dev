@@ -90,6 +90,7 @@ const image = await thumbnail(`blog/${slug}`);
   <article
     class="card p-4 prose prose-lg dark:prose-invert text-center sm:text-justify"
     set:html={rendered?.html}
+    data-testid="blog-content"
   />
 
   <div class="container stack-sm text-center line-clamp-0">
@@ -100,7 +101,7 @@ const image = await thumbnail(`blog/${slug}`);
   </div>
   {
     relatedProjects.length > 0 && (
-      <section class="container-narrow stack">
+      <section class="container-narrow stack" data-testid="related-projects">
         <h2 class="title">Projects Featured In This Article</h2>
 
         <div class="split">
@@ -114,7 +115,7 @@ const image = await thumbnail(`blog/${slug}`);
 
   {
     relatedArticles.length > 0 && (
-      <section class="container-wide stack">
+      <section class="container-wide stack" data-testid="related-articles">
         <h2 class="title">Related Articles</h2>
 
         <div class="flex flex-col gap-2">
