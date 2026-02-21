@@ -1,8 +1,5 @@
 ---
-interface Props {
-  href: string;
-}
-const { href } = Astro.props as Props;
+const { href } = Astro.props as { href: string };
 ---
 
 <a href={href} class="link text-accent">

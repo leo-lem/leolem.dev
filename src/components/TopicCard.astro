@@ -1,21 +1,21 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { Icon } from "astro-icon/components";
 
-interface Props {
-  topic: CollectionEntry<"topics">;
-  class?: string;
-}
+import Icon from "./Icon.astro";
+
 const {
   topic: {
     id,
     data: { icon, confidence }
   },
   class: classes = ""
-} = Astro.props as Props;
+} = Astro.props as {
+  topic: CollectionEntry<"topics">;
+  class?: string;
+};
 ---
 
-<div class=`topic stack-sm overflow-ellipsis ${classes}` data-topic-id={id}>
+<div class={`topic stack-sm overflow-ellipsis ${classes}`} data-topic-id={id}>
   <div class="flex flex-row gap-1 items-center justify-center">
     {icon && <Icon name={icon} class="icon-sm" />}
 

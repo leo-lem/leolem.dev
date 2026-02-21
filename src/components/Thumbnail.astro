@@ -1,0 +1,15 @@
+---
+import { Image } from "astro:assets";
+
+import { thumbnail } from "../lib";
+
+const { id, src, alt, loading = "lazy", class: classes } = Astro.props;
+---
+
+<Image
+  id={id}
+  src={await thumbnail(src)}
+  alt={alt}
+  loading={loading}
+  class={`thumbnail ${classes}`}
+/>

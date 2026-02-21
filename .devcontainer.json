@@ -1,6 +1,6 @@
 {
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:latest",
-	"postCreateCommand": "npm install",
+	"postCreateCommand": "npm install && sudo npx playwright install-deps && npx playwright install",
 	"postStartCommand": "npm start",
 	"customizations": {
 		"vscode": {

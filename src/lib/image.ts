@@ -2,7 +2,7 @@ import { type ImageMetadata } from "astro";
 
 const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/**/*");
 
-export default async function thumbnail(src: string): Promise<ImageMetadata> {
+export async function thumbnail(src: string): Promise<ImageMetadata> {
   const dir = src.includes("/") ? src.slice(0, src.lastIndexOf("/") + 1) : "";
   const name = src.split("/").pop();
 

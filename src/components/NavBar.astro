@@ -1,14 +1,13 @@
 ---
-import { Icon } from "astro-icon/components";
+import { navigation } from "../navigation.config";
+import Icon from "./Icon.astro";
+import Thumbnail from "./Thumbnail.astro";
+import { aboutMe } from "../content";
 
-import IconLink from "./IconLink.astro";
-import { frontmatter } from "/src/content/about.md";
-import { Image } from "astro:assets";
-import thumbnail from "../assets/thumbnail";
-
-const { socials, subscribe = true } = Astro.props;
-
-const navigation = ["blog", "portfolio", "offering", "explore", "about"];
+const { socials, subscribe = true } = Astro.props as {
+  socials: string[];
+  subscribe?: boolean;
+};
 ---
 
 <header class="sticky top-0 py-3 z-10 stack-sm">
@@ -16,10 +15,9 @@ const navigation = ["blog", "portfolio", "offering", "explore", "about"];
     class="w-full container-wide mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
   >
     <div class="w-full flex items-center justify-between gap-4">
-      <Image
-        id="avatar"
-        src={await thumbnail("profile")}
-        alt="Avatar of Leopold Lemmermann"
+      <Thumbnail
+        src="profile"
+        alt="Profile picture of Leopold Lemmermann"
         class="w-10 h-10 rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
         loading="eager"
       />
@@ -32,7 +30,7 @@ const navigation = ["blog", "portfolio", "offering", "explore", "about"];
           Leopold Lemmermann
         </span>
         <span class="text-xs whitespace-nowrap">
-          {frontmatter.titles.join(" · ")}
+          {aboutMe.titles.join(" · ")}
         </span>
       </a>
 
@@ -40,11 +38,7 @@ const navigation = ["blog", "portfolio", "offering", "explore", "about"];
 
       {
         socials.map((url: string) => (
-          <IconLink
-            type={url.split("https://")[1].split(".")[0]}
-            url={url}
-            class="icon-sm animate-slidefadein"
-          />
+          <Icon name={url} class="icon-sm animate-slidefadein" />
         ))
       }
 

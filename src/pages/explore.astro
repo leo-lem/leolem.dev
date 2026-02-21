@@ -1,17 +1,11 @@
 ---
-import BaseLayout from "../layout/BaseLayout.astro";
-import Tags from "../components/Tags.astro";
-import TopicToggle from "../components/TopicToggle.astro";
-import { getTopicCategories, getTopics } from "../content/topics";
-import { getBlog } from "../content/blog";
-import { getPortfolio } from "../content/portfolio";
-import { getOffering } from "../content/offering";
-import thumbnail from "../assets/thumbnail";
-import { Image } from "astro:assets";
+import { BaseLayout } from "../layout";
+import { categoriesFromTopics } from "../lib";
+import { getTopics, getBlog, getPortfolio, getOffering } from "../content";
+import { Thumbnail, TopicCard, TopicPills } from "../components";
 
 const skills = await getTopics();
-
-const categories = await getTopicCategories();
+const categories = categoriesFromTopics(skills);
 
 const results = [
   ...(await getBlog()).map((item) => ({
@@ -48,7 +42,7 @@ const results = [
             {skills
               .filter((skill) => skill.data.category === category)
               .map((topic) => (
-                <TopicToggle topic={topic} class="responsive w-36 pill" />
+                <TopicCard topic={topic} class="responsive w-36 pill" />
               ))}
           </div>
         </div>
@@ -69,12 +63,9 @@ const results = [
             </span>
 
             {type === "project" || type === "article" ? (
-              <Image
-                src={await thumbnail(
-                  `${type === "project" ? "portfolio" : "blog"}/${slug}`
-                )}
+              <Thumbnail
+                src={`${type === "project" ? "portfolio" : "blog"}/${slug}`}
                 alt={`Thumbnail for ${title}`}
-                class="thumbnail"
                 loading="eager"
               />
             ) : (
@@ -84,8 +75,8 @@ const results = [
             <div class="stack text-center p-2">
               <h2 class="title-sm">{title}</h2>
               <p class="summary">{short}</p>
-              <Tags
-                tags={tags}
+              <TopicPills
+                topics={tags}
                 class="items-center justify-center text-xs sm:text-sm"
               />
             </div>

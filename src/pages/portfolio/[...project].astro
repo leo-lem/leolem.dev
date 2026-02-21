@@ -1,14 +1,15 @@
 ---
-import BaseLayout from "../../layout/BaseLayout.astro";
-import Screenshots from "../../components/Screenshots.astro";
-import IconLink from "../../components/IconLink.astro";
-import Tags from "../../components/Tags.astro";
-import Embed from "../../components/Embed.astro";
-import ArticleRow from "../../components/ArticleRow.astro";
-import { getPortfolio } from "../../content/portfolio";
-import { getBlog } from "../../content/blog";
-import thumbnail from "../../assets/thumbnail";
-import { Image } from "astro:assets";
+import { BaseLayout } from "../../layout";
+import { relatedArticlesFor, thumbnail } from "../../lib";
+import { getPortfolio, getBlog } from "../../content";
+import {
+  Thumbnail,
+  TopicPills,
+  Icon,
+  ArticleRow,
+  Screenshots,
+  Embed
+} from "../../components";
 
 export async function getStaticPaths() {
   return (await getPortfolio()).map((project) => ({
@@ -23,9 +24,7 @@ const {
   rendered
 } = Astro.props;
 
-const articles = (await getBlog())
-  .filter(({ slug }) => articleSlugs.includes(slug))
-  .slice(0, 3);
+const relatedArticles = relatedArticlesFor(await getBlog(), articleSlugs, 3);
 
 const image = await thumbnail(`portfolio/${slug}`);
 ---
@@ -45,21 +44,17 @@ const image = await thumbnail(`portfolio/${slug}`);
   }}
 >
   <div slot="thumbnail" class="relative card-elevated sm:w-2/3 mx-auto">
-    <Image src={image} alt={`Thumbnail for ${title}`} class="thumbnail" />
+    <Thumbnail src={`portfolio/${slug}`} alt={`Thumbnail for ${title}`} />
 
-    <Tags
-      tags={tags}
+    <TopicPills
+      topics={tags}
       class="absolute bottom-2 left-2 justify-center text-xs sm:text-base"
     />
 
     <div class="absolute top-2 left-2 flex gap-2">
       {
         links?.map((link: { type: string; url: string }) => (
-          <IconLink
-            type={link.type}
-            url={link.url}
-            class="icon sm:icon-lg btn"
-          />
+          <Icon name={link.url} class="icon sm:icon-lg btn" />
         ))
       }
     </div>
@@ -71,10 +66,10 @@ const image = await thumbnail(`portfolio/${slug}`);
   />
 
   {
-    articles.length > 0 && (
+    relatedArticles.length > 0 && (
       <div class="flex flex-col gap-2 mx-2">
         <h2 class="title">Related Articles</h2>
-        {articles.map((article) => (
+        {relatedArticles.map((article) => (
           <ArticleRow article={article} />
         ))}
       </div>

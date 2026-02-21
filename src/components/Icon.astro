@@ -1,0 +1,21 @@
+---
+import { Icon as AstroIcon } from "astro-icon/components";
+import { iconForUrl } from "../lib";
+
+const { name = "", class: classes } = Astro.props as {
+  name: string;
+  class?: string;
+};
+
+const isUrl = name.startsWith("http://") || name.startsWith("https://");
+---
+
+{
+  isUrl ? (
+    <a href={name} rel="noopener noreferrer" target="_blank">
+      <AstroIcon name={iconForUrl(name)} class={classes} />
+    </a>
+  ) : (
+    <AstroIcon name={name} class={classes} />
+  )
+}

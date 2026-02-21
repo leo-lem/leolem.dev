@@ -1,15 +1,12 @@
 ---
-import BaseLayout from "../../layout/BaseLayout.astro";
-import Embed from "../../components/Embed.astro";
-import FeaturedProject from "../../components/FeaturedProject.astro";
-import { getFeaturedPortfolio, getPortfolio } from "../../content/portfolio";
-import { Image } from "astro:assets";
-import thumbnail from "../../assets/thumbnail";
+import { BaseLayout } from "../../layout";
+import { getPortfolio } from "../../content";
+import { Embed, FeaturedProject, Thumbnail } from "../../components";
+import { onlyFeatured, onlyNonFeatured } from "../../lib";
 
-const featured = await getFeaturedPortfolio();
-const projects = (await getPortfolio()).filter(
-  ({ data: { featured } }) => !featured
-);
+const portfolio = await getPortfolio();
+const featured = portfolio.filter(onlyFeatured);
+const projects = portfolio.filter(onlyNonFeatured);
 ---
 
 <BaseLayout
@@ -34,10 +31,10 @@ const projects = (await getPortfolio()).filter(
 
           <a href={`/portfolio/${slug}/`}>
             <div class="responsive card stack sm:flex-row items-center">
-              <Image
-                src={await thumbnail(`portfolio/${slug}`)}
+              <Thumbnail
+                src={`portfolio/${slug}`}
                 alt={`Thumbnail for ${title}`}
-                class="thumbnail w-full aspect-square sm:w-1/3"
+                class="w-full aspect-square sm:w-1/3"
               />
 
               <p class="summary line-clamp-none m-2">{short}</p>

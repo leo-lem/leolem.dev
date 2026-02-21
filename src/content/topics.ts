@@ -1,5 +1,7 @@
-import { defineCollection, getCollection, z } from "astro:content";
+import { defineCollection, getCollection, z, type CollectionEntry } from "astro:content";
 import { file } from "astro/loaders";
+
+import { byPriorityThenConfidence } from "../lib";
 
 export default defineCollection({
   loader: file("src/content/topics.json"),
@@ -12,14 +14,7 @@ export default defineCollection({
   })
 });
 
-export async function getTopics() {
-  return (await getCollection("topics")).sort((a, b) => {
-    if (a.data.isPriority && !b.data.isPriority) return -1;
-    if (!a.data.isPriority && b.data.isPriority) return 1;
-    return (b.data.confidence ?? 0) - (a.data.confidence ?? 0);
-  });
-}
-
-export async function getTopicCategories() {
-  return [...new Set((await getTopics()).map((s) => s.data.category))];
+export async function getTopics(): Promise<CollectionEntry<"topics">[]> {
+  return (await getCollection("topics"))
+    .sort(byPriorityThenConfidence);
 }

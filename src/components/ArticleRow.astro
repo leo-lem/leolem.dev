@@ -1,36 +1,27 @@
 ---
-import { Image } from "astro:assets";
-import thumbnail from "../assets/thumbnail";
+import Thumbnail from "./Thumbnail.astro";
+import { formatDate } from "../lib";
 
 const {
   article: {
     slug,
     data: { title, short, date, author }
   },
-  class: classes
+  class: classes = ""
 } = Astro.props;
-
-const dateLabel = date.toLocaleDateString(undefined, {
-  day: "numeric",
-  month: "long",
-  year: "numeric"
-});
 ---
 
-<a
-  href={`/blog/${slug}/`}
-  class={`responsive card group block ${classes ?? ""}`}
->
+<a href={`/blog/${slug}/`} class={`responsive card group block ${classes}`}>
   <div class="text-center stack-sm sm:flex-row">
     <div class="relative sm:w-1/3 shrink-0 text-xs sm:text-sm">
-      <Image
-        src={await thumbnail(`blog/${slug}`)}
+      <Thumbnail
+        src={`blog/${slug}`}
         alt={`Thumbnail image for ${title}`}
         class={"w-full h-full object-cover"}
-        loading={classes?.includes("eager") ? "eager" : "lazy"}
+        loading={classes.includes("eager") ? "eager" : "lazy"}
       />
 
-      <div class="absolute top-2 left-2 pill-overlay">{dateLabel}</div>
+      <div class="absolute top-2 left-2 pill-overlay">{formatDate(date)}</div>
 
       {
         author?.name && (

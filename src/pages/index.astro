@@ -1,24 +1,18 @@
 ---
-import { Icon } from "astro-icon/components";
+import { BaseLayout } from "../layout";
+import { aboutMe, getBlog, getOffering, getPortfolio } from "../content";
+import { FeaturedArticle, FeaturedProject, Icon, SeeMore } from "../components";
+import { onlyFeatured } from "../lib";
 
-import BaseLayout from "../layout/BaseLayout.astro";
-import FeaturedArticle from "../components/FeaturedArticle.astro";
-import SeeMore from "../components/SeeMore.astro";
-import FeaturedProject from "../components/FeaturedProject.astro";
-import { frontmatter } from "/src/content/about.md";
-import { getFeaturedBlog } from "../content/blog";
-import { getFeaturedPortfolio } from "../content/portfolio";
-import { getFeaturedOffering } from "../content/offering";
-
-const featuredArticle = await getFeaturedBlog();
-const featuredProjects = await getFeaturedPortfolio();
-const featuredServices = await getFeaturedOffering();
+const featuredArticle = (await getBlog()).find(onlyFeatured);
+const featuredProjects = (await getPortfolio()).filter(onlyFeatured);
+const featuredServices = (await getOffering()).filter(onlyFeatured);
 ---
 
 <BaseLayout title="Leopold Lemmermann" showHeader={false}>
   <section class="stack-lg text-center">
     <section class="container stack">
-      <article class="text-2xl font-bold">{frontmatter.short}</article>
+      <article class="text-2xl font-bold">{aboutMe.short}</article>
 
       <SeeMore href="/about/">Learn more about me</SeeMore>
     </section>

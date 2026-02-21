@@ -1,9 +1,9 @@
 ---
-import SeeMore from "../components/SeeMore.astro";
-import Layout from "../layout/BaseLayout.astro";
+import { BaseLayout } from "../layout";
+import { SeeMore } from "../components";
 ---
 
-<Layout title="Page Not Found">
+<BaseLayout title="Page Not Found">
   <section
     class="max-w-xl mx-auto flex flex-col items-center justify-center gap-4"
   >
@@ -13,4 +13,4 @@ import Layout from "../layout/BaseLayout.astro";
 
     <SeeMore href="/explore/">Explore All I Do</SeeMore>
   </section>
-</Layout>
+</BaseLayout>

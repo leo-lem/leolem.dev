@@ -1,12 +1,8 @@
 ---
-import { Icon } from "astro-icon/components";
-
-interface Props {
+const { label, class: classes = "" } = Astro.props as {
   label?: string;
   class?: string;
-}
-
-const { label, class: classes = "" } = Astro.props;
+};
 ---
 
 <section id="subscribe" class={`card-elevated ${classes}`}>

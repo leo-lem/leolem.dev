@@ -1,14 +1,12 @@
 ---
-import BaseLayout from "../../layout/BaseLayout.astro";
-import SubscribePanel from "../../components/SubscribePanel.astro";
-import FeaturedArticle from "../../components/FeaturedArticle.astro";
-import ArticleRow from "../../components/ArticleRow.astro";
-import { getBlog, getFeaturedBlog } from "../../content/blog";
+import { BaseLayout } from "../../layout";
+import { SubscribePanel, ArticleRow, FeaturedArticle } from "../../components";
+import { getBlog } from "../../content";
+import { onlyFeatured, onlyNonFeatured } from "../../lib";
 
-const featured = await getFeaturedBlog();
-const articles = (await getBlog()).filter(
-  ({ data: { featured } }) => !featured
-);
+const blog = await getBlog();
+const featured = blog.find(onlyFeatured);
+const articles = blog.filter(onlyNonFeatured);
 ---
 
 <BaseLayout

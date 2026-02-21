@@ -1,6 +1,6 @@
 import { devices, type Config } from "@playwright/test";
 
-const config: Config = {
+export default {
   testDir: "test",
   retries: process.env.CI ? 1 : 0,
   outputDir: "/tmp/playwright",
@@ -22,6 +22,4 @@ const config: Config = {
     { name: "Desktop", use: { ...devices["Desktop Chrome"] } },
     { name: "Mobile", use: { ...devices["iPhone 16"] } },
   ],
-};
-
-export default config;
+} as Config;
