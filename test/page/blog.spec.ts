@@ -65,7 +65,7 @@ test("every tested blog article shows related articles and excludes itself", asy
     expect(relatedHrefs.length).toBeGreaterThan(0);
 
     for (const r of relatedHrefs) {
-      const rp = new URL(r, "http://x").pathname;
+      const rp = new URL(r, "https://x").pathname;
       expect(rp).not.toBe(currentPath);
     }
   }

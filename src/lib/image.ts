@@ -7,10 +7,13 @@ let images: GlobMap | null = null;
 function getImages(): GlobMap {
   if (images) return images;
 
-  const hasGlob = typeof (import.meta as unknown as { glob?: unknown }).glob === "function";
-  images = hasGlob
-    ? (import.meta.glob<{ default: ImageMetadata }>("/src/assets/**/*") as GlobMap)
-    : ({} as GlobMap);
+  try {
+    images = (import.meta as unknown as { glob: (p: string) => unknown }).glob(
+      "/src/assets/**/*"
+    ) as GlobMap;
+  } catch {
+    images = {} as GlobMap;
+  }
 
   return images;
 }
@@ -39,6 +42,7 @@ export function pickThumbnailKey(keys: string[], src: string): string | null {
 export async function thumbnail(src: string): Promise<ImageMetadata> {
   const map = getImages();
   const keys = Object.keys(map);
+
   const key = pickThumbnailKey(keys, src);
   if (!key) throw new Error(`Thumbnail not found for "${src}"`);
 
