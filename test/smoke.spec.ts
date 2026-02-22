@@ -1,5 +1,7 @@
 import { test, expect } from "@playwright/test";
 
+import { navigation } from "../src/navigation.config";
+
 test("homepage loads and nav is present", async ({ page }) => {
   const res = await page.goto("/");
   expect(res?.status()).toBe(200);
@@ -7,11 +9,8 @@ test("homepage loads and nav is present", async ({ page }) => {
   await expect(page).toHaveTitle(/Leopold Lemmermann/);
 
   await expect(page.getByTestId("nav")).toBeVisible();
-  await expect(page.getByTestId("nav-link-blog")).toBeVisible();
-  await expect(page.getByTestId("nav-link-portfolio")).toBeVisible();
-  await expect(page.getByTestId("nav-link-offering")).toBeVisible();
-  await expect(page.getByTestId("nav-link-explore")).toBeVisible();
-  await expect(page.getByTestId("nav-link-about")).toBeVisible();
+  for (const p of navigation)
+    await expect(page.getByTestId(`nav-link-${p}`)).toBeVisible();
 });
 
 const pages = [

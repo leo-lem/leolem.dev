@@ -1,26 +1,20 @@
 import { test, expect } from "@playwright/test";
 
-const pages = [
-  { name: "blog", url: "/blog/", linkId: "nav-link-blog" },
-  { name: "portfolio", url: "/portfolio/", linkId: "nav-link-portfolio" },
-  { name: "offering", url: "/offering/", linkId: "nav-link-offering" },
-  { name: "explore", url: "/explore/", linkId: "nav-link-explore" },
-  { name: "about", url: "/about/", linkId: "nav-link-about" },
-];
+import { navigation } from "../../src/navigation.config";
 
 test.describe("Global navigation", () => {
-  for (const p of pages) {
-    test(`on "${p.name}" page`, async ({ page }) => {
-      const res = await page.goto(p.url);
+  for (const p of navigation) {
+    test(`on "${p}" page`, async ({ page }) => {
+      const res = await page.goto(`/${p}/`);
       expect(res?.status()).toBe(200);
 
       await expect(page.getByTestId("nav")).toBeVisible();
 
-      for (const other of pages) {
-        await expect(page.getByTestId(other.linkId)).toBeVisible();
+      for (const other of navigation) {
+        await expect(page.getByTestId(`nav-link-${other}`)).toBeVisible();
       }
 
-      await expect(page.getByTestId(p.linkId)).toHaveAttribute("aria-current", "page");
+      await expect(page.getByTestId(`nav-link-${p}`)).toHaveAttribute("aria-current", "page");
     });
   }
 });

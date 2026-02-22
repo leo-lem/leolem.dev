@@ -16,42 +16,44 @@ const { socials, subscribe = true } = Astro.props as {
     data-testid="nav"
   >
     <div class="w-full flex items-center justify-between gap-4">
-      <Thumbnail
-        src="profile"
-        alt="Profile picture of Leopold Lemmermann"
-        class="w-10 h-10 rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
-        loading="eager"
-      />
+      <div class="flex items-center gap-3">
+        <Thumbnail
+          src="profile"
+          alt="Profile picture of Leopold Lemmermann"
+          class="w-10 h-10 rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
+          loading="eager"
+        />
 
-      <a
-        href="/"
-        class="flex flex-col navigation animate-slidefadein hover:text-accent"
-      >
-        <span class="font-semibold text-xs sm:text-sm">
-          Leopold Lemmermann
-        </span>
-        <span class="text-xs whitespace-nowrap">
-          {aboutMe.titles.join(" · ")}
-        </span>
-      </a>
+        <a
+          href="/"
+          class="flex flex-col navigation animate-slidefadein hover:text-accent"
+        >
+          <span class="font-semibold text-xs sm:text-sm">
+            Leopold Lemmermann
+          </span>
+          <span class="text-xs whitespace-nowrap">
+            {aboutMe.titles.join(" · ")}
+          </span>
+        </a>
+      </div>
 
-      <div class="ml-auto"></div>
+      <div class="flex items-center gap-3 shrink-0">
+        {
+          socials.map((url: string) => (
+            <Icon name={url} class="icon-sm animate-slidefadein" />
+          ))
+        }
 
-      {
-        socials.map((url: string) => (
-          <Icon name={url} class="icon-sm animate-slidefadein" />
-        ))
-      }
-
-      <button
-        id="mobile-menu-toggle"
-        class="sm:hidden focus:outline-none"
-        aria-label="Open menu"
-        aria-controls="mobile-menu"
-        aria-expanded="false"
-      >
-        <Icon name="lucide:menu" class="icon-sm animate-slidefadein" />
-      </button>
+        <button
+          id="mobile-menu-toggle"
+          class="sm:hidden focus:outline-none"
+          aria-label="Open menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <Icon name="lucide:menu" class="icon-sm animate-slidefadein" />
+        </button>
+      </div>
     </div>
 
     <div
