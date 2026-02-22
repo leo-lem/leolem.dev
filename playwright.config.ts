@@ -21,7 +21,7 @@ export default {
   },
 
   projects: [
-    { name: "Desktop", use: { ...devices["Desktop Chrome"] } },
-    { name: "Mobile", use: { ...devices["iPhone 16"] } },
+    { name: "Desktop", use: { ...devices["Desktop Chrome"] }, grepInvert: /@mobile/ },
+    { name: "Mobile", use: { ...devices["iPhone 16"] }, grepInvert: /@desktop/ },
   ],
 } as Config;

@@ -79,7 +79,11 @@ const { socials, subscribe = true } = Astro.props as {
     subscribe && (
       <section class="container-wide mx-auto text-center text-muted">
         New article weekly. No noise.{" "}
-        <a href="/blog/#subscribe" class="text-primary hover:text-accent">
+        <a
+          href="/blog/#subscribe"
+          class="text-primary hover:text-accent"
+          data-testid="subscribe-link"
+        >
           Subscribe
         </a>
       </section>

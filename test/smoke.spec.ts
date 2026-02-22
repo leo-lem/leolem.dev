@@ -59,7 +59,6 @@ test("blog article renders, has subscribe panel, and shows related articles", as
     await expect(page.getByTestId("subscribe-email")).toBeVisible();
     await expect(page.getByTestId("subscribe-email-submit")).toBeVisible();
 
-    // If your requirement is “every article must have related”, assert it.
     const related = page.getByTestId("related-articles");
     await expect(related).toBeVisible();
 
