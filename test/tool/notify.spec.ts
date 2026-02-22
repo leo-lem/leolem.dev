@@ -86,7 +86,7 @@ const test = base.extend<{ capture: ServerCapture; repo: TmpRepo }>({
     const stateFile = path.join(from, ".notified.json");
 
     const nowIso = new Date(Date.now() - 60_000).toISOString();
-    const futureIso = new Date(Date.now() + 7 * 24 * 3600_000).toISOString();
+    const futureIso = new Date(Date.now() + 7 * 24 * 3_600_000).toISOString();
 
     await write(
       path.join(blogDir, "vigil", "framework.mdx"),

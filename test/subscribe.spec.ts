@@ -116,8 +116,8 @@ test("push subscribe posts alert payload on @desktop", async ({ page }) => {
       });
     };
 
-    (window as any).OneSignalDeferred = d;
-    (window as any).OneSignal = { Deferred: d };
+    (globalThis as any).OneSignalDeferred = d;
+    (globalThis as any).OneSignal = { Deferred: d };
   });
 
   await openSubscribeSection(page);

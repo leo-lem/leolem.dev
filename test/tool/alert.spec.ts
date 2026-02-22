@@ -219,7 +219,7 @@ test("success posts to OneSignal with expected body and returns 200 ok", async (
     expect(headers?.authorization).toBe("Basic api-key");
     expect(headers?.["content-type"]).toBe("application/json");
 
-    const body = JSON.parse(String(init?.body));
+    const body = JSON.parse(String(init?.body ?? "{}"));
     expect(body.app_id).toBe("app-id");
     expect(body.template_id).toBe("0f492c1c-e843-4707-afa0-ab2f20b8c253");
     expect(body.included_segments).toEqual(["Staging"]);
