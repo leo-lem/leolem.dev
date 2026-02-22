@@ -9,9 +9,9 @@
     "test:smoke": "npm test -- test/smoke.spec.ts",
     "test:tool": "npm test -- -c playwright.tool.config.ts",
     "test:co2": "tsx test/check_co2.ts",
-    "tool:sync": "node tool/sync.mjs",
-    "tool:icons": "node tool/icons.mjs",
-    "tool:notify": "node tool/notify.mjs",
+    "tool:sync": "tsx tool/sync.ts",
+    "tool:icons": "tsx tool/icons.ts",
+    "tool:notify": "tsx tool/notify.ts",
     "tool:alert": "wrangler deploy -c wrangler.alert.toml"
   },
   "dependencies": {
@@ -35,7 +35,7 @@
     "favicons": "^7.2.0",
     "tsx": "^4.21",
     "typescript": "^5.9",
-    "wrangler": "^4.65.0",
+    "wrangler": "^4.67.0",
     "xml2js": "^0.6"
   }
 }
