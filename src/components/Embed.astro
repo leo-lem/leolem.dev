@@ -1,23 +1,21 @@
 ---
-interface Props {
-  kind: "calendar" | "sponsors" | "music" | "polarsteps";
+const {
+  kind,
+  loading = "eager",
+  albumID,
+  tripID
+} = Astro.props as {
+  kind: "sponsors" | "music" | "polarsteps";
   loading?: "eager" | "lazy";
   albumID?: string;
   tripID?: string;
-}
-const { kind, loading = "eager", albumID, tripID } = Astro.props;
+};
 
 let src = "";
 let title = "Embed";
 let classes = "card w-full";
 
 switch (kind) {
-  case "calendar":
-    src =
-      "https://calendar.google.com/calendar/appointments/AcZssZ0Uf9NSuQOy5kmC7a86grhHsaI3ESFj1eLPems=?gv=true";
-    title = "Schedule a Meeting with me.";
-    classes += " h-[800px] dark:bg-gray-300";
-    break;
   case "music":
     if (!albumID)
       throw new Error(

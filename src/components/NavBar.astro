@@ -1,62 +1,59 @@
 ---
-import { Icon } from "astro-icon/components";
+import { navigation } from "../navigation.config";
+import Icon from "./Icon.astro";
+import Thumbnail from "./Thumbnail.astro";
+import { aboutMe } from "../content";
 
-import IconLink from "./IconLink.astro";
-import { frontmatter } from "/src/content/about.md";
-import { Image } from "astro:assets";
-import thumbnail from "../assets/thumbnail";
-
-const { socials, subscribe = true } = Astro.props;
-
-const navigation = ["blog", "portfolio", "offering", "explore", "about"];
+const { socials, subscribe = true } = Astro.props as {
+  socials: string[];
+  subscribe?: boolean;
+};
 ---
 
 <header class="sticky top-0 py-3 z-10 stack-sm">
   <nav
     class="w-full container-wide mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+    data-testid="nav"
   >
     <div class="w-full flex items-center justify-between gap-4">
-      <Image
-        id="avatar"
-        src={await thumbnail("profile")}
-        alt="Avatar of Leopold Lemmermann"
-        class="w-10 h-10 rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
-        loading="eager"
-      />
+      <div class="flex items-center gap-3">
+        <Thumbnail
+          src="profile"
+          alt="Profile picture of Leopold Lemmermann"
+          class="w-10 h-10 rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
+          loading="eager"
+        />
 
-      <a
-        href="/"
-        class="flex flex-col navigation animate-slidefadein hover:text-accent"
-      >
-        <span class="font-semibold text-xs sm:text-sm">
-          Leopold Lemmermann
-        </span>
-        <span class="text-xs whitespace-nowrap">
-          {frontmatter.titles.join(" · ")}
-        </span>
-      </a>
+        <a
+          href="/"
+          class="flex flex-col navigation animate-slidefadein hover:text-accent"
+        >
+          <span class="font-semibold text-xs sm:text-sm">
+            Leopold Lemmermann
+          </span>
+          <span class="text-xs whitespace-nowrap">
+            {aboutMe.titles.join(" · ")}
+          </span>
+        </a>
+      </div>
 
-      <div class="ml-auto"></div>
+      <div class="flex items-center gap-3 shrink-0">
+        {
+          socials.map((url: string) => (
+            <Icon name={url} class="icon-sm animate-slidefadein" />
+          ))
+        }
 
-      {
-        socials.map((url: string) => (
-          <IconLink
-            type={url.split("https://")[1].split(".")[0]}
-            url={url}
-            class="icon-sm animate-slidefadein"
-          />
-        ))
-      }
-
-      <button
-        id="mobile-menu-toggle"
-        class="sm:hidden focus:outline-none"
-        aria-label="Open menu"
-        aria-controls="mobile-menu"
-        aria-expanded="false"
-      >
-        <Icon name="lucide:menu" class="icon-sm animate-slidefadein" />
-      </button>
+        <button
+          id="mobile-menu-toggle"
+          class="sm:hidden focus:outline-none"
+          aria-label="Open menu"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+        >
+          <Icon name="lucide:menu" class="icon-sm animate-slidefadein" />
+        </button>
+      </div>
     </div>
 
     <div
@@ -71,6 +68,7 @@ const navigation = ["blog", "portfolio", "offering", "explore", "about"];
             aria-current={
               Astro.url.pathname.includes(item) ? "page" : undefined
             }
+            data-testid={`nav-link-${item}`}
           >
             {item}
           </a>
@@ -83,7 +81,11 @@ const navigation = ["blog", "portfolio", "offering", "explore", "about"];
     subscribe && (
       <section class="container-wide mx-auto text-center text-muted">
         New article weekly. No noise.{" "}
-        <a href="/blog/#subscribe" class="text-primary hover:text-accent">
+        <a
+          href="/blog/#subscribe"
+          class="text-primary hover:text-accent"
+          data-testid="subscribe-link"
+        >
           Subscribe
         </a>
       </section>

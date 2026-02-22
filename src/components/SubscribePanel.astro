@@ -1,21 +1,24 @@
 ---
-import { Icon } from "astro-icon/components";
-
-interface Props {
+const { label, class: classes = "" } = Astro.props as {
   label?: string;
   class?: string;
-}
-
-const { label, class: classes = "" } = Astro.props;
+};
 ---
 
-<section id="subscribe" class={`card-elevated ${classes}`}>
+<section
+  id="subscribe"
+  class={`card-elevated ${classes}`}
+  data-testid="subscribe"
+>
   <div class="flex items-center justify-between gap-4">
     <p class="title-sm">{label ?? ""}</p>
 
     <div class="cluster-sm">
-      <button id="push-btn" class="link-muted text-xs" type="button"
-        >Push</button
+      <button
+        id="push-btn"
+        class="link-muted text-xs"
+        type="button"
+        data-testid="subscribe-push">Push</button
       >
       <span class="caption">·</span>
       <a
@@ -23,6 +26,7 @@ const { label, class: classes = "" } = Astro.props;
         target="_blank"
         rel="noopener noreferrer"
         class="link-muted text-xs"
+        data-testid="subscribe-rss"
       >
         RSS
       </a>
@@ -40,6 +44,7 @@ const { label, class: classes = "" } = Astro.props;
           autocomplete="email"
           placeholder="your@email.here"
           aria-label="Email address"
+          data-testid="subscribe-email"
         />
       </div>
 
@@ -50,11 +55,17 @@ const { label, class: classes = "" } = Astro.props;
         aria-label="Subscribe"
         title="Subscribe"
         disabled="true"
+        data-testid="subscribe-email-submit"
         >→
       </button>
     </div>
 
-    <div id="subscribe-status" class="text-xs hidden"></div>
+    <div
+      id="subscribe-status"
+      class="text-xs hidden"
+      data-testid="subscribe-status"
+    >
+    </div>
   </div>
 </section>
 
@@ -132,7 +143,10 @@ const { label, class: classes = "" } = Astro.props;
         statusMessage("Nice. If it went through, you're all set for updates.");
       } catch (e) {
         console.error("OneSignal addEmail failed", e);
-        statusMessage("Could not subscribe right now.", true);
+        statusMessage(
+          "Could not subscribe right now. Try reloading without content blockers.",
+          true
+        );
       }
     });
   });
@@ -167,7 +181,10 @@ const { label, class: classes = "" } = Astro.props;
         statusMessage("Requesting permission...");
       } catch (e) {
         console.error("OneSignal push subscription failed", e);
-        statusMessage("Could not subscribe right now.", true);
+        statusMessage(
+          "Could not subscribe right now. Try reloading without content blockers.",
+          true
+        );
       }
     });
   });

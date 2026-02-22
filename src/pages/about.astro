@@ -1,11 +1,7 @@
 ---
-import BaseLayout from "../layout/BaseLayout.astro";
-import Embed from "../components/Embed.astro";
-import { Image } from "astro:assets";
-import SeeMore from "../components/SeeMore.astro";
-import { Content as AboutMe } from "../content/about.md";
-import { getStations } from "../content/stations";
-import thumbnail from "../assets/thumbnail";
+import { BaseLayout } from "../layout";
+import { getStations, AboutMe } from "../content";
+import { SeeMore, Embed, Thumbnail } from "../components";
 
 const stations = await getStations();
 const albumID = import.meta.env.FAVORITE_ALBUM;
@@ -14,12 +10,7 @@ const tripID = import.meta.env.CURRENT_TRIP;
 
 <BaseLayout title="About me" showHeader={false}>
   <section class="container-wide stack sm:text-left items-center">
-    <Image
-      src={await thumbnail("about")}
-      alt="Me!"
-      class="thumbnail"
-      loading="eager"
-    />
+    <Thumbnail src="about" alt="My title image" loading="eager" />
 
     <div class="stack-sm text-center">
       <p class="summary">Hey there!</p>

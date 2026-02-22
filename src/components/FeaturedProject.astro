@@ -1,6 +1,5 @@
 ---
-import { Image } from "astro:assets";
-import thumbnail from "../assets/thumbnail";
+import Thumbnail from "./Thumbnail.astro";
 
 const {
   project: {
@@ -14,11 +13,13 @@ const {
 <a
   href={`/portfolio/${slug}/`}
   class={`relative responsive card stack ${classes}`}
+  data-testid="portfolio-card"
+  data-slug={slug}
 >
-  <Image
-    src={await thumbnail(`portfolio/${slug}`)}
+  <Thumbnail
+    src={`portfolio/${slug}`}
     alt={`Thumbnail for ${title}`}
-    class="thumbnail w-full aspect-square"
+    class="w-full aspect-square"
   />
 
   <div class="absolute bottom-0 fade p-2">

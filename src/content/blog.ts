@@ -1,4 +1,5 @@
-import { defineCollection, z, getCollection } from "astro:content";
+import { defineCollection, z, getCollection, type CollectionEntry } from "astro:content";
+import { byFeaturedThenDateDesc, onlyPublished } from "../lib/sort";
 
 export default defineCollection({
   schema: z.object({
@@ -14,16 +15,8 @@ export default defineCollection({
   })
 });
 
-export async function getBlog() {
+export async function getBlog(): Promise<CollectionEntry<"blog">[]> {
   return (await getCollection("blog"))
-  .filter(({ data: { date } }) => import.meta.env.DEV || date <= new Date())
-  .sort((a, b) => {
-    if (a.data.featured && !b.data.featured) return -1;
-    if (!a.data.featured && b.data.featured) return 1;
-    return b.data.date.getTime() - a.data.date.getTime();
-  });
-}
-
-export async function getFeaturedBlog() {
-  return (await getBlog()).find(({ data: { featured } }) => featured === true);
+    .filter(onlyPublished)
+    .sort(byFeaturedThenDateDesc);
 }

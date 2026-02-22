@@ -118,10 +118,13 @@ const allowLocalhost = import.meta.env.NODE_ENV === "development";
     </script>
   </head>
 
-  <body class="min-w-[360px] min-h-screen stack">
+  <body class="min-w-[360px] min-h-screen stack" data-testid="layout">
     <NavBar socials={socials} subscribe={subscribe} />
 
-    <main class="container-wide flex-1 mx-auto stack-lg mb-20">
+    <main
+      class="container-wide flex-1 mx-auto stack-lg mb-20"
+      data-testid="page"
+    >
       {
         showHeader && (
           <section class="stack text-center ">

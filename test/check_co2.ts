@@ -50,7 +50,7 @@ export async function getUrlsFromSitemapIndex(): Promise<string[]> {
 }
 
 async function checkCO2() {
-  const calc = new CO2({ model: "swd", version: 4});
+  const calc = new CO2({ model: "swd", version: 4 });
   let totalCO2 = 0;
 
   for (const url of await getUrlsFromSitemapIndex()) {

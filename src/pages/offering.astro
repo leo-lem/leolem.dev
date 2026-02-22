@@ -1,10 +1,7 @@
 ---
-import BaseLayout from "../layout/BaseLayout.astro";
-import Tags from "../components/Tags.astro";
-import OrderButton from "../components/OrderButton.astro";
-import { getOffering } from "../content/offering";
-import { Image } from "astro:assets";
-import thumbnail from "../assets/thumbnail";
+import { BaseLayout } from "../layout";
+import { getOffering } from "../content";
+import { Thumbnail, TopicPills, OrderButton } from "../components";
 
 const offering = await getOffering();
 ---
@@ -13,9 +10,17 @@ const offering = await getOffering();
   title="My Offering"
   description="Explore the services I offer. Each service is designed to help you achieve your goals with clean, reliable code and production-ready solutions."
 >
-  <section id="schedule-a-call" class="container stack">
+  <section
+    id="schedule-a-call"
+    class="container stack"
+    data-testid="cal-section"
+  >
     <h2 class="title">Book a Meeting</h2>
-    <div id="my-cal-inline-gettoknow" class="w-full h-full overflow-y-auto">
+    <div
+      id="my-cal-inline-gettoknow"
+      class="w-full h-full overflow-y-auto"
+      data-testid="cal-embed"
+    >
     </div>
   </section>
 
@@ -24,13 +29,13 @@ const offering = await getOffering();
       offering.map(async ({ slug, data: { title, tags, cta }, rendered }) => (
         <div class="card-elevated stack-sm text-center">
           <div class="relative">
-            <Image
-              src={await thumbnail(`offering/${slug}`)}
+            <Thumbnail
+              src={`offering/${slug}`}
               alt={`Image for ${title} service`}
             />
 
-            <Tags
-              tags={tags}
+            <TopicPills
+              topics={tags}
               class="absolute bottom-2 inset-x-0 justify-center text-xs gap-1"
             />
           </div>
@@ -46,7 +51,7 @@ const offering = await getOffering();
             Contact Me
           </a>
 
-          {cta.map(({ url, type }) => (
+          {cta.map(({ url, type }: { url: string; type: string }) => (
             <OrderButton url={url} type={type} class="responsive p-2" />
           ))}
         </div>

@@ -1,13 +1,19 @@
 ---
-import BaseLayout from "../../layout/BaseLayout.astro";
-import Tags from "../../components/Tags.astro";
-import SubscribePanel from "../../components/SubscribePanel.astro";
-import ArticleRow from "../../components/ArticleRow.astro";
-import FeaturedProject from "../../components/FeaturedProject.astro";
-import { getBlog } from "../../content/blog";
-import { getPortfolio } from "../../content/portfolio";
-import thumbnail from "../../assets/thumbnail";
-import { Image } from "astro:assets";
+import { BaseLayout } from "../../layout";
+import {
+  formatDate,
+  thumbnail,
+  relatedArticlesByTags,
+  relatedProjectsFor
+} from "../../lib";
+import { getBlog, getPortfolio } from "../../content";
+import {
+  FeaturedProject,
+  ArticleRow,
+  SubscribePanel,
+  TopicPills,
+  Thumbnail
+} from "../../components";
 
 export async function getStaticPaths() {
   return (await getBlog()).map((article) => ({
@@ -22,34 +28,8 @@ const {
   rendered
 } = Astro.props;
 
-const dateLabel = date.toLocaleDateString(undefined, {
-  day: "numeric",
-  month: "long",
-  year: "numeric"
-});
-
-const projects = (await getPortfolio())
-  .filter(({ data: { articles } }) => articles.includes(slug))
-  .slice(0, 3);
-
-const related = (await getBlog())
-  .filter((entry) => {
-    if (entry.slug === slug) return false;
-    return entry.data.tags.some((tag) => tags.includes(tag));
-  })
-  .map((entry) => {
-    return {
-      entry,
-      score: entry.data.tags.reduce(
-        (acc, t) => acc + (tags.includes(t) ? 1 : 0),
-        0
-      )
-    };
-  })
-  .sort((x, y) => y.score - x.score)
-  .map(({ entry }) => entry)
-  .slice(0, 3);
-
+const relatedProjects = relatedProjectsFor(await getPortfolio(), slug, 3);
+const relatedArticles = relatedArticlesByTags(await getBlog(), slug, tags, 3);
 const image = await thumbnail(`blog/${slug}`);
 ---
 
@@ -71,14 +51,16 @@ const image = await thumbnail(`blog/${slug}`);
   }}
 >
   <div slot="thumbnail" class="relative">
-    <Image
-      src={image}
+    <Thumbnail
+      src={`blog/${slug}`}
       alt={`Thumbnail image for ${title}`}
-      class="thumbnail card-elevated"
+      class="card-elevated"
       loading="eager"
     />
 
-    <div class="absolute top-2 left-2 pill-overlay meta">{dateLabel}</div>
+    <div class="absolute top-2 left-2 pill-overlay meta">
+      {formatDate(date)}
+    </div>
 
     {
       author?.name && (
@@ -99,8 +81,8 @@ const image = await thumbnail(`blog/${slug}`);
       )
     }
 
-    <Tags
-      tags={tags}
+    <TopicPills
+      topics={tags}
       class="absolute bottom-2 left-2 justify-center text-xs sm:text-sm"
     />
   </div>
@@ -108,6 +90,7 @@ const image = await thumbnail(`blog/${slug}`);
   <article
     class="card p-4 prose prose-lg dark:prose-invert text-center sm:text-justify"
     set:html={rendered?.html}
+    data-testid="blog-content"
   />
 
   <div class="container stack-sm text-center line-clamp-0">
@@ -117,12 +100,12 @@ const image = await thumbnail(`blog/${slug}`);
     <SubscribePanel class="container-narrow stack-sm justify-center p-2" />
   </div>
   {
-    projects.length > 0 && (
-      <section class="container-narrow stack">
+    relatedProjects.length > 0 && (
+      <section class="container-narrow stack" data-testid="related-projects">
         <h2 class="title">Projects Featured In This Article</h2>
 
         <div class="split">
-          {projects.map((project) => (
+          {relatedProjects.map((project) => (
             <FeaturedProject project={project} />
           ))}
         </div>
@@ -131,12 +114,12 @@ const image = await thumbnail(`blog/${slug}`);
   }
 
   {
-    related.length > 0 && (
-      <section class="container-wide stack">
+    relatedArticles.length > 0 && (
+      <section class="container-wide stack" data-testid="related-articles">
         <h2 class="title">Related Articles</h2>
 
         <div class="flex flex-col gap-2">
-          {related.map((article) => (
+          {relatedArticles.map((article) => (
             <ArticleRow article={article} />
           ))}
         </div>

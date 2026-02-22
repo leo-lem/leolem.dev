@@ -1,27 +1,21 @@
 ---
-import { Image } from "astro:assets";
-import thumbnail from "../assets/thumbnail";
+import Thumbnail from "./Thumbnail.astro";
+import { formatDate } from "../lib";
 
 const {
   article: {
     slug,
     data: { title, short, date, author }
   },
-  class: classes
+  class: classes = ""
 } = Astro.props;
-
-const dateLabel = date.toLocaleDateString(undefined, {
-  day: "numeric",
-  month: "long",
-  year: "numeric"
-});
 ---
 
-<article class={`relative ${classes ?? ""}`}>
+<article class={`relative ${classes}`}>
   <div
     class="absolute top-0 z-10 w-full flex justify-between p-2 text-xs sm:text-base"
   >
-    <a href={`/blog/${slug}/`} class="pill-overlay">{dateLabel}</a>
+    <a href={`/blog/${slug}/`} class="pill-overlay">{formatDate(date)}</a>
 
     {
       author?.name &&
@@ -41,8 +35,8 @@ const dateLabel = date.toLocaleDateString(undefined, {
   </div>
 
   <a href={`/blog/${slug}/`}>
-    <Image
-      src={await thumbnail(`blog/${slug}`)}
+    <Thumbnail
+      src={`blog/${slug}`}
       alt={`Thumbnail for ${title}`}
       loading="eager"
     />

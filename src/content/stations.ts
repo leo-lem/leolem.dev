@@ -1,4 +1,6 @@
-import { defineCollection, z, getCollection } from "astro:content";
+import { defineCollection, z, getCollection, type CollectionEntry } from "astro:content";
+
+import { byDateDesc } from "../lib";
 
 export default defineCollection({
   schema: z.object({
@@ -9,7 +11,7 @@ export default defineCollection({
   })
 });
 
-export async function getStations() {
+export async function getStations(): Promise<CollectionEntry<"stations">[]> {
   return (await getCollection("stations"))
-    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+    .sort(byDateDesc);
 }

@@ -1,7 +1,9 @@
 import { devices, type Config } from "@playwright/test";
 
-const config: Config = {
+export default {
   testDir: "test",
+  testIgnore: ["test/tool/**"],
+
   retries: process.env.CI ? 1 : 0,
   outputDir: "/tmp/playwright",
   reporter: process.env.CI ? "github" : "list",
@@ -19,9 +21,7 @@ const config: Config = {
   },
 
   projects: [
-    { name: "Desktop", use: { ...devices["Desktop Chrome"] } },
-    { name: "Mobile", use: { ...devices["iPhone 16"] } },
+    { name: "Desktop", use: { ...devices["Desktop Chrome"] }, grepInvert: /@mobile/ },
+    { name: "Mobile", use: { ...devices["iPhone 16"] }, grepInvert: /@desktop/ },
   ],
-};
-
-export default config;
+} as Config;

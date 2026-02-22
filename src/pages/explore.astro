@@ -1,17 +1,11 @@
 ---
-import BaseLayout from "../layout/BaseLayout.astro";
-import Tags from "../components/Tags.astro";
-import TopicToggle from "../components/TopicToggle.astro";
-import { getTopicCategories, getTopics } from "../content/topics";
-import { getBlog } from "../content/blog";
-import { getPortfolio } from "../content/portfolio";
-import { getOffering } from "../content/offering";
-import thumbnail from "../assets/thumbnail";
-import { Image } from "astro:assets";
+import { BaseLayout } from "../layout";
+import { categoriesFromTopics } from "../lib";
+import { getTopics, getBlog, getPortfolio, getOffering } from "../content";
+import { Thumbnail, TopicCard, TopicPills } from "../components";
 
 const skills = await getTopics();
-
-const categories = await getTopicCategories();
+const categories = categoriesFromTopics(skills);
 
 const results = [
   ...(await getBlog()).map((item) => ({
@@ -36,7 +30,7 @@ const results = [
   title="Explore"
   description="Discover projects, articles, and services by exploring different technologies and topics. Filter by your interests to find relevant content."
 >
-  <section id="skills" class="container stack">
+  <section id="skills" class="container stack" data-testid="explore-skills">
     {
       categories.map((category) => (
         <div class="stack sm:flex-row items-center">
@@ -44,11 +38,11 @@ const results = [
             {category}
           </h2>
 
-          <div class="cluster">
+          <div class="cluster sm:justify-start justify-center">
             {skills
               .filter((skill) => skill.data.category === category)
               .map((topic) => (
-                <TopicToggle topic={topic} class="responsive w-36 pill" />
+                <TopicCard topic={topic} class="responsive w-36 pill" />
               ))}
           </div>
         </div>
@@ -56,12 +50,19 @@ const results = [
     }
   </section>
 
-  <section id="results" class="container-wide split">
+  <section
+    id="results"
+    class="container-wide split"
+    data-testid="explore-results"
+  >
     {
       results.map(async ({ slug, data: { title, short, tags }, type, url }) => (
         <div
           class="relative responsive card-elevated"
           data-tags={tags.join(",")}
+          data-type={type}
+          data-slug={slug}
+          data-testid="explore-result"
         >
           <a href={url}>
             <span class="absolute top-2 left-2 meta pill-overlay capitalize ">
@@ -69,12 +70,9 @@ const results = [
             </span>
 
             {type === "project" || type === "article" ? (
-              <Image
-                src={await thumbnail(
-                  `${type === "project" ? "portfolio" : "blog"}/${slug}`
-                )}
+              <Thumbnail
+                src={`${type === "project" ? "portfolio" : "blog"}/${slug}`}
                 alt={`Thumbnail for ${title}`}
-                class="thumbnail"
                 loading="eager"
               />
             ) : (
@@ -84,8 +82,8 @@ const results = [
             <div class="stack text-center p-2">
               <h2 class="title-sm">{title}</h2>
               <p class="summary">{short}</p>
-              <Tags
-                tags={tags}
+              <TopicPills
+                topics={tags}
                 class="items-center justify-center text-xs sm:text-sm"
               />
             </div>
@@ -94,7 +92,11 @@ const results = [
       ))
     }
 
-    <div id="no-results-placeholder" class="col-span-2 text-muted hidden">
+    <div
+      id="no-results-placeholder"
+      class="col-span-2 text-muted hidden"
+      data-testid="explore-no-results"
+    >
       No results found. Try selecting different skills or clear all filters.
     </div>
   </section>

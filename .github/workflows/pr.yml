@@ -34,5 +34,11 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
           restore-keys: ${{ runner.os }}-playwright-
       - run: npx playwright install
+      - uses: ./.github/actions/checkout-content
+        env:
+          CONTENT_REPO_TOKEN: ${{ secrets.CONTENT_REPO_TOKEN }}
+      - run: npm run tool:sync
       - name: Run tests
         run: npm test
+      - name: Run tool tests
+        run: npm run test:tool

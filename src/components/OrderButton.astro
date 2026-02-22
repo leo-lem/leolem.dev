@@ -1,10 +1,14 @@
 ---
-type Props = {
+const {
+  url,
+  type,
+  class: classes
+} = Astro.props as {
   url: string;
   type: "fiverr" | "upwork" | "email";
   class?: string;
 };
-const { url, type, class: classes } = Astro.props;
+
 const label = (() => {
   switch (type) {
     case "fiverr":
