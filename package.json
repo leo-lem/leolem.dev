@@ -15,7 +15,7 @@
     "tool:alert": "wrangler deploy -c wrangler.alert.toml"
   },
   "dependencies": {
-    "@astrojs/node": "^9.5.3",
+    "@astrojs/node": "^9.5.4",
     "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.7",
     "@astrojs/tailwind": "^6.0",
@@ -25,8 +25,8 @@
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {
-    "@iconify-json/lucide": "^1.2.90",
-    "@iconify-json/simple-icons": "^1.2.70",
+    "@iconify-json/lucide": "^1.2.93",
+    "@iconify-json/simple-icons": "^1.2.71",
     "@playwright/test": "^1.58",
     "@tgwf/co2": "^0.17",
     "@types/node-fetch": "^2.6",
