@@ -30,6 +30,7 @@ const allowLocalhost = import.meta.env.NODE_ENV === "development";
     <title>{title}</title>
     <link rel="canonical" href={url} />
     <link rel="manifest" href="/manifest.webmanifest" />
+    {Astro.url.search ? <meta name="robots" content="noindex,follow" /> : null}
 
     <meta name="application-name" content="Leopold Lemmermann" />
     <meta name="description" content={description} />
