@@ -3,7 +3,14 @@ import { Image } from "astro:assets";
 
 import { thumbnail } from "../lib";
 
-const { id, src, alt, loading = "lazy", class: classes } = Astro.props;
+const {
+  id,
+  src,
+  alt,
+  loading = "lazy",
+  fetchpriority = "low",
+  class: classes
+} = Astro.props;
 ---
 
 <Image
@@ -11,6 +18,7 @@ const { id, src, alt, loading = "lazy", class: classes } = Astro.props;
   src={await thumbnail(src)}
   alt={alt}
   loading={loading}
+  fetchpriority={fetchpriority}
   class={`thumbnail ${classes}`}
   data-testid="thumbnail"
 />
