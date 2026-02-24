@@ -15,7 +15,7 @@
     "tool:alert": "wrangler deploy -c wrangler.alert.toml"
   },
   "dependencies": {
-    "@astrojs/node": "^9.5.3",
+    "@astrojs/node": "^9.5.4",
     "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.7",
     "@astrojs/tailwind": "^6.0",
