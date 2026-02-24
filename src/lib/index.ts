@@ -2,4 +2,4 @@ export { byDateDesc, byFeaturedThenTitle, byFeaturedThenDateDesc, byPriorityThen
 export { categoriesFromTopics, relatedArticlesByTags, relatedProjectsFor, relatedArticlesFor } from "./related";
 export { thumbnail } from "./image";
 export { formatDate } from "./date";
-export { iconForUrl } from "./icon";
+export { iconForUrl, nameForUrl } from "./icon";

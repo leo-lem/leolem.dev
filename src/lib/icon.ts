@@ -6,6 +6,22 @@ const icons: Record<string, string> = {
   linkedin: "simple-icons:linkedin"
 };
 
+const names: Record<string, string> = {
+  github: "GitHub",
+  appstore: "App Store",
+  webpage: "Webpage",
+  document: "Document",
+  linkedin: "LinkedIn"
+};
+
+function domainKey(url: string): string {
+  return new URL(url).hostname.split(".")[0];
+}
+
 export function iconForUrl(url: string): string {
-  return icons[url.split("https://")[1].split(".")[0]] ?? (console.error(`Unknown link type: ${url}`), "lucide:link")
+  return icons[domainKey(url)] ?? (console.error(`Unknown link type: ${url}`), "lucide:link")
+}
+
+export function nameForUrl(url: string): string {
+  return names[domainKey(url)] ?? url;
 }
