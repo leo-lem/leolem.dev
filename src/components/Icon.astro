@@ -1,6 +1,6 @@
 ---
 import { Icon as AstroIcon } from "astro-icon/components";
-import { iconForUrl } from "../lib";
+import { iconForUrl, nameForUrl } from "../lib";
 
 const { name = "", class: classes } = Astro.props as {
   name: string;
@@ -12,7 +12,7 @@ const isUrl = name.startsWith("http://") || name.startsWith("https://");
 
 {
   isUrl ? (
-    <a href={name} rel="noopener noreferrer" target="_blank">
+    <a href={name} rel="noopener noreferrer" target="_blank" aria-label={nameForUrl(name)}>
       <AstroIcon name={iconForUrl(name)} class={classes} />
     </a>
   ) : (
