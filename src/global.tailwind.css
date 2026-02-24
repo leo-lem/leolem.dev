@@ -12,7 +12,7 @@
   --elevated-color: color-mix(in srgb, var(--base-color) 88%, var(--text-color));
   --border-color: color-mix(in srgb, var(--text-color) 14%, transparent);
   --text-secondary-color: color-mix(in srgb, var(--text-color) 72%, var(--base-color));
-  --text-muted-color: color-mix(in srgb, var(--text-color) 55%, var(--base-color));
+  --text-muted-color: color-mix(in srgb, var(--text-color) 70%, var(--base-color));
   --shadow-color: rgba(0, 0, 0, 0.40);
 }
 
@@ -20,6 +20,7 @@
   :root {
     --base-color: #1a1c1f;
     --text-color: #f3f4f6;
+    --text-muted-color: color-mix(in srgb, var(--text-color) 55%, var(--base-color));
   }
 }
 
