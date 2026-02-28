@@ -20,22 +20,22 @@
     "@astrojs/sitemap": "^3.7",
     "@astrojs/tailwind": "^6.0",
     "@tailwindcss/typography": "^0.5",
-    "astro": "^5.17.2",
+    "astro": "^5.18.0",
     "astro-icon": "^1.1.5",
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {
-    "@iconify-json/lucide": "^1.2.93",
+    "@iconify-json/lucide": "^1.2.95",
     "@iconify-json/simple-icons": "^1.2.71",
     "@playwright/test": "^1.58",
-    "@tgwf/co2": "^0.17",
+    "@tgwf/co2": "^0.18",
     "@types/node-fetch": "^2.6",
     "@types/tgwf__co2": "^0.14",
     "@types/xml2js": "^0.4.14",
     "favicons": "^7.2.0",
     "tsx": "^4.21",
     "typescript": "^5.9",
-    "wrangler": "^4.67.0",
+    "wrangler": "^4.69.0",
     "xml2js": "^0.6"
   }
 }
