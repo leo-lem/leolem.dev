@@ -3,17 +3,19 @@ updates:
   - package-ecosystem: "npm"
     directory: "/" 
     schedule:
-      interval: weekly
+      interval: "weekly"
+      day: "saturday"
+      time: "00:00"
     groups:
       all-npm-updates:
-        patterns:
-          - "*"
+        patterns: ["*"]
 
   - package-ecosystem: "github-actions"
     directory: "/" 
     schedule:
       interval: "weekly"
+      day: "saturday"
+      time: "00:00"
     groups:
       all-gha-updates:
-        patterns:
-          - "*"
+        patterns: ["*"]
