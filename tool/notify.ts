@@ -102,12 +102,11 @@ async function post(params: {
 }
 
 function sanitizeShort(s: string): string {
-  return (
-    s
-      .replace(/\r\n/g, "\n") // normalize newlines
-      .replace(/\s+/g, " ") // collapse whitespace/newlines
-      .trim().replace(/^(?:\||>)\s*/, "") // remove leading YAML block tokens if they leaked in
-  );
+  return s
+    .replaceAll(/\r\n/g, "\n")
+    .replaceAll(/\s+/g, " ")
+    .trim()
+    .replace(/^[|>]\s*/, "");
 }
 
 export default async function notify(
