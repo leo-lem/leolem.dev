@@ -101,6 +101,14 @@ async function post(params: {
   return json;
 }
 
+function sanitizeShort(s: string): string {
+  return s
+    .replaceAll(/\r\n/g, "\n")
+    .replaceAll(/\s+/g, " ")
+    .trim()
+    .replace(/^[|>]\s*/, "");
+}
+
 export default async function notify(
   site: string | undefined = process.env.BASE_URL,
   appId: string | undefined = process.env.ONESIGNAL_APP_ID,
@@ -138,7 +146,7 @@ export default async function notify(
       continue;
     }
 
-    const short = fm.short.trim();
+    const short = sanitizeShort(fm.short || "");
 
     toSend.push({
       slug,
