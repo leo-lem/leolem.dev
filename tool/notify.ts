@@ -101,6 +101,15 @@ async function post(params: {
   return json;
 }
 
+function sanitizeShort(s: string): string {
+  return (
+    s
+      .replace(/\r\n/g, "\n") // normalize newlines
+      .replace(/\s+/g, " ") // collapse whitespace/newlines
+      .trim().replace(/^(?:\||>)\s*/, "") // remove leading YAML block tokens if they leaked in
+  );
+}
+
 export default async function notify(
   site: string | undefined = process.env.BASE_URL,
   appId: string | undefined = process.env.ONESIGNAL_APP_ID,
@@ -138,7 +147,7 @@ export default async function notify(
       continue;
     }
 
-    const short = fm.short.trim();
+    const short = sanitizeShort(fm.short || "");
 
     toSend.push({
       slug,
