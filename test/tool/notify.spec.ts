@@ -26,6 +26,10 @@ function md(frontmatter: Record<string, string>, body = "Hello") {
   return `---\n${fm}\n---\n\n${body}\n`;
 }
 
+function mdRaw(frontmatter: string, body = "Hello") {
+  return `---\n${frontmatter}\n---\n\n${body}\n`;
+}
+
 async function write(p: string, content: string) {
   await fs.mkdir(path.dirname(p), { recursive: true });
   await fs.writeFile(p, content, "utf8");
@@ -263,4 +267,55 @@ test("notify uses Basic auth header and JSON content-type", async ({ capture, re
     expect(h.auth).toBe(`Basic ${apiKey}`);
     expect(String(h.contentType || "")).toContain("application/json");
   }
+});
+
+test("notify collapses multiline short block scalars to one line", async ({ capture, repo }) => {
+  const nowIso = new Date(Date.now() - 60_000).toISOString();
+
+  await write(
+    path.join(repo.blogDir, "multiline.mdx"),
+    mdRaw(
+      `title: "Multiline"
+short: |
+  I used to chase outcomes: perfection, being "done", traction.
+  
+  Now I try to ship experiments instead: small, real slices I can evaluate and iterate on.
+  
+  Outcomes are noisy. Shipping is controllable.
+date: "${nowIso}"
+tags: ["Systems"]`
+    )
+  );
+
+  const r = await notify(
+    site,
+    appId,
+    apiKey,
+    templateId,
+    segment,
+    capture.apiBase,
+    repo.tmpRoot,
+    repo.from,
+    repo.stateFile,
+    repo.blogDir
+  );
+
+  expect(r.sent.map((a) => a.slug)).toContain("multiline");
+
+  const bodies = capture.received as Array<Record<string, any>>;
+  const matching = bodies.filter((b) => {
+    const url = (b.url as string | undefined) || b.custom_data?.url;
+    return url === "http://localhost:4321/blog/multiline/";
+  });
+
+  expect(matching.length).toBe(2);
+
+  const templatePost = matching.find((b) => typeof b.template_id === "string");
+  const directPost = matching.find((b) => typeof b.headings?.en === "string");
+
+  const expected =
+    'I used to chase outcomes: perfection, being "done", traction. Now I try to ship experiments instead: small, real slices I can evaluate and iterate on. Outcomes are noisy. Shipping is controllable.';
+
+  expect(templatePost?.custom_data?.short).toBe(expected);
+  expect(directPost?.contents?.en).toBe(`${expected}.`);
 });

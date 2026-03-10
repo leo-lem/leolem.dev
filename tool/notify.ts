@@ -14,15 +14,37 @@ function parseFrontmatter(md: string): Record<string, string> {
   const end = md.indexOf("\n---", 3);
   if (end === -1) return {};
 
-  const lines = md.slice(3, end).trim().split("\n");
+  const lines = md.slice(3, end).split("\n");
   const out: Record<string, string> = {};
 
-  for (const line of lines) {
+  for (let idx = 0; idx < lines.length; idx++) {
+    const line = lines[idx];
     const i = line.indexOf(":");
     if (i === -1) continue;
 
     const k = line.slice(0, i).trim();
     let v = line.slice(i + 1).trim();
+
+    if (v === "|" || v === ">") {
+      const block: string[] = [];
+      idx += 1;
+
+      while (idx < lines.length) {
+        const next = lines[idx];
+
+        if (!next.startsWith("  ")) {
+          idx -= 1;
+          break;
+        }
+
+        block.push(next.slice(2));
+        idx += 1;
+      }
+
+      out[k] = block.join("\n").trim();
+      continue;
+    }
+
     v = v.replace(/^"(.*)"$/, "$1").replace(/^'(.*)'$/, "$1");
     out[k] = v;
   }

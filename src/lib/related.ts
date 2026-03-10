@@ -35,9 +35,9 @@ export function relatedArticlesByTags<T extends { slug: string; data: { tags: st
   return picked;
 }
 
-export function relatedProjectsFor(all: { data: { articles: string[] } }[], slug: string, limit = 3) {
+export function relatedProjectsFor(all: { data?: { articles?: string[] } }[], slug: string, limit = 3) {
   return all
-    .filter(({ data: { articles } }) => articles.includes(slug))
+    .filter((entry) => entry.data?.articles?.includes(slug) ?? false)
     .slice(0, limit);
 }
 
