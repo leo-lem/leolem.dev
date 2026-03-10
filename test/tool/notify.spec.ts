@@ -278,9 +278,9 @@ test("notify collapses multiline short block scalars to one line", async ({ capt
       `title: "Multiline"
 short: |
   I used to chase outcomes: perfection, being "done", traction.
-  
+
   Now I try to ship experiments instead: small, real slices I can evaluate and iterate on.
-  
+
   Outcomes are noisy. Shipping is controllable.
 date: "${nowIso}"
 tags: ["Systems"]`
