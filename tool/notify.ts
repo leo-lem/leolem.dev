@@ -32,7 +32,7 @@ function parseFrontmatter(md: string): Record<string, string> {
       while (idx < lines.length) {
         const next = lines[idx];
 
-        if (!next.startsWith("  ")) {
+        if (!next.startsWith("  ") && next.trim() !== "") {
           idx -= 1;
           break;
         }
