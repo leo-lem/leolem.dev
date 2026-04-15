@@ -25,7 +25,7 @@ const {
 
     {
       confidence && (
-        <div class="flex flex-col-reverse h-10 w-1 rounded-full overflow-hidden bg-[var(--text-card-color)]">
+        <div class="flex flex-col-reverse h-10 w-1 rounded-full overflow-hidden bg-(--text-card-color)">
           <div class="accent" style={`height: ${confidence}%`} />
         </div>
       )
@@ -66,6 +66,8 @@ const {
 </script>
 
 <style>
+  @reference "tailwindcss";
+
   .topic {
     transition: all 0.2s ease;
   }

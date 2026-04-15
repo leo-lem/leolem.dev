@@ -11,17 +11,17 @@ const results = [
   ...(await getBlog()).map((item) => ({
     ...item,
     type: "article",
-    url: `/blog/${item.slug}/`
+    url: `/blog/${item.id}/`
   })),
   ...(await getPortfolio()).map((item) => ({
     ...item,
     type: "project",
-    url: `/portfolio/${item.slug}/`
+    url: `/portfolio/${item.id}/`
   })),
   ...(await getOffering()).map((item) => ({
     ...item,
     type: "service",
-    url: `/offering/#${item.slug}`
+    url: `/offering/#${item.id}`
   }))
 ];
 ---
@@ -56,12 +56,12 @@ const results = [
     data-testid="explore-results"
   >
     {
-      results.map(async ({ slug, data: { title, short, tags }, type, url }) => (
+      results.map(async ({ id, data: { title, short, tags }, type, url }) => (
         <div
           class="relative responsive card-elevated"
           data-tags={tags.join(",")}
           data-type={type}
-          data-slug={slug}
+          data-id={id}
           data-testid="explore-result"
         >
           <a href={url}>
@@ -71,7 +71,7 @@ const results = [
 
             {type === "project" || type === "article" ? (
               <Thumbnail
-                src={`${type === "project" ? "portfolio" : "blog"}/${slug}`}
+                src={`${type === "project" ? "portfolio" : "blog"}/${id}`}
                 alt={`Thumbnail for ${title}`}
                 loading="eager"
               />

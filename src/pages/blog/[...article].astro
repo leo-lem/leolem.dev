@@ -17,20 +17,20 @@ import {
 
 export async function getStaticPaths() {
   return (await getBlog()).map((article) => ({
-    params: { article: article.slug },
+    params: { article: article.id },
     props: article
   }));
 }
 
 const {
-  data: { title, short, author, date, tags },
-  slug,
+  data: { title, short, author, date, tags, projects },
+  id,
   rendered
 } = Astro.props;
 
-const relatedProjects = relatedProjectsFor(await getPortfolio(), slug, 3);
-const relatedArticles = relatedArticlesByTags(await getBlog(), slug, tags, 3);
-const image = await thumbnail(`blog/${slug}`);
+const relatedProjects = relatedProjectsFor(await getPortfolio(), projects, 3);
+const relatedArticles = relatedArticlesByTags(await getBlog(), id, tags, 3);
+const image = await thumbnail(`blog/${id}`);
 ---
 
 <BaseLayout
@@ -52,7 +52,7 @@ const image = await thumbnail(`blog/${slug}`);
 >
   <div slot="thumbnail" class="relative">
     <Thumbnail
-      src={`blog/${slug}`}
+      src={`blog/${id}`}
       alt={`Thumbnail image for ${title}`}
       class="card-elevated"
       loading="eager"

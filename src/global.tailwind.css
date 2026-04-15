@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
 
 :root {
   --base-color: #f3f4f6;
@@ -15,7 +15,6 @@
   --text-muted-color: color-mix(in srgb, var(--text-color) 70%, var(--base-color));
   --shadow-color: rgba(0, 0, 0, 0.40);
 }
-
 @media (prefers-color-scheme: dark) {
   :root {
     --base-color: #1a1c1f;
@@ -23,7 +22,6 @@
     --text-muted-color: color-mix(in srgb, var(--text-color) 55%, var(--base-color));
   }
 }
-
 @media (prefers-reduced-motion: reduce) {
   .interactive,
   .hover-lift,
@@ -32,6 +30,8 @@
     transform: none !important;
   }
 }
+
+
 
 body {
   @apply m-0 text-primary text-base leading-relaxed;
@@ -42,42 +42,44 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+
+
+@utility interactive { @apply transition duration-200 ease-out will-change-transform; }
+@utility hover-lift { @apply hover:scale-[1.02] active:scale-[0.99]; }
+@utility hover-underline { @apply hover:underline underline-offset-4; }
+@utility hover-surface {
+  background-color: transparent; 
+  border-color: var(--border-color);
+}
+@utility focus-ring { @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2; }
+@utility pressable { @apply active:scale-[0.98]; }
+@utility responsive { @apply interactive hover-lift hover-surface; }
 @layer components {
-  .interactive { @apply transition duration-200 ease-out will-change-transform; }
-  
-  .hover-lift { @apply hover:scale-[1.02] active:scale-[0.99]; }
-  
-  .hover-surface {
-    background-color: transparent; 
-    border-color: var(--border-color);
+  .focus-ring:focus-visible {
+    --tw-ring-color: color-mix(in srgb, var(--border-color) 70%, transparent);
+    --tw-ring-offset-color: transparent;
   }
   .hover-surface:hover {
     background-color: color-mix(in srgb, var(--surface-color) 70%, transparent);
     border-color: color-mix(in srgb, var(--border-color) 75%, transparent);
   }
-
-  .hover-underline { @apply hover:underline underline-offset-4; }
-
-  .focus-ring { @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2; }
-  .focus-ring:focus-visible {
-    --tw-ring-color: color-mix(in srgb, var(--border-color) 70%, transparent);
-    --tw-ring-offset-color: transparent;
-  }
-
-  .pressable { @apply active:scale-[0.98]; }
-
-  .responsive { @apply interactive hover-lift hover-surface; }
 }
 
-@layer components {
-  .accent {
-    background: linear-gradient(
-      to right,
-      var(--accent-secondary-color),
-      var(--accent-color)
-    );
-  }
 
+
+@utility text-primary { color: var(--text-color); }
+@utility text-secondary { color: var(--text-secondary-color); }
+@utility text-muted { color: var(--text-muted-color); }
+@utility text-error { color: #dc2626; }
+@utility title-base { @apply text-primary leading-snug line-clamp-2; }
+@utility accent {
+  background: linear-gradient(
+    to right,
+    var(--accent-secondary-color),
+    var(--accent-color)
+  );
+}
+@layer components {
   .fade { 
     background: linear-gradient(
       to top,
@@ -86,10 +88,6 @@ body {
     )
   }
 
-  .text-primary { color: var(--text-color); }
-  .text-secondary { color: var(--text-secondary-color); }
-  .text-muted { color: var(--text-muted-color); }
-  .text-error { color: #dc2626; }
   .text-accent {
     @apply accent;
     color: transparent;
@@ -98,7 +96,6 @@ body {
     -webkit-text-fill-color: transparent;
   }
 
-  .title-base { @apply text-primary leading-snug line-clamp-2; }
   .title-lg { @apply title-base font-bold text-3xl sm:text-4xl; }
   .title { @apply title-base font-semibold text-xl sm:text-2xl; }
   .title-sm { @apply title-base font-semibold text-lg leading-snug; }
@@ -108,45 +105,47 @@ body {
   .caption { @apply text-muted text-xs; }
 }
 
+@utility container-base { @apply mx-auto px-4 sm:px-6; }
+@utility stack-base { @apply flex flex-col; }
+@utility cluster-base { @apply flex flex-wrap items-center; }
+@utility split-base { @apply grid grid-cols-1 sm:grid-cols-2; }
 @layer components {
-  .container-base { @apply mx-auto px-4 sm:px-6; }
   .container-narrow { @apply container-base max-w-lg; }
   .container { @apply container-base max-w-xl; }
   .container-wide { @apply container-base max-w-3xl; }
 
-  .stack-base { @apply flex flex-col; }
   .stack-sm { @apply stack-base gap-2; }
   .stack { @apply stack-base gap-8; }
   .stack-lg { @apply stack-base gap-16; }
 
-  .cluster-base { @apply flex flex-wrap items-center; }
   .cluster-sm { @apply cluster-base gap-2; }
   .cluster { @apply cluster-base gap-4; }
   .cluster-lg { @apply cluster-base gap-6; }
 
-  .split-base { @apply grid grid-cols-1 sm:grid-cols-2; }
   .split-sm { @apply split-base gap-4; }
   .split { @apply split-base gap-8; }
   .split-lg { @apply split-base gap-12; }
 }
 
+
+
+@utility card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  @apply text-primary rounded-xl overflow-hidden;
+}
+@utility pill {
+  @apply rounded-full px-3 py-1 inline-flex items-center gap-1 whitespace-nowrap text-secondary;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+}
 @layer components {
-  .card {
-    background-color: var(--surface-color);
-    border: 1px solid var(--border-color);
-    @apply text-primary rounded-xl overflow-hidden;
-  }
   .card-elevated {
     @apply card shadow-sm;
     background-color: var(--elevated-color);
     box-shadow: 0 10px 30px var(--shadow-color);
   }
 
-  .pill {
-    @apply rounded-full px-3 py-1 inline-flex items-center gap-1 whitespace-nowrap text-secondary;
-    background-color: var(--surface-color);
-    border: 1px solid var(--border-color);
-  }
   .pill-accent {
     @apply pill;
     color: var(--text-color);
@@ -166,12 +165,14 @@ body {
   }
 }
 
+
+
 @layer components {
   .link { @apply text-primary hover-underline focus-ring interactive; }
   .link-muted { @apply text-muted hover:text-primary hover-underline focus-ring interactive; }
   .btn {
     @apply inline-flex items-center gap-2 px-3 py-2 rounded-lg
-      text-secondary border border-[var(--border-color)]
+      text-secondary border border-(--border-color)
       interactive pressable hover-surface focus-ring;
     background-color: var(--surface-color);
   }
@@ -180,17 +181,21 @@ body {
   }
   .input {
     @apply w-full px-3 py-2 rounded-lg
-      text-secondary border border-[var(--border-color)]
+      text-secondary border border-(--border-color)
       interactive hover-surface focus-ring;
     background-color: var(--surface-color);
   }
 }
+
+
 
 @layer components {
   .icon-sm { @apply h-8 w-8; }
   .icon { @apply h-12 w-12; }
   .icon-lg { @apply h-16 w-16; }
 }
+
+
 
 @layer components {
   .thumbnail { @apply rounded-xl object-cover; }

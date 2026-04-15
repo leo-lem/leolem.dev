@@ -1,13 +1,11 @@
-import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
-import sitemap from '@astrojs/sitemap';
-
-import icon from 'astro-icon';
+import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
+import icon from "astro-icon";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  site: 'https://leolem.dev',
+  site: "https://leolem.dev",
   integrations: [
-    tailwind(),
     sitemap({
       filter: (page) => !page.includes("?"),
     }),
@@ -16,8 +14,12 @@ export default defineConfig({
         lucide: ["*"],
         "simple-icons": ["*"],
       },
-    })],
+    }),
+  ],
+  vite: {
+    plugins: [tailwindcss()]
+  },
   prefetch: true,
   trailingSlash: "always",
-  output: "static"
+  output: "static",
 });

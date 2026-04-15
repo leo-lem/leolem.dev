@@ -13,20 +13,20 @@ import {
 
 export async function getStaticPaths() {
   return (await getPortfolio()).map((project) => ({
-    params: { project: project.slug },
+    params: { project: project.id },
     props: project
   }));
 }
 
 const {
-  data: { title, short, links, articles: articleSlugs, tags },
-  slug,
+  data: { title, short, links, tags },
+  id,
   rendered
 } = Astro.props;
 
-const relatedArticles = relatedArticlesFor(await getBlog(), articleSlugs, 3);
+const relatedArticles = relatedArticlesFor(await getBlog(), id, 3);
 
-const image = await thumbnail(`portfolio/${slug}`);
+const image = await thumbnail(`portfolio/${id}`);
 ---
 
 <BaseLayout
@@ -38,13 +38,13 @@ const image = await thumbnail(`portfolio/${slug}`);
     "@type": "CreativeWork",
     name: title,
     description: short,
-    url: `https://leolem.dev/portfolio/${slug}`,
+    url: `https://leolem.dev/portfolio/${id}`,
     keywords: tags?.join(", "),
     inLanguage: "en"
   }}
 >
   <div slot="thumbnail" class="relative card-elevated sm:w-2/3 mx-auto">
-    <Thumbnail src={`portfolio/${slug}`} alt={`Thumbnail for ${title}`} />
+    <Thumbnail src={`portfolio/${id}`} alt={`Thumbnail for ${title}`} />
 
     <TopicPills
       topics={tags}
@@ -76,7 +76,7 @@ const image = await thumbnail(`portfolio/${slug}`);
     )
   }
 
-  <Screenshots slug={slug} />
+  <Screenshots id={id} />
 
   <Embed kind="sponsors" />
 </BaseLayout>

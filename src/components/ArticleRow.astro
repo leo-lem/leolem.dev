@@ -4,7 +4,7 @@ import { formatDate } from "../lib";
 
 const {
   article: {
-    slug,
+    id,
     data: { title, short, date, author }
   },
   class: classes = ""
@@ -12,14 +12,14 @@ const {
 ---
 
 <a
-  href={`/blog/${slug}/`}
+  href={`/blog/${id}/`}
   class={`responsive card group block ${classes}`}
   data-testid="article-row"
 >
   <div class="text-center stack-sm sm:flex-row">
     <div class="relative sm:w-1/3 shrink-0 text-xs sm:text-sm">
       <Thumbnail
-        src={`blog/${slug}`}
+        src={`blog/${id}`}
         alt={`Thumbnail image for ${title}`}
         class={"w-full h-full object-cover"}
         loading={classes.includes("eager") ? "eager" : "lazy"}

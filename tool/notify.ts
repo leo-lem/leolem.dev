@@ -3,7 +3,7 @@ import path from "node:path";
 import { isExecuted } from "./lib";
 
 export type Article = {
-  slug: string;
+  id: string;
   title: string;
   short: string;
   url: string;
@@ -72,8 +72,8 @@ function isScheduledFuture(dateStr: string | undefined): boolean {
   return d.getTime() > Date.now();
 }
 
-function buildUrl(site: string, slug: string): string {
-  return `${site.replace(/\/$/, "")}/blog/${slug}/`;
+function buildUrl(site: string, id: string): string {
+  return `${site.replace(/\/$/, "")}/blog/${id}/`;
 }
 
 async function readState(statePath: string): Promise<Set<string>> {
@@ -154,27 +154,27 @@ export default async function notify(
   const toSend: Article[] = [];
 
   for (const file of files) {
-    const slug = toSlug(blogDir, file);
+    const id = toSlug(blogDir, file);
 
-    if (alreadyNotified.has(slug)) {
-      skippedAlready.push(slug);
+    if (alreadyNotified.has(id)) {
+      skippedAlready.push(id);
       continue;
     }
 
     const fm = parseFrontmatter(await fs.readFile(file, "utf8"));
 
     if (isScheduledFuture(fm.date)) {
-      skippedScheduled.push(slug);
+      skippedScheduled.push(id);
       continue;
     }
 
     const short = sanitizeShort(fm.short || "");
 
     toSend.push({
-      slug,
-      title: (fm.title || slug).trim(),
+      id,
+      title: (fm.title || id).trim(),
       short,
-      url: buildUrl(site, slug),
+      url: buildUrl(site, id),
     });
   }
 
@@ -209,7 +209,7 @@ export default async function notify(
       },
     });
 
-    alreadyNotified.add(article.slug);
+    alreadyNotified.add(article.id);
   }
 
   await fs.mkdir(path.dirname(stateFile), { recursive: true });
@@ -227,5 +227,5 @@ if (isExecuted(import.meta.url)) {
   if (sent.length === 0)
     console.log("No new articles to notify.");
   else for (const article of sent)
-    console.log("Sent:", article.slug);
+    console.log("Sent:", article.id);
 }

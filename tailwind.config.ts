@@ -21,8 +21,5 @@ export default {
       },
     },
   },
-  darkMode: 'media',
-  plugins: [
-    require('@tailwindcss/typography')
-  ],
+  darkMode: 'media'
 } as Config;

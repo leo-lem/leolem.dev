@@ -2,14 +2,14 @@ export function categoriesFromTopics(topics: { data: { category: string } }[]): 
   return [...new Set(topics.map((s) => s.data.category))];
 }
 
-export function relatedArticlesByTags<T extends { slug: string; data: { tags: string[]; date: Date } }>(
+export function relatedArticlesByTags<T extends { id: string; data: { tags: string[]; date: Date } }>(
   all: T[],
-  slug: string,
+  id: string,
   tags: string[],
   limit = 3
 ) {
   const tagSet = new Set(tags);
-  const pool = all.filter((e) => e.slug !== slug);
+  const pool = all.filter((e) => e.id !== id);
 
   const scored = pool
     .map((e) => ({
@@ -22,10 +22,10 @@ export function relatedArticlesByTags<T extends { slug: string; data: { tags: st
   const picked = scored.map((x) => x.e).slice(0, limit);
 
   if (picked.length < limit) {
-    const pickedSlugs = new Set(picked.map((p) => p.slug));
+    const pickedIds = new Set(picked.map((p) => p.id));
 
     const fallback = pool
-      .filter((e) => !pickedSlugs.has(e.slug))
+      .filter((e) => !pickedIds.has(e.id))
       .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
       .slice(0, limit - picked.length);
 
@@ -35,14 +35,14 @@ export function relatedArticlesByTags<T extends { slug: string; data: { tags: st
   return picked;
 }
 
-export function relatedProjectsFor(all: { data?: { articles?: string[] } }[], slug: string, limit = 3) {
+export function relatedProjectsFor(all: { id: string }[], ids: string[], limit = 3) {
   return all
-    .filter((entry) => entry.data?.articles?.includes(slug) ?? false)
+    .filter(({ id }) => ids.includes(id))
     .slice(0, limit);
 }
 
-export function relatedArticlesFor(all: { slug: string }[], slugs: string[], limit = 3) {
+export function relatedArticlesFor(all: { data: { projects: string[] } }[], projectId: string, limit = 3) {
   return all
-    .filter(({ slug }) => slugs.includes(slug))
+    .filter(({ data }) => data.projects.includes(projectId))
     .slice(0, limit);
 }

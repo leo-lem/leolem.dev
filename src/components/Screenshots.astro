@@ -1,12 +1,12 @@
 ---
 import { Image } from "astro:assets";
 
-const { slug } = Astro.props;
+const { id } = Astro.props;
 
 const images = Object.entries(
   import.meta.glob("/src/assets/portfolio/**/*", { eager: true })
 )
-  .filter(([path]) => path.includes(`/portfolio/${slug}/`))
+  .filter(([path]) => path.includes(`/portfolio/${id}/`))
   .sort(([a], [b]) => a.localeCompare(b));
 ---
 

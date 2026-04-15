@@ -45,15 +45,13 @@ const featuredServices = (await getOffering()).filter(onlyFeatured);
     <section class="container-narrow stack">
       <div class="split-sm">
         {
-          featuredServices.map(
-            ({ data: { icon, title, short }, slug }: any) => (
-              <a href={`/offering/#${slug}`} class="responsive card stack p-2">
-                <Icon name={icon} class="icon-lg w-full" />
-                <h2 class="title-sm">{title}</h2>
-                <p class="summary">{short}</p>
-              </a>
-            )
-          )
+          featuredServices.map(({ data: { icon, title, short }, id }: any) => (
+            <a href={`/offering/#${id}`} class="responsive card stack p-2">
+              <Icon name={icon} class="icon-lg w-full" />
+              <h2 class="title-sm">{title}</h2>
+              <p class="summary">{short}</p>
+            </a>
+          ))
         }
       </div>
 

@@ -1,4 +1,5 @@
-import { defineCollection, getCollection, z, type CollectionEntry } from "astro:content";
+import { z } from "astro/zod";
+import { defineCollection, getCollection, type CollectionEntry } from "astro:content";
 import { file } from "astro/loaders";
 
 import { byPriorityThenConfidence } from "../lib";
