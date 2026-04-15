@@ -8,36 +8,36 @@ import {
 
 test("relatedArticlesByTags excludes self, scores by tag overlap, limits output", async () => {
   const all = [
-    { slug: "a", data: { tags: ["x", "y"] } },
-    { slug: "b", data: { tags: ["y"] } },
-    { slug: "c", data: { tags: ["y", "z"] } },
-    { slug: "d", data: { tags: ["z"] } },
+    { id: "a", data: { tags: ["x", "y"], date: new Date() } },
+    { id: "b", data: { tags: ["y"], date: new Date() } },
+    { id: "c", data: { tags: ["y", "z"], date: new Date() } },
+    { id: "d", data: { tags: ["z"], date: new Date() } },
   ];
 
   const out = relatedArticlesByTags(all, "a", ["y"], 2);
 
-  expect(out.some((x) => x.slug === "a")).toBe(false);
+  expect(out.some((x) => x.id === "a")).toBe(false);
   expect(out.length).toBeLessThanOrEqual(2);
   expect(out.every((x) => x.data.tags.includes("y"))).toBe(true);
 });
 
-test("relatedProjectsFor returns projects that include the article slug", async () => {
-  const all = [
-    { data: { articles: ["vigil/framework"] } },
-    { data: { articles: ["other"] } },
-    { data: { articles: ["vigil/framework", "x"] } },
-  ];
-
-  const out = relatedProjectsFor(all, "vigil/framework", 10);
-  expect(out.length).toBe(2);
-});
-
-test("relatedArticlesFor returns only articles in slug list and respects limit", async () => {
-  const all = [{ slug: "a" }, { slug: "b" }, { slug: "c" }];
-  const out = relatedArticlesFor(all, ["b", "c"], 1);
+test("relatedProjectsFor returns projects with the specified IDs", async () => {
+  const all = [{ id: "a" }, { id: "b" }, { id: "c" }];
+  const out = relatedProjectsFor(all, new Set(["b", "c"]), 1);
 
   expect(out.length).toBe(1);
-  expect(out[0].slug === "b" || out[0].slug === "c").toBe(true);
+  expect(out[0].id === "b" || out[0].id === "c").toBe(true);
+});
+
+test("relatedArticlesFor returns articles related to the specified project", async () => {
+  const all = [
+    { data: { projects: ["vigil"] } },
+    { data: { projects: ["other"] } },
+    { data: { projects: ["vigil", "x"] } },
+  ];
+
+  const out = relatedArticlesFor(all, "vigil", 10);
+  expect(out.length).toBe(2);
 });
 
 test("categoriesFromTopics returns unique categories", async () => {

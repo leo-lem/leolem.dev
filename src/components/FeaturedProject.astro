@@ -3,7 +3,7 @@ import Thumbnail from "./Thumbnail.astro";
 
 const {
   project: {
-    slug,
+    id,
     data: { title, short }
   },
   class: classes
@@ -11,13 +11,13 @@ const {
 ---
 
 <a
-  href={`/portfolio/${slug}/`}
+  href={`/portfolio/${id}/`}
   class={`relative responsive card stack ${classes}`}
   data-testid="portfolio-card"
-  data-slug={slug}
+  data-id={id}
 >
   <Thumbnail
-    src={`portfolio/${slug}`}
+    src={`portfolio/${id}`}
     alt={`Thumbnail for ${title}`}
     class="w-full aspect-square"
   />

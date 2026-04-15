@@ -94,8 +94,10 @@ const { socials, subscribe = true } = Astro.props as {
 </header>
 
 <style>
+  @reference "tailwindcss";
+
   header {
-    @apply shadow shadow-[var(--shadow-color)];
+    @apply shadow-(--shadow-color);
     color: var(--text-color);
     background-color: var(--base-color);
     border-color: var(--border-color);

@@ -26,11 +26,11 @@ const offering = await getOffering();
 
   <section class="container-wide split">
     {
-      offering.map(async ({ slug, data: { title, tags, cta }, rendered }) => (
+      offering.map(async ({ id, data: { title, tags, cta }, rendered }) => (
         <div class="card-elevated stack-sm text-center">
           <div class="relative">
             <Thumbnail
-              src={`offering/${slug}`}
+              src={`offering/${id}`}
               alt={`Image for ${title} service`}
             />
 
@@ -43,7 +43,7 @@ const offering = await getOffering();
           <h2 class="title p-2">{title}</h2>
 
           <article
-            class="flex-grow summary line-clamp-none prose prose-md dark:prose-invert p-1"
+            class="grow summary line-clamp-none prose prose-md dark:prose-invert p-1"
             set:html={rendered?.html}
           />
 

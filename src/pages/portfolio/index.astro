@@ -23,16 +23,16 @@ const projects = portfolio.filter(onlyNonFeatured);
 
   <ul class="container-wide stack-lg">
     {
-      projects.map(async ({ data: { title, short }, slug }) => (
+      projects.map(async ({ data: { title, short }, id }) => (
         <li class="stack-sm text-center sm:text-left">
-          <a href={`/portfolio/${slug}/`} class="link">
+          <a href={`/portfolio/${id}/`} class="link">
             <h2 class="title">{title}</h2>
           </a>
 
-          <a href={`/portfolio/${slug}/`}>
+          <a href={`/portfolio/${id}/`}>
             <div class="responsive card stack sm:flex-row items-center">
               <Thumbnail
-                src={`portfolio/${slug}`}
+                src={`portfolio/${id}`}
                 alt={`Thumbnail for ${title}`}
                 class="w-full aspect-square sm:w-1/3"
               />

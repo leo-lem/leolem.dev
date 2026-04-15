@@ -145,7 +145,7 @@ test("notify sends 2 posts per new article (template + direct)", async ({ captur
     repo.blogDir
   );
 
-  expect(r.sent.map((a) => a.slug).sort()).toEqual(["balance", "vigil/framework"]);
+  expect(r.sent.map((a) => a.id).sort()).toEqual(["balance", "vigil/framework"]);
   expect(capture.received.length).toBe(4);
 
   const bodies = capture.received as Array<Record<string, unknown>>;
@@ -177,7 +177,7 @@ test("notify sends 2 posts per new article (template + direct)", async ({ captur
   expect(urls).toContain("http://localhost:4321/blog/balance/");
 });
 
-test("notify skips scheduled future posts and already-notified slugs", async ({ capture, repo }) => {
+test("notify skips scheduled future posts and already-notified ids", async ({ capture, repo }) => {
   const r = await notify(
     site,
     appId,
@@ -300,7 +300,7 @@ tags: ["Systems"]`
     repo.blogDir
   );
 
-  expect(r.sent.map((a) => a.slug)).toContain("multiline");
+  expect(r.sent.map((a) => a.id)).toContain("multiline");
 
   const bodies = capture.received as Array<Record<string, any>>;
   const matching = bodies.filter((b) => {

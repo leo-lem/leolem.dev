@@ -4,7 +4,7 @@ import { formatDate } from "../lib";
 
 const {
   article: {
-    slug,
+    id,
     data: { title, short, date, author }
   },
   class: classes = ""
@@ -15,7 +15,7 @@ const {
   <div
     class="absolute top-0 z-10 w-full flex justify-between p-2 text-xs sm:text-base"
   >
-    <a href={`/blog/${slug}/`} class="pill-overlay">{formatDate(date)}</a>
+    <a href={`/blog/${id}/`} class="pill-overlay">{formatDate(date)}</a>
 
     {
       author?.name &&
@@ -34,9 +34,9 @@ const {
     }
   </div>
 
-  <a href={`/blog/${slug}/`}>
+  <a href={`/blog/${id}/`}>
     <Thumbnail
-      src={`blog/${slug}`}
+      src={`blog/${id}`}
       alt={`Thumbnail for ${title}`}
       loading="eager"
       fetchpriority="high"
