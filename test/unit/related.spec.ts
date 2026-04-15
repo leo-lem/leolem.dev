@@ -36,7 +36,7 @@ test("relatedArticlesFor returns only articles in id list and respects limit", a
     { data: { projects: ["vigil", "x"] } },
   ];
 
-  const out = relatedArticlesFor(all, "vigil/framework", 10);
+  const out = relatedArticlesFor(all, "vigil", 10);
   expect(out.length).toBe(2);
 });
 
