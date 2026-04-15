@@ -28,7 +28,11 @@ const {
   rendered
 } = Astro.props;
 
-const relatedProjects = relatedProjectsFor(await getPortfolio(), projects, 3);
+const relatedProjects = relatedProjectsFor(
+  await getPortfolio(),
+  new Set(projects),
+  3
+);
 const relatedArticles = relatedArticlesByTags(await getBlog(), id, tags, 3);
 const image = await thumbnail(`blog/${id}`);
 ---

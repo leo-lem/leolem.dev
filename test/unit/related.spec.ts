@@ -21,15 +21,15 @@ test("relatedArticlesByTags excludes self, scores by tag overlap, limits output"
   expect(out.every((x) => x.data.tags.includes("y"))).toBe(true);
 });
 
-test("relatedProjectsFor returns projects that include the article id", async () => {
+test("relatedProjectsFor returns projects with the specified IDs", async () => {
   const all = [{ id: "a" }, { id: "b" }, { id: "c" }];
-  const out = relatedProjectsFor(all, ["b", "c"], 1);
+  const out = relatedProjectsFor(all, new Set(["b", "c"]), 1);
 
   expect(out.length).toBe(1);
   expect(out[0].id === "b" || out[0].id === "c").toBe(true);
 });
 
-test("relatedArticlesFor returns only articles in id list and respects limit", async () => {
+test("relatedArticlesFor returns articles related to the specified project", async () => {
   const all = [
     { data: { projects: ["vigil"] } },
     { data: { projects: ["other"] } },
