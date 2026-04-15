@@ -15,12 +15,12 @@
     "tool:alert": "wrangler deploy -c wrangler.alert.toml"
   },
   "dependencies": {
-    "@astrojs/node": "^9.5.4",
+    "@astrojs/node": "^10.0.0",
     "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.7",
     "@astrojs/tailwind": "^6.0",
     "@tailwindcss/typography": "^0.5",
-    "astro": "^5.18.0",
+    "astro": "^5.18.1",
     "astro-icon": "^1.1.5",
     "node-fetch": "^3.3.2"
   },
