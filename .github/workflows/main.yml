@@ -34,7 +34,7 @@ jobs:
           ONESIGNAL_APP_ID: ${{ secrets.ONESIGNAL_APP_ID }}
           ONESIGNAL_SAFARI_WEB_ID: ${{ secrets.ONESIGNAL_SAFARI_WEB_ID }}
       - name: Upload to GitHub Pages
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist
       - name: Deploy to GitHub Pages
