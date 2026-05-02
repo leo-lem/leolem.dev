@@ -9,6 +9,7 @@ const {
   },
   class: classes = ""
 } = Astro.props;
+const series = id.split("/")[0];
 ---
 
 <article class={`relative ${classes}`}>
@@ -18,8 +19,8 @@ const {
     <a href={`/blog/${id}/`} class="pill-overlay">{formatDate(date)}</a>
 
     {
-      author?.name &&
-        (author.url ? (
+      author?.name ? (
+        author.url ? (
           <a
             href={author.url}
             class="pill-overlay link-muted"
@@ -30,7 +31,12 @@ const {
           </a>
         ) : (
           <span class="pill-overlay">{author.name}</span>
-        ))
+        )
+      ) : (
+        <a href={`/blog/${series}/`} class="pill-overlay meta capitalize">
+          {series} series
+        </a>
+      )
     }
   </div>
 

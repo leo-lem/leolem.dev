@@ -8,7 +8,7 @@ test-results*
 
 # Allow specific content files
 src/content/blog/**
-!src/content/blog/start.md
+!src/content/blog/welcome.md
 src/content/portfolio/**
 !src/content/portfolio/this.md
 src/content/offering/**

@@ -9,6 +9,7 @@ const {
   },
   class: classes = ""
 } = Astro.props;
+const series = id.split("/")[0];
 ---
 
 <a
@@ -28,9 +29,13 @@ const {
       <div class="absolute top-2 left-2 pill-overlay">{formatDate(date)}</div>
 
       {
-        author?.name && (
+        author?.name ? (
           <div class="absolute bottom-2 right-2 pill-overlay">
             {author.name}
+          </div>
+        ) : (
+          <div class="absolute bottom-2 left-2 pill-overlay meta capitalize">
+            {series} series
           </div>
         )
       }
