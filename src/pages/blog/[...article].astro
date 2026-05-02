@@ -14,12 +14,10 @@ import {
   TopicPills,
   Thumbnail
 } from "../../components";
-
 import redirects from "./redirects.json";
 
 const target =
   redirects[`/blog/${Astro.params.article}` as keyof typeof redirects];
-
 if (target) return Astro.redirect(target, 301);
 
 export async function getStaticPaths() {
@@ -34,6 +32,7 @@ const {
   id,
   rendered
 } = Astro.props;
+const series = id.split("/")[0];
 
 const relatedProjects = relatedProjectsFor(
   await getPortfolio(),
@@ -41,6 +40,9 @@ const relatedProjects = relatedProjectsFor(
   3
 );
 const relatedArticles = relatedArticlesByTags(await getBlog(), id, tags, 3);
+const moreFromSeries = (await getBlog())
+  .filter((article) => article.id.startsWith(`${series}/`) && article.id !== id)
+  .slice(0, 3);
 const image = await thumbnail(`blog/${id}`);
 ---
 
@@ -91,6 +93,13 @@ const image = await thumbnail(`blog/${id}`);
         </div>
       )
     }
+
+    <a
+      href={`/blog/${series}/`}
+      class="absolute top-2 right-2 pill-overlay meta capitalize"
+    >
+      {series} series
+    </a>
 
     <TopicPills
       topics={tags}

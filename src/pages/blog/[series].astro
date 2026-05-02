@@ -1,0 +1,52 @@
+---
+import { BaseLayout } from "../../layout";
+import { SubscribePanel, ArticleRow, FeaturedArticle } from "../../components";
+import { getBlog } from "../../content";
+import { onlyFeatured, onlyNonFeatured } from "../../lib";
+
+const { series } = Astro.params as { series: string };
+
+const blog = (await getBlog()).filter((a) => a.id.startsWith(series + "/"));
+
+const featured = blog.find(onlyFeatured);
+const articles = blog.filter(onlyNonFeatured);
+
+export async function getStaticPaths() {
+  return [...new Set((await getBlog()).map((a) => a.id.split("/")[0]))].map(
+    (series) => ({
+      params: { series }
+    })
+  );
+}
+---
+
+<BaseLayout
+  title={series.charAt(0).toUpperCase() + series.slice(1) + " Series"}
+  description={`My series of articles about ${series}.`}
+>
+  <section class="container">
+    {
+      featured && (
+        <FeaturedArticle
+          article={featured}
+          class="responsive card card-elevated text-center"
+        />
+      )
+    }
+  </section>
+
+  <SubscribePanel
+    label="Get notified via"
+    class="container-narrow stack-sm justify-center p-2 scroll-mt-32"
+  />
+
+  <ul class="container-wide stack" data-testid="blog-list">
+    {
+      articles.map((article, idx) => (
+        <li>
+          <ArticleRow article={article} class={idx < 3 ? "eager" : "lazy"} />
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

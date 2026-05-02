@@ -10,11 +10,12 @@ export function relatedArticlesByTags<T extends { id: string; data: { tags: stri
 ) {
   const tagSet = new Set(tags);
   const pool = all.filter((e) => e.id !== id);
+  const series = id.split("/")[0];
 
   const scored = pool
     .map((e) => ({
       e,
-      score: e.data.tags.reduce((acc, t) => acc + (tagSet.has(t) ? 1 : 0), 0),
+      score: e.data.tags.reduce((acc, t) => acc + (tagSet.has(t) ? 1 : 0), 0) + (e.id.startsWith(series + "/") ? 2 : 0),
     }))
     .filter((x) => x.score > 0)
     .sort((a, b) => b.score - a.score);
