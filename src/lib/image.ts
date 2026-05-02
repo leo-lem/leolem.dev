@@ -36,6 +36,13 @@ export function pickThumbnailKey(keys: string[], src: string): string | null {
     if (hit) return hit;
   }
 
+  const root = src.includes("/") ? src.slice(0, src.indexOf("/") + 1) : "";
+  const globalFallback = exts.map((ext) => `${root}default.${ext}`);
+  for (const c of globalFallback) {
+    const hit = keys.find((k) => k.endsWith(c));
+    if (hit) return hit;
+  }
+
   return null;
 }
 
