@@ -16,9 +16,8 @@ import {
 } from "../../components";
 import redirects from "./redirects.json";
 
-const target =
-  redirects[`/blog/${Astro.params.article}` as keyof typeof redirects];
-if (target) return Astro.redirect(target, 301);
+const target = redirects[`${Astro.params.article}` as keyof typeof redirects];
+if (target) return Astro.redirect(`blog/${target}/`, 301);
 
 export async function getStaticPaths() {
   return (await getBlog()).map((article) => ({
@@ -76,7 +75,7 @@ const image = await thumbnail(`blog/${id}`);
     </div>
 
     {
-      author?.name && (
+      author?.name ? (
         <div class="absolute top-2 right-2 pill-overlay meta">
           {author.url ? (
             <a
@@ -91,15 +90,15 @@ const image = await thumbnail(`blog/${id}`);
             author.name
           )}
         </div>
+      ) : (
+        <a
+          href={`/blog/${series}/`}
+          class="absolute top-2 right-2 pill-overlay meta capitalize"
+        >
+          {series} series
+        </a>
       )
     }
-
-    <a
-      href={`/blog/${series}/`}
-      class="absolute top-2 right-2 pill-overlay meta capitalize"
-    >
-      {series} series
-    </a>
 
     <TopicPills
       topics={tags}

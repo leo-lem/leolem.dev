@@ -3,13 +3,14 @@ import { BaseLayout } from "../layout";
 import { SeeMore } from "../components";
 ---
 
-<BaseLayout title="Page Not Found">
+<BaseLayout
+  title="Page Not Found"
+  description="The page you're looking for doesn't exist."
+>
   <section
     class="max-w-xl mx-auto flex flex-col items-center justify-center gap-4"
   >
     <h1 style="font-size: 10rem">404</h1>
-
-    <p class="summary">Oops! The page you're looking for doesn't exist.</p>
 
     <SeeMore href="/explore/">Explore All I Do</SeeMore>
   </section>

@@ -12,11 +12,15 @@ const featured = blog.find(onlyFeatured);
 const articles = blog.filter(onlyNonFeatured);
 
 export async function getStaticPaths() {
-  return [...new Set((await getBlog()).map((a) => a.id.split("/")[0]))].map(
-    (series) => ({
-      params: { series }
-    })
+  const seriesSet = new Set(
+    (await getBlog())
+      .filter((a) => a.id.includes("/")) // only real series articles
+      .map((a) => a.id.split("/")[0])
   );
+
+  return [...seriesSet].map((series) => ({
+    params: { series }
+  }));
 }
 ---
 
