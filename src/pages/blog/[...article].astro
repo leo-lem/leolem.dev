@@ -15,6 +15,13 @@ import {
   Thumbnail
 } from "../../components";
 
+import redirects from "./redirects.json";
+
+const target =
+  redirects[`/blog/${Astro.params.article}` as keyof typeof redirects];
+
+if (target) return Astro.redirect(target, 301);
+
 export async function getStaticPaths() {
   return (await getBlog()).map((article) => ({
     params: { article: article.id },
