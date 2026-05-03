@@ -1,7 +1,7 @@
 ---
 import { BaseLayout } from "../layout";
 import { getStations, AboutMe } from "../content";
-import { SeeMore, Embed, Thumbnail } from "../components";
+import { Embed, Thumbnail } from "../components";
 
 const stations = await getStations();
 const albumID = import.meta.env.FAVORITE_ALBUM;
@@ -27,15 +27,11 @@ const tripID = import.meta.env.CURRENT_TRIP;
     </div>
   </section>
 
-  <section id="skills" class="container-narrow stack">
-    <SeeMore href="/explore/">Explore Everything I Do</SeeMore>
-  </section>
-
   <section class="container-wide stack text-center">
     <h2 class="title-lg">What I Enjoy</h2>
 
     <div class="split">
-      <Embed kind="music" albumID={albumID} loading="eager" />
+      {albumID && <Embed kind="music" albumID={albumID} loading="eager" />}
       {tripID && <Embed kind="polarsteps" tripID={tripID} loading="eager" />}
     </div>
   </section>
