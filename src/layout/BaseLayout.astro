@@ -117,9 +117,17 @@ const allowLocalhost = import.meta.env.NODE_ENV === "development";
         });
       });
     </script>
+
+    <!-- Cloudflare Turnstile -->
+    <link rel="preconnect" href="https://challenges.cloudflare.com" />
+    <script
+      is:inline
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      async
+      defer></script>
   </head>
 
-  <body class="min-w-[360px] min-h-screen stack" data-testid="layout">
+  <body class="min-w-90 min-h-screen stack" data-testid="layout">
     <NavBar socials={socials} subscribe={subscribe} />
 
     <main
