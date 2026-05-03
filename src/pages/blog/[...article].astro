@@ -39,9 +39,6 @@ const relatedProjects = relatedProjectsFor(
   3
 );
 const relatedArticles = relatedArticlesByTags(await getBlog(), id, tags, 3);
-const moreFromSeries = (await getBlog())
-  .filter((article) => article.id.startsWith(`${series}/`) && article.id !== id)
-  .slice(0, 3);
 const image = await thumbnail(`blog/${id}`);
 ---
 
