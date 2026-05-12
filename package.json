@@ -15,11 +15,11 @@
     "tool:alert": "wrangler deploy -c wrangler.alert.toml"
   },
   "dependencies": {
-    "@astrojs/node": "^10.0",
+    "@astrojs/node": "^10.1",
     "@astrojs/rss": "^4.0",
     "@astrojs/sitemap": "^3.7",
     "@tailwindcss/typography": "^0.5",
-    "@tailwindcss/vite": "^4.2",
+    "@tailwindcss/vite": "^4.3",
     "astro": "^6.2",
     "astro-icon": "^1.1",
     "node-fetch": "^3.3",
@@ -37,7 +37,7 @@
     "favicons": "^7.2",
     "tsx": "^4.21",
     "typescript": "^6.0",
-    "wrangler": "^4.87",
+    "wrangler": "^4.90",
     "xml2js": "^0.6"
   },
   "overrides": {

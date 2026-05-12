@@ -29,4 +29,4 @@ Use the Dev Containers badge if you want a prebuilt environment.
 
 ## Deployment
 
-Deploys on push via GitHub Actions to GitHub Pages.
+Deploys on schedule via GitHub Actions to GitHub Pages.
