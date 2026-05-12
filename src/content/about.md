@@ -6,7 +6,7 @@ socials:
   - name: "GitHub"
     url: "https://github.com/leo-lem"
   - name: "LinkedIn"
-    url: "https://linkedin.com/in/leo-lem"
+    url: "https://linkedin.com/in/leopoldlemmermann"
 ---
 
 I’m a product engineer with a backend-first focus, building real systems from idea to production. I enjoy turning rough ideas into usable software, making early architecture decisions that hold up, and shipping things that stay reliable in production.
