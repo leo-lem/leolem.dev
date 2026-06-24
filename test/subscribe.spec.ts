@@ -169,12 +169,10 @@ test("push shows iOS unsupported on @mobile", async ({ page }) => {
 });
 
 
-test("rss endpoint returns 200 and looks like RSS or Atom", async ({ page }) => {
-  const res = await page.goto("/rss.xml");
-  expect(res?.status()).toBe(200);
+test("rss endpoint returns 200 and looks like RSS or Atom", async ({ request }) => {
+  const res = await request.get("/rss.xml");
+  expect(res.status()).toBe(200);
 
-  const body = await page.content();
-  const hasRss = body.includes("<rss");
-  const hasAtom = body.includes("<feed");
-  expect(hasRss || hasAtom).toBe(true);
+  const body = await res.text();
+  expect(body.includes("<rss") || body.includes("<feed")).toBe(true);
 });

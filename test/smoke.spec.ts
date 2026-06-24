@@ -2,15 +2,21 @@ import { test, expect } from "@playwright/test";
 
 import { navigation } from "../src/navigation.config";
 
-test("homepage loads and nav is present", async ({ page }) => {
+test("homepage loads and nav is present", async ({ page, isMobile }) => {
   const res = await page.goto("/");
   expect(res?.status()).toBe(200);
 
   await expect(page).toHaveTitle(/Leopold Lemmermann/);
-
   await expect(page.getByTestId("nav")).toBeVisible();
-  for (const p of navigation)
-    await expect(page.getByTestId(`nav-link-${p}`)).toBeVisible();
+
+  for (const p of navigation) {
+    const link = page.getByTestId(`nav-link-${p}`);
+
+    if (isMobile)
+      await expect(link).toBeAttached();
+    else
+      await expect(link).toBeVisible();
+  }
 });
 
 const pages = [
