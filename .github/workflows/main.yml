@@ -20,7 +20,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/bootstrap
       - uses: ./.github/actions/checkout-content
         env:
@@ -50,7 +50,7 @@ jobs:
       actions: read
       checks: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/bootstrap
       - uses: actions/cache@v5
         with:
@@ -69,7 +69,7 @@ jobs:
     environment:
       name: co2
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/bootstrap
       - uses: actions/cache@v5
         with:
@@ -87,7 +87,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: ./.github/actions/bootstrap
       - uses: ./.github/actions/checkout-content
         env:
