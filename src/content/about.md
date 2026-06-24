@@ -1,6 +1,6 @@
 ---
 titles: ["Software Engineer"]
-caption: "Pragmatic engineering for real systems."
+caption: "Pragmatic Software Engineering."
 short: "I build usable software and the systems around it: backend services, infrastructure, delivery workflows, and production operations."
 socials:
   - name: "GitHub"

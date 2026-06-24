@@ -1,7 +1,7 @@
 {
   "name": "leolem.dev",
   "type": "module",
-  "version": "2.2",
+  "version": "2.3",
   "scripts": {
     "start": "astro dev --host",
     "build": "astro build",
@@ -15,12 +15,12 @@
     "tool:alert": "wrangler deploy -c wrangler.alert.toml"
   },
   "dependencies": {
-    "@astrojs/node": "^10.1",
-    "@astrojs/rss": "^4.0",
-    "@astrojs/sitemap": "^3.7",
+    "@astrojs/node": "^11.0.0",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/typography": "^0.5",
     "@tailwindcss/vite": "^4.3",
-    "astro": "^6.4",
+    "astro": "^7.0.2",
     "astro-icon": "^1.1",
     "node-fetch": "^3.3",
     "tailwindcss": "^4.2"
@@ -28,19 +28,16 @@
   "devDependencies": {
     "@iconify-json/lucide": "^1.2",
     "@iconify-json/simple-icons": "^1.2",
-    "@playwright/test": "^1.60",
+    "@playwright/test": "^1.61",
     "@tgwf/co2": "^0.18",
-    "@types/node": "^25.8",
+    "@types/node": "^26.0",
     "@types/node-fetch": "^2.6",
     "@types/tgwf__co2": "^0.14",
     "@types/xml2js": "^0.4",
-    "favicons": "^7.2",
+    "favicons": "^7.3",
     "tsx": "^4.22",
     "typescript": "^6.0",
-    "wrangler": "^4.92",
+    "wrangler": "^4.103",
     "xml2js": "^0.6"
-  },
-  "overrides": {
-    "vite": "^7"
   }
 }
