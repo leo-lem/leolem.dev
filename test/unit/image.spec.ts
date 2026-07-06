@@ -22,3 +22,22 @@ test("pickThumbnailKey returns null when nothing matches", async () => {
   const keys: string[] = [];
   expect(pickThumbnailKey(keys, "blog/nope")).toBe(null);
 });
+
+test("pickThumbnailKey matches an svg when no raster format exists", async () => {
+  const keys = ["/src/assets/blog/uni/exchange.svg"];
+
+  expect(pickThumbnailKey(keys, "blog/uni/exchange")).toBe(
+    "/src/assets/blog/uni/exchange.svg"
+  );
+});
+
+test("pickThumbnailKey prefers a raster format over an svg", async () => {
+  const keys = [
+    "/src/assets/blog/uni/exchange.svg",
+    "/src/assets/blog/uni/exchange.jpg",
+  ];
+
+  expect(pickThumbnailKey(keys, "blog/uni/exchange")).toBe(
+    "/src/assets/blog/uni/exchange.jpg"
+  );
+});
