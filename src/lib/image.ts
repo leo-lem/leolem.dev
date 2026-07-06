@@ -22,7 +22,7 @@ export function pickThumbnailKey(keys: string[], src: string): string | null {
   const dir = src.includes("/") ? src.slice(0, src.lastIndexOf("/") + 1) : "";
   const base = src.includes("/") ? src.slice(src.lastIndexOf("/") + 1) : src;
 
-  const exts = ["png", "jpg", "jpeg", "webp", "avif"];
+  const exts = ["png", "jpg", "jpeg", "webp", "avif", "svg"];
 
   const direct = exts.map((ext) => `${dir}${base}.${ext}`);
   for (const c of direct) {
