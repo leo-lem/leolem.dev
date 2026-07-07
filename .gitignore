@@ -4,6 +4,7 @@ node_modules/
 npm-debug.log*
 .DS_Store
 .vscode/
+.claude/
 test-results*
 
 # Allow specific content files

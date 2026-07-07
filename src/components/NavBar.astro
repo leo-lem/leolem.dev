@@ -2,13 +2,10 @@
 import Icon from "./Icon.astro";
 import Thumbnail from "./Thumbnail.astro";
 import { aboutMe } from "../content";
-
-const { socials, subscribe = true } = Astro.props as {
-  socials: string[];
-  subscribe?: boolean;
-};
-
 import { getImage } from "astro:assets";
+
+const { socials } = Astro.props as { socials: string[] };
+
 import headerLight from "../assets/header-light.png";
 import headerDark from "../assets/header-dark.png";
 const light = await getImage({ src: headerLight, width: 1200 });
@@ -46,12 +43,14 @@ const dark = await getImage({ src: headerDark, width: 1200 });
 
         <a
           href="/"
-          class="flex flex-col navigation animate-slidefadein hover:text-accent"
+          class="flex flex-col navigation animate-slidefadein hover:text-accent-gradient"
         >
-          <span class="font-semibold text-xl sm:text-4xl text-nowrap">
+          <span class="font-semibold text-lg sm:text-2xl text-nowrap">
             Leopold Lemmermann
           </span>
-          <span class="text-sm sm:text-lg whitespace-nowrap">
+          <span
+            class="font-mono text-sm sm:text-md text-accent whitespace-nowrap"
+          >
             {aboutMe.titles.join(" · ")}
           </span>
         </a>
@@ -60,10 +59,7 @@ const dark = await getImage({ src: headerDark, width: 1200 });
       <div class="absolute top-0 right-0 px-3 flex items-center gap-3 shrink-0">
         {
           socials.map((url: string) => (
-            <Icon
-              name={url}
-              class="icon-sm animate-slidefadein text-accent-solid"
-            />
+            <Icon name={url} class="icon-sm animate-slidefadein text-accent2" />
           ))
         }
       </div>

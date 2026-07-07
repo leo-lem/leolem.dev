@@ -77,7 +77,8 @@ body {
 @utility text-secondary { color: var(--text-secondary-color); }
 @utility text-muted { color: var(--text-muted-color); }
 @utility text-error { color: #dc2626; }
-@utility text-accent-solid { color: var(--accent-color); }
+@utility text-accent { color: var(--accent-color); }
+@utility text-accent2 { color: var(--accent-secondary-color); }
 @utility title-base { @apply text-primary leading-snug line-clamp-2; }
 @utility accent {
   background: linear-gradient(
@@ -95,7 +96,7 @@ body {
     )
   }
 
-  .text-accent {
+  .text-accent-gradient {
     @apply accent;
     color: transparent;
     background-clip: text;
