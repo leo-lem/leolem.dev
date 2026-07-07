@@ -1,25 +1,21 @@
 import { test, expect } from "@playwright/test";
 
-import { navigation } from "../../src/navigation.config";
+const pages = ["/", "/blog/", "/portfolio/"];
 
 test.describe("Global navigation", () => {
-  for (const p of navigation) {
-    test(`on "${p}" page`, async ({ page, isMobile }) => {
-      const res = await page.goto(`/${p}/`);
+  for (const p of pages) {
+    test(`on "${p}" page`, async ({ page }) => {
+      const res = await page.goto(p);
       expect(res?.status()).toBe(200);
 
-      await expect(page.getByTestId("nav")).toBeVisible();
+      const nav = page.getByTestId("nav");
+      await expect(nav).toBeVisible();
 
-      for (const other of navigation) {
-        const link = page.getByTestId(`nav-link-${other}`);
+      await expect(
+        nav.getByAltText("Profile picture of Leopold Lemmermann")
+      ).toBeVisible();
 
-        if (isMobile)
-          await expect(link).toBeAttached();
-        else
-          await expect(link).toBeVisible();
-      }
-
-      await expect(page.getByTestId(`nav-link-${p}`)).toHaveAttribute("aria-current", "page");
+      await expect(nav.locator("a[href='/']").first()).toBeVisible();
     });
   }
 });

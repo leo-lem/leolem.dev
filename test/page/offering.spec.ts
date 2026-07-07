@@ -1,8 +1,9 @@
 import { test, expect } from "@playwright/test";
 
-test("offering page contains cal embed container and loads embed script", async ({ page }) => {
-  await page.goto("/offering/");
+test("homepage contains cal embed container and loads embed script", async ({ page }) => {
+  await page.goto("/");
 
+  await expect(page.getByTestId("cal-section")).toBeVisible();
   await expect(page.locator("#my-cal-inline-gettoknow")).toHaveCount(1);
 
   const calScript = page.locator('script[src*="app.cal.eu/embed/embed.js"]');

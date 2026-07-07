@@ -1,6 +1,6 @@
 ---
 import { BaseLayout } from "../../layout";
-import { SubscribePanel, ArticleRow, FeaturedArticle } from "../../components";
+import { SubscribePanel, ArticleRow, ArticleCard } from "../../components";
 import { getBlog } from "../../content";
 import { onlyFeatured, onlyNonFeatured } from "../../lib";
 
@@ -31,7 +31,7 @@ export async function getStaticPaths() {
   <section class="container">
     {
       featured && (
-        <FeaturedArticle
+        <ArticleCard
           article={featured}
           class="responsive card card-elevated text-center"
         />

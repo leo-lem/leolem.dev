@@ -1,7 +1,13 @@
 ---
 import { BaseLayout } from "../layout";
 import { aboutMe, getBlog, getPortfolio } from "../content";
-import { Embed, ArticleCard, SubscribePanel, ProjectCard } from "../components";
+import {
+  Embed,
+  ArticleCard,
+  SubscribePanel,
+  ProjectCard,
+  Schedule
+} from "../components";
 
 const articles = await getBlog();
 const projects = await getPortfolio();
@@ -32,23 +38,7 @@ const tripID = import.meta.env.CURRENT_TRIP;
     </div>
   </section>
 
-  <section id="contact" class="container stack" data-testid="cal-section">
-    <h2 class="title text-center">
-      Get in Touch via <a
-        href="mailto:hey@leolem.dev"
-        class="link-muted text-accent2"
-      >
-        hey@leolem.dev
-      </a> or Schedule a Call
-    </h2>
-
-    <div
-      id="my-cal-inline-gettoknow"
-      class="w-full h-full overflow-y-auto"
-      data-testid="cal-embed"
-    >
-    </div>
-  </section>
+  <Schedule />
 
   <section id="catalog" class="container stack">
     <h2 class="title-lg text-center">Catalog, Or What I've Created</h2>

@@ -16,7 +16,7 @@ const series = id.split("/")[0];
 <article
   class:list={[
     "snap-start shrink-0 self-end",
-    featured ? "w-[90vw] max-w-160" : "w-[81vw] max-w-xl",
+    featured ? "w-[70vw] max-w-120" : "w-[60vw] max-w-100",
     classes
   ]}
 >
@@ -32,7 +32,7 @@ const series = id.split("/")[0];
         featured ? "p-3 text-sm" : "p-2.5 text-xs"
       ]}
     >
-      <a href={`/blog/${id}/`} class="pill-overlay">
+      <a href={`/blog/${id}/`} class="pill-accent">
         {formatDate(date)}
       </a>
 
@@ -51,7 +51,7 @@ const series = id.split("/")[0];
             <span class="pill-overlay">{author.name}</span>
           )
         ) : (
-          <a href={`/blog/${series}/`} class="pill-accent meta capitalize">
+          <a href={`/blog/${series}/`} class="pill-accent2 meta capitalize">
             {series} series
           </a>
         )
@@ -72,13 +72,18 @@ const series = id.split("/")[0];
           featured ? "p-4" : "p-3"
         ]}
       >
-        <h2 class:list={["line-clamp-2", featured ? "title-lg" : "title"]}>
+        <h2
+          class:list={[
+            "line-clamp-1 sm:line-clamp-2",
+            featured ? "title" : "title-sm"
+          ]}
+        >
           {title}
         </h2>
 
         <p
           class:list={[
-            "line-clamp-2",
+            "line-clamp-1 sm:line-clamp-2",
             featured ? "summary mt-2" : "summary text-sm mt-1"
           ]}
         >

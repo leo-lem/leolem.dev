@@ -83,8 +83,8 @@ body {
 @utility accent {
   background: linear-gradient(
     to right,
-    var(--accent-secondary-color),
-    var(--accent-color)
+    var(--accent-color),
+    var(--accent-secondary-color)
   );
 }
 @layer components {
@@ -160,7 +160,7 @@ body {
     box-shadow:
       0 0 0 1px color-mix(in srgb, var(--accent-color) 55%, transparent),
       0 10px 14px var(--shadow-color),
-      0 0 16px color-mix(in srgb, var(--accent-color) 45%, transparent);
+      0 0 16px color-mix(in srgb, var(--accent-secondary-color) 45%, transparent);
   }
 
   .pill-accent {
@@ -169,6 +169,14 @@ body {
     background-color: var(--accent-color);
     border-color: transparent;
   }
+
+  .pill-accent2 {
+    @apply pill;
+    color: var(--text-color);
+    background-color: var(--accent-secondary-color);
+    border-color: transparent;
+  }
+
   .pill-overlay {
     @apply pill;
 

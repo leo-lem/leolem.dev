@@ -1,15 +1,11 @@
 export { default as ArticleRow } from "./ArticleRow.astro";
 export { default as ArticleCard } from "./ArticleCard.astro";
 export { default as Embed } from "./Embed.astro";
-export { default as FeaturedArticle } from "./FeaturedArticle.astro";
-export { default as FeaturedProject } from "./FeaturedProject.astro";
 export { default as Icon } from "./Icon.astro";
 export { default as NavBar } from "./NavBar.astro";
-export { default as OrderButton } from "./OrderButton.astro";
 export { default as ProjectCard } from "./ProjectCard.astro";
-export { default as SeeMore } from "./SeeMore.astro";
+export { default as Schedule } from "./Schedule.astro";
 export { default as SubscribePanel } from "./SubscribePanel.astro";
 export { default as Screenshots } from "./Screenshots.astro";
 export { default as Thumbnail } from "./Thumbnail.astro";
-export { default as TopicCard } from "./TopicCard.astro";
 export { default as TopicPills } from "./TopicPills.astro";

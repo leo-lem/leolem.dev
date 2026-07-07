@@ -138,7 +138,9 @@ const allowLocalhost = import.meta.env.NODE_ENV === "development";
         showHeader && (
           <section class="stack text-center ">
             <slot name="thumbnail" />
-            <h1 class="title-lg capitalize line-clamp-none">{title}</h1>
+            <h1 class="text-accent-gradient title-lg capitalize line-clamp-none">
+              {title}
+            </h1>
             <p class="summary text-lg line-clamp-none">{description}</p>
           </section>
         )
