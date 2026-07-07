@@ -1,19 +1,18 @@
 import { test, expect, type Page } from "@playwright/test";
 
-test("blog index loads and has at least 3 article rows", async ({ page }) => {
-  await page.goto("/blog/");
-  const rows = page.getByTestId("article-row");
-  await expect(rows.first()).toBeVisible();
-  expect(await rows.count()).toBeGreaterThanOrEqual(3);
+test("/blog/ redirects to the homepage", async ({ request }) => {
+  const res = await request.get("/blog/", { maxRedirects: 0 });
+  expect(res.status()).toBe(301);
+  expect(res.headers()["location"]).toBe("/");
 });
 
 async function collectBlogArticleHrefs(page: Page, max: number): Promise<string[]> {
-  await page.goto("/blog/");
+  await page.goto("/");
 
-  const rows = page.getByTestId("article-row");
-  await expect(rows.first()).toBeVisible();
+  const cards = page.locator('[data-testid="article-carousel"] a.block[href^="/blog/"]');
+  await expect(cards.first()).toBeVisible();
 
-  const hrefs = await rows.evaluateAll((els) =>
+  const hrefs = await cards.evaluateAll((els) =>
     els
       .map((el) => el.getAttribute("href") ?? "")
       .filter((h) => h.startsWith("/blog/") && h !== "/blog/")

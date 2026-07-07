@@ -1,21 +1,48 @@
 import { test, expect } from "@playwright/test";
 
-const pages = ["/", "/blog/", "/portfolio/"];
+async function assertNavVisible(page: import("@playwright/test").Page) {
+  const nav = page.getByTestId("nav");
+  await expect(nav).toBeVisible();
+
+  await expect(
+    nav.getByAltText("Profile picture of Leopold Lemmermann")
+  ).toBeVisible();
+
+  await expect(nav.locator("a[href='/']").first()).toBeVisible();
+}
 
 test.describe("Global navigation", () => {
-  for (const p of pages) {
-    test(`on "${p}" page`, async ({ page }) => {
-      const res = await page.goto(p);
-      expect(res?.status()).toBe(200);
+  test("on the homepage", async ({ page }) => {
+    const res = await page.goto("/");
+    expect(res?.status()).toBe(200);
 
-      const nav = page.getByTestId("nav");
-      await expect(nav).toBeVisible();
+    await assertNavVisible(page);
+  });
 
-      await expect(
-        nav.getByAltText("Profile picture of Leopold Lemmermann")
-      ).toBeVisible();
+  test("on a blog article page", async ({ page }) => {
+    await page.goto("/");
 
-      await expect(nav.locator("a[href='/']").first()).toBeVisible();
-    });
-  }
+    const href = await page
+      .locator('[data-testid="article-carousel"] a.block[href^="/blog/"]')
+      .first()
+      .getAttribute("href");
+    expect(href).toBeTruthy();
+
+    const res = await page.goto(href!);
+    expect(res?.status()).toBe(200);
+
+    await assertNavVisible(page);
+  });
+
+  test("on a portfolio project page", async ({ page }) => {
+    await page.goto("/");
+
+    const href = await page.getByTestId("portfolio-card").first().getAttribute("href");
+    expect(href).toBeTruthy();
+
+    const res = await page.goto(href!);
+    expect(res?.status()).toBe(200);
+
+    await assertNavVisible(page);
+  });
 });

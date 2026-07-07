@@ -13,18 +13,13 @@ test("homepage loads and nav is present", async ({ page }) => {
   ).toBeVisible();
 });
 
-const pages = [
-  { name: "portfolio", url: "/portfolio/", title: /Portfolio/i },
-  { name: "blog", url: "/blog/", title: /Blog/i },
-];
+const removedPages = ["/about/", "/offering/", "/blog/", "/portfolio/"];
 
-for (const p of pages) {
-  test(`${p.name} page loads and nav is present`, async ({ page }) => {
-    const res = await page.goto(p.url);
-    expect(res?.status()).toBe(200);
-
-    await expect(page).toHaveTitle(p.title);
-    await expect(page.getByTestId("nav")).toBeVisible();
+for (const url of removedPages) {
+  test(`${url} redirects to the homepage`, async ({ request }) => {
+    const res = await request.get(url, { maxRedirects: 0 });
+    expect(res.status()).toBe(301);
+    expect(res.headers()["location"]).toBe("/");
   });
 }
 
@@ -34,16 +29,16 @@ test("404 page renders", async ({ page }) => {
 });
 
 test("blog article renders, has subscribe panel, and shows related articles", async ({ page }) => {
-  const res = await page.goto("/blog/");
+  const res = await page.goto("/");
   expect(res?.status()).toBe(200);
 
-  const rows = page.getByTestId("article-row");
-  expect(await rows.count()).toBeGreaterThan(0);
+  const cards = page.locator('[data-testid="article-carousel"] a.block[href^="/blog/"]');
+  expect(await cards.count()).toBeGreaterThan(0);
 
-  const maxTries = Math.min(await rows.count(), 10);
+  const maxTries = Math.min(await cards.count(), 10);
 
   for (let i = 0; i < maxTries; i++) {
-    const href = await rows.nth(i).getAttribute("href");
+    const href = await cards.nth(i).getAttribute("href");
     if (!href) continue;
 
     const articleRes = await page.goto(href);
