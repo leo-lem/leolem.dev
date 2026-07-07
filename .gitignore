@@ -11,12 +11,8 @@ src/content/blog/**
 !src/content/blog/welcome.md
 src/content/portfolio/**
 !src/content/portfolio/this.md
-src/content/offering/**
-!src/content/offering/base.md
 
 src/assets/blog/**
 !src/assets/blog/default.*
 src/assets/portfolio/**
 !src/assets/portfolio/default.*
-src/assets/offering/**
-!src/assets/offering/default.*
