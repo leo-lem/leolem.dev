@@ -3,7 +3,8 @@ const icons: Record<string, string> = {
   appstore: "simple-icons:appstore",
   webpage: "lucide:globe",
   document: "lucide:file-text",
-  linkedin: "simple-icons:linkedin"
+  linkedin: "simple-icons:linkedin",
+  medium: "simple-icons:medium"
 };
 
 const names: Record<string, string> = {
@@ -11,7 +12,8 @@ const names: Record<string, string> = {
   appstore: "App Store",
   webpage: "Webpage",
   document: "Document",
-  linkedin: "LinkedIn"
+  linkedin: "LinkedIn",
+  medium: "Medium"
 };
 
 function domainKey(url: string): string {

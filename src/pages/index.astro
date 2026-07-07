@@ -1,61 +1,116 @@
 ---
 import { BaseLayout } from "../layout";
-import { aboutMe, getBlog, getOffering, getPortfolio } from "../content";
-import { FeaturedArticle, FeaturedProject, Icon, SeeMore } from "../components";
+import { aboutMe, getBlog, getPortfolio, getStations } from "../content";
+import {
+  Embed,
+  FeaturedArticle,
+  FeaturedProject,
+  SubscribePanel
+} from "../components";
 import { onlyFeatured } from "../lib";
 
 const featuredArticle = (await getBlog()).find(onlyFeatured);
 const featuredProjects = (await getPortfolio()).filter(onlyFeatured);
-const featuredServices = (await getOffering()).filter(onlyFeatured);
+
+const stations = await getStations();
+const albumID = import.meta.env.FAVORITE_ALBUM;
+const tripID = import.meta.env.CURRENT_TRIP;
 ---
 
 <BaseLayout title="Leopold Lemmermann" showHeader={false}>
-  <section class="stack-lg text-center">
-    <section class="container stack">
-      <article class="text-2xl font-semibold">{aboutMe.short}</article>
+  <section id="about" class="stack-lg text-center">
+    <article class="text-2xl font-semibold">{aboutMe.short}</article>
+  </section>
 
-      <SeeMore href="/about/">Learn more about me</SeeMore>
-    </section>
+  <section id="takes" class="container-wide stack">
+    <!-- TODO: Design a horizontal scroll list with Takes branding and integrating subscribe bar -->
+    <h2 class="title-lg text-center">My Takes On…</h2>
 
-    <section class="container-wide stack">
+    {
+      featuredArticle && (
+        <FeaturedArticle
+          article={featuredArticle}
+          class="responsive card card-elevated"
+        />
+      )
+    }
+
+    <SubscribePanel
+      label="Get notified via"
+      class="container-narrow stack-sm justify-center p-2 scroll-mt-32"
+    />
+  </section>
+
+  <section id="contact" class="container stack" data-testid="cal-section">
+    <h2 class="title text-center">
+      Get in Touch via <a href="mailto:hey@leolem.dev" class="link-muted">
+        hey@leolem.dev
+      </a> or Schedule a Call
+    </h2>
+
+    <div
+      id="my-cal-inline-gettoknow"
+      class="w-full h-full overflow-y-auto"
+      data-testid="cal-embed"
+    >
+    </div>
+  </section>
+
+  <section id="catalog" class="container stack">
+    <!-- TODO: design a horizontal scroll list with Catalog branding -->
+    <h2 class="title-lg text-center">Catalog, Or What I've Created</h2>
+
+    <div class="split">
+      {featuredProjects.map((project) => <FeaturedProject project={project} />)}
+    </div>
+  </section>
+
+  <section id="beyond-work" class="container-wide stack text-center">
+    <h2 class="title-lg">What I Enjoy Outside Work</h2>
+
+    <div class="split">
+      {albumID && <Embed kind="music" albumID={albumID} loading="eager" />}
+      {tripID && <Embed kind="polarsteps" tripID={tripID} loading="eager" />}
+    </div>
+  </section>
+
+  <section id="journey" class="container stack">
+    <h2 class="title-lg text-center">My Professional Journey</h2>
+
+    <div class="relative stack">
+      <div class="absolute h-full border sm:left-1/2 sm:-translate-x-1/2"></div>
+
       {
-        featuredArticle && (
-          <FeaturedArticle
-            article={featuredArticle}
-            class="responsive card card-elevated"
-          />
+        stations.map(
+          ({ data: { title, place, date, duration }, body }, index) => (
+            <div
+              class={`relative ml-5 sm:ml-0 ${index !== 0 ? "sm:-mt-20" : ""}`}
+            >
+              <div
+                class={`absolute -ml-5 top-3 w-3 border sm:ml-0 sm:left-1/2 sm:top-1/2 ${index % 2 !== 0 ? "sm:-translate-x-full" : ""}`}
+              />
+
+              <div
+                class={`sm:w-1/2 sm:px-5 ${index % 2 === 0 ? "sm:ml-auto sm:text-left" : "sm:mr-auto sm:text-right"}`}
+              >
+                <h3 class="m-0">{title}</h3>
+
+                <div class="font-semibold mb-4">
+                  <span class="text-secondary text-sm">@ {place} |</span>
+                  <span class="meta line-clamp-0">
+                    {date.getFullYear()} - {duration}
+                  </span>
+                </div>
+
+                <article
+                  class="summary line-clamp-none prose prose-sm dark:prose-invert"
+                  set:html={body}
+                />
+              </div>
+            </div>
+          )
         )
       }
-
-      <SeeMore href="/blog/">Read my latest articles</SeeMore>
-    </section>
-
-    <section class="container stack">
-      <div class="split">
-        {
-          featuredProjects.map((project) => (
-            <FeaturedProject project={project} />
-          ))
-        }
-      </div>
-
-      <SeeMore href="/portfolio/">Explore my projects</SeeMore>
-    </section>
-
-    <section class="container-narrow stack">
-      <div class="split-sm">
-        {
-          featuredServices.map(({ data: { icon, title, short }, id }: any) => (
-            <a href={`/offering/#${id}`} class="responsive card stack p-2">
-              <Icon name={icon} class="icon-lg w-full" />
-              <h2 class="title-sm">{title}</h2>
-              <p class="summary">{short}</p>
-            </a>
-          ))
-        }
-      </div>
-
-      <SeeMore href="/offering/">Explore my services</SeeMore>
-    </section>
+    </div>
   </section>
 </BaseLayout>
