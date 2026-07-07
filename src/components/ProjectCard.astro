@@ -1,0 +1,29 @@
+---
+import Thumbnail from "./Thumbnail.astro";
+
+const {
+  project: {
+    id,
+    data: { title, short, featured = false }
+  },
+  class: classes
+} = Astro.props;
+---
+
+<a
+  href={`/portfolio/${id}/`}
+  class={`relative responsive stack ${classes} ${featured ? "card-featured" : "card"}`}
+  data-testid="portfolio-card"
+  data-id={id}
+>
+  <Thumbnail
+    src={`portfolio/${id}`}
+    alt={`Thumbnail for ${title}`}
+    class="w-full aspect-square"
+  />
+
+  <div class="absolute bottom-0 fade p-2">
+    <h2 class="title-sm">{title}</h2>
+    <p class="summary">{short}</p>
+  </div>
+</a>

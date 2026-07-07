@@ -1,16 +1,10 @@
 ---
 import { BaseLayout } from "../layout";
 import { aboutMe, getBlog, getPortfolio } from "../content";
-import {
-  Embed,
-  FeaturedArticle,
-  FeaturedProject,
-  SubscribePanel
-} from "../components";
-import { onlyFeatured } from "../lib";
+import { Embed, ArticleCard, SubscribePanel, ProjectCard } from "../components";
 
-const featuredArticle = (await getBlog()).find(onlyFeatured);
-const featuredProjects = (await getPortfolio()).filter(onlyFeatured);
+const articles = await getBlog();
+const projects = await getPortfolio();
 
 const albumID = import.meta.env.FAVORITE_ALBUM;
 const tripID = import.meta.env.CURRENT_TRIP;
@@ -18,31 +12,32 @@ const tripID = import.meta.env.CURRENT_TRIP;
 
 <BaseLayout title="Leopold Lemmermann" showHeader={false}>
   <section id="about" class="stack-lg text-center">
-    <article class="text-2xl font-semibold">{aboutMe.short}</article>
+    <article class="text-2xl font-semibold italic quote-accent">
+      "{aboutMe.short}"
+    </article>
   </section>
 
-  <section id="takes" class="container-wide stack">
-    <!-- TODO: Design a horizontal scroll list with Takes branding and integrating subscribe bar -->
-    <h2 class="title-lg text-center">My Takes On…</h2>
+  <section id="takes" class="container-wide stack w-full min-w-0">
+    <h2 class="title-lg text-center">My Takes on Software and Life</h2>
 
-    {
-      featuredArticle && (
-        <FeaturedArticle
-          article={featuredArticle}
-          class="responsive card card-elevated"
-        />
-      )
-    }
+    <div class={`stack card w-full min-w-0`}>
+      <div
+        class="w-full min-w-0 scroll-px-4 p-4 pb-8 flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none"
+        data-testid="article-carousel"
+      >
+        {articles.map((article) => <ArticleCard article={article} />)}
+      </div>
 
-    <SubscribePanel
-      label="Get notified via"
-      class="container-narrow stack-sm justify-center p-2 scroll-mt-32"
-    />
+      <SubscribePanel class="-mt-12" />
+    </div>
   </section>
 
   <section id="contact" class="container stack" data-testid="cal-section">
     <h2 class="title text-center">
-      Get in Touch via <a href="mailto:hey@leolem.dev" class="link-muted">
+      Get in Touch via <a
+        href="mailto:hey@leolem.dev"
+        class="link-muted text-accent"
+      >
         hey@leolem.dev
       </a> or Schedule a Call
     </h2>
@@ -56,11 +51,44 @@ const tripID = import.meta.env.CURRENT_TRIP;
   </section>
 
   <section id="catalog" class="container stack">
-    <!-- TODO: design a horizontal scroll list with Catalog branding -->
     <h2 class="title-lg text-center">Catalog, Or What I've Created</h2>
 
-    <div class="split">
-      {featuredProjects.map((project) => <FeaturedProject project={project} />)}
+    <div class="group stack">
+      <input
+        type="checkbox"
+        id="catalog-expand"
+        class="peer hidden"
+        data-testid="catalog-expand"
+      />
+
+      <div class="relative @container">
+        <div
+          class="p-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 overflow-hidden transition-[max-height] duration-300 ease-out max-h-[calc(250cqw+1.5rem)] sm:max-h-[calc(125cqw+0.25rem)] lg:max-h-[calc(83.3333cqw-0.16667rem)] group-has-checked:max-h-none"
+          data-testid="catalog-grid"
+        >
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+
+        <div
+          class="absolute inset-x-0 bottom-0 h-32 fade pointer-events-none group-has-checked:hidden"
+        >
+        </div>
+      </div>
+
+      <label
+        for="catalog-expand"
+        class="btn mx-auto w-fit cursor-pointer group-has-checked:hidden"
+        data-testid="catalog-show-more"
+      >
+        Show more
+      </label>
+      <label
+        for="catalog-expand"
+        class="btn mx-auto hidden w-fit cursor-pointer group-has-checked:flex"
+        data-testid="catalog-show-less"
+      >
+        Show less
+      </label>
     </div>
   </section>
 
