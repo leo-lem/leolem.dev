@@ -41,7 +41,7 @@ const series = id.split("/")[0];
           author.url ? (
             <a
               href={author.url}
-              class="pill-overlay link-muted"
+              class="pill-overlay link-muted invisible sm:visible"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -51,7 +51,10 @@ const series = id.split("/")[0];
             <span class="pill-overlay">{author.name}</span>
           )
         ) : (
-          <a href={`/blog/${series}/`} class="pill-accent2 meta capitalize">
+          <a
+            href={`/blog/${series}/`}
+            class="pill-accent2 meta capitalize invisible sm:visible"
+          >
             {series} series
           </a>
         )
