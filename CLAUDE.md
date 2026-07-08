@@ -12,7 +12,7 @@ Personal site and blog for leolem.dev, built with Astro + TailwindCSS, staticall
 npm start           # astro dev --host
 npm run build       # astro build (static output to dist/)
 
-npm test            # playwright test (full suite, requires dev server on :4321)
+npm test            # playwright test (full suite; playwright.config.ts starts/reuses a dev server on :4321 by default)
 npm run test:smoke  # playwright test test/smoke.spec.ts only
 npm run test:tool   # playwright test -c playwright.tool.config.ts (tool/ unit-style tests, no server needed)
 npm run test:co2    # tsx test/check_co2.ts (CO2 regression check against a live URL)

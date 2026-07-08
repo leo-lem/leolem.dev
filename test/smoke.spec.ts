@@ -23,7 +23,7 @@ for (const url of removedPages) {
     const res = await page.goto(url);
     expect(res?.status()).toBe(200);
 
-    await page.waitForURL("/");
+await page.waitForURL((u) => u.pathname === "/");
     await expect(page).toHaveTitle(/Leopold Lemmermann/);
   });
 }
