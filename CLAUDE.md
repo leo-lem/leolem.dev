@@ -19,8 +19,7 @@ npm run test:co2    # tsx test/check_co2.ts (CO2 regression check against a live
 
 npm run tool:sync    # tsx tool/sync.ts — merge .content/ into src/content and src/assets
 npm run tool:icons   # tsx tool/icons.ts — regenerate favicons/social.png into public/
-npm run tool:notify  # tsx tool/notify.ts — send OneSignal push for un-notified blog posts
-npm run tool:alert   # wrangler deploy -c wrangler.alert.toml — deploy the Cloudflare Worker in tool/alert.ts
+npm run tool:notify  # tsx tool/notify.ts — send OneSignal email notifications for un-notified blog posts
 ```
 
 To run a single Playwright test: `npx playwright test test/page/blog.spec.ts` (add `-g "test name"` to filter by title). `npm test` uses `playwright.config.ts`, which starts/reuses a dev server at `http://localhost:4321` (or `$BASE_URL`) and runs both Desktop and Mobile projects. `npm run test:tool` uses `playwright.tool.config.ts` (testDir `test/tool`, no webServer) for the standalone Node tools in `tool/`. Unit-style specs for `src/lib` live under `test/unit`.
@@ -54,7 +53,7 @@ File-based Astro routes in `src/pages`:
 - `portfolio/[...project].astro` — individual project pages
 - `rss.xml.ts`, `404.astro`, and plain markdown pages `imprint.md` / `privacy.md` (rendered through `MarkdownLayout`)
 
-`src/layout/BaseLayout.astro` is the shared shell: sets SEO/OpenGraph/Twitter meta and JSON-LD (defaulting to a Person schema built from `about.md` frontmatter), wires up the OneSignal web push SDK and Cloudflare Turnstile script, and renders `NavBar` + footer. Redirects for old URLs live in `astro.config.ts` (`redirects`) and `src/pages/blog/redirects.json`.
+`src/layout/BaseLayout.astro` is the shared shell: sets SEO/OpenGraph/Twitter meta and JSON-LD (defaulting to a Person schema built from `about.md` frontmatter), wires up the OneSignal email SDK and Cloudflare Turnstile script, and renders `NavBar` + footer. Redirects for old URLs live in `astro.config.ts` (`redirects`) and `src/pages/blog/redirects.json`.
 
 ## Images / thumbnails
 
@@ -66,12 +65,11 @@ Standalone Node/tsx scripts, each with a `default export` function (for testing/
 
 - **`sync.ts`** — content repo → `src/` merge, see above.
 - **`icons.ts`** — generates favicons/manifest/social.png from `src/assets/profile.jpg` + `header-dark.png` using the `favicons` package, output to `public/`.
-- **`notify.ts`** — reads blog markdown directly out of `.content/content/blog` (its own lightweight frontmatter parser, not Astro's content layer, since it runs standalone), diffs against `.content/.notified.json`, and sends OneSignal push notifications (template + a plain custom notification) for newly-published, non-future-dated posts. Run from `main.yml`'s `notify` job after a successful deploy; commits the updated `.notified.json` back to the content repo afterward.
-- **`alert.ts`** — a Cloudflare Worker (deployed separately via `wrangler deploy -c wrangler.alert.toml` to `alert.leolem.dev`) handling a `/subscribe` webhook used by client-side interest/CTA tracking; validates `x-webhook-secret`, forwards to OneSignal with a "Staging" segment, and handles CORS against `ALLOWED_ORIGINS`. This worker is independent of the Astro site's own build/deploy.
+- **`notify.ts`** — reads blog markdown directly out of `.content/content/blog` (its own lightweight frontmatter parser, not Astro's content layer, since it runs standalone), diffs against `.content/.notified.json`, and sends an OneSignal template email notification for newly-published, non-future-dated posts. Run from `main.yml`'s `notify` job after a successful deploy; commits the updated `.notified.json` back to the content repo afterward.
 
 ## CI (`.github/workflows`)
 
 - **`pr.yml`** — on PRs to `main`: build, then (needing content checked out + synced) `npm test` and `npm run test:tool`.
-- **`main.yml`** — scheduled (weekly) + manual deploy: bootstrap → checkout content → sync → `astro build` → upload/deploy to GitHub Pages, then in parallel a `smoke` job (Playwright smoke tests against the deployed URL) and a `co2` job (`test:co2` regression check against `vars.CO2_BASELINE`), then `notify` (OneSignal push for new posts + commits `.notified.json` back to the content repo).
+- **`main.yml`** — scheduled (weekly) + manual deploy: bootstrap → checkout content → sync → `astro build` → upload/deploy to GitHub Pages, then in parallel a `smoke` job (Playwright smoke tests against the deployed URL) and a `co2` job (`test:co2` regression check against `vars.CO2_BASELINE`), then `notify` (OneSignal email notification for new posts + commits `.notified.json` back to the content repo).
 - Both workflows use composite actions `.github/actions/bootstrap` (Node 24 + `npm ci`) and `.github/actions/checkout-content` (clones the content repo into `.content` using `CONTENT_REPO_TOKEN`).
 - Since this repo deploys on a weekly *schedule* rather than on push to `main`, pushing a merge to `main` does not by itself publish new content — either wait for the schedule or trigger `main.yml` manually (`workflow_dispatch`).

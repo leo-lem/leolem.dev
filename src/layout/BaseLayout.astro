@@ -17,7 +17,6 @@ const thumbnailUrl = new URL(thumbnail, Astro.site).href;
 const socials = frontmatter.socials.map((social: any) => social.url);
 
 const appId = import.meta.env.ONESIGNAL_APP_ID;
-const safariWebId = import.meta.env.ONESIGNAL_SAFARI_WEB_ID;
 const allowLocalhost = import.meta.env.NODE_ENV === "development";
 ---
 
@@ -87,7 +86,7 @@ const allowLocalhost = import.meta.env.NODE_ENV === "development";
       )}
     />
 
-    <!-- OneSignal Web Push SDK -->
+    <!-- OneSignal Email SDK -->
     <script is:inline>
       // iOS Safari (and some in-app browsers) may not expose Notification at all.
       // OneSignal’s ES6 SDK references it. Stub it so the SDK can load for email.
@@ -105,14 +104,12 @@ const allowLocalhost = import.meta.env.NODE_ENV === "development";
       is:inline
       src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.es6.js"
       defer></script>
-    <script is:inline define:vars={{ appId, safariWebId, allowLocalhost }}>
+    <script is:inline define:vars={{ appId, allowLocalhost }}>
       window.OneSignalDeferred = window.OneSignalDeferred || [];
       OneSignalDeferred.push(async function (OneSignal) {
         await OneSignal.init({
           appId: appId,
-          safari_web_id: safariWebId,
-          allowLocalhostAsSecureOrigin: allowLocalhost,
-          autoResubscribe: true
+          allowLocalhostAsSecureOrigin: allowLocalhost
         });
       });
     </script>

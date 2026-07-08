@@ -197,18 +197,6 @@ export default async function notify(
       },
     });
 
-    await post({
-      apiBase,
-      apiKey,
-      body: {
-        app_id: appId,
-        headings: { en: `leolem.dev: ${article.title}` },
-        contents: { en: `${article.short}.` },
-        url: article.url,
-        included_segments: [segment],
-      },
-    });
-
     alreadyNotified.add(article.id);
   }
 
