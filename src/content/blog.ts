@@ -9,6 +9,7 @@ export default defineCollection({
     featured: z.boolean().default(false),
     title: z.string(),
     short: z.string(),
+    social: z.string().optional(),
     date: z.date(),
     tags: z.array(z.string()),
     projects: z.array(z.string()).default([]),
