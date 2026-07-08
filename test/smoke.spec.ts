@@ -16,10 +16,15 @@ test("homepage loads and nav is present", async ({ page }) => {
 const removedPages = ["/about/", "/offering/", "/blog/", "/portfolio/"];
 
 for (const url of removedPages) {
-  test(`${url} redirects to the homepage`, async ({ request }) => {
-    const res = await request.get(url, { maxRedirects: 0 });
-    expect(res.status()).toBe(301);
-    expect(res.headers()["location"]).toBe("/");
+  test(`${url} redirects to the homepage`, async ({ page }) => {
+    // GitHub Pages is a static host, so Astro's `redirects` config compiles
+    // to a meta-refresh page (200 + <meta http-equiv="refresh">) rather than
+    // a real HTTP 301 — there's no server to issue one.
+    const res = await page.goto(url);
+    expect(res?.status()).toBe(200);
+
+await page.waitForURL((u) => u.pathname === "/");
+    await expect(page).toHaveTitle(/Leopold Lemmermann/);
   });
 }
 
