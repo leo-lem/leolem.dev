@@ -35,27 +35,6 @@ const { label, class: classes = "" } = Astro.props as {
         →
       </button>
     </div>
-
-    <div class="flex gap-2 items-center">
-      <button
-        id="push-btn"
-        class="link-muted text-sm shrink-0"
-        type="button"
-        data-testid="subscribe-push"
-      >
-        Push
-      </button>
-
-      <a
-        href="/rss.xml"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="link-muted text-sm shrink-0"
-        data-testid="subscribe-rss"
-      >
-        RSS
-      </a>
-    </div>
   </div>
 
   <div
@@ -69,7 +48,6 @@ const { label, class: classes = "" } = Astro.props as {
 <script is:inline type="module">
   const input = document.getElementById("email");
   const emailbtn = document.getElementById("email-btn");
-  const pushbtn = document.getElementById("push-btn");
   const status = document.getElementById("subscribe-status");
 
   function email() {
@@ -87,26 +65,6 @@ const { label, class: classes = "" } = Astro.props as {
     status.textContent = message;
     status.classList.toggle("text-error", isError);
     status.classList.remove("hidden");
-  }
-
-  async function alertSubscribe(kind, email = null) {
-    try {
-      await fetch("https://alert.leolem.dev/subscribe", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          "x-webhook-secret":
-            "ZXPLyTrVPeT0Y6RbKpG547VsHr+7UDrbKnTLzuSeHOIm/OdwoRWRdSzey/aC0aCD"
-        },
-        body: JSON.stringify({
-          kind,
-          page: location.href,
-          email
-        })
-      });
-    } catch (e) {
-      console.error("Subscribe alert failed", e);
-    }
   }
 
   function runOneSignal(fn) {
@@ -136,48 +94,9 @@ const { label, class: classes = "" } = Astro.props as {
         OneSignal.User.addEmail(e);
 
         input.value = "";
-        await alertSubscribe("email", e);
         statusMessage("Nice. If it went through, you're all set for updates.");
       } catch (e) {
         console.error("OneSignal addEmail failed", e);
-        statusMessage(
-          "Could not subscribe right now. Try reloading without content blockers.",
-          true
-        );
-      }
-    });
-  });
-
-  pushbtn?.addEventListener("click", () => {
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream)
-      return statusMessage("Push on iOS is not supported.", true);
-
-    runOneSignal(function (OneSignal) {
-      try {
-        if (
-          OneSignal.Notifications.permission &&
-          OneSignal.User.PushSubscription.optedIn
-        )
-          return statusMessage("You are already subscribed!");
-
-        OneSignal.User.PushSubscription.addEventListener(
-          "change",
-          async ({ current: { optedIn } }) => {
-            if (optedIn) {
-              await alertSubscribe("push");
-              statusMessage("Subscribed successfully!");
-            } else {
-              console.error("Subscription failed or was dismissed.", true);
-            }
-          },
-          { once: true }
-        );
-
-        OneSignal.User.PushSubscription.optIn();
-
-        statusMessage("Requesting permission...");
-      } catch (e) {
-        console.error("OneSignal push subscription failed", e);
         statusMessage(
           "Could not subscribe right now. Try reloading without content blockers.",
           true

@@ -1,7 +1,7 @@
 {
   "name": "leolem.dev",
   "type": "module",
-  "version": "3.0",
+  "version": "3.1",
   "scripts": {
     "start": "astro dev --host",
     "build": "astro build",
@@ -11,8 +11,7 @@
     "test:co2": "tsx test/check_co2.ts",
     "tool:sync": "tsx tool/sync.ts",
     "tool:icons": "tsx tool/icons.ts",
-    "tool:notify": "tsx tool/notify.ts",
-    "tool:alert": "wrangler deploy -c wrangler.alert.toml"
+    "tool:notify": "tsx tool/notify.ts"
   },
   "dependencies": {
     "@astrojs/node": "^11.0.2",
@@ -37,13 +36,11 @@
     "favicons": "^7.3",
     "tsx": "^4.23",
     "typescript": "^6.0",
-    "wrangler": "^4.107",
     "xml2js": "^0.6"
   },
   "allowScripts": {
     "esbuild@0.28.1": true,
     "sharp@0.34.5": true,
-    "sharp@0.35.3": true,
-    "workerd@1.20260706.1": true
+    "sharp@0.35.3": true
   }
 }

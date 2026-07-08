@@ -32,8 +32,13 @@
   "newyears": "systems/new-years-intentions-systems",
   "finnish/systems": "systems/stay-consistent-learning-finnish",
   "guest/migration": "guest/orthodox-jews-to-america",
-  "vigil/write": "vigil/from-draft-to-defensible",
-  "vigil/plan": "vigil/how-my-thesis-idea-took-shape",
-  "vigil/framework": "vigil/framework-for-verifying-behavior",
-  "vigil/feedback": "vigil/what-feedback-changed"
+  "vigil/write": "building/vigil-from-draft-to-defensible",
+  "vigil/plan": "building/vigil-how-my-thesis-idea-took-shape",
+  "vigil/framework": "building/vigil-framework-for-verifying-behavior",
+  "vigil/feedback": "building/vigil-what-feedback-changed",
+  "vigil/framework-for-verifying-behavior": "building/vigil-framework-for-verifying-behavior",
+  "vigil/from-draft-to-defensible": "building/vigil-from-draft-to-defensible",
+  "vigil/how-my-thesis-idea-took-shape": "building/vigil-how-my-thesis-idea-took-shape",
+  "vigil/interesting-vs-defensible": "building/vigil-interesting-vs-defensible",
+  "vigil/what-feedback-changed": "building/vigil-what-feedback-changed"
 }

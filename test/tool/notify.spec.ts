@@ -131,7 +131,7 @@ const apiKey = "key";
 const templateId = "tpl";
 const segment = "Staging";
 
-test("notify sends 2 posts per new article (template + direct)", async ({ capture, repo }) => {
+test("notify sends 1 template post per new article", async ({ capture, repo }) => {
   const r = await notify(
     site,
     appId,
@@ -146,31 +146,18 @@ test("notify sends 2 posts per new article (template + direct)", async ({ captur
   );
 
   expect(r.sent.map((a) => a.id).sort()).toEqual(["balance", "vigil/framework"]);
-  expect(capture.received.length).toBe(4);
+  expect(capture.received.length).toBe(2);
 
   const bodies = capture.received as Array<Record<string, unknown>>;
 
-  const templatePosts = bodies.filter((b) => typeof b.template_id === "string");
-  const directPosts = bodies.filter((b) => typeof (b as any).headings?.en === "string" && typeof (b as any).contents?.en === "string");
-
-  expect(templatePosts.length).toBe(2);
-  expect(directPosts.length).toBe(2);
-
-  for (const b of templatePosts) {
+  for (const b of bodies) {
     expect(b.app_id).toBe(appId);
     expect(b.included_segments).toEqual([segment]);
     expect(b.template_id).toBe(templateId);
   }
 
-  for (const b of directPosts) {
-    expect(b.app_id).toBe(appId);
-    expect(b.included_segments).toEqual([segment]);
-    expect(String((b as any).headings.en)).toContain("leolem.dev:");
-    expect(String((b as any).contents.en).trim().endsWith(".")).toBe(true);
-  }
-
   const urls = bodies
-    .map((b) => (b.url as string | undefined) || ((b.custom_data as any)?.url as string | undefined))
+    .map((b) => (b.custom_data as any)?.url as string | undefined)
     .filter((u): u is string => typeof u === "string");
 
   expect(urls).toContain("http://localhost:4321/blog/vigil/framework/");
@@ -308,14 +295,12 @@ tags: ["Systems"]`
     return url === "http://localhost:4321/blog/multiline/";
   });
 
-  expect(matching.length).toBe(2);
+  expect(matching.length).toBe(1);
 
   const templatePost = matching.find((b) => typeof b.template_id === "string");
-  const directPost = matching.find((b) => typeof b.headings?.en === "string");
 
   const expected =
     'I used to chase outcomes: perfection, being "done", traction. Now I try to ship experiments instead: small, real slices I can evaluate and iterate on. Outcomes are noisy. Shipping is controllable.';
 
   expect(templatePost?.custom_data?.short).toBe(expected);
-  expect(directPost?.contents?.en).toBe(`${expected}.`);
 });
