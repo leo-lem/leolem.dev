@@ -1,61 +1,93 @@
 ---
 import { BaseLayout } from "../layout";
-import { aboutMe, getBlog, getOffering, getPortfolio } from "../content";
-import { FeaturedArticle, FeaturedProject, Icon, SeeMore } from "../components";
-import { onlyFeatured } from "../lib";
+import { aboutMe, getBlog, getPortfolio } from "../content";
+import {
+  Embed,
+  ArticleCard,
+  SubscribePanel,
+  ProjectCard,
+  Schedule
+} from "../components";
 
-const featuredArticle = (await getBlog()).find(onlyFeatured);
-const featuredProjects = (await getPortfolio()).filter(onlyFeatured);
-const featuredServices = (await getOffering()).filter(onlyFeatured);
+const articles = await getBlog();
+const projects = await getPortfolio();
+
+const albumID = import.meta.env.FAVORITE_ALBUM;
+const tripID = import.meta.env.CURRENT_TRIP;
 ---
 
 <BaseLayout title="Leopold Lemmermann" showHeader={false}>
-  <section class="stack-lg text-center">
-    <section class="container stack">
-      <article class="text-2xl font-semibold">{aboutMe.short}</article>
+  <section id="about" class="stack-lg text-center">
+    <article class="text-2xl font-semibold italic quote-accent">
+      "{aboutMe.short}"
+    </article>
+  </section>
 
-      <SeeMore href="/about/">Learn more about me</SeeMore>
-    </section>
+  <section id="takes" class="container-wide stack w-full min-w-0">
+    <h2 class="title-lg text-center">My Takes on Software and Life</h2>
 
-    <section class="container-wide stack">
-      {
-        featuredArticle && (
-          <FeaturedArticle
-            article={featuredArticle}
-            class="responsive card card-elevated"
-          />
-        )
-      }
-
-      <SeeMore href="/blog/">Read my latest articles</SeeMore>
-    </section>
-
-    <section class="container stack">
-      <div class="split">
-        {
-          featuredProjects.map((project) => (
-            <FeaturedProject project={project} />
-          ))
-        }
+    <div class={`stack card w-full min-w-0`}>
+      <div
+        class="w-full min-w-0 scroll-px-4 p-4 pb-8 flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none"
+        data-testid="article-carousel"
+      >
+        {articles.map((article) => <ArticleCard article={article} />)}
       </div>
 
-      <SeeMore href="/portfolio/">Explore my projects</SeeMore>
-    </section>
+      <SubscribePanel class="-mt-12" />
+    </div>
+  </section>
 
-    <section class="container-narrow stack">
-      <div class="split-sm">
-        {
-          featuredServices.map(({ data: { icon, title, short }, id }: any) => (
-            <a href={`/offering/#${id}`} class="responsive card stack p-2">
-              <Icon name={icon} class="icon-lg w-full" />
-              <h2 class="title-sm">{title}</h2>
-              <p class="summary">{short}</p>
-            </a>
-          ))
-        }
+  <Schedule />
+
+  <section id="catalog" class="container stack">
+    <h2 class="title-lg text-center">Catalog, Or What I've Created</h2>
+
+    <div class="group stack">
+      <input
+        type="checkbox"
+        id="catalog-expand"
+        class="peer hidden"
+        data-testid="catalog-expand"
+      />
+
+      <div class="relative @container">
+        <div
+          class="p-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 overflow-hidden transition-[max-height] duration-300 ease-out max-h-[calc(250cqw+1.5rem)] sm:max-h-[calc(125cqw+0.25rem)] lg:max-h-[calc(83.3333cqw-0.16667rem)] group-has-checked:max-h-none"
+          data-testid="catalog-grid"
+        >
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+
+        <div
+          class="absolute inset-x-0 bottom-0 h-32 fade pointer-events-none group-has-checked:hidden"
+        >
+        </div>
       </div>
 
-      <SeeMore href="/offering/">Explore my services</SeeMore>
-    </section>
+      <label
+        for="catalog-expand"
+        class="btn mx-auto w-fit cursor-pointer group-has-checked:hidden"
+        data-testid="catalog-show-more"
+      >
+        Show more
+      </label>
+      <label
+        for="catalog-expand"
+        class="btn mx-auto hidden w-fit cursor-pointer group-has-checked:flex"
+        data-testid="catalog-show-less"
+      >
+        Show less
+      </label>
+    </div>
+  </section>
+
+  <section id="beyond-work" class="container-wide stack text-center">
+    <h2 class="title-lg">What I Enjoy Outside Work</h2>
+
+    <div class="split">
+      {albumID && <Embed kind="music" albumID={albumID} loading="eager" />}
+      {tripID && <Embed kind="polarsteps" tripID={tripID} loading="eager" />}
+    </div>
   </section>
 </BaseLayout>

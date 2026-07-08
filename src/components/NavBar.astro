@@ -1,96 +1,70 @@
 ---
-import { navigation } from "../navigation.config";
 import Icon from "./Icon.astro";
 import Thumbnail from "./Thumbnail.astro";
 import { aboutMe } from "../content";
+import { getImage } from "astro:assets";
 
-const { socials, subscribe = true } = Astro.props as {
-  socials: string[];
-  subscribe?: boolean;
-};
+const { socials } = Astro.props as { socials: string[] };
+
+import headerLight from "../assets/header-light.png";
+import headerDark from "../assets/header-dark.png";
+const light = await getImage({ src: headerLight, width: 1200 });
+const dark = await getImage({ src: headerDark, width: 1200 });
 ---
 
-<header class="sticky top-0 py-3 z-10 stack-sm">
+<header class="sticky top-0 py-3 z-10 stack-sm bg-noise">
   <nav
-    class="w-full container-wide mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+    class="relative w-full container-wide mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
     data-testid="nav"
   >
-    <div class="w-full flex items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
+    <div
+      class="absolute -inset-y-3 inset-x-0 -z-10 rounded-b-xl overflow-hidden"
+    >
+      <picture id="header" class="block w-full h-full">
+        <source srcset={dark.src} media="(prefers-color-scheme: dark)" />
+        <img
+          src={light.src}
+          alt=""
+          width="1200"
+          height="400"
+          class="w-full h-full object-cover"
+        />
+      </picture>
+    </div>
+
+    <div class="w-full flex items-start justify-between gap-4">
+      <div class="flex items-end sm:items-center gap-3">
         <Thumbnail
           src="profile"
           alt="Profile picture of Leopold Lemmermann"
-          class="w-10 h-10 rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
+          class="w-24 h-24 aspect-square rounded-full object-cover shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
           loading="eager"
         />
 
         <a
           href="/"
-          class="flex flex-col navigation animate-slidefadein hover:text-accent"
+          class="flex flex-col navigation animate-slidefadein hover:text-accent-gradient"
         >
-          <span class="font-semibold text-xs sm:text-sm">
+          <span class="font-semibold text-lg sm:text-2xl text-nowrap">
             Leopold Lemmermann
           </span>
-          <span class="text-xs whitespace-nowrap">
+          <span
+            class="font-mono text-sm sm:text-md text-accent whitespace-nowrap"
+          >
             {aboutMe.titles.join(" · ")}
           </span>
         </a>
       </div>
 
-      <div class="flex items-center gap-3 shrink-0">
+      <div class="absolute top-0 right-0 px-3 flex items-center gap-3 shrink-0">
         {
           socials.map((url: string) => (
-            <Icon name={url} class="icon-sm animate-slidefadein" />
+            <Icon name={url} class="icon-sm animate-slidefadein text-accent2" />
           ))
         }
-
-        <button
-          id="mobile-menu-toggle"
-          class="sm:hidden focus:outline-none"
-          aria-label="Open menu"
-          aria-controls="mobile-menu"
-          aria-expanded="false"
-        >
-          <Icon name="lucide:menu" class="icon-sm animate-slidefadein" />
-        </button>
       </div>
     </div>
-
-    <div
-      id="mobile-menu"
-      class="hidden max-h-0 overflow-hidden transition-[max-height] duration-300 ease-in-out flex-col items-center gap-2 sm:flex sm:flex-row sm:overflow-visible sm:animate-slidefadein"
-    >
-      {
-        navigation.map((item) => (
-          <a
-            href={`/${item}/`}
-            class={`navigation capitalize hover:text-accent ${Astro.url.pathname.includes(item) ? "active" : ""}`}
-            aria-current={
-              Astro.url.pathname.includes(item) ? "page" : undefined
-            }
-            data-testid={`nav-link-${item}`}
-          >
-            {item}
-          </a>
-        ))
-      }
-    </div>
   </nav>
-
-  {
-    subscribe && (
-      <section class="container-wide mx-auto text-center text-muted">
-        New article weekly. No noise.{" "}
-        <a
-          href="/blog/#subscribe"
-          class="text-primary hover:text-accent underline"
-          data-testid="subscribe-link"
-        >
-          Subscribe
-        </a>
-      </section>
-    )
-  }
 </header>
 
 <style>
@@ -107,30 +81,3 @@ const { socials, subscribe = true } = Astro.props as {
     @apply font-bold underline;
   }
 </style>
-
-<script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
-    const toggle = document.getElementById("mobile-menu-toggle");
-    const menu = document.getElementById("mobile-menu");
-
-    toggle?.addEventListener("click", () => {
-      const isHidden = menu?.classList.contains("hidden");
-
-      if (isHidden) {
-        menu.classList.remove("hidden");
-        menu.classList.add("flex");
-        menu.style.maxHeight = menu.scrollHeight + "px";
-        toggle.setAttribute("aria-expanded", "true");
-        toggle.setAttribute("aria-label", "Close menu");
-      } else {
-        menu.style.maxHeight = "0px";
-        toggle.setAttribute("aria-expanded", "false");
-        toggle.setAttribute("aria-label", "Open menu");
-        setTimeout(() => {
-          menu.classList.remove("flex");
-          menu.classList.add("hidden");
-        }, 300);
-      }
-    });
-  });
-</script>

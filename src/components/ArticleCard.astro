@@ -1,0 +1,95 @@
+---
+import Thumbnail from "./Thumbnail.astro";
+import { formatDate } from "../lib";
+
+const {
+  article: {
+    id,
+    data: { title, short, date, author, featured = false }
+  },
+  class: classes = ""
+} = Astro.props;
+
+const series = id.split("/")[0];
+---
+
+<article
+  class:list={[
+    "snap-start shrink-0 self-end",
+    featured ? "w-[70vw] max-w-120" : "w-[60vw] max-w-100",
+    classes
+  ]}
+>
+  <article
+    class:list={[
+      "relative responsive overflow-hidden",
+      featured ? "card-elevated" : "card"
+    ]}
+  >
+    <div
+      class:list={[
+        "absolute inset-x-0 top-0 z-10 flex justify-between",
+        featured ? "p-3 text-sm" : "p-2.5 text-xs"
+      ]}
+    >
+      <a href={`/blog/${id}/`} class="pill-accent">
+        {formatDate(date)}
+      </a>
+
+      {
+        author?.name ? (
+          author.url ? (
+            <a
+              href={author.url}
+              class="pill-overlay link-muted"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {author.name}
+            </a>
+          ) : (
+            <span class="pill-overlay">{author.name}</span>
+          )
+        ) : (
+          <a href={`/blog/${series}/`} class="pill-accent2 meta capitalize">
+            {series} series
+          </a>
+        )
+      }
+    </div>
+
+    <a href={`/blog/${id}/`} class="block">
+      <Thumbnail
+        src={`blog/${id}`}
+        alt={`Thumbnail for ${title}`}
+        class="w-full aspect-video object-cover"
+        loading={featured ? "eager" : "lazy"}
+      />
+
+      <div
+        class:list={[
+          "absolute inset-x-0 bottom-0 fade",
+          featured ? "p-4" : "p-3"
+        ]}
+      >
+        <h2
+          class:list={[
+            "line-clamp-1 sm:line-clamp-2",
+            featured ? "title" : "title-sm"
+          ]}
+        >
+          {title}
+        </h2>
+
+        <p
+          class:list={[
+            "line-clamp-1 sm:line-clamp-2",
+            featured ? "summary mt-2" : "summary text-sm mt-1"
+          ]}
+        >
+          {short}
+        </p>
+      </div>
+    </a>
+  </article>
+</article>

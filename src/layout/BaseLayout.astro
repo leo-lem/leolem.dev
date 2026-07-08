@@ -9,7 +9,6 @@ const {
   description = frontmatter.caption,
   thumbnail = "/social.png",
   ldJson,
-  subscribe,
   showHeader = true
 } = Astro.props;
 
@@ -128,17 +127,19 @@ const allowLocalhost = import.meta.env.NODE_ENV === "development";
   </head>
 
   <body class="min-w-90 min-h-screen stack" data-testid="layout">
-    <NavBar socials={socials} subscribe={subscribe} />
+    <NavBar socials={socials} />
 
     <main
-      class="container-wide flex-1 mx-auto stack-lg mb-20"
+      class="container-wide flex-1 w-full min-w-0 mx-auto stack-lg mb-20"
       data-testid="page"
     >
       {
         showHeader && (
           <section class="stack text-center ">
             <slot name="thumbnail" />
-            <h1 class="title-lg capitalize line-clamp-none">{title}</h1>
+            <h1 class="text-accent-gradient title-lg capitalize line-clamp-none">
+              {title}
+            </h1>
             <p class="summary text-lg line-clamp-none">{description}</p>
           </section>
         )
@@ -148,9 +149,10 @@ const allowLocalhost = import.meta.env.NODE_ENV === "development";
     </main>
 
     <footer class="container-narrow text-center mb-10">
-      <a href="/imprint/" class="link-muted">Imprint</a>
-      ·
-      <a href="/privacy/" class="link-muted">Privacy</a>
+      <a href="/imprint/" class="link-muted">Imprint</a> · <a
+        href="/privacy/"
+        class="link-muted">Privacy</a
+      >
     </footer>
   </body>
 </html>

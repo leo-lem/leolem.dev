@@ -7,6 +7,8 @@ socials:
     url: "https://github.com/leo-lem"
   - name: "LinkedIn"
     url: "https://linkedin.com/in/leopoldlemmermann"
+  - name: "Medium"
+    url: "https://medium.com/@leo-lem"
 ---
 
 I’m a software engineer focused on building real systems from rough ideas to production. My strongest work sits around backend services, infrastructure, CI/CD, deployments, and the operational workflows that keep software maintainable after the first release.

@@ -22,4 +22,10 @@ export default defineConfig({
   prefetch: true,
   trailingSlash: "always",
   output: "static",
+  redirects: {
+    "/blog/": "/",
+    "/offering/": "/",
+    "/portfolio/": "/",
+    "/about/": "/"
+  }
 });

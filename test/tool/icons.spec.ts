@@ -26,12 +26,12 @@ test("icons tool populates public outputs in a temp root", async () => {
         path.join(tmpRoot, "src", "assets", "profile.jpg")
       ),
       fs.copyFile(
-        path.join(repoRoot, "src", "assets", "about.png"),
-        path.join(tmpRoot, "src", "assets", "about.png")
+        path.join(repoRoot, "src", "assets", "header-dark.png"),
+        path.join(tmpRoot, "src", "assets", "header-dark.png")
       ),
     ]);
 
-    await icons("src/assets/about.png", "src/assets/profile.jpg", tmpRoot);
+    await icons("src/assets/header-dark.png", "src/assets/profile.jpg", tmpRoot);
 
     const faviconIco = path.join(tmpRoot, "public", "favicon.ico");
     const socialPng = path.join(tmpRoot, "public", "social.png");
@@ -41,7 +41,7 @@ test("icons tool populates public outputs in a temp root", async () => {
 
     const [actualSocial, expectedSocial] = await Promise.all([
       fs.readFile(socialPng),
-      fs.readFile(path.join(tmpRoot, "src", "assets", "about.png")),
+      fs.readFile(path.join(tmpRoot, "src", "assets", "header-dark.png")),
     ]);
 
     expect(actualSocial.equals(expectedSocial)).toBe(true);

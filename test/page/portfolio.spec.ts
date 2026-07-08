@@ -1,7 +1,13 @@
 import { test, expect } from "@playwright/test";
 
-test("portfolio index has at least one item and a detail page loads", async ({ page }) => {
-  await page.goto("/portfolio/");
+test("/portfolio/ redirects to the homepage", async ({ request }) => {
+  const res = await request.get("/portfolio/", { maxRedirects: 0 });
+  expect(res.status()).toBe(301);
+  expect(res.headers()["location"]).toBe("/");
+});
+
+test("homepage catalog shows portfolio cards linking to detail pages", async ({ page }) => {
+  await page.goto("/");
 
   const cards = page.getByTestId("portfolio-card");
   await expect(cards.first()).toBeVisible();

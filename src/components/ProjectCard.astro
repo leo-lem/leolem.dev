@@ -4,7 +4,7 @@ import Thumbnail from "./Thumbnail.astro";
 const {
   project: {
     id,
-    data: { title, short }
+    data: { title, short, featured = false }
   },
   class: classes
 } = Astro.props;
@@ -12,7 +12,7 @@ const {
 
 <a
   href={`/portfolio/${id}/`}
-  class={`relative responsive card stack ${classes}`}
+  class={`relative responsive stack ${classes} ${featured ? "card-featured" : "card"}`}
   data-testid="portfolio-card"
   data-id={id}
 >

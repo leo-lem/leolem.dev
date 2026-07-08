@@ -1,6 +1,6 @@
 {
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:latest",
-	"postCreateCommand": "npm install && sudo npx playwright install-deps && npx playwright install",
+	"postCreateCommand": "npm install -g npm@latest && npm install && npx playwright install",
 	"postStartCommand": "npm start",
 	"customizations": {
 		"vscode": {
@@ -8,11 +8,21 @@
 				"astro-build.astro-vscode",
 				"bradlc.vscode-tailwindcss",
 				"ms-playwright.playwright",
-				"github.copilot",
 				"GitHub.vscode-pull-request-github"
 			]
 		}
 	},
+	"features": {
+		"ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {},
+		"ghcr.io/postfinance/devcontainer-features/playwright-deps:1.0.0": {
+			"installChromiumDeps": true,
+			"installFirefoxDeps": true,
+			"installWebkitDeps": true
+		}
+	},
+	"mounts": [
+		"source=claude-code-config,target=/home/vscode/.claude,type=volume"
+	],
 	"runArgs": [
 		"-p",
 		"4321:4321"

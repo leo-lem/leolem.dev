@@ -39,5 +39,11 @@
     "typescript": "^6.0",
     "wrangler": "^4.107",
     "xml2js": "^0.6"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "sharp@0.34.5": true,
+    "sharp@0.35.3": true,
+    "workerd@1.20260706.1": true
   }
 }

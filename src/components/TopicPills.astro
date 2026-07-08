@@ -9,13 +9,9 @@ const { topics, class: classes } = Astro.props as {
   topics && topics.length > 0 && (
     <div class={`cluster-sm ${classes} `}>
       {topics.sort().map((tag: string) => (
-        <a
-          class="responsive pill pill-accent capitalize"
-          href={`/explore/?topics=${encodeURIComponent(tag)}`}
-          data-tag={tag}
-        >
+        <div class="responsive pill pill-accent capitalize" data-tag={tag}>
           {tag}
-        </a>
+        </div>
       ))}
     </div>
   )

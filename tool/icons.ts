@@ -5,7 +5,7 @@ import path from "node:path";
 import { isExecuted } from "./lib";
 
 export default async function icons(
-  social: string = "src/assets/about.png",
+  social: string = "src/assets/header-dark.png",
   profile: string = "src/assets/profile.jpg",
   root: string = process.cwd()
 ) {

@@ -5,27 +5,52 @@ const { label, class: classes = "" } = Astro.props as {
 };
 ---
 
-<section
-  id="subscribe"
-  class={`card-elevated ${classes}`}
-  data-testid="subscribe"
->
-  <div class="flex items-center justify-between gap-4">
-    <p class="title-sm">{label ?? ""}</p>
+<section id="subscribe" class={`px-5 py-3 ${classes}`} data-testid="subscribe">
+  <div class="flex flex-col sm:flex-row items-center gap-3">
+    <span class="meta whitespace-nowrap">
+      {label ?? "Get notified via"}
+    </span>
 
-    <div class="cluster-sm">
+    <div class="flex-1 flex gap-1 flex-row min-w-50">
+      <input
+        id="email"
+        class="input"
+        type="email"
+        inputmode="email"
+        autocomplete="email"
+        placeholder="your@email.here"
+        aria-label="Email address"
+        data-testid="subscribe-email"
+      />
+
+      <button
+        id="email-btn"
+        class="btn accent px-3 text-sm shrink-0 aspect-square"
+        type="button"
+        aria-label="Subscribe"
+        title="Subscribe"
+        disabled
+        data-testid="subscribe-email-submit"
+      >
+        →
+      </button>
+    </div>
+
+    <div class="flex gap-2 items-center">
       <button
         id="push-btn"
-        class="link-muted text-xs"
+        class="link-muted text-sm shrink-0"
         type="button"
-        data-testid="subscribe-push">Push</button
+        data-testid="subscribe-push"
       >
-      <span class="caption">·</span>
+        Push
+      </button>
+
       <a
         href="/rss.xml"
         target="_blank"
         rel="noopener noreferrer"
-        class="link-muted text-xs"
+        class="link-muted text-sm shrink-0"
         data-testid="subscribe-rss"
       >
         RSS
@@ -33,39 +58,11 @@ const { label, class: classes = "" } = Astro.props as {
     </div>
   </div>
 
-  <div class="stack-sm">
-    <div class="cluster">
-      <div class="flex-1 min-w-[220px]">
-        <input
-          id="email"
-          class="input"
-          type="email"
-          inputmode="email"
-          autocomplete="email"
-          placeholder="your@email.here"
-          aria-label="Email address"
-          data-testid="subscribe-email"
-        />
-      </div>
-
-      <button
-        id="email-btn"
-        class="btn px-3 text-sm"
-        type="button"
-        aria-label="Subscribe"
-        title="Subscribe"
-        disabled="true"
-        data-testid="subscribe-email-submit"
-        >→
-      </button>
-    </div>
-
-    <div
-      id="subscribe-status"
-      class="text-xs hidden"
-      data-testid="subscribe-status"
-    >
-    </div>
+  <div
+    id="subscribe-status"
+    class="text-xs hidden mt-2"
+    data-testid="subscribe-status"
+  >
   </div>
 </section>
 

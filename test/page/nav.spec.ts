@@ -1,25 +1,48 @@
 import { test, expect } from "@playwright/test";
 
-import { navigation } from "../../src/navigation.config";
+async function assertNavVisible(page: import("@playwright/test").Page) {
+  const nav = page.getByTestId("nav");
+  await expect(nav).toBeVisible();
+
+  await expect(
+    nav.getByAltText("Profile picture of Leopold Lemmermann")
+  ).toBeVisible();
+
+  await expect(nav.locator("a[href='/']").first()).toBeVisible();
+}
 
 test.describe("Global navigation", () => {
-  for (const p of navigation) {
-    test(`on "${p}" page`, async ({ page, isMobile }) => {
-      const res = await page.goto(`/${p}/`);
-      expect(res?.status()).toBe(200);
+  test("on the homepage", async ({ page }) => {
+    const res = await page.goto("/");
+    expect(res?.status()).toBe(200);
 
-      await expect(page.getByTestId("nav")).toBeVisible();
+    await assertNavVisible(page);
+  });
 
-      for (const other of navigation) {
-        const link = page.getByTestId(`nav-link-${other}`);
+  test("on a blog article page", async ({ page }) => {
+    await page.goto("/");
 
-        if (isMobile)
-          await expect(link).toBeAttached();
-        else
-          await expect(link).toBeVisible();
-      }
+    const href = await page
+      .locator('[data-testid="article-carousel"] a.block[href^="/blog/"]')
+      .first()
+      .getAttribute("href");
+    expect(href).toBeTruthy();
 
-      await expect(page.getByTestId(`nav-link-${p}`)).toHaveAttribute("aria-current", "page");
-    });
-  }
+    const res = await page.goto(href!);
+    expect(res?.status()).toBe(200);
+
+    await assertNavVisible(page);
+  });
+
+  test("on a portfolio project page", async ({ page }) => {
+    await page.goto("/");
+
+    const href = await page.getByTestId("portfolio-card").first().getAttribute("href");
+    expect(href).toBeTruthy();
+
+    const res = await page.goto(href!);
+    expect(res?.status()).toBe(200);
+
+    await assertNavVisible(page);
+  });
 });

@@ -6,7 +6,7 @@ import { exists, isExecuted } from "./lib";
 export default async function sync(
   from: string = ".content",
   root: string = process.cwd(),
-  collections: string[] = ["blog", "portfolio", "offering"]
+  collections: string[] = ["blog", "portfolio"]
 ) {
   if (!(await exists(path.join(from, "content"))))
     throw new Error("Missing content directory");

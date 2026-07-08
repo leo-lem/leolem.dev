@@ -5,8 +5,8 @@
 :root {
   --base-color: #f3f4f6;
   --text-color: #1a1c1f;
-  --accent-color: #ca8a04;
-  --accent-secondary-color: #be185d;
+  --accent-color: #5A6FA5;
+  --accent-secondary-color: #A05070;
 
   --surface-color: color-mix(in srgb, var(--base-color) 92%, var(--text-color));
   --elevated-color: color-mix(in srgb, var(--base-color) 88%, var(--text-color));
@@ -31,15 +31,21 @@
   }
 }
 
-
-
 body {
   @apply m-0 text-primary text-base leading-relaxed;
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  background-color: var(--base-color);
   border-color: var(--border-color);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+
+  background-color: var(--base-color);
+  @apply bg-noise;
+}
+
+@utility bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.025 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
 }
 
 
@@ -71,12 +77,14 @@ body {
 @utility text-secondary { color: var(--text-secondary-color); }
 @utility text-muted { color: var(--text-muted-color); }
 @utility text-error { color: #dc2626; }
+@utility text-accent { color: var(--accent-color); }
+@utility text-accent2 { color: var(--accent-secondary-color); }
 @utility title-base { @apply text-primary leading-snug line-clamp-2; }
 @utility accent {
   background: linear-gradient(
     to right,
-    var(--accent-secondary-color),
-    var(--accent-color)
+    var(--accent-color),
+    var(--accent-secondary-color)
   );
 }
 @layer components {
@@ -88,7 +96,7 @@ body {
     )
   }
 
-  .text-accent {
+  .text-accent-gradient {
     @apply accent;
     color: transparent;
     background-clip: text;
@@ -145,6 +153,15 @@ body {
     background-color: var(--elevated-color);
     box-shadow: 0 10px 30px var(--shadow-color);
   }
+  
+  .card-featured {
+    @apply card shadow-sm;
+    background-color: var(--elevated-color);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--accent-color) 55%, transparent),
+      0 10px 14px var(--shadow-color),
+      0 0 16px color-mix(in srgb, var(--accent-secondary-color) 45%, transparent);
+  }
 
   .pill-accent {
     @apply pill;
@@ -152,6 +169,14 @@ body {
     background-color: var(--accent-color);
     border-color: transparent;
   }
+
+  .pill-accent2 {
+    @apply pill;
+    color: var(--text-color);
+    background-color: var(--accent-secondary-color);
+    border-color: transparent;
+  }
+
   .pill-overlay {
     @apply pill;
 
@@ -199,4 +224,14 @@ body {
 
 @layer components {
   .thumbnail { @apply rounded-xl object-cover; }
+}
+
+
+
+@layer components {
+  .quote-accent {
+    border-left: 3px solid var(--accent-color);
+    padding-left: 1rem;
+    font-style: italic;
+  }
 }

@@ -1,6 +1,6 @@
 ---
 import { BaseLayout } from "../../layout";
-import { SubscribePanel, ArticleRow, FeaturedArticle } from "../../components";
+import { SubscribePanel, ArticleRow, ArticleCard } from "../../components";
 import { getBlog } from "../../content";
 import { onlyFeatured, onlyNonFeatured } from "../../lib";
 
@@ -26,12 +26,12 @@ export async function getStaticPaths() {
 
 <BaseLayout
   title={series.charAt(0).toUpperCase() + series.slice(1) + " Series"}
-  description={`My series of articles about ${series}.`}
+  description={""}
 >
   <section class="container">
     {
       featured && (
-        <FeaturedArticle
+        <ArticleCard
           article={featured}
           class="responsive card card-elevated text-center"
         />
