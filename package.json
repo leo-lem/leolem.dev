@@ -19,7 +19,7 @@
     "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/typography": "^0.5",
     "@tailwindcss/vite": "^4.3",
-    "astro": "^7.0.6",
+    "astro": "^7.0.7",
     "astro-icon": "^1.1",
     "node-fetch": "^3.3",
     "tailwindcss": "^4.2"
@@ -35,7 +35,7 @@
     "@types/xml2js": "^0.4",
     "favicons": "^7.3",
     "tsx": "^4.23",
-    "typescript": "^6.0",
+    "typescript": "^7.0",
     "xml2js": "^0.6"
   },
   "allowScripts": {
