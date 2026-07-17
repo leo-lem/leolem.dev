@@ -15,7 +15,6 @@ type ServerCapture = {
 type TmpRepo = {
   tmpRoot: string;
   from: string;
-  blogDir: string;
   stateFile: string;
 };
 
@@ -86,37 +85,42 @@ const test = base.extend<{ capture: ServerCapture; repo: TmpRepo }>({
   repo: async ({ }, use) => {
     const tmpRoot = await fs.mkdtemp(path.join(os.tmpdir(), "leolem-notify-"));
     const from = path.join(tmpRoot, ".content");
-    const blogDir = path.join(from, "content", "blog");
     const stateFile = path.join(from, ".notified.json");
 
     const nowIso = new Date(Date.now() - 60_000).toISOString();
     const futureIso = new Date(Date.now() + 7 * 24 * 3_600_000).toISOString();
 
     await write(
-      path.join(blogDir, "vigil", "framework.mdx"),
+      path.join(from, "building", "vigil-framework.mdx"),
       md({ title: "Vigil Framework", short: "A thing.", date: nowIso, tags: "Vigil" })
     );
 
     await write(
-      path.join(blogDir, "balance.mdx"),
+      path.join(from, "life", "balance.mdx"),
       md({ title: "Balance", short: "Another thing.", date: nowIso, tags: "Life" })
     );
 
     await write(
-      path.join(blogDir, "scheduled.mdx"),
+      path.join(from, "life", "scheduled.mdx"),
       md({ title: "Scheduled", short: "Should not send.", date: futureIso, tags: "Future" })
     );
 
     await write(
-      path.join(blogDir, "already", "sent.mdx"),
+      path.join(from, "engineering", "already-sent.mdx"),
       md({ title: "Already", short: "Should be skipped.", date: nowIso, tags: "Skip" })
     );
 
+    // A portfolio entry should never be picked up as a blog article to notify about.
+    await write(
+      path.join(from, "portfolio", "vigil.md"),
+      md({ title: "Vigil", short: "Project.", date: nowIso, tags: "Vigil" })
+    );
+
     await fs.mkdir(path.dirname(stateFile), { recursive: true });
-    await fs.writeFile(stateFile, JSON.stringify(["already/sent"], null, 2), "utf8");
+    await fs.writeFile(stateFile, JSON.stringify(["engineering/already-sent"], null, 2), "utf8");
 
     try {
-      await use({ tmpRoot, from, blogDir, stateFile });
+      await use({ tmpRoot, from, stateFile });
     } finally {
       await fs.rm(tmpRoot, { recursive: true, force: true });
     }
@@ -141,11 +145,10 @@ test("notify sends 1 template post per new article", async ({ capture, repo }) =
     capture.apiBase,
     repo.tmpRoot,
     repo.from,
-    repo.stateFile,
-    repo.blogDir
+    repo.stateFile
   );
 
-  expect(r.sent.map((a) => a.id).sort()).toEqual(["balance", "vigil/framework"]);
+  expect(r.sent.map((a) => a.id).sort()).toEqual(["building/vigil-framework", "life/balance"]);
   expect(capture.received.length).toBe(2);
 
   const bodies = capture.received as Array<Record<string, unknown>>;
@@ -160,8 +163,8 @@ test("notify sends 1 template post per new article", async ({ capture, repo }) =
     .map((b) => (b.custom_data as any)?.url as string | undefined)
     .filter((u): u is string => typeof u === "string");
 
-  expect(urls).toContain("http://localhost:4321/blog/vigil/framework/");
-  expect(urls).toContain("http://localhost:4321/blog/balance/");
+  expect(urls).toContain("http://localhost:4321/blog/building/vigil-framework/");
+  expect(urls).toContain("http://localhost:4321/blog/life/balance/");
 });
 
 test("notify skips scheduled future posts and already-notified ids", async ({ capture, repo }) => {
@@ -174,20 +177,19 @@ test("notify skips scheduled future posts and already-notified ids", async ({ ca
     capture.apiBase,
     repo.tmpRoot,
     repo.from,
-    repo.stateFile,
-    repo.blogDir
+    repo.stateFile
   );
 
-  expect(r.skippedScheduled).toEqual(["scheduled"]);
-  expect(r.skippedAlready).toEqual(["already/sent"]);
+  expect(r.skippedScheduled).toEqual(["life/scheduled"]);
+  expect(r.skippedAlready).toEqual(["engineering/already-sent"]);
 
   const bodies = capture.received as Array<Record<string, unknown>>;
   const urls = bodies
     .map((b) => (b.url as string | undefined) || ((b.custom_data as any)?.url as string | undefined))
     .filter((u): u is string => typeof u === "string");
 
-  expect(urls.some((u) => u.includes("/blog/scheduled/"))).toBe(false);
-  expect(urls.some((u) => u.includes("/blog/already/sent/"))).toBe(false);
+  expect(urls.some((u) => u.includes("/blog/life/scheduled/"))).toBe(false);
+  expect(urls.some((u) => u.includes("/blog/engineering/already-sent/"))).toBe(false);
 });
 
 test("notify writes state and is idempotent on rerun", async ({ capture, repo }) => {
@@ -200,17 +202,16 @@ test("notify writes state and is idempotent on rerun", async ({ capture, repo })
     capture.apiBase,
     repo.tmpRoot,
     repo.from,
-    repo.stateFile,
-    repo.blogDir
+    repo.stateFile
   );
 
   expect(r1.sent.length).toBe(2);
 
   const state1 = await readJson<string[]>(repo.stateFile);
-  expect(state1).toContain("already/sent");
-  expect(state1).toContain("balance");
-  expect(state1).toContain("vigil/framework");
-  expect(state1).not.toContain("scheduled");
+  expect(state1).toContain("engineering/already-sent");
+  expect(state1).toContain("life/balance");
+  expect(state1).toContain("building/vigil-framework");
+  expect(state1).not.toContain("life/scheduled");
 
   const before = capture.received.length;
 
@@ -223,8 +224,7 @@ test("notify writes state and is idempotent on rerun", async ({ capture, repo })
     capture.apiBase,
     repo.tmpRoot,
     repo.from,
-    repo.stateFile,
-    repo.blogDir
+    repo.stateFile
   );
 
   expect(r2.sent.length).toBe(0);
@@ -244,8 +244,7 @@ test("notify uses Basic auth header and JSON content-type", async ({ capture, re
     capture.apiBase,
     repo.tmpRoot,
     repo.from,
-    repo.stateFile,
-    repo.blogDir
+    repo.stateFile
   );
 
   expect(capture.headers.length).toBeGreaterThan(0);
@@ -260,7 +259,7 @@ test("notify collapses multiline short block scalars to one line", async ({ capt
   const nowIso = new Date(Date.now() - 60_000).toISOString();
 
   await write(
-    path.join(repo.blogDir, "multiline.mdx"),
+    path.join(repo.from, "systems", "multiline.mdx"),
     mdRaw(
       `title: "Multiline"
 short: |
@@ -283,16 +282,15 @@ tags: ["Systems"]`
     capture.apiBase,
     repo.tmpRoot,
     repo.from,
-    repo.stateFile,
-    repo.blogDir
+    repo.stateFile
   );
 
-  expect(r.sent.map((a) => a.id)).toContain("multiline");
+  expect(r.sent.map((a) => a.id)).toContain("systems/multiline");
 
   const bodies = capture.received as Array<Record<string, any>>;
   const matching = bodies.filter((b) => {
     const url = (b.url as string | undefined) || b.custom_data?.url;
-    return url === "http://localhost:4321/blog/multiline/";
+    return url === "http://localhost:4321/blog/systems/multiline/";
   });
 
   expect(matching.length).toBe(1);
