@@ -30,6 +30,8 @@ There is no separate lint/typecheck script; `astro build` (via `astro check` int
 
 Blog posts (`src/content/blog`) and portfolio entries (`src/content/portfolio`), plus their images (`src/assets/blog`, `src/assets/portfolio`), are **not the source of truth** in this repo for content that comes from the content repo. They get overwritten by `npm run tool:sync`, which copies from a checked-out `.content/` directory (cloned from `leo-lem/content.leolem.dev` by `.github/actions/checkout-content` in CI, or manually via `git clone` locally). `.content/` is gitignored here.
 
+In the content repo, each top-level directory mixes markdown and images together (no separate `content`/`assets` split): `portfolio/` and one directory per blog category (e.g. `engineering/`, `systems/`, `life/`, `building/`, `guest/`). `tool/sync.ts` reads those top-level directories and, for each, routes `.md` files into `src/content/<collection>/<category>/` and image files (`.png`, `.jpg`/`.jpeg`, `.avif`, `.webp`, `.gif`, `.svg`) into `src/assets/<collection>/<category>/`; any subdirectory (e.g. a project's image gallery) is copied recursively into the asset destination. `portfolio` is its own collection with no category subfolder; every other top-level directory name becomes a category folder under the `blog` collection.
+
 - `topics.json`, `about.md`, static pages (`imprint.md`, `privacy.md`) and everything under `src/pages`, `src/components`, `src/layout`, `src/lib` ARE owned by this repo.
 - When editing blog/portfolio content for real, it belongs in the content repo, not here — this repo just renders it. Local edits under `src/content/blog|portfolio` will be clobbered by the next sync.
 - `tool/sync.ts` is intentionally generic (`from`, `root`, `collections` params) so it's testable without touching the real filesystem layout — see `test/tool/sync.spec.ts`.
@@ -65,7 +67,7 @@ Standalone Node/tsx scripts, each with a `default export` function (for testing/
 
 - **`sync.ts`** — content repo → `src/` merge, see above.
 - **`icons.ts`** — generates favicons/manifest/social.png from `src/assets/profile.jpg` + `header-dark.png` using the `favicons` package, output to `public/`.
-- **`notify.ts`** — reads blog markdown directly out of `.content/content/blog` (its own lightweight frontmatter parser, not Astro's content layer, since it runs standalone), diffs against `.content/.notified.json`, and sends an OneSignal template email notification for newly-published, non-future-dated posts. Run from `main.yml`'s `notify` job after a successful deploy; commits the updated `.notified.json` back to the content repo afterward.
+- **`notify.ts`** — reads blog markdown directly out of every category directory under `.content/` (excluding `portfolio`), using its own lightweight frontmatter parser (not Astro's content layer, since it runs standalone), diffs against `.content/.notified.json`, and sends an OneSignal template email notification for newly-published, non-future-dated posts. Run from `main.yml`'s `notify` job after a successful deploy; commits the updated `.notified.json` back to the content repo afterward.
 
 ## CI (`.github/workflows`)
 

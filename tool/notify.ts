@@ -65,6 +65,18 @@ async function listMarkdownFiles(dir: string): Promise<string[]> {
   return out;
 }
 
+async function listBlogMarkdownFiles(from: string): Promise<string[]> {
+  const entries = await fs.readdir(from, { withFileTypes: true });
+  const out: string[] = [];
+
+  for (const e of entries) {
+    if (!e.isDirectory() || e.name.startsWith(".") || e.name === "portfolio") continue;
+    out.push(...(await listMarkdownFiles(path.join(from, e.name))));
+  }
+
+  return out;
+}
+
 function isScheduledFuture(dateStr: string | undefined): boolean {
   if (!dateStr) return false;
   const d = new Date(dateStr);
@@ -140,21 +152,20 @@ export default async function notify(
   apiBase: string = "https://onesignal.com",
   root: string = process.cwd(),
   from: string = path.join(root, ".content"),
-  stateFile: string = path.join(from, ".notified.json"),
-  blogDir: string = path.join(from, "content", "blog")
+  stateFile: string = path.join(from, ".notified.json")
 ): Promise<{ sent: Article[]; skippedScheduled: string[]; skippedAlready: string[] }> {
   if (!appId || !apiKey || !templateId || !site)
     throw new Error("Missing env vars");
 
   const alreadyNotified = await readState(stateFile);
-  const files = await listMarkdownFiles(blogDir);
+  const files = await listBlogMarkdownFiles(from);
 
   const skippedScheduled: string[] = [];
   const skippedAlready: string[] = [];
   const toSend: Article[] = [];
 
   for (const file of files) {
-    const id = toSlug(blogDir, file);
+    const id = toSlug(from, file);
 
     if (alreadyNotified.has(id)) {
       skippedAlready.push(id);
