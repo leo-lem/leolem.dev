@@ -34,7 +34,7 @@ In the content repo, each top-level directory mixes markdown and images together
 
 - `topics.json`, `about.md`, static pages (`imprint.md`, `privacy.md`) and everything under `src/pages`, `src/components`, `src/layout`, `src/lib` ARE owned by this repo.
 - When editing blog/portfolio content for real, it belongs in the content repo, not here — this repo just renders it. Local edits under `src/content/blog|portfolio` will be clobbered by the next sync.
-- `tool/sync.ts` is intentionally generic (`from`, `root`, `collections` params) so it's testable without touching the real filesystem layout — see `test/tool/sync.spec.ts`.
+- `tool/sync.ts` is intentionally generic (`from`, `root` params) so it's testable without touching the real filesystem layout — see `test/tool/sync.spec.ts`.
 
 ## Content model (`src/content.config.ts`)
 

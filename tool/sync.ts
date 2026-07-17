@@ -45,7 +45,7 @@ export default async function sync(
           recursive: true,
           force: true,
         });
-      } else if (item.name.endsWith(".md")) {
+      } else if (/\.mdx?$/i.test(item.name)) {
         await fs.copyFile(source, path.join(contentDestination, item.name));
       } else if (imageExtensions.has(path.extname(item.name).toLowerCase())) {
         await fs.copyFile(source, path.join(assetDestination, item.name));
