@@ -1,6 +1,6 @@
 {
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:latest",
-	"postCreateCommand": "npm install -g npm@latest && npm install && npx playwright install",
+	"postCreateCommand": "npm install && npx playwright install",
 	"postStartCommand": "npm start",
 	"customizations": {
 		"vscode": {
