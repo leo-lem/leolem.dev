@@ -213,7 +213,7 @@ export default async function notify(
   await fs.mkdir(path.dirname(stateFile), { recursive: true });
   await fs.writeFile(
     stateFile,
-    JSON.stringify([...alreadyNotified].sort((a, b) => a.localeCompare(b)), null, 2) + "\n",
+    JSON.stringify([...alreadyNotified].sort((a, b) => a.localeCompare(b, "en")), null, 2) + "\n",
     "utf8"
   );
 
