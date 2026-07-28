@@ -8,5 +8,5 @@ runs:
       with:
         node-version: '24'
         cache: 'npm'
-    - run: npm ci
+    - run: npm ci --ignore-scripts
       shell: bash

@@ -56,7 +56,7 @@ jobs:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
           restore-keys: ${{ runner.os }}-playwright-
-      - run: npx playwright install --with-deps
+      - run: npx --no-install playwright install --with-deps
       - name: Run smoke tests
         run: npm run test:smoke
 

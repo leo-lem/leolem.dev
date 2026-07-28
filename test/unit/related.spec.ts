@@ -25,7 +25,7 @@ test("relatedProjectsFor returns projects with the specified IDs", async () => {
   const all = [{ id: "a" }, { id: "b" }, { id: "c" }];
   const out = relatedProjectsFor(all, new Set(["b", "c"]), 1);
 
-  expect(out.length).toBe(1);
+  expect(out).toHaveLength(1);
   expect(out[0].id === "b" || out[0].id === "c").toBe(true);
 });
 
@@ -37,7 +37,7 @@ test("relatedArticlesFor returns articles related to the specified project", asy
   ];
 
   const out = relatedArticlesFor(all, "vigil", 10);
-  expect(out.length).toBe(2);
+  expect(out).toHaveLength(2);
 });
 
 test("categoriesFromTopics returns unique categories", async () => {
@@ -50,5 +50,5 @@ test("categoriesFromTopics returns unique categories", async () => {
   const out = categoriesFromTopics(topics);
   expect(out.includes("Backend")).toBe(true);
   expect(out.includes("Infra")).toBe(true);
-  expect(out.length).toBe(2);
+  expect(out).toHaveLength(2);
 });
