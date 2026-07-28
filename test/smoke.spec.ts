@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { seedBlogFixtures, clearBlogFixtures } from "./.fixtures";
 
 test("homepage loads and nav is present", async ({ page }) => {
   const res = await page.goto("/");
@@ -33,38 +34,49 @@ test("404 page renders", async ({ page }) => {
   expect(res?.status()).toBe(404);
 });
 
-test("blog article renders, has subscribe panel, and shows related articles", async ({ page }) => {
-  const res = await page.goto("/");
-  expect(res?.status()).toBe(200);
+test.describe("blog article smoke test", () => {
+  const namespace = "smoke-blog";
 
-  const cards = page.locator('[data-testid="article-carousel"] a.block[href^="/blog/"]');
-  expect(await cards.count()).toBeGreaterThan(0);
+  // Guarantees at least a few articles exist so "related articles" has
+  // something to show, without depending on the real content repo being
+  // synced (irrelevant against a deployed BASE_URL, which already has real
+  // content — this only matters for local runs against the dev server).
+  test.beforeAll(() => seedBlogFixtures(namespace, 3));
+  test.afterAll(() => clearBlogFixtures(namespace));
 
-  const maxTries = Math.min(await cards.count(), 10);
+  test("blog article renders, has subscribe panel, and shows related articles", async ({ page }) => {
+    const res = await page.goto("/");
+    expect(res?.status()).toBe(200);
 
-  for (let i = 0; i < maxTries; i++) {
-    const href = await cards.nth(i).getAttribute("href");
-    if (!href) continue;
+    const cards = page.locator('[data-testid="article-carousel"] a.block[href^="/blog/"]');
+    expect(await cards.count()).toBeGreaterThan(0);
 
-    const articleRes = await page.goto(href);
-    expect(articleRes?.status()).toBe(200);
+    const maxTries = Math.min(await cards.count(), 10);
 
-    await expect(page.getByTestId("blog-content")).toBeVisible();
+    for (let i = 0; i < maxTries; i++) {
+      const href = await cards.nth(i).getAttribute("href");
+      if (!href) continue;
 
-    await expect(page.getByTestId("subscribe")).toBeVisible();
-    await expect(page.getByTestId("subscribe-email")).toBeVisible();
-    await expect(page.getByTestId("subscribe-email-submit")).toBeVisible();
+      const articleRes = await page.goto(href);
+      expect(articleRes?.status()).toBe(200);
 
-    const related = page.getByTestId("related-articles");
-    await expect(related).toBeVisible();
+      await expect(page.getByTestId("blog-content")).toBeVisible();
 
-    const relatedRows = related.getByTestId("article-row");
-    expect(await relatedRows.count()).toBeGreaterThan(0);
+      await expect(page.getByTestId("subscribe")).toBeVisible();
+      await expect(page.getByTestId("subscribe-email")).toBeVisible();
+      await expect(page.getByTestId("subscribe-email-submit")).toBeVisible();
 
-    return;
-  }
+      const related = page.getByTestId("related-articles");
+      await expect(related).toBeVisible();
 
-  throw new Error("Could not find a blog article link to test.");
+      const relatedRows = related.getByTestId("article-row");
+      expect(await relatedRows.count()).toBeGreaterThan(0);
+
+      return;
+    }
+
+    throw new Error("Could not find a blog article link to test.");
+  });
 });
 
 test("homepage has cal embed container", async ({ page }) => {
