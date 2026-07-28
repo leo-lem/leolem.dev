@@ -1,6 +1,6 @@
 {
-	"image": "mcr.microsoft.com/devcontainers/typescript-node:latest",
-	"postCreateCommand": "npm install -g npm@latest && npm install && npx playwright install",
+	"image": "mcr.microsoft.com/devcontainers/base:debian",
+	"postCreateCommand": "npm install && npx playwright install",
 	"postStartCommand": "npm start",
 	"customizations": {
 		"vscode": {
@@ -13,6 +13,10 @@
 		}
 	},
 	"features": {
+		"ghcr.io/devcontainers/features/node:1": {
+			"version": "latest",
+			"npmVersion": "latest"
+		},
 		"ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {},
 		"ghcr.io/postfinance/devcontainer-features/playwright-deps:1.0.0": {
 			"installChromiumDeps": true,

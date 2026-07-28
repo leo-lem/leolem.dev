@@ -8,5 +8,7 @@ runs:
       with:
         node-version: '24'
         cache: 'npm'
-    - run: npm ci
+    - run: npm install -g npm@$(npm show npm version)
+      shell: bash
+    - run: npm ci --ignore-scripts
       shell: bash

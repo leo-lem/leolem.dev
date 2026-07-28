@@ -137,7 +137,7 @@ async function post(params: {
 
 function sanitizeShort(s: string): string {
   return s
-    .replaceAll(/\r\n/g, "\n")
+    .replaceAll("\r\n", "\n")
     .replaceAll(/\s+/g, " ")
     .trim()
     .replace(/^[|>]\s*/, "");
@@ -150,13 +150,12 @@ export default async function notify(
   templateId: string | undefined = process.env.ONESIGNAL_TEMPLATE_ID,
   segment: string = "All",
   apiBase: string = "https://onesignal.com",
-  root: string = process.cwd(),
-  from: string = path.join(root, ".content"),
-  stateFile: string = path.join(from, ".notified.json")
+  from: string = path.join(process.cwd(), ".content")
 ): Promise<{ sent: Article[]; skippedScheduled: string[]; skippedAlready: string[] }> {
   if (!appId || !apiKey || !templateId || !site)
     throw new Error("Missing env vars");
 
+  const stateFile = path.join(from, ".notified.json");
   const alreadyNotified = await readState(stateFile);
   const files = await listBlogMarkdownFiles(from);
 
@@ -212,7 +211,11 @@ export default async function notify(
   }
 
   await fs.mkdir(path.dirname(stateFile), { recursive: true });
-  await fs.writeFile(stateFile, JSON.stringify([...alreadyNotified].sort(), null, 2) + "\n", "utf8");
+  await fs.writeFile(
+    stateFile,
+    JSON.stringify([...alreadyNotified].sort((a, b) => a.localeCompare(b, "en")), null, 2) + "\n",
+    "utf8"
+  );
 
   return { sent: toSend, skippedScheduled, skippedAlready };
 }

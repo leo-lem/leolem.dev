@@ -143,13 +143,11 @@ test("notify sends 1 template post per new article", async ({ capture, repo }) =
     templateId,
     segment,
     capture.apiBase,
-    repo.tmpRoot,
-    repo.from,
-    repo.stateFile
+    repo.from
   );
 
   expect(r.sent.map((a) => a.id).sort()).toEqual(["building/vigil-framework", "life/balance"]);
-  expect(capture.received.length).toBe(2);
+  expect(capture.received).toHaveLength(2);
 
   const bodies = capture.received as Array<Record<string, unknown>>;
 
@@ -175,9 +173,7 @@ test("notify skips scheduled future posts and already-notified ids", async ({ ca
     templateId,
     segment,
     capture.apiBase,
-    repo.tmpRoot,
-    repo.from,
-    repo.stateFile
+    repo.from
   );
 
   expect(r.skippedScheduled).toEqual(["life/scheduled"]);
@@ -200,12 +196,10 @@ test("notify writes state and is idempotent on rerun", async ({ capture, repo })
     templateId,
     segment,
     capture.apiBase,
-    repo.tmpRoot,
-    repo.from,
-    repo.stateFile
+    repo.from
   );
 
-  expect(r1.sent.length).toBe(2);
+  expect(r1.sent).toHaveLength(2);
 
   const state1 = await readJson<string[]>(repo.stateFile);
   expect(state1).toContain("engineering/already-sent");
@@ -222,13 +216,11 @@ test("notify writes state and is idempotent on rerun", async ({ capture, repo })
     templateId,
     segment,
     capture.apiBase,
-    repo.tmpRoot,
-    repo.from,
-    repo.stateFile
+    repo.from
   );
 
-  expect(r2.sent.length).toBe(0);
-  expect(capture.received.length).toBe(before);
+  expect(r2.sent).toHaveLength(0);
+  expect(capture.received).toHaveLength(before);
 
   const state2 = await readJson<string[]>(repo.stateFile);
   expect(state2).toEqual(state1);
@@ -242,9 +234,7 @@ test("notify uses Basic auth header and JSON content-type", async ({ capture, re
     templateId,
     segment,
     capture.apiBase,
-    repo.tmpRoot,
-    repo.from,
-    repo.stateFile
+    repo.from
   );
 
   expect(capture.headers.length).toBeGreaterThan(0);
@@ -280,9 +270,7 @@ tags: ["Systems"]`
     templateId,
     segment,
     capture.apiBase,
-    repo.tmpRoot,
-    repo.from,
-    repo.stateFile
+    repo.from
   );
 
   expect(r.sent.map((a) => a.id)).toContain("systems/multiline");
@@ -293,7 +281,7 @@ tags: ["Systems"]`
     return url === "http://localhost:4321/blog/systems/multiline/";
   });
 
-  expect(matching.length).toBe(1);
+  expect(matching).toHaveLength(1);
 
   const templatePost = matching.find((b) => typeof b.template_id === "string");
 

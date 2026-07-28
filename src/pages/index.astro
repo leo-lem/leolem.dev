@@ -91,3 +91,18 @@ const tripID = import.meta.env.CURRENT_TRIP;
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  // A vertical-only mouse wheel produces only deltaY, which browsers don't map to
+  // horizontal scroll on their own (unlike a trackpad's native deltaX swipe).
+  const carousel = document.querySelector<HTMLDivElement>(
+    '[data-testid="article-carousel"]'
+  );
+  carousel?.addEventListener(
+    "wheel",
+    (e) => {
+      carousel.scrollLeft += e.deltaY;
+    },
+    { passive: true }
+  );
+</script>

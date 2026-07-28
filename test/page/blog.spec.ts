@@ -1,4 +1,10 @@
 import { test, expect, type Page } from "@playwright/test";
+import { seedBlogFixtures, clearBlogFixtures } from "../.fixtures";
+
+const namespace = "blog-routes";
+
+test.beforeAll(() => seedBlogFixtures(namespace, 3));
+test.afterAll(() => clearBlogFixtures(namespace));
 
 test("/blog/ redirects to the homepage", async ({ request }) => {
   const res = await request.get("/blog/", { maxRedirects: 0 });
@@ -7,19 +13,22 @@ test("/blog/ redirects to the homepage", async ({ request }) => {
 });
 
 async function collectBlogArticleHrefs(page: Page, max: number): Promise<string[]> {
-  await page.goto("/");
-
   const cards = page.locator('[data-testid="article-carousel"] a.block[href^="/blog/"]');
-  await expect(cards.first()).toBeVisible();
 
-  const hrefs = await cards.evaluateAll((els) =>
-    els
-      .map((el) => el.getAttribute("href") ?? "")
-      .filter((h) => h.startsWith("/blog/") && h !== "/blog/")
-  );
+  let unique: string[] = [];
+  await expect(async () => {
+    await page.goto("/");
+    await expect(cards.first()).toBeVisible();
 
-  const unique = Array.from(new Set(hrefs));
-  expect(unique.length).toBeGreaterThanOrEqual(3);
+    const hrefs = await cards.evaluateAll((els) =>
+      els
+        .map((el) => el.getAttribute("href") ?? "")
+        .filter((h) => h.startsWith("/blog/") && h !== "/blog/")
+    );
+
+    unique = Array.from(new Set(hrefs));
+    expect(unique.length).toBeGreaterThanOrEqual(3);
+  }).toPass();
 
   return unique.slice(0, Math.min(unique.length, max));
 }

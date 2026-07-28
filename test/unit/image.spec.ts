@@ -20,7 +20,7 @@ test("pickThumbnailKey falls back to directory default", async () => {
 
 test("pickThumbnailKey returns null when nothing matches", async () => {
   const keys: string[] = [];
-  expect(pickThumbnailKey(keys, "blog/nope")).toBe(null);
+  expect(pickThumbnailKey(keys, "blog/nope")).toBeNull();
 });
 
 test("pickThumbnailKey matches an svg when no raster format exists", async () => {
