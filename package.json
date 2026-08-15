@@ -14,12 +14,12 @@
     "tool:notify": "tsx tool/notify.ts"
   },
   "dependencies": {
-    "@astrojs/node": "^11.0.3",
+    "@astrojs/node": "^11.1.1",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.3",
     "@tailwindcss/typography": "^0.5",
     "@tailwindcss/vite": "^4.3",
-    "astro": "^7.1.6",
+    "astro": "^7.2.1",
     "astro-icon": "^1.1",
     "node-fetch": "^3.3",
     "tailwindcss": "^4.2"
@@ -29,7 +29,7 @@
     "@iconify-json/simple-icons": "^1.2",
     "@playwright/test": "^1.62",
     "@tgwf/co2": "^0.19",
-    "@types/node": "^26.1",
+    "@types/node": "^26.2",
     "@types/node-fetch": "^2.6",
     "@types/tgwf__co2": "^0.14",
     "@types/xml2js": "^0.4",
