@@ -11,7 +11,8 @@
     "test:co2": "tsx test/check_co2.ts",
     "tool:sync": "tsx tool/sync.ts",
     "tool:icons": "tsx tool/icons.ts",
-    "tool:notify": "tsx tool/notify.ts"
+    "tool:notify": "tsx tool/notify.ts",
+    ".content": "git clone https://github.com/leo-lem/content.leolem.dev.git .content"
   },
   "dependencies": {
     "@astrojs/node": "^11.1.1",
