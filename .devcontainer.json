@@ -1,6 +1,6 @@
 {
 	"image": "mcr.microsoft.com/devcontainers/base:debian",
-	"postCreateCommand": "npm install && npx playwright install",
+	"postCreateCommand": "npm install && npx playwright install && npm run .content",
 	"postStartCommand": "npm start",
 	"customizations": {
 		"vscode": {

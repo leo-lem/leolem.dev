@@ -22,6 +22,10 @@ npm run tool:icons   # tsx tool/icons.ts — regenerate favicons/social.png into
 npm run tool:notify  # tsx tool/notify.ts — send OneSignal email notifications for un-notified blog posts
 ```
 
+### Flaky local test runs against `astro dev`
+
+Some Playwright specs (`test/page/blog.spec.ts`, `nav.spec.ts`, `portfolio.spec.ts`, `home.spec.ts`, `seo.spec.ts`) seed/clear throwaway fixture posts under `src/content/blog/_fixtures-*` via `test/.fixtures.ts`. When `npm test` runs against a live `astro dev` server (the local default) with multiple Playwright workers, one spec's fixture file writes can trigger an Astro content-collection HMR full-page reload that interrupts another spec's in-flight `page.goto`, surfacing as `net::ERR_ABORTED` or "navigation interrupted by another navigation to /". This doesn't happen in CI, which builds first and serves a static/preview server with no file watcher to race. If you hit these failures locally, rerun with `npx playwright test --workers=1` to confirm — don't treat them as real regressions without doing that first.
+
 To run a single Playwright test: `npx playwright test test/page/blog.spec.ts` (add `-g "test name"` to filter by title). `npm test` uses `playwright.config.ts`, which starts/reuses a dev server at `http://localhost:4321` (or `$BASE_URL`) and runs both Desktop and Mobile projects. `npm run test:tool` uses `playwright.tool.config.ts` (testDir `test/tool`, no webServer) for the standalone Node tools in `tool/`. Unit-style specs for `src/lib` live under `test/unit`.
 
 There is no separate lint/typecheck script; `astro build` (via `astro check` internally through the strict tsconfig) is the closest thing to a type-check gate, and it's what CI runs.
