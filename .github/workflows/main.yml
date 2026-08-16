@@ -2,7 +2,7 @@ name: Deploy Site
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 18 * * 0"
+    - cron: "0 4 * * 0" # 6am CEST
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
