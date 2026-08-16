@@ -7,6 +7,7 @@ const {
     id,
     data: { title, short, date, author, featured = false }
   },
+  isFeatured = featured,
   class: classes = ""
 } = Astro.props;
 
@@ -16,20 +17,20 @@ const series = id.split("/")[0];
 <article
   class:list={[
     "snap-start shrink-0 self-end",
-    featured ? "w-[70vw] max-w-120" : "w-[60vw] max-w-100",
+    isFeatured ? "w-[70vw] max-w-120" : "w-[60vw] max-w-100",
     classes
   ]}
 >
   <article
     class:list={[
       "relative responsive overflow-hidden",
-      featured ? "card-elevated" : "card"
+      isFeatured ? "card-elevated" : "card"
     ]}
   >
     <div
       class:list={[
         "absolute inset-x-0 top-0 z-10 flex justify-between",
-        featured ? "p-3 text-sm" : "p-2.5 text-xs"
+        isFeatured ? "p-3 text-sm" : "p-2.5 text-xs"
       ]}
     >
       <a href={`/blog/${id}/`} class="pill-accent">
@@ -66,19 +67,19 @@ const series = id.split("/")[0];
         src={`blog/${id}`}
         alt={`Thumbnail for ${title}`}
         class="w-full aspect-video object-cover"
-        loading={featured ? "eager" : "lazy"}
+        loading={isFeatured ? "eager" : "lazy"}
       />
 
       <div
         class:list={[
           "absolute inset-x-0 bottom-0 fade",
-          featured ? "p-4" : "p-3"
+          isFeatured ? "p-4" : "p-3"
         ]}
       >
         <h2
           class:list={[
             "line-clamp-1 sm:line-clamp-2",
-            featured ? "title" : "title-sm"
+            isFeatured ? "title" : "title-sm"
           ]}
         >
           {title}
@@ -87,7 +88,7 @@ const series = id.split("/")[0];
         <p
           class:list={[
             "line-clamp-1 sm:line-clamp-2",
-            featured ? "summary mt-2" : "summary text-sm mt-1"
+            isFeatured ? "summary mt-2" : "summary text-sm mt-1"
           ]}
         >
           {short}

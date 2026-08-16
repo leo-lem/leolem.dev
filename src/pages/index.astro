@@ -1,6 +1,7 @@
 ---
 import { BaseLayout } from "../layout";
 import { aboutMe, getBlog, getPortfolio } from "../content";
+import { byDateDesc } from "../lib";
 import {
   Embed,
   ArticleCard,
@@ -9,7 +10,18 @@ import {
   Schedule
 } from "../components";
 
-const articles = await getBlog();
+const byDate = (await getBlog()).toSorted(byDateDesc);
+const newestId = byDate[0]?.id;
+const articles = byDate
+  .map((article) => ({
+    article,
+    isFeatured: article.data.featured || article.id === newestId
+  }))
+  .toSorted((a, b) => {
+    if (a.isFeatured && !b.isFeatured) return -1;
+    if (!a.isFeatured && b.isFeatured) return 1;
+    return byDateDesc(a.article, b.article);
+  });
 const projects = await getPortfolio();
 
 const albumID = import.meta.env.FAVORITE_ALBUM;
@@ -31,7 +43,11 @@ const tripID = import.meta.env.CURRENT_TRIP;
         class="w-full min-w-0 scroll-px-4 p-4 pb-8 flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-none"
         data-testid="article-carousel"
       >
-        {articles.map((article) => <ArticleCard article={article} />)}
+        {
+          articles.map(({ article, isFeatured }) => (
+            <ArticleCard article={article} isFeatured={isFeatured} />
+          ))
+        }
       </div>
 
       <SubscribePanel class="-mt-12" />
@@ -94,13 +110,17 @@ const tripID = import.meta.env.CURRENT_TRIP;
 
 <script>
   // A vertical-only mouse wheel produces only deltaY, which browsers don't map to
-  // horizontal scroll on their own (unlike a trackpad's native deltaX swipe).
+  // horizontal scroll on their own. A trackpad swipe always carries some native
+  // deltaX already, so skip those entirely and let the browser's own horizontal
+  // scroll/momentum handle them - fighting it with imperative scrollLeft writes
+  // is what caused the jitter.
   const carousel = document.querySelector<HTMLDivElement>(
     '[data-testid="article-carousel"]'
   );
   carousel?.addEventListener(
     "wheel",
     (e) => {
+      if (e.deltaX !== 0) return;
       carousel.scrollLeft += e.deltaY;
     },
     { passive: true }
