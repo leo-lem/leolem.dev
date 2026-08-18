@@ -1,6 +1,6 @@
 {
 	"image": "mcr.microsoft.com/devcontainers/base:debian",
-	"postCreateCommand": "npm install && npx playwright install && npm run .content",
+	"postCreateCommand": "npm install && npx playwright install && npm run .content 2>/dev/null || true",
 	"postStartCommand": "npm start",
 	"customizations": {
 		"vscode": {
@@ -17,12 +17,13 @@
 			"version": "latest",
 			"npmVersion": "latest"
 		},
-		"ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {},
 		"ghcr.io/postfinance/devcontainer-features/playwright-deps:1.0.0": {
 			"installChromiumDeps": true,
 			"installFirefoxDeps": true,
 			"installWebkitDeps": true
-		}
+		},
+		"ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {}
 	},
 	"mounts": [
 		"source=claude-code-config,target=/home/vscode/.claude,type=volume"
