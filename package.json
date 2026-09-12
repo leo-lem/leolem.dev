@@ -20,7 +20,7 @@
     "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/typography": "^0.5",
     "@tailwindcss/vite": "^4.3",
-    "astro": "^7.2.10",
+    "astro": "^7.3.2",
     "astro-icon": "^1.2",
     "node-fetch": "^3.3",
     "tailwindcss": "^4.2"
@@ -28,9 +28,9 @@
   "devDependencies": {
     "@iconify-json/lucide": "^1.2",
     "@iconify-json/simple-icons": "^1.2",
-    "@playwright/test": "^1.62",
+    "@playwright/test": "^1.63",
     "@tgwf/co2": "^0.19",
-    "@types/node": "^26.4",
+    "@types/node": "^26.5",
     "@types/node-fetch": "^2.6",
     "@types/tgwf__co2": "^0.14",
     "@types/xml2js": "^0.4",
