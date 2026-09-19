@@ -30,7 +30,7 @@
     "@iconify-json/simple-icons": "^1.2",
     "@playwright/test": "^1.63",
     "@tgwf/co2": "^0.19",
-    "@types/node": "^26.5",
+    "@types/node": "^26.6",
     "@types/node-fetch": "^2.6",
     "@types/tgwf__co2": "^0.14",
     "@types/xml2js": "^0.4",
