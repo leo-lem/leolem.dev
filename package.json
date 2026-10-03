@@ -20,7 +20,7 @@
     "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/typography": "^0.5",
     "@tailwindcss/vite": "^4.3",
-    "astro": "^7.3.4",
+    "astro": "^7.3.5",
     "astro-icon": "^1.2",
     "node-fetch": "^3.3",
     "tailwindcss": "^4.2"
