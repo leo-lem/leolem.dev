@@ -15,7 +15,7 @@
     ".content": "git clone https://github.com/leo-lem/content.leolem.dev.git .content"
   },
   "dependencies": {
-    "@astrojs/node": "^11.1.6",
+    "@astrojs/node": "^11.1.12",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/typography": "^0.5",
